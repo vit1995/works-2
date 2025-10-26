@@ -5698,8 +5698,8 @@ function initSliders() {
       */
       // Кнопки "влево/вправо"
       navigation: {
-        prevEl: ".swiper-button-prev",
-        nextEl: ".swiper-button-next"
+        prevEl: ".price-button-prev",
+        nextEl: ".price-button-next"
       },
       // Брейкпоинты
       breakpoints: {

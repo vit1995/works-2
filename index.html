@@ -5,8 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1761742812480"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1761742812480">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1761743691261"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1761743691261">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -544,7 +544,7 @@ class="submenu-catalog__list-close submenu-catalog__list-close--icon-arrow-left"
 						</button>
 						<div data-fls-popup-content="" class="popup__text">
 							<h2 class="popup__title">Заказать звонок</h2>
-							<form data-fls-form="ajax" data-fls-form-popup="popup" method="POST" action="">
+							<form data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="files/sendmail/sendmail.php">
 								<select name="city" data-fls-select="" data-fls-select-modif="popup">
 									<option value="Минск" selected>Минск</option>
 									<option value="Гродно">Гродно</option>
@@ -3206,10 +3206,18 @@ fill="white"
 					<div class="banner__container">
 						<h2 class="banner__title">VEKA — ведущий мировой производитель оконных систем</h2>
 						<div class="banner__social">
-							<a class="banner__social-link banner__social-link--icon-vk" href="#"></a>
-							<a class="banner__social-link banner__social-link--icon-brand-odnoklassniki" href="#"></a>
-							<a class="banner__social-link banner__social-link--icon-telegram" href="#"></a>
-							<a class="banner__social-link banner__social-link--icon-youtube" href="#"></a>
+							<a class="banner__social-link" href="#">
+								<img alt="Image" src="./assets/img/contacts/vk.png">
+							</a>
+							<a class="banner__social-link" href="#">
+								<img alt="Image" src="./assets/img/contacts/instagram.png">
+							</a>
+							<a class="banner__social-link" href="#">
+								<img alt="Image" src="./assets/img/contacts/viber.png">
+							</a>
+							<a class="banner__social-link" href="#">
+								<img alt="Image" src="./assets/img/contacts/telegram.png">
+							</a>
 						</div>
 					</div>
 				</section>

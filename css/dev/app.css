@@ -3167,7 +3167,7 @@ body::after {
     justify-content: center;
   }
   .options__item {
-    flex: 1 1 40%;
+    flex: 0 1 40%;
   }
   .tabs__wrapper--popup .tabs__image-bg {
     max-height: 12.5rem;

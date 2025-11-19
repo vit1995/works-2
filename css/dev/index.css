@@ -577,14 +577,69 @@
 .speed__video-title:not(:last-child) {
   margin-bottom: 0.9375rem;
 }
-
-.video-container video {
+.speed .video-container {
+  position: relative;
+  width: 100%;
+  max-width: 19.3125rem;
+  cursor: pointer;
+}
+.speed .video-container video {
   object-fit: cover;
   width: 100%;
   max-width: 19.3125rem;
   height: 100%;
   aspect-ratio: 309/171;
   border-radius: 0.9375rem;
+  display: none;
+}
+.speed .video-container.playing .video-preview {
+  display: none;
+}
+.speed .video-container.playing video {
+  display: block;
+}
+.speed .video-preview {
+  position: relative;
+  width: 100%;
+  max-width: 19.3125rem;
+  aspect-ratio: 309/171;
+  border-radius: 0.9375rem;
+  overflow: hidden;
+}
+.speed .video-preview .preview-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.speed .video-preview .play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 3.75rem;
+  height: 3.75rem;
+  transition: transform 0.2s ease;
+}
+.speed .video-preview .play-button:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+.speed .video-preview .play-button svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0.125rem 0.5rem rgba(0, 0, 0, 0.3));
+}
+.speed .video-preview .play-button svg circle {
+  transition: fill 0.2s ease;
+}
+.speed .video-preview .play-button svg polygon {
+  transition: fill 0.2s ease;
+}
+.speed .video-preview:hover .play-button svg circle {
+  fill: #fff;
+}
+.speed .video-preview:hover .play-button svg polygon {
+  fill: #000;
 }
 .any__container {
   position: relative;

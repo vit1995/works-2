@@ -3169,6 +3169,10 @@ body::after {
   .options__item {
     flex: 0 1 40%;
   }
+  .options__text img {
+    max-width: 7.1875rem;
+    max-height: 7.1875rem;
+  }
   .tabs__wrapper--popup .tabs__image-bg {
     max-height: 12.5rem;
   }

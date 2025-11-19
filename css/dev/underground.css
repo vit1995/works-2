@@ -1215,6 +1215,8 @@
   z-index: 2;
   position: absolute;
   bottom: 0.9375rem;
+  left: 0.9375rem;
+  right: 0.9375rem;
   text-align: center;
 }
 .points__text {
@@ -1663,6 +1665,9 @@
   }
   .points__items {
     grid-template-columns: repeat(auto-fill, minmax(12.5rem, auto));
+  }
+  .points__img {
+    max-height: 12.5rem;
   }
   .reviews__items {
     grid-template-columns: repeat(auto-fill, minmax(15.625rem, auto));

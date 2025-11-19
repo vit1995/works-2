@@ -2238,7 +2238,7 @@ textarea.input {
   height: 4.375rem;
 }
 .button--green {
-  background-image: linear-gradient(0.68turn, rgb(37, 211, 102) 0%, rgb(45, 191, 99) 100%);
+  background-color: #59267c;
 }
 .button--80 {
   height: 5rem;

@@ -1341,6 +1341,9 @@
   .steps__content {
     flex: 0 1 100%;
   }
+  .steps__title {
+    max-width: 87%;
+  }
   .steps__button {
     height: 3.125rem;
   }

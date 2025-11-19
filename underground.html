@@ -15,10 +15,10 @@
 		<link rel="preload" href="./assets/fonts/Gilroy-Black.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>underground</title>
-		<script type="module" crossorigin="" src="./js/underground.min.js?v=1763132460469"></script>
+		<script type="module" crossorigin="" src="./js/underground.min.js?v=1763553046330"></script>
 		<link rel="modulepreload" crossorigin="" href="./js/app.min.js">
-		<link rel="stylesheet" crossorigin="" href="./css/app.min.css?v=1763132460469">
-		<link rel="stylesheet" crossorigin="" href="./css/underground.min.css?v=1763132460469">
+		<link rel="stylesheet" crossorigin="" href="./css/app.min.css?v=1763553046330">
+		<link rel="stylesheet" crossorigin="" href="./css/underground.min.css?v=1763553046330">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -70,8 +70,8 @@
           эффективно
 							</div>
 							<div class="hero__bottom">
-								<form class="hero__form" data-fls-form="ajax" data-fls-form-popup="popup" method="POST" action="">
-									<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-error="Заполните поле" required placeholder="+375(__) ___-__-__" class="input">
+								<form class="hero__form" data-fls-form="ajax" method="POST" required data-fls-form-popup="popup-message" action="files/sendmail/sendmail.php">
+									<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" required placeholder="+375(__) ___-__-__" class="input">
 									<label data-fls-checkbox="" class="checkbox">
 										<input data-fls-error="Заполните поле" class="checkbox__input" type="checkbox" value="3" name="check" checked>
 										<span class="checkbox__text">Вы соглашаетесь с условиями обработки персональных данных</span>
@@ -133,14 +133,13 @@ stroke-width="0" fill-rule="nonzero"></path>
 -->
 							<div class="calculator__slider swiper swiper-container">
 								<!-- Частина слайдера, що рухається -->
-								<form data-fls-slider="" data-popup-message="#popup-message" data-ajax="" action="files/sendmail/sendmail.php" class="calculator__wrapper swiper-wrapper">
-									<!-- 1 Слайд -->
+								<form data-fls-slider="" data-fls-form-popup="popup-message" data-ajax="" action="files/sendmail/sendmail.php" class="calculator__wrapper swiper-wrapper">
 									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
 										<div class="slide-calculator__body">
 											<h5 class="slide-calculator__title">Какой объект вы хотите утеплить?</h5>
 											<div class="options">
 												<div class="options__item">
-													<input data-required="" id="o_1" class="options__input input" type="radio" value="1" name="option">
+													<input data-required="" id="o_1" class="options__input input" type="radio" value="Частный дом / дача" name="step_1">
 													<label for="o_1" class="options__label">
 														<div class="options__text">
 															<img alt="#" src="./assets/img/calc/01.jpg">
@@ -149,7 +148,7 @@ stroke-width="0" fill-rule="nonzero"></path>
 													<h3 class="options__title">Частный дом / дача</h3>
 												</div>
 												<div class="options__item">
-													<input data-required="" id="o_2" class="options__input input" type="radio" value="2" name="option">
+													<input data-required="" id="o_2" class="options__input input" type="radio" value="Артика" name="step_1">
 													<label for="o_2" class="options__label">
 														<div class="options__text">
 															<img alt="#" src="./assets/img/calc/01.jpg">
@@ -158,7 +157,7 @@ stroke-width="0" fill-rule="nonzero"></path>
 													<h3 class="options__title">Артика</h3>
 												</div>
 												<div class="options__item">
-													<input data-required="" id="o_3" class="options__input input" type="radio" value="1" name="option">
+													<input data-required="" id="o_3" class="options__input input" type="radio" value="Шоколад" name="step_1">
 													<label for="o_3" class="options__label">
 														<div class="options__text">
 															<img alt="#" src="./assets/img/calc/01.jpg">
@@ -167,7 +166,7 @@ stroke-width="0" fill-rule="nonzero"></path>
 													<h3 class="options__title">Шоколад</h3>
 												</div>
 												<div class="options__item">
-													<input data-required="" id="o_4" class="options__input input" type="radio" value="1" name="option">
+													<input data-required="" id="o_4" class="options__input input" type="radio" value="Шоколад" name="step_1">
 													<label for="o_4" class="options__label">
 														<div class="options__text">
 															<img alt="#" src="./assets/img/calc/01.jpg">
@@ -176,7 +175,7 @@ stroke-width="0" fill-rule="nonzero"></path>
 													<h3 class="options__title">Шоколад</h3>
 												</div>
 												<div class="options__item">
-													<input data-required="" id="o_5" class="options__input input" type="radio" value="1" name="option">
+													<input data-required="" id="o_5" class="options__input input" type="radio" value="Шоколад" name="step_1">
 													<label for="o_5" class="options__label">
 														<div class="options__text">
 															<img alt="#" src="./assets/img/calc/01.jpg">
@@ -185,7 +184,7 @@ stroke-width="0" fill-rule="nonzero"></path>
 													<h3 class="options__title">Шоколад</h3>
 												</div>
 												<div class="options__item">
-													<input data-required="" id="o_6" class="options__input input" type="radio" value="1" name="option">
+													<input data-required="" id="o_6" class="options__input input" type="radio" value="Шоколад" name="step_1">
 													<label for="o_6" class="options__label">
 														<div class="options__text">
 															<img alt="#" src="./assets/img/calc/01.jpg">
@@ -194,10 +193,85 @@ stroke-width="0" fill-rule="nonzero"></path>
 													<h3 class="options__title">Шоколад</h3>
 												</div>
 												<div class="options__item">
-													<input data-required="" id="o_7" class="options__input input" type="radio" value="1" name="option">
+													<input data-required="" id="o_7" class="options__input input" type="radio" value="Шоколад" name="step_1">
 													<label for="o_7" class="options__label">
 														<div class="options__text">
 															<img alt="#" src="./assets/img/calc/01.jpg">
+														</div>
+													</label>
+													<h3 class="options__title">Шоколад</h3>
+												</div>
+											</div>
+										</div>
+										<div class="slide-calculator__content content-slide-calculator">
+											<div class="content-slide-calculator__worker">
+												<div class="content-slide-calculator__avatar">
+													<img alt="avatar" src="./assets/img/calc/photo.jpg">
+												</div>
+												<div class="content-slide-calculator__date">
+													<div class="content-slide-calculator__name">Адам</div>
+													<div class="content-slide-calculator__job-title">старший менеджер</div>
+												</div>
+											</div>
+											<div class="content-slide-calculator__text">
+												<p>
+													Завод GARD производит пустотелые блоки с неповторимым дизайном
+                  по методологии покраски Колормикс (ColorMix) с полной
+                  покраской бетона на всю глубину:
+												</p>
+											</div>
+											<div class="content-slide-calculator__bottom">
+												Если есть вопросы,напишите мне в
+												<a href="#">viber</a>
+											</div>
+										</div>
+									</div>
+									<!-- 2 Слайд -->
+									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
+										<div class="slide-calculator__body">
+											<h5 class="slide-calculator__title">Из какого материала сделаны стены/основание?</h5>
+											<div class="options">
+												<div class="options__item">
+													<input data-required="" id="o_8" class="options__input input" type="radio" value="Дым" name="step_2">
+													<label for="o_8" class="options__label">
+														<div class="options__text options__text--contain">
+															<img alt="#" src="./assets/img/calc/03.png">
+														</div>
+													</label>
+													<h3 class="options__title">Дым</h3>
+												</div>
+												<div class="options__item">
+													<input data-required="" id="o_9" class="options__input input" type="radio" value="Артика" name="step_2">
+													<label for="o_9" class="options__label">
+														<div class="options__text options__text--contain">
+															<img alt="#" src="./assets/img/calc/04.png">
+														</div>
+													</label>
+													<h3 class="options__title">Артика</h3>
+												</div>
+												<div class="options__item">
+													<input data-required="" id="o_10" class="options__input input" type="radio" value="Шоколад" name="step_2">
+													<label for="o_10" class="options__label">
+														<div class="options__text options__text--contain">
+															<img alt="#" src="./assets/img/calc/05.png">
+														</div>
+													</label>
+													<h3 class="options__title">Шоколад</h3>
+												</div>
+												<div class="options__item">
+													<input data-required="" id="o_11" class="options__input input" type="radio" value="Шоколад" name="step_2">
+													<label for="o_11" class="options__label">
+														<div class="options__text options__text--contain">
+															<img alt="#" src="./assets/img/calc/03.png">
+														</div>
+													</label>
+													<h3 class="options__title">Шоколад</h3>
+												</div>
+												<div class="options__item">
+													<input data-required="" id="o_12" class="options__input input" type="radio" value="Шоколад" name="step_2">
+													<label for="o_12" class="options__label">
+														<div class="options__text options__text--contain">
+															<img alt="#" src="./assets/img/calc/03.png">
 														</div>
 													</label>
 													<h3 class="options__title">Шоколад</h3>
@@ -227,151 +301,32 @@ stroke-width="0" fill-rule="nonzero"></path>
 											</div>
 										</div>
 									</div>
-									<!-- 2 Слайд -->
-									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-										<div class="slide-calculator__body">
-											<h5 class="slide-calculator__title">Вы уже выбрали местоположение в домe?</h5>
-											<div class="options">
-												<div class="options__item">
-													<input data-required="" id="o_8" class="options__input input" type="radio" value="1" name="option">
-													<label for="o_8" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/calc/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Дым</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_9" class="options__input input" type="radio" value="9" name="option">
-													<label for="o_2" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/calc/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Артика</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_10" class="options__input input" type="radio" value="1" name="option">
-													<label for="o_10" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/calc/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Шоколад</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_11" class="options__input input" type="radio" value="1" name="option">
-													<label for="o_11" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/calc/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Шоколад</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_12" class="options__input input" type="radio" value="1" name="option">
-													<label for="o_12" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/calc/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Шоколад</h3>
-												</div>
-											</div>
-										</div>
-										<div class="slide-calculator__content content-slide-calculator">
-											<div class="content-slide-calculator__sale-body">
-												<p>ваша скидка</p>
-												<div class="content-slide-calculator__sale-number-body">
-													<span>0%</span>
-													<div class="content-slide-calculator__sale-arrows arrows discount__arrows">
-														<svg class="arrow arrow_animation" width="10" height="10" viewbox="0 0 10 10" fill="none">
-															<path d="M5 0L0.757355 4.24265L2.17157 5.65686L5 2.82843L7.82843 5.65686L9.24265 4.24265L5 0Z" fill="#44bc75"></path>
-															<path d="M5 4L0.757355 8.24265L2.17157 9.65686L5 6.82843L7.82843 9.65686L9.24265 8.24265L5 4Z" fill="#44bc75"></path>
-														</svg>
-													</div>
-												</div>
-											</div>
-											<div class="content-slide-calculator__sale-body">
-												<p>ваша скидка</p>
-												<div class="content-slide-calculator__sale-number-body">
-													<span>0%</span>
-													<div class="content-slide-calculator__sale-arrows arrows discount__arrows">
-														<svg class="arrow arrow_animation" width="10" height="10" viewbox="0 0 10 10" fill="none">
-															<path d="M5 0L0.757355 4.24265L2.17157 5.65686L5 2.82843L7.82843 5.65686L9.24265 4.24265L5 0Z" fill="#44bc75"></path>
-															<path d="M5 4L0.757355 8.24265L2.17157 9.65686L5 6.82843L7.82843 9.65686L9.24265 8.24265L5 4Z" fill="#44bc75"></path>
-														</svg>
-													</div>
-												</div>
-											</div>
-											<div class="content-slide-calculator__worker">
-												<div class="content-slide-calculator__avatar">
-													<img alt="avatar" src="./assets/img/calc/02.png">
-												</div>
-												<div class="content-slide-calculator__date">
-													<div class="content-slide-calculator__name">Адам</div>
-													<div class="content-slide-calculator__job-title">старший менеджер</div>
-												</div>
-											</div>
-											<div class="content-slide-calculator__text">
-												<p>
-													Завод GARD производит пустотелые блоки с неповторимым дизайном
-                  по методологии покраски Колормикс (ColorMix) с полной
-                  покраской бетона на всю глубину:
-												</p>
-											</div>
-										</div>
-									</div>
 									<!-- 3 слайд -->
 									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
 										<div class="slide-calculator__body">
-											<h5 class="slide-calculator__title">Вы уже выбрали местоположение в домe?</h5>
+											<h5 class="slide-calculator__title">Примерная площадь утепления?</h5>
 											<div class="radio">
 												<div class="radio__item">
-													<input data-required="" id="o_3" class="radio__input" checked type="radio" value="1" name="option-2">
+													<input data-required="" id="o_13" class="radio__input" checked type="radio" value="До 100 м²" name="step_3">
 													<label for="o_13" class="radio__label">
-														<span class="radio__text">1,66 м</span>
+														<span class="radio__text">До 100 м²</span>
 													</label>
 												</div>
 												<div class="radio__item">
-													<input id="o_14" class="radio__input" type="radio" value="1" name="option-2">
+													<input id="o_14" class="radio__input" type="radio" value="100–300 м²" name="step_3">
 													<label for="o_14" class="radio__label">
-														<span class="radio__text">1,86 м</span>
+														<span class="radio__text">100–300 м²</span>
 													</label>
 												</div>
 												<div class="radio__item">
-													<input id="o_14" class="radio__input" type="radio" value="1" name="option-2">
-													<label for="o_14" class="radio__label">
-														<span class="radio__text">2,06 м</span>
+													<input id="o_15" class="radio__input" type="radio" value="Ещё не знаю — нужна помощь" name="step_3">
+													<label for="o_15" class="radio__label">
+														<span class="radio__text">Ещё не знаю — нужна помощь</span>
 													</label>
 												</div>
 											</div>
 										</div>
 										<div class="slide-calculator__content content-slide-calculator">
-											<div class="content-slide-calculator__sale-body">
-												<p>ваша скидка</p>
-												<div class="content-slide-calculator__sale-number-body">
-													<span>0%</span>
-													<div class="content-slide-calculator__sale-arrows arrows discount__arrows">
-														<svg class="arrow arrow_animation" width="10" height="10" viewbox="0 0 10 10" fill="none">
-															<path d="M5 0L0.757355 4.24265L2.17157 5.65686L5 2.82843L7.82843 5.65686L9.24265 4.24265L5 0Z" fill="#44bc75"></path>
-															<path d="M5 4L0.757355 8.24265L2.17157 9.65686L5 6.82843L7.82843 9.65686L9.24265 8.24265L5 4Z" fill="#44bc75"></path>
-														</svg>
-													</div>
-												</div>
-											</div>
-											<div class="content-slide-calculator__sale-body">
-												<p>ваша скидка</p>
-												<div class="content-slide-calculator__sale-number-body">
-													<span>0%</span>
-													<div class="content-slide-calculator__sale-arrows arrows discount__arrows">
-														<svg class="arrow arrow_animation" width="10" height="10" viewbox="0 0 10 10" fill="none">
-															<path d="M5 0L0.757355 4.24265L2.17157 5.65686L5 2.82843L7.82843 5.65686L9.24265 4.24265L5 0Z" fill="#44bc75"></path>
-															<path d="M5 4L0.757355 8.24265L2.17157 9.65686L5 6.82843L7.82843 9.65686L9.24265 8.24265L5 4Z" fill="#44bc75"></path>
-														</svg>
-													</div>
-												</div>
-											</div>
 											<div class="content-slide-calculator__worker">
 												<div class="content-slide-calculator__avatar">
 													<img alt="avatar" src="./assets/img/calc/02.png">
@@ -387,6 +342,10 @@ stroke-width="0" fill-rule="nonzero"></path>
                   по методологии покраски Колормикс (ColorMix) с полной
                   покраской бетона на всю глубину:
 												</p>
+											</div>
+											<div class="content-slide-calculator__bottom">
+												Если есть вопросы,напишите мне в
+												<a href="#">viber</a>
 											</div>
 										</div>
 									</div>
@@ -394,52 +353,29 @@ stroke-width="0" fill-rule="nonzero"></path>
 									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
 										<div class="slide-calculator-block__wrapper">
 											<div class="slide-calculator-block__content">
-												<h3 class="slide-calculator-block__title-last">
-													Заполните форму и отправьте заявку , чтобы забронировать
-                  скидку
-												</h3>
+												<h3 class="slide-calculator-block__title-last">Отлично! Остался последний шаг</h3>
 												<p class="slide-calculator-block__text">
-													В ближайшее время наш менеджер вам перезвонит, чтобы уточнить
-                  некоторые детали. Потом отправит вам смету
+													Укажите удобный способ связи, чтобы я связался с вами и
+                  отправил расчёт стоимости утепления вашего объекта
 												</p>
-												<div class="slide-calculator-block__subtitle">Ваши бонусы</div>
-												<div class="content-slide-calculator__bonus">
-													<img src="assets/img/calc/sale.png" alt="#">
-													<span>скидка 5%</span>
-												</div>
-												<div class="slide-calculator-block__arrow">
-													<svg data-v-074b666c="" width="64" height="64" viewbox="0 0 64 64" enable-background="new 0 0 64 64">
-														<g data-v-074b666c="">
-															<path data-v-074b666c="" d="m63.386,16.193l.002-.002c0.002-0.003 0.004-0.006 0.006-0.01 0.172-0.195 0.298-0.43 0.399-0.678 0.032-0.076 0.053-0.148 0.076-0.225 0.058-0.191 0.094-0.389 0.106-0.596 0.006-0.076 0.018-0.148 0.016-0.226 0-0.04 0.01-0.076 0.008-0.115-0.014-0.239-0.062-0.47-0.136-0.687-0.006-0.023-0.022-0.041-0.03-0.064-0.088-0.239-0.214-0.451-0.363-0.645-0.021-0.027-0.028-0.063-0.05-0.09l-10.311-12.146c-0.789-0.93-2.084-0.948-2.894-0.037-0.808,0.91-0.823,2.402-0.032,3.334l5.558,6.549c-8.121-1.076-16.104,0.633-16.481,0.717-24.646,4.467-42.087,27.227-38.88,50.736 0.159,1.164 1.028,1.992 2.019,1.992 0.106,0 0.212-0.009 0.32-0.027 1.116-0.203 1.878-1.409 1.704-2.696-2.857-20.94 13.056-41.282 35.537-45.358 0.103-0.024 8.351-1.794 16.117-0.574l-8.577,5.093c-1.005,0.598-1.398,2.02-0.881,3.177 0.516,1.159 1.748,1.608 2.756,1.017l13.52-8.028c0.183-0.111 0.347-0.25 0.491-0.411z"></path>
-														</g>
-													</svg>
-												</div>
 											</div>
-											<div class="slide-calculator-block__form" action="files/sendmail/sendmail.php" method="POST">
-												<div class="slide-calculator-block__sale-body">
-													<div class="slide-calculator-block__sale-text">Ваша скидка</div>
-													<div class="slide-calculator-block__number">5%</div>
-												</div>
-												<label class="slide-calculator-block__label">Введите имя</label>
-												<input data-required="" type="text" name="form[name]" data-error="Заполните поля" placeholder="Имя" class="slide-calculator-block__input input">
-												<label class="slide-calculator-block__label">Введите телефон</label>
-												<input data-required="" id="phone" type="text" name="form[phone]" data-error="Заполните поля" placeholder="+375 (__) ___-__-__" class="slide-calculator-block__input form__input form-opportunity__input input">
-												<button type="submit" class="slide-calculator-block__button">Отправить заявку</button>
-												<div class="checkbox">
-													<input id="c_1" data-error="Ошибка" class="checkbox__input" type="checkbox" value="1" name="form[]">
-													<label for="c_1" class="checkbox__label">
-														<span class="checkbox__text">
-															Я соглашаюсь на
-															<a href="#">обработку персональных данных</a>
-															согласно
-															<a href="#">политике конфиденциальности</a>
-														</span>
-													</label>
-												</div>
+											<div class="slide-calculator-block__form">
+												<select name="select" data-fls-select="" data-fls-select-modif="form">
+													<option value="Телефон" selected>Телефон</option>
+													<option value="Viber">Viber</option>
+													<option value="Telegram">Telegram</option>
+												</select>
+												<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните номер телефона" required placeholder="+375(__) ___-__-__" class="slide-calculator-block__input input input--60">
+												<label data-fls-checkbox="" class="checkbox">
+													<input data-fls-error="Заполните поле" class="checkbox__input" type="checkbox" value="5" name="check" checked>
+													<span class="checkbox__text checkbox__text--black">Вы соглашаетесь с условиями обработки персональных
+                    данных</span>
+												</label>
+												<button data-fls-button="" type="submit" class="button button--60">УТЕПЛИТЬСЯ</button>
 											</div>
 										</div>
 									</div>
-									<div data-da=".calculator__slider, 768" id="progress" class="calculator__progress">
+									<div data-fls-dynamic=".calculator__slider, 768" id="progress" class="calculator__progress">
 										<div class="calculator__progress-body">
 											<div class="calculator__pagination swiper-pagination"></div>
 											<div class="fraction-controll">
@@ -512,147 +448,97 @@ stroke-width="0" fill-rule="nonzero"></path>
 						</div>
 					</div>
 				</section>
-				<!--
-<section class="slider">
-<div class="slider__container">
-<div data-fls-blockheader class="blockheader">
-<h2 class="blockheader__title">Как мы работаем: прозрачно и просто</h2>
-<div class="blockheader__subtitle">
-От заявки до приемки и гарантии— за 4 простых шага без нервов и
-неожиданностей
-</div>
-</div>
-<div class="slider__body">
-<div data-fls-beforeafter class="before-after">
-<div data-fls-beforeafter-before class="before-after__item">
-<img src="@img/underground/before-after/01.jpg" alt="Image" />
-</div>
-<div data-fls-beforeafter-after class="before-after__item">
-<img src="@img/underground/before-after/02.jpg" alt="Image" />
-</div>
-<div data-fls-beforeafter-arrow class="before-after__arrow">
-<svg
-fill="#ffffff"
-height="40px"
-width="40px"
-version="1.1"
-id="Capa_1"
-xmlns="http://www.w3.org/2000/svg"
-xmlns:xlink="http://www.w3.org/1999/xlink"
-viewBox="0 0 251.882 251.882"
-xml:space="preserve"
-stroke="#000000"
->
-<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-<g
-id="SVGRepo_tracerCarrier"
-stroke-linecap="round"
-stroke-linejoin="round"
-></g>
-<g id="SVGRepo_iconCarrier">
-<g>
-<path
-d="M104.803,75.208c-3.363-1.396-7.234-0.624-9.808,1.95l-42.418,42.418c-3.515,3.515-3.515,9.214,0,12.729l42.418,42.418 c1.722,1.722,4.023,2.636,6.366,2.636c1.159,0,2.329-0.224,3.442-0.686c3.363-1.393,5.556-4.674,5.556-8.314V83.523 C110.359,79.882,108.166,76.601,104.803,75.208z M92.359,146.631l-20.69-20.69l20.69-20.69V146.631z"
-></path>
-<path
-d="M156.887,77.159c-2.574-2.573-6.444-3.346-9.808-1.95c-3.363,1.393-5.556,4.674-5.556,8.314v84.836 c0,3.641,2.193,6.922,5.556,8.314c1.114,0.462,2.283,0.686,3.442,0.686c2.342,0,4.644-0.914,6.366-2.636l42.418-42.418 c3.515-3.515,3.515-9.214,0-12.729L156.887,77.159z M159.523,146.631V105.25l20.69,20.69L159.523,146.631z"
-></path>
-<path
-d="M215.036,36.845c-49.127-49.127-129.063-49.127-178.19,0c-49.127,49.128-49.127,129.063,0,178.191 c24.563,24.563,56.83,36.846,89.095,36.846s64.532-12.282,89.095-36.846C264.164,165.909,264.164,85.973,215.036,36.845z M202.309,202.308c-42.109,42.109-110.626,42.109-152.735,0C7.465,160.2,7.465,91.682,49.573,49.574 c21.055-21.055,48.711-31.582,76.368-31.582s55.313,10.527,76.368,31.582C244.418,91.682,244.418,160.2,202.309,202.308z"
-></path>
-</g>
-</g>
-</svg>
-</div>
-</div>
-<div data-fls-beforeafter class="before-after">
-<div data-fls-beforeafter-before class="before-after__item">
-<img src="@img/underground/before-after/01.jpg" alt="Image" />
-</div>
-<div data-fls-beforeafter-after class="before-after__item">
-<img src="@img/underground/before-after/02.jpg" alt="Image" />
-</div>
-<div data-fls-beforeafter-arrow class="before-after__arrow">
-<svg
-fill="#ffffff"
-height="40px"
-width="40px"
-version="1.1"
-id="Capa_1"
-xmlns="http://www.w3.org/2000/svg"
-xmlns:xlink="http://www.w3.org/1999/xlink"
-viewBox="0 0 251.882 251.882"
-xml:space="preserve"
-stroke="#000000"
->
-<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-<g
-id="SVGRepo_tracerCarrier"
-stroke-linecap="round"
-stroke-linejoin="round"
-></g>
-<g id="SVGRepo_iconCarrier">
-<g>
-<path
-d="M104.803,75.208c-3.363-1.396-7.234-0.624-9.808,1.95l-42.418,42.418c-3.515,3.515-3.515,9.214,0,12.729l42.418,42.418 c1.722,1.722,4.023,2.636,6.366,2.636c1.159,0,2.329-0.224,3.442-0.686c3.363-1.393,5.556-4.674,5.556-8.314V83.523 C110.359,79.882,108.166,76.601,104.803,75.208z M92.359,146.631l-20.69-20.69l20.69-20.69V146.631z"
-></path>
-<path
-d="M156.887,77.159c-2.574-2.573-6.444-3.346-9.808-1.95c-3.363,1.393-5.556,4.674-5.556,8.314v84.836 c0,3.641,2.193,6.922,5.556,8.314c1.114,0.462,2.283,0.686,3.442,0.686c2.342,0,4.644-0.914,6.366-2.636l42.418-42.418 c3.515-3.515,3.515-9.214,0-12.729L156.887,77.159z M159.523,146.631V105.25l20.69,20.69L159.523,146.631z"
-></path>
-<path
-d="M215.036,36.845c-49.127-49.127-129.063-49.127-178.19,0c-49.127,49.128-49.127,129.063,0,178.191 c24.563,24.563,56.83,36.846,89.095,36.846s64.532-12.282,89.095-36.846C264.164,165.909,264.164,85.973,215.036,36.845z M202.309,202.308c-42.109,42.109-110.626,42.109-152.735,0C7.465,160.2,7.465,91.682,49.573,49.574 c21.055-21.055,48.711-31.582,76.368-31.582s55.313,10.527,76.368,31.582C244.418,91.682,244.418,160.2,202.309,202.308z"
-></path>
-</g>
-</g>
-</svg>
-</div>
-</div>
-<div data-fls-beforeafter class="before-after">
-<div data-fls-beforeafter-before class="before-after__item">
-<img src="@img/underground/before-after/01.jpg" alt="Image" />
-</div>
-<div data-fls-beforeafter-after class="before-after__item">
-<img src="@img/underground/before-after/02.jpg" alt="Image" />
-</div>
-<div data-fls-beforeafter-arrow class="before-after__arrow">
-<svg
-fill="#ffffff"
-height="40px"
-width="40px"
-version="1.1"
-id="Capa_1"
-xmlns="http://www.w3.org/2000/svg"
-xmlns:xlink="http://www.w3.org/1999/xlink"
-viewBox="0 0 251.882 251.882"
-xml:space="preserve"
-stroke="#000000"
->
-<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-<g
-id="SVGRepo_tracerCarrier"
-stroke-linecap="round"
-stroke-linejoin="round"
-></g>
-<g id="SVGRepo_iconCarrier">
-<g>
-<path
-d="M104.803,75.208c-3.363-1.396-7.234-0.624-9.808,1.95l-42.418,42.418c-3.515,3.515-3.515,9.214,0,12.729l42.418,42.418 c1.722,1.722,4.023,2.636,6.366,2.636c1.159,0,2.329-0.224,3.442-0.686c3.363-1.393,5.556-4.674,5.556-8.314V83.523 C110.359,79.882,108.166,76.601,104.803,75.208z M92.359,146.631l-20.69-20.69l20.69-20.69V146.631z"
-></path>
-<path
-d="M156.887,77.159c-2.574-2.573-6.444-3.346-9.808-1.95c-3.363,1.393-5.556,4.674-5.556,8.314v84.836 c0,3.641,2.193,6.922,5.556,8.314c1.114,0.462,2.283,0.686,3.442,0.686c2.342,0,4.644-0.914,6.366-2.636l42.418-42.418 c3.515-3.515,3.515-9.214,0-12.729L156.887,77.159z M159.523,146.631V105.25l20.69,20.69L159.523,146.631z"
-></path>
-<path
-d="M215.036,36.845c-49.127-49.127-129.063-49.127-178.19,0c-49.127,49.128-49.127,129.063,0,178.191 c24.563,24.563,56.83,36.846,89.095,36.846s64.532-12.282,89.095-36.846C264.164,165.909,264.164,85.973,215.036,36.845z M202.309,202.308c-42.109,42.109-110.626,42.109-152.735,0C7.465,160.2,7.465,91.682,49.573,49.574 c21.055-21.055,48.711-31.582,76.368-31.582s55.313,10.527,76.368,31.582C244.418,91.682,244.418,160.2,202.309,202.308z"
-></path>
-</g>
-</g>
-</svg>
-</div>
-</div>
-</div>
-</div>
-</section>
--->
+				<section class="slider">
+					<div class="slider__container">
+						<div data-fls-blockheader="" class="blockheader">
+							<h2 class="blockheader__title">Как мы работаем: прозрачно и просто</h2>
+							<div class="blockheader__subtitle">
+								От заявки до приемки и гарантии— за 4 простых шага без нервов и
+          неожиданностей
+							</div>
+						</div>
+						<div class="slider__body">
+							<div class="slider__column">
+								<div data-fls-beforeafter="" class="sl-container">
+									<div class="view view-after">
+										<img src="./assets/img/underground/before-after/01.jpg">
+									</div>
+									<div class="view view-before">
+										<img src="./assets/img/underground/before-after/02.jpg">
+									</div>
+									<div class="dragme">
+										<div class="dr-circle">
+											<img src="./assets/img/underground/before-after/arrows.svg" alt="Image">
+										</div>
+									</div>
+								</div>
+								<div data-fls-gallery="" class="slider__gallery">
+									<a href="./assets/img/underground/before-after/gallerea/01.jpg">
+										<img alt="Image" src="./assets/img/underground/before-after/gallerea/01.jpg">
+									</a>
+									<a href="./assets/img/underground/before-after/gallerea/02.jpg">
+										<img alt="Image" src="./assets/img/underground/before-after/gallerea/02.jpg">
+									</a>
+									<a href="./assets/img/underground/before-after/gallerea/03.jpg">
+										<img alt="Image" src="./assets/img/underground/before-after/02.jpg">
+									</a>
+								</div>
+							</div>
+							<div class="slider__column">
+								<div data-fls-beforeafter="" class="sl-container">
+									<div class="view view-after">
+										<img src="./assets/img/underground/before-after/01.jpg">
+									</div>
+									<div class="view view-before">
+										<img src="./assets/img/underground/before-after/02.jpg">
+									</div>
+									<div class="dragme">
+										<div class="dr-circle">
+											<img src="./assets/img/underground/before-after/arrows.svg" alt="Image">
+										</div>
+									</div>
+								</div>
+								<div data-fls-gallery="" class="slider__gallery">
+									<a href="./assets/img/underground/before-after/gallerea/01.jpg">
+										<img alt="Image" src="./assets/img/underground/before-after/gallerea/01.jpg">
+									</a>
+									<a href="./assets/img/underground/before-after/gallerea/02.jpg">
+										<img alt="Image" src="./assets/img/underground/before-after/gallerea/02.jpg">
+									</a>
+									<a href="./assets/img/underground/before-after/gallerea/03.jpg">
+										<img alt="Image" src="./assets/img/underground/before-after/02.jpg">
+									</a>
+								</div>
+							</div>
+							<div class="slider__column">
+								<div data-fls-beforeafter="" class="sl-container">
+									<div class="view view-after">
+										<img src="./assets/img/underground/before-after/01.jpg">
+									</div>
+									<div class="view view-before">
+										<img src="./assets/img/underground/before-after/02.jpg">
+									</div>
+									<div class="dragme">
+										<div class="dr-circle">
+											<img src="./assets/img/underground/before-after/arrows.svg" alt="Image">
+										</div>
+									</div>
+								</div>
+								<div data-fls-gallery="" class="slider__gallery">
+									<a href="./assets/img/underground/before-after/gallerea/01.jpg">
+										<img alt="Image" src="./assets/img/underground/before-after/gallerea/01.jpg">
+									</a>
+									<a href="./assets/img/underground/before-after/gallerea/02.jpg">
+										<img alt="Image" src="./assets/img/underground/before-after/gallerea/02.jpg">
+									</a>
+									<a href="./assets/img/underground/before-after/gallerea/03.jpg">
+										<img alt="Image" src="./assets/img/underground/before-after/02.jpg">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
 				<section class="why">
 					<div class="why__container">
 						<img class="why__img-bg" alt="Image" src="./assets/img/underground/why/bg.png">
@@ -761,8 +647,8 @@ d="M215.036,36.845c-49.127-49.127-129.063-49.127-178.19,0c-49.127,49.128-49.127,
 							</div>
 						</div>
 						<div class="any__buttons">
-							<a class="any__button button button button--80" href="#">Рассчитать стоимость утепления моего объекта</a>
-							<a class="any__button button button button--black button--80" href="#">Посмотреть наши работы →</a>
+							<a data-fls-popup-link="popup" class="any__button button button button--80" href="#">Рассчитать стоимость утепления моего объекта</a>
+							<a class="any__button button button button--black button--80" href="#works">Посмотреть наши работы →</a>
 						</div>
 					</div>
 				</section>
@@ -933,13 +819,13 @@ d="M215.036,36.845c-49.127-49.127-129.063-49.127-178.19,0c-49.127,49.128-49.127,
 								<tr>
 									<td class="thickness"></td>
 									<td class="price-closed">
-										<a href="#" class="button button--50">Рассчитать стоимость</a>
+										<a data-fls-popup-link="popup" href="#" class="button button--50">Рассчитать стоимость</a>
 									</td>
 									<td class="price-closed">
-										<a href="#" class="button button--50">Рассчитать стоимость</a>
+										<a data-fls-popup-link="popup" href="#" class="button button--50">Рассчитать стоимость</a>
 									</td>
 									<td class="price-closed">
-										<a href="#" class="button button--50">Подобрать решение</a>
+										<a href="#calculator" class="button button--50">Подобрать решение</a>
 									</td>
 								</tr>
 							</tbody>
@@ -1032,7 +918,7 @@ d="M215.036,36.845c-49.127-49.127-129.063-49.127-178.19,0c-49.127,49.128-49.127,
 									<div class="mobile-description">Теплоизоляция премиум класса</div>
 								</div>
 							</div>
-							<a class="mobile-pricing__button button button--50" href="#">Рассчитать стоимость</a>
+							<a data-fls-popup-link="popup" class="mobile-pricing__button button button--50" href="#">Рассчитать стоимость</a>
 						</div>
 						<!--
 <table class="pricing-table">
@@ -1237,7 +1123,199 @@ d="M215.036,36.845c-49.127-49.127-129.063-49.127-178.19,0c-49.127,49.128-49.127,
 						</p>
 					</div>
 				</section>
-				<section class="works">
+				<div class="reviews">
+					<div class="reviews__container">
+						<div data-fls-blockheader="" class="blockheader">
+							<h2 class="blockheader__title">
+								Главный показатель качества нашей работы
+								<span>— это ваши благодарные отзывы!</span>
+							</h2>
+						</div>
+						<div class="reviews__top">
+							<p>Больше отзывов на</p>
+							<div class="reviews__top-item">
+								<div class="reviews__top-rating">
+									<span>4.8</span>
+									<img src="./assets/img/underground/reviews/arrow-red.svg" alt="Image">
+								</div>
+								<a href="#" class="reviews__top-yandex">
+									<img src="./assets/img/socials/yandex.svg" alt="Image">
+								</a>
+							</div>
+						</div>
+						<div class="reviews__items">
+							<div class="reviews__item item-reviews">
+								<div class="item-reviews__top">
+									<img class="item-reviews__avatar" alt="Image" src="./assets/img/underground/reviews/avatar.png">
+									<div class="item-reviews__name">Петр Малакхов</div>
+									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
+								</div>
+								<div class="item-reviews__text">
+									<p>
+										Переделывали старое утепление на ППУ. Дом стал значительно теплее
+              и комфортнее. Ещё хотел бы отметить внимательное отношение
+              менеджера к деталям и моим просьбам. Чувствовалось участие и
+              искренне желание найти оптимальное решение для улучшения изоляции.
+              Это особенно приятно. Спасибо!
+									</p>
+								</div>
+								<div class="item-reviews__bottom">
+									<div class="item-reviews__arrows">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+									</div>
+									<a class="item-reviews__yandex" href="#">
+										<img src="./assets/img/socials/yandex.svg" alt="Image">
+									</a>
+								</div>
+							</div>
+							<div class="reviews__item item-reviews">
+								<div class="item-reviews__top">
+									<img class="item-reviews__avatar" alt="Image" src="./assets/img/underground/reviews/avatar.png">
+									<div class="item-reviews__name">Петр Малакхов</div>
+									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
+								</div>
+								<div class="item-reviews__text">
+									<p>
+										Переделывали старое утепление на ППУ. Дом стал значительно теплее
+              и комфортнее. Ещё хотел бы отметить внимательное отношение
+              менеджера к деталям и моим просьбам. Чувствовалось участие и
+              искренне желание найти оптимальное решение для улучшения изоляции.
+              Это особенно приятно. Спасибо!
+									</p>
+								</div>
+								<div class="item-reviews__bottom">
+									<div class="item-reviews__arrows">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+									</div>
+									<a class="item-reviews__yandex" href="#">
+										<img src="./assets/img/socials/yandex.svg" alt="Image">
+									</a>
+								</div>
+							</div>
+							<div class="reviews__item item-reviews">
+								<div class="item-reviews__top">
+									<img class="item-reviews__avatar" alt="Image" src="./assets/img/underground/reviews/avatar.png">
+									<div class="item-reviews__name">Петр Малакхов</div>
+									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
+								</div>
+								<div class="item-reviews__text">
+									<p>
+										Переделывали старое утепление на ППУ. Дом стал значительно теплее
+              и комфортнее. Ещё хотел бы отметить внимательное отношение
+              менеджера к деталям и моим просьбам. Чувствовалось участие и
+              искренне желание найти оптимальное решение для улучшения изоляции.
+              Это особенно приятно. Спасибо!
+									</p>
+								</div>
+								<div class="item-reviews__bottom">
+									<div class="item-reviews__arrows">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+									</div>
+									<a class="item-reviews__yandex" href="#">
+										<img src="./assets/img/socials/yandex.svg" alt="Image">
+									</a>
+								</div>
+							</div>
+							<div class="reviews__item item-reviews">
+								<div class="item-reviews__top">
+									<img class="item-reviews__avatar" alt="Image" src="./assets/img/underground/reviews/avatar.png">
+									<div class="item-reviews__name">Петр Малакхов</div>
+									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
+								</div>
+								<div class="item-reviews__text">
+									<p>
+										Переделывали старое утепление на ППУ. Дом стал значительно теплее
+              и комфортнее. Ещё хотел бы отметить внимательное отношение
+              менеджера к деталям и моим просьбам. Чувствовалось участие и
+              искренне желание найти оптимальное решение для улучшения изоляции.
+              Это особенно приятно. Спасибо!
+									</p>
+								</div>
+								<div class="item-reviews__bottom">
+									<div class="item-reviews__arrows">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+									</div>
+									<a class="item-reviews__yandex" href="#">
+										<img src="./assets/img/socials/yandex.svg" alt="Image">
+									</a>
+								</div>
+							</div>
+							<div class="reviews__item item-reviews">
+								<div class="item-reviews__top">
+									<img class="item-reviews__avatar" alt="Image" src="./assets/img/underground/reviews/avatar.png">
+									<div class="item-reviews__name">Петр Малакхов</div>
+									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
+								</div>
+								<div class="item-reviews__text">
+									<p>
+										Переделывали старое утепление на ППУ. Дом стал значительно теплее
+              и комфортнее. Ещё хотел бы отметить внимательное отношение
+              менеджера к деталям и моим просьбам. Чувствовалось участие и
+              искренне желание найти оптимальное решение для улучшения изоляции.
+              Это особенно приятно. Спасибо!
+									</p>
+								</div>
+								<div class="item-reviews__bottom">
+									<div class="item-reviews__arrows">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+									</div>
+									<a class="item-reviews__yandex" href="#">
+										<img src="./assets/img/socials/yandex.svg" alt="Image">
+									</a>
+								</div>
+							</div>
+							<div class="reviews__item item-reviews">
+								<div class="item-reviews__top">
+									<img class="item-reviews__avatar" alt="Image" src="./assets/img/underground/reviews/avatar.png">
+									<div class="item-reviews__name">Петр Малакхов</div>
+									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
+								</div>
+								<div class="item-reviews__text">
+									<p>
+										Переделывали старое утепление на ППУ. Дом стал значительно теплее
+              и комфортнее. Ещё хотел бы отметить внимательное отношение
+              менеджера к деталям и моим просьбам. Чувствовалось участие и
+              искренне желание найти оптимальное решение для улучшения изоляции.
+              Это особенно приятно. Спасибо!
+									</p>
+								</div>
+								<div class="item-reviews__bottom">
+									<div class="item-reviews__arrows">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/underground/reviews/arrow.svg" alt="Image">
+									</div>
+									<a class="item-reviews__yandex" href="#">
+										<img src="./assets/img/socials/yandex.svg" alt="Image">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<section id="works" class="works">
 					<div class="works__container">
 						<div data-fls-blockheader="" class="blockheader">
 							<h2 class="blockheader__title">Галерея наших работ</h2>
@@ -1505,9 +1583,9 @@ class="form-questions__input input"
 								<h2 class="solved__title">Решим любые ваши вопросы</h2>
 								<p class="solved__text">и расскажем о самых выгодных предложениях в Центре ППУ :)</p>
 							</div>
-							<form class="solved__form" data-fls-form="ajax" data-fls-form-popup="popup" method="POST" action="">
+							<form class="solved__form" data-fls-form="ajax" data-fls-form-popup="popup" method="POST" action="files/sendmail/sendmail.php">
 								<div class="solved__logo">CENTERPPU.RU</div>
-								<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-error="Заполните поле" required placeholder="+375(__) ___-__-__" class="input input--70">
+								<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" required placeholder="+375(__) ___-__-__" class="input input--70">
 								<label data-fls-checkbox="" class="checkbox">
 									<input data-fls-error="Заполните поле" class="checkbox__input" type="checkbox" value="2" name="check" checked>
 									<span class="checkbox__text">Вы соглашаетесь с условиями обработки персональных данных</span>
@@ -1547,7 +1625,7 @@ class="form-questions__input input"
 								в
           Санкт-Петербурге и ЛО
 							</p>
-							<a class="main-footer__button button button--60" href="#">Обратный звонок</a>
+							<a data-fls-popup-link="popup" class="main-footer__button button button--60" href="#">Обратный звонок</a>
 							<div class="main-footer__socials">
 								<a class="main-footer__social-link" href="#">
 									<img alt="Image" src="./assets/img/socials/viber.png">
@@ -1597,6 +1675,46 @@ class="form-questions__input input"
 					</div>
 				</div>
 			</footer>
+		</div>
+		<div data-fls-popup="popup" aria-hidden="true" class="popup">
+			<div data-fls-popup-wrapper="" class="popup__wrapper">
+				<div data-fls-popup-body="" class="popup__body">
+					<button data-fls-popup-close="" type="button" class="popup__close">
+						<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
+							<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
+						</svg>
+					</button>
+					<div data-fls-popup-content="" class="popup__box">
+						<h2 class="popup__title">Обратный звонок от руководителя Центр ППУ</h2>
+						<p class="popup__text">Оставьте ваш номер телефона и я свяжусь с вами в ближайшее время!</p>
+						<form class="popup__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="files/sendmail/sendmail.php">
+							<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" required placeholder="+375(__) ___-__-__" class="popup__input input input--60">
+							<label data-fls-checkbox="" class="checkbox">
+								<input data-fls-error="Заполните поле" class="checkbox__input" type="checkbox" value="6" name="check" checked>
+								<span class="checkbox__text checkbox__text--black">Вы соглашаетесь с условиями обработки персональных данных</span>
+							</label>
+							<button data-fls-button="" type="submit" class="popup__button button button--60">ПОЛУЧИТЬ БЕСПЛАТНУЮ КОНСУЛЬТАЦИЮ</button>
+						</form>
+						<p class="popup__bottom">За 4 минуты расскажем все, что необходимо знать перед утеплением!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div data-fls-popup="popup-message" aria-hidden="true" class="popup">
+			<div data-fls-popup-wrapper="" class="popup__wrapper">
+				<div data-fls-popup-body="" class="popup__body">
+					<button data-fls-popup-close="" type="button" class="popup__close">
+						<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
+							<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
+						</svg>
+					</button>
+					<div data-fls-popup-content="" class="popup__box">
+						<h2 class="popup__title">СПАСИБО,ВАШЕ СООБЩЕНИЕ УСПЕШНО ОТПРАВЛЕНО!!!</h2>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

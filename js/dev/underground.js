@@ -1,107 +1,77 @@
-import { i as isMobile } from "./app.min.js";
-class BeforeAfter {
-  constructor(props) {
-    let defaultConfig = {
-      init: true,
-      logging: true
-    };
-    this.config = Object.assign(defaultConfig, props);
-    if (this.config.init) {
-      const beforeAfterItems = document.querySelectorAll("[data-fls-beforeafter]");
-      if (beforeAfterItems.length > 0) {
-        this.setLogging(`Проснулся, вижу элементы: ${beforeAfterItems.length}`);
-        this.beforeAfterInit(beforeAfterItems);
-      } else {
-        this.setLogging(`Проснулся, не вижу элементов`);
-      }
+import "./app.min.js";
+document.addEventListener("DOMContentLoaded", function() {
+  const containers = document.querySelectorAll(".sl-container");
+  containers.forEach((container) => {
+    const dragMe = container.querySelector(".dragme");
+    const viewAfter = container.querySelector(".view-after");
+    let isDragging = false;
+    function setInitialPosition() {
+      const containerWidth = container.offsetWidth;
+      const initialPosition = containerWidth * 0.5;
+      dragMe.style.left = initialPosition + "px";
+      viewAfter.style.width = initialPosition + "px";
     }
-  }
-  beforeAfterInit(beforeAfterItems) {
-    beforeAfterItems.forEach((beforeAfter) => {
-      if (beforeAfter) {
-        this.beforeAfterClasses(beforeAfter);
-        this.beforeAfterItemInit(beforeAfter);
-      }
-    });
-  }
-  beforeAfterClasses(beforeAfter) {
-    beforeAfter.querySelector("[data-fls-beforeafter-arrow]");
-    beforeAfter.addEventListener("mouseover", function(e) {
-      const targetElement = e.target;
-      if (!targetElement.hasAttribute("data-fls-beforeafter-arrow")) {
-        if (targetElement.closest("[data-fls-beforeafter-before]")) {
-          beforeAfter.classList.remove("-right");
-          beforeAfter.classList.add("-left");
-        } else {
-          beforeAfter.classList.add("-right");
-          beforeAfter.classList.remove("-left");
+    function animateTo(position, duration = 300) {
+      const startTime = performance.now();
+      const startLeft = parseFloat(dragMe.style.left) || 0;
+      const startWidth = parseFloat(viewAfter.style.width) || 0;
+      function animate(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const newLeft = startLeft + (position - startLeft) * progress;
+        const newWidth = startWidth + (position - startWidth) * progress;
+        dragMe.style.left = newLeft + "px";
+        viewAfter.style.width = newWidth + "px";
+        if (progress < 1) {
+          requestAnimationFrame(animate);
         }
       }
-    });
-    beforeAfter.addEventListener("mouseleave", function() {
-      beforeAfter.classList.remove("-left");
-      beforeAfter.classList.remove("-right");
-    });
-  }
-  beforeAfterItemInit(beforeAfter) {
-    const beforeAfterArrow = beforeAfter.querySelector("[data-fls-beforeafter-arrow]");
-    const afterItem = beforeAfter.querySelector("[data-fls-beforeafter-after]");
-    const beforeAfterArrowWidth = parseFloat(window.getComputedStyle(beforeAfterArrow).getPropertyValue("width"));
-    let beforeAfterSizes = {};
-    let isDragging = false;
-    if (beforeAfterArrow) {
-      if (isMobile.any()) {
-        beforeAfterArrow.addEventListener("touchstart", beforeAfterDrag);
-      } else {
-        beforeAfterArrow.addEventListener("mousedown", beforeAfterDrag);
-      }
+      requestAnimationFrame(animate);
     }
-    function beforeAfterDrag(e) {
+    function startDrag(e) {
+      e.preventDefault();
       isDragging = true;
-      beforeAfterSizes = {
-        width: beforeAfter.offsetWidth,
-        left: beforeAfter.getBoundingClientRect().left - scrollX
-      };
-      if (isMobile.any()) {
-        document.addEventListener("touchmove", beforeAfterArrowMove);
-        document.addEventListener("touchend", beforeAfterDragEnd);
-      } else {
-        document.addEventListener("mousemove", beforeAfterArrowMove);
-        document.addEventListener("mouseup", beforeAfterDragEnd);
-      }
-      document.addEventListener("dragstart", function(e2) {
-        e2.preventDefault();
-      }, { "once": true });
+      document.addEventListener("mousemove", drag);
+      document.addEventListener("mouseup", stopDrag);
     }
-    function beforeAfterArrowMove(e) {
+    function drag(e) {
       if (!isDragging) return;
-      const posLeft = e.type === "touchmove" ? e.touches[0].clientX - beforeAfterSizes.left : e.clientX - beforeAfterSizes.left;
-      if (posLeft <= beforeAfterSizes.width && posLeft > 0) {
-        const way = posLeft / beforeAfterSizes.width * 100;
-        beforeAfterArrow.style.cssText = `left:calc(${way}% - ${beforeAfterArrowWidth}px)`;
-        afterItem.style.cssText = `width: ${100 - way}%`;
-      } else if (posLeft >= beforeAfterSizes.width) {
-        beforeAfterArrow.style.cssText = `left: calc(100% - ${beforeAfterArrowWidth}px)`;
-        afterItem.style.cssText = `width: 0%`;
-      } else if (posLeft <= 0) {
-        beforeAfterArrow.style.cssText = `left: 0%`;
-        afterItem.style.cssText = `width: 100%`;
-      }
+      const containerRect = container.getBoundingClientRect();
+      let newLeft = e.clientX - containerRect.left - dragMe.offsetWidth / 2;
+      newLeft = Math.max(0, Math.min(newLeft, containerRect.width - dragMe.offsetWidth));
+      dragMe.style.left = newLeft + "px";
+      viewAfter.style.width = newLeft + 5 + "px";
     }
-    function beforeAfterDragEnd(e) {
+    function stopDrag() {
       isDragging = false;
-      if (isMobile.any()) {
-        document.removeEventListener("touchmove", beforeAfterArrowMove);
-        document.removeEventListener("touchend", beforeAfterDragEnd);
-      } else {
-        document.removeEventListener("mousemove", beforeAfterArrowMove);
-        document.removeEventListener("mouseup", beforeAfterDragEnd);
-      }
+      document.removeEventListener("mousemove", drag);
+      document.removeEventListener("mouseup", stopDrag);
     }
-  }
-  // Логинг в консоль
-  setLogging(message) {
-    if (this.config.logging) ;
-  }
-}
-new BeforeAfter({});
+    function handleContainerClick(e) {
+      const containerRect = container.getBoundingClientRect();
+      const clickPosition = e.clientX - containerRect.left - 15;
+      animateTo(clickPosition);
+    }
+    dragMe.addEventListener("mousedown", startDrag);
+    container.addEventListener("click", handleContainerClick);
+    dragMe.addEventListener("touchstart", function(e) {
+      e.preventDefault();
+      isDragging = true;
+      document.addEventListener("touchmove", touchDrag);
+      document.addEventListener("touchend", stopDrag);
+    });
+    function touchDrag(e) {
+      if (!isDragging) return;
+      const containerRect = container.getBoundingClientRect();
+      let newLeft = e.touches[0].clientX - containerRect.left - dragMe.offsetWidth / 2;
+      newLeft = Math.max(0, Math.min(newLeft, containerRect.width - dragMe.offsetWidth));
+      dragMe.style.left = newLeft + "px";
+      viewAfter.style.width = newLeft + 5 + "px";
+    }
+    dragMe.addEventListener("dragstart", function(e) {
+      e.preventDefault();
+    });
+    setInitialPosition();
+    window.addEventListener("resize", setInitialPosition);
+  });
+});

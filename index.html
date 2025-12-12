@@ -5,841 +5,171 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1765546466665"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1765546466665">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1765546579671"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1765546579671">
 	</head>
 	<body>
 		<div class="wrapper">
-			<header data-fls-header-scroll="" data-fls-header-scroll-show="" data-fls-header="" class="header">
+			<header data-fls-header="" class="header">
 				<div class="header__container">
+					<!-- <include src="@components/layout/menu/menu.html" locals='{"active":"Home"}'></include> -->
 					<div class="header__top top-header">
-						<nav data-fls-dynamic=".menu__body, 768" class="top-header__nav">
-							<ul class="top-header__list">
-								<li>
-									<a href="#" class="top-header__button active">Покупателям</a>
-								</li>
-								<li>
-									<a href="#" class="top-header__button">Партнёрам и дилерам</a>
-								</li>
-								<li>
-									<a href="#" class="top-header__button">Дизайнерам и архитекторам</a>
-								</li>
-							</ul>
-						</nav>
-						<div data-fls-dynamic=".menu__body, 768" class="top-header__social">
-							<a href="#" class="top-header__social-icon">
-								<img alt="Image" src="./assets/img/contacts/vk.png">
-							</a>
-							<a href="#" class="top-header__social-icon">
-								<img alt="Image" src="./assets/img/contacts/instagram.png">
-							</a>
-							<a href="#" class="top-header__social-icon">
-								<img alt="Image" src="./assets/img/contacts/viber.png">
-							</a>
-							<a href="#" class="top-header__social-icon">
-								<img alt="Image" src="./assets/img/contacts/telegram.png">
-							</a>
+						<a href="#" class="top-header__logo">
+							<img src="./assets/img/header/logo.svg" alt="#">
+						</a>
+						<p data-fls-dynamic=".menu__body, 992" class="top-header__text">
+							12 лет производим и устанавливаем заборы под ключ в г.Санкт-Петербург и
+        области
+						</p>
+						<a data-fls-dynamic=".menu__body, 768" data-fls-button="" href="#" class="button">
+							<img class="button__img" alt="Image" src="./assets/img/header/calc.png">
+							<div class="button__text">
+								<p>Узнайте стоимость забора</p>
+								<small>(прямо сейчас за 1 минуту)</small>
+							</div>
+						</a>
+						<div data-fls-dynamic=".menu__body, 1200" class="top-header__social">
+							<p class="top-header__social-text">Напишите нам напрямую</p>
+							<select required name="tonnage" data-fls-select="" data-fls-select-modif="social">
+								<option value="в Telegram" selected data-fls-select-asset="assets/img/header/tg.png">в Telegram</option>
+								<option data-fls-select-asset="assets/img/header/vb.png" value="в Viber">в Viber</option>
+							</select>
 						</div>
-						<button data-fls-dynamic=".main-header__item--logo, 768" type="button" data-fls-menu="" class="icon-menu">
+						<div data-fls-dynamic=".menu__body, 430" class="top-header__info">
+							<p class="top-header__info-text">Звоните, мы сейчас работаем</p>
+							<a class="top-header__info-phone" href="tel:375291234567">+375(29)123-45-67</a>
+							<a data-fls-popup-link="popup" class="top-header__info-button" href="#">позвоните мне</a>
+						</div>
+						<button type="button" data-fls-menu="" class="menu__icon icon-menu">
 							<span></span>
 						</button>
-					</div>
-					<div class="header__main main-header">
-						<div class="main-header__item main-header__item--logo">
-							<a class="main-header__logo" href="#">
-								<img src="./assets/img/header/logo.svg" alt="Image">
-								<p class="main-header__text">Ведущий мировой производитель оконных систем</p>
-							</a>
-						</div>
-						<div data-fls-dynamic=".menu__body, 991.98" class="main-header__item">
-							<div class="main-header__phone-body">
-								<a class="main-header__phone" href="tel:">+7 (800) 302-20-05</a>
-								<p class="main-header__phone-text">Круглосуточно, бесплатно</p>
-							</div>
-							<div class="main-header__order">Заказать замер</div>
-						</div>
-						<div class="main-header__buttons">
-							<a data-fls-button="" class="main-header__button-calc button button--white" href="#">
-								<img src="./assets/img/header/calculator.svg" alt="Image">
-								<span>Калькулятор</span>
-							</a>
-							<a data-fls-popup-link="popup" data-fls-button="" href="#" class="main-header__button-link button">
-								<img src="./assets/img/header/telephone.svg" alt="Image">
-								<span>Заказать звонок</span>
-							</a>
-						</div>
 					</div>
 					<div class="header__menu menu">
 						<nav class="menu__body">
 							<ul class="menu__list">
-								<div class="menu__header">
-									<span>Меню</span>
-								</div>
 								<li class="menu__item">
-									<a class="menu__link menu__link--submenu">
-										Окна
-										<img src="./assets/img/header/chevron-down.svg" alt="Image">
-									</a>
-									<ul class="submenu">
-										<div class="submenu__header menu__header">
-											<button class="submenu-close close">
-												<img src="./assets/img/header/arrow-left.svg" alt="Image">
-											</button>
-											<span>Окна</span>
-										</div>
+									<a href="home.html" class="menu__link">Главная</a>
+								</li>
+								<li data-spollers="1200,max" class="menu__item _has-submenu">
+									<button type="button" data-spoller="" class="menu__link">Каталог заборов</button>
+									<ul class="sub-menu">
 										<li>
-											<a href="#">Доставка и оплата</a>
+											<a href="services.html">Вывоз строительного мусора</a>
 										</li>
 										<li>
-											<a href="#">Рассрочка</a>
+											<a href="#">Вывоз старой мебели</a>
 										</li>
 										<li>
-											<a href="#">Блог</a>
+											<a href="#">Квартирный переезд</a>
 										</li>
 										<li>
-											<a href="#">Публичная оферта</a>
+											<a href="#">Офисный переезд</a>
 										</li>
 										<li>
-											<a href="#">Вакансии</a>
+											<a href="#">Дачный переезд</a>
 										</li>
 										<li>
-											<a href="#">Приют</a>
+											<a href="#">Перевозка мебели</a>
 										</li>
 									</ul>
 								</li>
 								<li class="menu__item">
-									<a class="menu__link menu__link--submenu">
-										Балконы и лоджии
-										<img src="./assets/img/header/chevron-down.svg" alt="Image">
-									</a>
-									<ul class="submenu">
-										<div class="submenu__header menu__header">
-											<button class="submenu-close close">
-												<img src="./assets/img/header/arrow-left.svg" alt="Image">
-											</button>
-											<span>Балконы и лоджии</span>
-										</div>
-										<li>
-											<a href="#">Доставка и оплата</a>
-										</li>
-										<li>
-											<a href="#">Рассрочка</a>
-										</li>
-										<li>
-											<a href="#">Блог</a>
-										</li>
-										<li>
-											<a href="#">Публичная оферта</a>
-										</li>
-										<li>
-											<a href="#">Вакансии</a>
-										</li>
-										<li>
-											<a href="#">Приют</a>
-										</li>
-									</ul>
+									<a href="" class="menu__link">Калькулятор стоимости</a>
 								</li>
 								<li class="menu__item">
-									<a class="menu__link menu__link--submenu">
-										Двери
-										<img src="./assets/img/header/chevron-down.svg" alt="Image">
-									</a>
-									<ul class="submenu">
-										<div class="submenu__header menu__header">
-											<button class="submenu-close close">
-												<img src="./assets/img/header/arrow-left.svg" alt="Image">
-											</button>
-											<span>Двери</span>
-										</div>
-										<li>
-											<a href="#">Доставка и оплата</a>
-										</li>
-										<li>
-											<a href="#">Рассрочка</a>
-										</li>
-										<li>
-											<a href="#">Блог</a>
-										</li>
-										<li>
-											<a href="#">Публичная оферта</a>
-										</li>
-										<li>
-											<a href="#">Вакансии</a>
-										</li>
-										<li>
-											<a href="#">Приют</a>
-										</li>
-									</ul>
+									<a href="" class="menu__link">Выполненные проекты (портфолио)</a>
 								</li>
 								<li class="menu__item">
-									<a class="menu__link menu__link--submenu menu__link--icon-chevron-down">
-										Для загородного дома
-										<img src="./assets/img/header/chevron-down.svg" alt="Image">
-									</a>
-									<ul class="submenu">
-										<div class="submenu__header menu__header">
-											<button class="submenu-close close">
-												<img src="./assets/img/header/arrow-left.svg" alt="Image">
-											</button>
-											<span>Для загородного дома</span>
-										</div>
-										<li>
-											<a href="#">Доставка и оплата</a>
-										</li>
-										<li>
-											<a href="#">Рассрочка</a>
-										</li>
-										<li>
-											<a href="#">Блог</a>
-										</li>
-										<li>
-											<a href="#">Публичная оферта</a>
-										</li>
-										<li>
-											<a href="#">Вакансии</a>
-										</li>
-										<li>
-											<a href="#">Приют</a>
-										</li>
-									</ul>
+									<a href="" class="menu__link">О компании</a>
 								</li>
 								<li class="menu__item">
-									<a class="menu__link menu__link--submenu menu__link--icon-chevron-down">
-										Комплектующие
-										<img src="./assets/img/header/chevron-down.svg" alt="Image">
-									</a>
-									<ul class="submenu">
-										<div class="submenu__header menu__header">
-											<button class="submenu-close close">
-												<img src="./assets/img/header/arrow-left.svg" alt="Image">
-											</button>
-											<span>Комплектующие</span>
-										</div>
-										<li>
-											<a href="#">Доставка и оплата</a>
-										</li>
-										<li>
-											<a href="#">Рассрочка</a>
-										</li>
-										<li>
-											<a href="#">Блог</a>
-										</li>
-										<li>
-											<a href="#">Публичная оферта</a>
-										</li>
-										<li>
-											<a href="#">Вакансии</a>
-										</li>
-										<li>
-											<a href="#">Приют</a>
-										</li>
-									</ul>
+									<a href="" class="menu__link">Блог</a>
 								</li>
 								<li class="menu__item">
-									<a class="menu__link menu__link--submenu menu__link--icon-chevron-down">
-										Помощь покупателю
-										<img src="./assets/img/header/chevron-down.svg" alt="Image">
-									</a>
-									<ul class="submenu">
-										<div class="submenu__header menu__header">
-											<button class="submenu-close close">
-												<img src="./assets/img/header/arrow-left.svg" alt="Image">
-											</button>
-											<span>Помощь покупателю</span>
-										</div>
-										<li>
-											<a href="#">Доставка и оплата</a>
-										</li>
-										<li>
-											<a href="#">Рассрочка</a>
-										</li>
-										<li>
-											<a href="#">Блог</a>
-										</li>
-										<li>
-											<a href="#">Публичная оферта</a>
-										</li>
-										<li>
-											<a href="#">Вакансии</a>
-										</li>
-										<li>
-											<a href="#">Приют</a>
-										</li>
-									</ul>
+									<a href="" class="menu__link">Контакты</a>
 								</li>
-								<li class="menu__item">
-									<a class="menu__link menu__link--submenu menu__link--icon-chevron-down">
-										Где купить
-										<img src="./assets/img/header/chevron-down.svg" alt="Image">
-									</a>
-									<ul class="submenu">
-										<div class="submenu__header menu__header">
-											<button class="submenu-close close">
-												<img src="./assets/img/header/arrow-left.svg" alt="Image">
-											</button>
-											<span>Где купить</span>
-										</div>
-										<li>
-											<a href="#">Доставка и оплата</a>
-										</li>
-										<li>
-											<a href="#">Рассрочка</a>
-										</li>
-										<li>
-											<a href="#">Блог</a>
-										</li>
-										<li>
-											<a href="#">Публичная оферта</a>
-										</li>
-										<li>
-											<a href="#">Вакансии</a>
-										</li>
-										<li>
-											<a href="#">Приют</a>
-										</li>
-									</ul>
-								</li>
-								<li class="menu__item">
-									<a class="menu__link menu__link--submenu menu__link--icon-chevron-down">
-										О компании
-										<img src="./assets/img/header/chevron-down.svg" alt="Image">
-									</a>
-									<ul class="submenu">
-										<div class="submenu__header menu__header">
-											<button class="submenu-close close">
-												<img src="./assets/img/header/arrow-left.svg" alt="Image">
-											</button>
-											<span>О компании</span>
-										</div>
-										<li>
-											<a href="#">Доставка и оплата</a>
-										</li>
-										<li>
-											<a href="#">Рассрочка</a>
-										</li>
-										<li>
-											<a href="#">Блог</a>
-										</li>
-										<li>
-											<a href="#">Публичная оферта</a>
-										</li>
-										<li>
-											<a href="#">Вакансии</a>
-										</li>
-										<li>
-											<a href="#">Приют</a>
-										</li>
-									</ul>
-								</li>
-								<!--
-<li class="menu__item menu__item--catalog">
-<button
-href=""
-class="menu__link menu__link--catalog menu__link--icon-burger-menu"
->
-</button>
-<div class="submenu-catalog">
-<div class="menu__header">
-<button
-class="submenu-catalog__close submenu-catalog__close--icon-arrow-left"
-></button>
-<span> Каталог</span>
-</div>
-<div class="submenu-catalog__item">
-<a href="#" class="submenu-catalog__title"
->БЮДЖЕТНЫЕ ПАМЯТНИКИ:</a
->
-<div class="submenu-catalog__column">
-<h3 class="submenu-catalog__title">ГРАНИТНЫЕ ПАМЯТНИКИ:</h3>
-<ul class="submenu-catalog__list">
-<div class="menu__header-sub menu__header">
-<button
-class="submenu-catalog__list-close submenu-catalog__list-close--icon-arrow-left"
-></button>
-<span>ГРАНИТНЫЕ ПАМЯТНИКИ:</span>
-</div>
-<li>
-<a href="#"> Вертикальные </a>
-</li>
-<li>
-<a href="#"> Эконом </a>
-</li>
-<li>
-<a href="#"> Классические </a>
-</li>
-<li>
-<a href="#"> Фигурные </a>
-</li>
-<li>
-<a href="#"> Резные </a>
-</li>
-<li>
-<a href="#"> Мусульманские </a>
-</li>
-<li>
-<a href="#"> Православные </a>
-</li>
-<li>
-<a href="#"> Военным </a>
-</li>
-<li>
-<a href="#"> С ангелом </a>
-</li>
-<li>
-<a href="#"> С деревом </a>
-</li>
-<li>
-<a href="#"> С крестом </a>
-</li>
-<li>
-<a href="#"> С обколом, скалы </a>
-</li>
-<li>
-<a href="#"> С плащаницей </a>
-</li>
-<li>
-<a href="#"> С птицами </a>
-</li>
-<li>
-<a href="#"> С сердцем </a>
-</li>
-<li>
-<a href="#"> С цветами </a>
-</li>
-<li>
-<a href="#"> Со свечой </a>
-</li>
-<li>
-<a href="#"> Мужские </a>
-</li>
-<li>
-<a href="#"> Женские </a>
-</li>
-<li>
-<a href="#"> Детские </a>
-</li>
-<li>
-<a href="#"> Элитные </a>
-</li>
-<li>
-<a href="#"> Эксклюзивные </a>
-</li>
-<li>
-<a href="#"> Из цветного гранита </a>
-</li>
-<li>
-<a href="#"> Двойные гранитные </a>
-</li>
-</ul>
-</div>
-</div>
-<div class="submenu-catalog__item">
-<div class="submenu-catalog__column">
-<h3 class="submenu-catalog__title">МРАМОРНЫЕ ПАМЯТНИКИ:</h3>
-<ul class="submenu-catalog__list">
-<div class="menu__header-sub menu__header">
-<button
-class="submenu-catalog__list-close submenu-catalog__list-close--icon-arrow-left"
-></button>
-<span>МРАМОРНЫЕ ПАМЯТНИКИ:</span>
-</div>
-<li><a href="#"> Вертикальные </a></li>
-<li><a href="#"> Фигурные </a></li>
-<li><a href="#"> Резные </a></li>
-<li><a href="#"> С крестом </a></li>
-<li><a href="#"> Двойные мраморные -класса</a></li>
-</ul>
-</div>
-<div class="submenu-catalog__column">
-<h3 class="submenu-catalog__title">
-МЕМОРИАЛЬНЫЕ КОМПЛЕКСЫ:
-</h3>
-<ul class="submenu-catalog__list">
-<div class="menu__header-sub menu__header">
-<button
-class="submenu-catalog__list-close submenu-catalog__list-close--icon-arrow-left"
-></button>
-<span>МЕМОРИАЛЬНЫЕ КОМПЛЕКСЫ:</span>
-</div>
-<li><a href="#"> Одинарные </a></li>
-<li><a href="#"> Двойные </a></li>
-<li><a href="#"> Площадки </a></li>
-<li><a href="#"> Цоколи </a></li>
-</ul>
-</div>
-<div class="submenu-catalog__column">
-<h3 class="submenu-catalog__title">
-МЕМОРИАЛЬНЫЕ КОМПЛЕКСЫ:
-</h3>
-<ul class="submenu-catalog__list">
-<div class="menu__header-sub menu__header">
-<button
-class="submenu-catalog__list-close submenu-catalog__list-close--icon-arrow-left"
-></button>
-<span>МЕМОРИАЛЬНЫЕ КОМПЛЕКСЫ:</span>
-</div>
-<li><a href="#"> Одинарные </a></li>
-<li><a href="#"> Двойные </a></li>
-<li><a href="#"> Площадки </a></li>
-<li><a href="#"> Цоколи </a></li>
-</ul>
-</div>
-</div>
-<div class="submenu-catalog__item">
-<div class="submenu-catalog__column">
-<h3 class="submenu-catalog__title">ДОПОЛНИТЕЛЬНО:</h3>
-<ul class="submenu-catalog__list">
-<div class="menu__header-sub menu__header">
-<button
-class="submenu-catalog__list-close submenu-catalog__list-close--icon-arrow-left"
-></button>
-<span>ДОПОЛНИТЕЛЬНО:</span>
-</div>
-<li>
-<a href="#"> Вазы из камня </a>
-</li>
-<li>
-<a href="#"> Лампадки из камня </a>
-</li>
-<li>
-<a href="#"> Скульптуры из искусственного мрамора </a>
-</li>
-<li>
-<a href="#">
-Художественное оформление гранитного памятника
-</a>
-</li>
-<li>
-<a href="#"> Плитка для облицовки памятников </a>
-</li>
-<li>
-<a href="#"> Фото на металлокерамике </a>
-</li>
-<li>
-<a href="#"> Металлические оградки, столы, скамейки </a>
-</li>
-<li>
-<a href="#"> Кованые изделия </a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</li>
--->
 							</ul>
 						</nav>
 					</div>
-					<!-- <include src="@components/layout/menu/menu.html" locals='{"active":"Home"}'></include> -->
 				</div>
 			</header>
-			<div data-fls-popup="popup" aria-hidden="true" class="popup">
-				<div data-fls-popup-wrapper="" class="popup__wrapper">
-					<div data-fls-popup-body="" class="popup__body">
-						<button data-fls-popup-close="" type="button" class="popup__close">
-							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
-								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
-							</svg>
-						</button>
-						<div data-fls-popup-content="" class="popup__text">
-							<h2 class="popup__title">Заказать звонок</h2>
-							<form data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="files/sendmail/sendmail.php">
-								<select name="city" data-fls-select="" data-fls-select-modif="popup">
-									<option value="Минск" selected>Минск</option>
-									<option value="Гродно">Гродно</option>
-									<option value="Витебск">Витебск</option>
-								</select>
-								<p>Обратите внимание на указанный город</p>
-								<input required data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Ваше Имя" class="popup__input input">
-								<input data-fls-input-mask="+375(99) 999-99-99" required type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+375 (__) ___-__-__" class="popup__input input">
-								<textarea data-fls-input="" autocomplete="off" name="textarea" placeholder="Ваши пожелания" data-error="Ошибка" class="popup__textarea input"></textarea>
-								<div data-fls-checkbox="" class="checkbox">
-									<input required id="c_7" data-error="Ознакомтесь с обработкой своих данных" class="checkbox__input" type="checkbox" value="Принято" name="check">
-									<label for="c_7" class="checkbox__label checkbox__label-black">
-										<span class="checkbox__text">
-											Выражаю
-											<a target="_blank" href="#">согласие</a>
-											на обработку
-                своих персональных данных. Ознакомиться с
-											<a target="_blank" href="#">Политикой в отношении персональных данных.</a>
-										</span>
-									</label>
-								</div>
-								<button type="submit" class="popup__button button">Оставить заявку на звонок</button>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div data-fls-popup="popup-message" aria-hidden="true" class="popup">
-				<div data-fls-popup-wrapper="" class="popup__wrapper">
-					<div data-fls-popup-body="" class="popup__body">
-						<button data-fls-popup-close="" type="button" class="popup__close">
-							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
-								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
-							</svg>
-						</button>
-						<div data-fls-popup-content="" class="popup__text">
-							<h2 class="popup__title">СПАСИБО ВАША ФОРМА УСПЕШНО ОТПРАВЛЕНА!!!</h2>
-						</div>
-					</div>
-				</div>
-			</div>
 			<main class="page page--home">
 				<section class="hero">
-					<!-- Оболочка слайдера -->
-					<div data-fls-slider="" class="hero__slider swiper">
-						<!-- Часть слайдера, которая двигается -->
-						<div class="hero__wrapper swiper-wrapper">
-							<!-- Слайд -->
-							<div class="hero__slide swiper-slide">
-								<img class="hero__image" alt="Image" src="./assets/img/hero/01.jpg">
-								<div class="hero__container">
-									<h1 data-swiper-parallax="-1300" class="hero__title">Пластиковые окна и двери VEKA — долговечно и надежно!</h1>
-									<div data-swiper-parallax="-800" class="hero__text">
-										<p>Узнайте стоимость вашего окна</p>
+					<img class="hero__img-bg" alt="Image" src="./assets/img/hero/bg.jpg">
+					<div class="hero__container">
+						<div class="hero__content">
+							<h1 class="hero__title">
+								Продажа, производство и монтаж всех видов заборов
+								<span>"под ключ"</span>
+								на любых типах грунта в Санкт-Петербурге
+							</h1>
+							<div class="hero__text">
+								<p>От бюджета до премиум сегмента</p>
+								<img alt="Image" src="./assets/img/hero/monets.png">
+							</div>
+							<form class="hero__form form-hero" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="">
+								<h2 class="form-hero__title">
+									Получите прямо сейчас
+									<strong>актуальный прайс-каталог</strong>
+								</h2>
+								<p class="form-hero__text">
+									С примерами готовых работ, ценами и советами + закрепите скидку 19%
+            на материал
+								</p>
+								<div class="form-hero__body">
+									<div class="form-hero__content">
+										<div class="form-hero__loader">
+											<img class="form-hero__loader-img" alt="Image" src="./assets/img/hero/loader.png">
+											<div class="form-hero__loader-text">
+												<strong>Обновлен</strong>
+												<p>5 декабря</p>
+											</div>
+										</div>
+										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="form-hero__input input">
+										<button type="submit" class="form-hero__button button">
+											<img class="button__img" alt="Image" src="./assets/img/hero/down.png">
+											<div class="button__text">
+												<p>Получить прайс-каталог</p>
+												<small>+ получить скидку -19%</small>
+											</div>
+										</button>
 									</div>
-									<a data-swiper-parallax="-400" class="hero__button button button--big" href="#">Рассчитать</a>
+									<div class="form-hero__images">
+										<img alt="Image" src="./assets/img/hero/book.png">
+										<div class="form-hero__circle">
+											<p>Всего за</p>
+											<span>0 рублей</span>
+										</div>
+									</div>
+									<!--
+<div class="form-hero__circle">
+<p>Всего за</p>
+<span>0 рублей</span>
+</div>
+-->
 								</div>
-							</div>
-							<div class="hero__slide swiper-slide">
-								<img class="hero__image" alt="Image" src="./assets/img/hero/02.jpg">
-								<div class="hero__container">
-									<h1 data-swiper-parallax="-1300" class="hero__title">Покупайте окна и двери у официальных партнеров компании VEKA</h1>
-									<a data-swiper-parallax="-400" class="hero__button button button--big" href="#">Где купить</a>
-								</div>
-							</div>
-							<div class="hero__slide swiper-slide">
-								<img class="hero__image" alt="Image" src="./assets/img/hero/03.jpg">
-								<div class="hero__container">
-									<h1 data-swiper-parallax="-1300" class="hero__title">E-SLIDE открывая пространство по‑новому</h1>
-									<a data-swiper-parallax="-400" class="hero__button button button--big" href="#">Подробнее</a>
-								</div>
-							</div>
+								<label data-fls-checkbox="" class="checkbox">
+									<input checked data-fls-form-errtext="Ознакомтесь с условия обработки персональных данных" class="checkbox__input" type="checkbox" value="согласен" name="check">
+									<span class="checkbox__text">Вы соглашаетесь на условия обработки персональных данных</span>
+								</label>
+							</form>
 						</div>
-						<div class="swiper-pagination"></div>
-						<div class="hero__navigacion">
-							<button type="button" class="hero-button-prev swiper-button-prev"></button>
-							<button type="button" class="hero-button-next swiper-button-next"></button>
-						</div>
-					</div>
-				</section>
-				<div class="advantages">
-					<div class="advantages__container">
-						<div class="advantages__items">
-							<div class="advantages__item-wrapper">
-								<div class="advantages__item">
-									<div class="advantages__image">
-										<img alt="Image" src="./assets/img/advantages/01.webp">
-									</div>
-									<div class="advantages__block">
-										<h3 class="advantages__title">ЦЕНА ЗАВОДА</h3>
-										<p class="advantages__text">Заказывайте окна напрямую без переплат и посредников</p>
-									</div>
-								</div>
+						<div class="hero__items">
+							<div class="hero__item">
+								<img alt="Image" src="./assets/img/hero/1.png">
+								<p>Гарантия 20 лет</p>
 							</div>
-							<div class="advantages__item-wrapper">
-								<div class="advantages__item">
-									<div class="advantages__image">
-										<img alt="Image" src="./assets/img/advantages/02.webp">
-									</div>
-									<div class="advantages__block">
-										<h3 class="advantages__title">ЦЕНА ЗАВОДА</h3>
-										<p class="advantages__text">Заказывайте окна напрямую без переплат и посредников</p>
-									</div>
-								</div>
+							<div class="hero__item">
+								<img alt="Image" src="./assets/img/hero/2.png">
+								<p>Гарантия 20 лет</p>
 							</div>
-							<div class="advantages__item-wrapper">
-								<div class="advantages__item">
-									<div class="advantages__image">
-										<img alt="Image" src="./assets/img/advantages/03.webp">
-									</div>
-									<div class="advantages__block">
-										<h3 class="advantages__title">ЦЕНА ЗАВОДА</h3>
-										<p class="advantages__text">Заказывайте окна напрямую без переплат и посредников</p>
-									</div>
-								</div>
+							<div class="hero__item">
+								<img alt="Image" src="./assets/img/hero/3.png">
+								<p>Гарантия 20 лет</p>
 							</div>
-							<div class="advantages__item-wrapper">
-								<div class="advantages__item">
-									<div class="advantages__image">
-										<img alt="Image" src="./assets/img/advantages/04.webp">
-									</div>
-									<div class="advantages__block">
-										<h3 class="advantages__title">ЦЕНА ЗАВОДА</h3>
-										<p class="advantages__text">Заказывайте окна напрямую без переплат и посредников</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<section class="type">
-					<div class="type__container">
-						<h2 class="type__title title">Функциональные возможности стеклопакетов</h2>
-						<div class="type__items">
-							<div class="type__column">
-								<div class="type__item item-type item-type--header">
-									<img class="item-type__img-bg" alt="Image" src="./assets/img/type/bg1.webp">
-									<div class="item-type__socials">
-										<img class="item-type__social-img" src="./assets/img/type/icon/01.svg" alt="Image">
-										<img class="item-type__social-img" src="./assets/img/type/icon/01.svg" alt="Image">
-										<img class="item-type__social-img" src="./assets/img/type/icon/01.svg" alt="Image">
-										<img class="item-type__social-img" src="./assets/img/type/icon/01.svg" alt="Image">
-									</div>
-									<h3 class="item-type__title">Надёжные окна без переплат</h3>
-									<p class="item-type__text">Такие окна подойдут для сезонных дач и простых построек</p>
-								</div>
-								<div class="type__item item-type">
-									<div class="item-type__content">
-										<h3 class="item-type__title">ГОСТ 60™</h3>
-										<ul class="item-type__list">
-											<li>Профиль Рехау Blitz 3 камеры</li>
-											<li>Глубина профиля 60 мм</li>
-											<li>Высота профиля 105 мм</li>
-										</ul>
-										<a class="item-type__button button" href="#">от 16 973 руб</a>
-									</div>
-									<div class="item-type__image">
-										<img alt="Image" src="./assets/img/materials/01.webp">
-									</div>
-								</div>
-								<div class="type__item item-type">
-									<div class="item-type__content">
-										<h3 class="item-type__title">ГОСТ 60™</h3>
-										<ul class="item-type__list">
-											<li>Профиль Рехау Blitz 3 камеры</li>
-											<li>Глубина профиля 60 мм</li>
-											<li>Высота профиля 105 мм</li>
-										</ul>
-										<a class="item-type__button button" href="#">от 16 973 руб</a>
-									</div>
-									<div class="item-type__image">
-										<img alt="Image" src="./assets/img/materials/01.webp">
-									</div>
-								</div>
-								<div class="type__item item-type">
-									<div class="item-type__content">
-										<h3 class="item-type__title">ГОСТ 60™</h3>
-										<ul class="item-type__list">
-											<li>Профиль Рехау Blitz 3 камеры</li>
-											<li>Глубина профиля 60 мм</li>
-											<li>Высота профиля 105 мм</li>
-										</ul>
-										<a class="item-type__button button" href="#">от 16 973 руб</a>
-									</div>
-									<div class="item-type__image">
-										<img alt="Image" src="./assets/img/materials/01.webp">
-									</div>
-								</div>
-							</div>
-							<div class="type__column">
-								<div class="type__item item-type item-type--header">
-									<img class="item-type__img-bg" alt="Image" src="./assets/img/type/bg1.webp">
-									<div class="item-type__socials">
-										<img class="item-type__social-img" src="./assets/img/type/icon/01.svg" alt="Image">
-										<img class="item-type__social-img" src="./assets/img/type/icon/01.svg" alt="Image">
-										<img class="item-type__social-img" src="./assets/img/type/icon/01.svg" alt="Image">
-										<img class="item-type__social-img" src="./assets/img/type/icon/01.svg" alt="Image">
-									</div>
-									<h3 class="item-type__title">Надёжные окна без переплат</h3>
-									<p class="item-type__text">Такие окна подойдут для сезонных дач и простых построек</p>
-								</div>
-								<div class="type__item item-type">
-									<div class="item-type__content">
-										<h3 class="item-type__title">ГОСТ 60™</h3>
-										<ul class="item-type__list">
-											<li>Профиль Рехау Blitz 3 камеры</li>
-											<li>Глубина профиля 60 мм</li>
-											<li>Высота профиля 105 мм</li>
-										</ul>
-										<a class="item-type__button button" href="#">от 16 973 руб</a>
-									</div>
-									<div class="item-type__image">
-										<img alt="Image" src="./assets/img/materials/01.webp">
-									</div>
-								</div>
-								<div class="type__item item-type">
-									<div class="item-type__content">
-										<h3 class="item-type__title">ГОСТ 60™</h3>
-										<ul class="item-type__list">
-											<li>Профиль Рехау Blitz 3 камеры</li>
-											<li>Глубина профиля 60 мм</li>
-											<li>Высота профиля 105 мм</li>
-										</ul>
-										<a class="item-type__button button" href="#">от 16 973 руб</a>
-									</div>
-									<div class="item-type__image">
-										<img alt="Image" src="./assets/img/materials/01.webp">
-									</div>
-								</div>
-								<div class="type__item item-type">
-									<div class="item-type__content">
-										<h3 class="item-type__title">ГОСТ 60™</h3>
-										<ul class="item-type__list">
-											<li>Профиль Рехау Blitz 3 камеры</li>
-											<li>Глубина профиля 60 мм</li>
-											<li>Высота профиля 105 мм</li>
-										</ul>
-										<a class="item-type__button button" href="#">от 16 973 руб</a>
-									</div>
-									<div class="item-type__image">
-										<img alt="Image" src="./assets/img/materials/01.webp">
-									</div>
-								</div>
-							</div>
-							<div class="type__column">
-								<div class="type__item item-type item-type--header">
-									<img class="item-type__img-bg" alt="Image" src="./assets/img/type/bg1.webp">
-									<div class="item-type__socials">
-										<img class="item-type__social-img" src="./assets/img/type/icon/01.svg" alt="Image">
-										<img class="item-type__social-img" src="./assets/img/type/icon/01.svg" alt="Image">
-										<img class="item-type__social-img" src="./assets/img/type/icon/01.svg" alt="Image">
-										<img class="item-type__social-img" src="./assets/img/type/icon/01.svg" alt="Image">
-									</div>
-									<h3 class="item-type__title">Надёжные окна без переплат</h3>
-									<p class="item-type__text">Такие окна подойдут для сезонных дач и простых построек</p>
-								</div>
-								<div class="type__item item-type">
-									<div class="item-type__content">
-										<h3 class="item-type__title">ГОСТ 60™</h3>
-										<ul class="item-type__list">
-											<li>Профиль Рехау Blitz 3 камеры</li>
-											<li>Глубина профиля 60 мм</li>
-											<li>Высота профиля 105 мм</li>
-										</ul>
-										<a class="item-type__button button" href="#">от 16 973 руб</a>
-									</div>
-									<div class="item-type__image">
-										<img alt="Image" src="./assets/img/materials/01.webp">
-									</div>
-								</div>
-								<div class="type__item item-type">
-									<div class="item-type__content">
-										<h3 class="item-type__title">ГОСТ 60™</h3>
-										<ul class="item-type__list">
-											<li>Профиль Рехау Blitz 3 камеры</li>
-											<li>Глубина профиля 60 мм</li>
-											<li>Высота профиля 105 мм</li>
-										</ul>
-										<a class="item-type__button button" href="#">от 16 973 руб</a>
-									</div>
-									<div class="item-type__image">
-										<img alt="Image" src="./assets/img/materials/01.webp">
-									</div>
-								</div>
-								<div class="type__item item-type item-type--last">
-									<div class="item-type__content item-type__content--last">
-										<h3 class="item-type__title item-type__title--last">Нужна помощь в выборе окон?</h3>
-										<p class="item-type__text item-type__text--last">
-											Закажите обратный звонок, и мы перезвоним вам в удобное для вас
-              время и поможем сделать правильный выбор.
-										</p>
-										<a class="item-type__button item-type__button--last button" href="#">Заказать звонок</a>
-									</div>
-								</div>
+							<div class="hero__item">
+								<img alt="Image" src="./assets/img/hero/4.png">
+								<p>Гарантия 20 лет</p>
 							</div>
 						</div>
 					</div>
@@ -860,7 +190,7 @@ class="submenu-catalog__list-close submenu-catalog__list-close--icon-arrow-left"
 							<div id="wrapper-content" class="calculator__wrapper-content">
 								<div class="calculator__slider swiper swiper-container">
 									<!-- Частина слайдера, що рухається -->
-									<form data-fls-form-popup="popup-message" data-fls-form="ajax" action="files/sendmail/sendmail.php" method="POST" class="calculator__wrapper swiper-wrapper">
+									<form data-fls-form-popup="popup-message" data-fls-form="ajax" action="files/sendmail/sendmail.php" method="POST" data-fls-slider="" class="calculator__wrapper swiper-wrapper">
 										<!-- 1 Слайд -->
 										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
 											<div class="slide-calculator__body">
@@ -1355,1957 +685,727 @@ fill="white"
 						</div>
 					</div>
 				</section>
-				<div class="present">
-					<div class="present__container">
-						<div class="present__item-wrapper">
-							<img class="present__img-bg" alt="Image" src="./assets/img/present/01.webp">
-							<div class="present__item">
-								<p class="present__text">
-									При заказе окон
-									<span>детская ручка с ключом</span>
-									в ПОДАРОК
-            каждому
-								</p>
+				<section class="mistake">
+					<img class="mistake__img-bg" alt="Image" src="./assets/img/mistake/bg.jpg">
+					<div class="mistake__container">
+						<div data-fls-blockheader="" class="blockheader blockheader--white">
+							<div class="blockheader__top">
+								Хотим
+								<strong>предостеречь</strong>
+								вас
 							</div>
-						</div>
-						<div class="present__item-wrapper">
-							<img class="present__img-bg" alt="Image" src="./assets/img/present/02.webp">
-							<div class="present__item">
-								<p class="present__text">
-									При заказе окон
-									<span>энергосберегающий стеклопакет (мультистекло)</span>
-									в ПОДАРОК
-            каждому
-								</p>
-							</div>
-						</div>
-						<div class="present__item-wrapper">
-							<img class="present__img-bg" alt="Image" src="./assets/img/present/03.webp">
-							<div class="present__item">
-								<p class="present__text">
-									При заказе 2 окон
-									<span>Москитная сетка</span>
-									в ПОДАРОК
-								</p>
-							</div>
-						</div>
-						<div class="present__item-wrapper">
-							<img class="present__img-bg" alt="Image" src="./assets/img/present/04.webp">
-							<div class="present__item">
-								<p class="present__text">
-									При заказе 3-х окон и более
-									<span>
-										детская ручка с ключом ручки Roto Swing москитная сетка
-              мультистекло
-									</span>
-									в ПОДАРОК
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<section class="materials">
-					<div class="materials__container">
-						<h2 class="materials__main-title title">Сравните оконные системы</h2>
-						<div data-fls-tabs="" class="materials__tabs">
-							<nav data-fls-tabs-titles="" class="materials__navigation">
-								<button type="button" class="materials__title --tab-active">Бюджет</button>
-								<button type="button" class="materials__title">Стандарт</button>
-								<button type="button" class="materials__title">Комфорт</button>
-								<button type="button" class="materials__title">Премиум</button>
-							</nav>
-							<div data-fls-tabs-body="" class="materials__content">
-								<div class="materials__body">
-									<!-- Оболочка слайдера -->
-									<div data-fls-slider="" class="materials__slider swiper">
-										<!-- Часть слайдера, которая двигается -->
-										<div class="materials__wrapper swiper-wrapper">
-											<!-- Слайд -->
-											<div class="materials__slide slide-materials swiper-slide">
-												<div class="slide-materials__image">
-													<img alt="Image" src="./assets/img/materials/01.webp">
-												</div>
-												<div class="slide-materials__name">ГОСТ 60™</div>
-												<p class="slide-materials__text">Классика, проверенная временем</p>
-												<a class="slide-materials__button button" href="#">от 6 668 руб/м²</a>
-												<table class="slide-materials__table">
-													<!--
-<thead>
-<tr>
-<th>Параметр</th>
-<th>Значение</th>
-</tr>
-</thead>
--->
-													<tbody>
-														<tr>
-															<td>Профиль</td>
-															<td>Рехау Blitz 3 камеры</td>
-														</tr>
-														<tr>
-															<td>Глубина профиля</td>
-															<td>60 мм</td>
-														</tr>
-														<tr>
-															<td>Высота профиля</td>
-															<td>105 мм</td>
-														</tr>
-														<tr>
-															<td>Стеклопакет</td>
-															<td>32 мм</td>
-														</tr>
-														<tr>
-															<td>Фурнитура</td>
-															<td>SoftOPEN™ BASE, EU</td>
-														</tr>
-														<tr>
-															<td>Теплозащита</td>
-															<td>0,57 м²·°С/Вт</td>
-														</tr>
-														<tr>
-															<td>Звукоизоляция</td>
-															<td>≈37 дБ</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<div class="materials__slide slide-materials swiper-slide">
-												<div class="slide-materials__image">
-													<img alt="Image" src="./assets/img/materials/01.webp">
-												</div>
-												<div class="slide-materials__name">ГОСТ 60™</div>
-												<p class="slide-materials__text">Классика, проверенная временем</p>
-												<a class="slide-materials__button button" href="#">от 6 668 руб/м²</a>
-												<table class="slide-materials__table">
-													<thead>
-														<tr>
-															<th>Параметр</th>
-															<th>Значение</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>
-																<strong>Профиль</strong>
-															</td>
-															<td>Рехау Blitz 3 камеры</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Глубина профиля</strong>
-															</td>
-															<td>60 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Высота профиля</strong>
-															</td>
-															<td>105 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Стеклопакет</strong>
-															</td>
-															<td>32 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Фурнитура</strong>
-															</td>
-															<td>SoftOPEN™ BASE, EU</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Теплозащита</strong>
-															</td>
-															<td>0,57 м²·°С/Вт</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Звукоизоляция</strong>
-															</td>
-															<td>≈37 дБ</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<div class="materials__slide slide-materials swiper-slide">
-												<div class="slide-materials__image">
-													<img alt="Image" src="./assets/img/materials/01.webp">
-												</div>
-												<div class="slide-materials__name">ГОСТ 60™</div>
-												<p class="slide-materials__text">Классика, проверенная временем</p>
-												<a class="slide-materials__button button" href="#">от 6 668 руб/м²</a>
-												<table class="slide-materials__table">
-													<thead>
-														<tr>
-															<th>Параметр</th>
-															<th>Значение</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>
-																<strong>Профиль</strong>
-															</td>
-															<td>Рехау Blitz 3 камеры</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Глубина профиля</strong>
-															</td>
-															<td>60 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Высота профиля</strong>
-															</td>
-															<td>105 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Стеклопакет</strong>
-															</td>
-															<td>32 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Фурнитура</strong>
-															</td>
-															<td>SoftOPEN™ BASE, EU</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Теплозащита</strong>
-															</td>
-															<td>0,57 м²·°С/Вт</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Звукоизоляция</strong>
-															</td>
-															<td>≈37 дБ</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<div class="materials__slide slide-materials swiper-slide">
-												<div class="slide-materials__image">
-													<img alt="Image" src="./assets/img/materials/01.webp">
-												</div>
-												<div class="slide-materials__name">ГОСТ 60™</div>
-												<p class="slide-materials__text">Классика, проверенная временем</p>
-												<a class="slide-materials__button button" href="#">от 6 668 руб/м²</a>
-												<table class="slide-materials__table">
-													<thead>
-														<tr>
-															<th>Параметр</th>
-															<th>Значение</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>
-																<strong>Профиль</strong>
-															</td>
-															<td>Рехау Blitz 3 камеры</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Глубина профиля</strong>
-															</td>
-															<td>60 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Высота профиля</strong>
-															</td>
-															<td>105 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Стеклопакет</strong>
-															</td>
-															<td>32 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Фурнитура</strong>
-															</td>
-															<td>SoftOPEN™ BASE, EU</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Теплозащита</strong>
-															</td>
-															<td>0,57 м²·°С/Вт</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Звукоизоляция</strong>
-															</td>
-															<td>≈37 дБ</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<div class="materials__slide slide-materials swiper-slide">
-												<div class="slide-materials__image">
-													<img alt="Image" src="./assets/img/materials/01.webp">
-												</div>
-												<div class="slide-materials__name">ГОСТ 60™</div>
-												<p class="slide-materials__text">Классика, проверенная временем</p>
-												<a class="slide-materials__button button" href="#">от 6 668 руб/м²</a>
-												<table class="slide-materials__table">
-													<thead>
-														<tr>
-															<th>Параметр</th>
-															<th>Значение</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>Профиль</td>
-															<td>Рехау Blitz 3 камеры</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Глубина профиля</strong>
-															</td>
-															<td>60 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Высота профиля</strong>
-															</td>
-															<td>105 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Стеклопакет</strong>
-															</td>
-															<td>32 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Фурнитура</strong>
-															</td>
-															<td>SoftOPEN™ BASE, EU</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Теплозащита</strong>
-															</td>
-															<td>0,57 м²·°С/Вт</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Звукоизоляция</strong>
-															</td>
-															<td>≈37 дБ</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-										<p class="slide-materials__bottom">
-											S* – энергоэффективный стеклопакет, собственная разработка
-                компании Московские окна
-										</p>
-										<div class="materials__navigacions">
-											<button type="button" class="materials-button-prev swiper-button-prev"></button>
-											<button type="button" class="materials-button-next swiper-button-next"></button>
-										</div>
-									</div>
-								</div>
-								<div class="materials__body">
-									<div data-fls-slider="" class="materials__slider swiper">
-										<!-- Часть слайдера, которая двигается -->
-										<div class="materials__wrapper swiper-wrapper">
-											<!-- Слайд -->
-											<div class="materials__slide slide-materials swiper-slide">
-												<div class="slide-materials__image">
-													<img alt="Image" src="./assets/img/materials/01.webp">
-												</div>
-												<div class="slide-materials__name">ГОСТ 60™</div>
-												<p class="slide-materials__text">Классика, проверенная временем</p>
-												<a class="slide-materials__button button" href="#">от 6 668 руб/м²</a>
-												<table class="slide-materials__table">
-													<!--
-<thead>
-<tr>
-<th>Параметр</th>
-<th>Значение</th>
-</tr>
-</thead>
--->
-													<tbody>
-														<tr>
-															<td>Профиль</td>
-															<td>Рехау Blitz 3 камеры</td>
-														</tr>
-														<tr>
-															<td>Глубина профиля</td>
-															<td>60 мм</td>
-														</tr>
-														<tr>
-															<td>Высота профиля</td>
-															<td>105 мм</td>
-														</tr>
-														<tr>
-															<td>Стеклопакет</td>
-															<td>32 мм</td>
-														</tr>
-														<tr>
-															<td>Фурнитура</td>
-															<td>SoftOPEN™ BASE, EU</td>
-														</tr>
-														<tr>
-															<td>Теплозащита</td>
-															<td>0,57 м²·°С/Вт</td>
-														</tr>
-														<tr>
-															<td>Звукоизоляция</td>
-															<td>≈37 дБ</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<div class="materials__slide slide-materials swiper-slide">
-												<div class="slide-materials__image">
-													<img alt="Image" src="./assets/img/materials/01.webp">
-												</div>
-												<div class="slide-materials__name">ГОСТ 60™</div>
-												<p class="slide-materials__text">Классика, проверенная временем</p>
-												<a class="slide-materials__button button" href="#">от 6 668 руб/м²</a>
-												<table class="slide-materials__table">
-													<thead>
-														<tr>
-															<th>Параметр</th>
-															<th>Значение</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>
-																<strong>Профиль</strong>
-															</td>
-															<td>Рехау Blitz 3 камеры</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Глубина профиля</strong>
-															</td>
-															<td>60 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Высота профиля</strong>
-															</td>
-															<td>105 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Стеклопакет</strong>
-															</td>
-															<td>32 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Фурнитура</strong>
-															</td>
-															<td>SoftOPEN™ BASE, EU</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Теплозащита</strong>
-															</td>
-															<td>0,57 м²·°С/Вт</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Звукоизоляция</strong>
-															</td>
-															<td>≈37 дБ</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<div class="materials__slide slide-materials swiper-slide">
-												<div class="slide-materials__image">
-													<img alt="Image" src="./assets/img/materials/01.webp">
-												</div>
-												<div class="slide-materials__name">ГОСТ 60™</div>
-												<p class="slide-materials__text">Классика, проверенная временем</p>
-												<a class="slide-materials__button button" href="#">от 6 668 руб/м²</a>
-												<table class="slide-materials__table">
-													<thead>
-														<tr>
-															<th>Параметр</th>
-															<th>Значение</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>
-																<strong>Профиль</strong>
-															</td>
-															<td>Рехау Blitz 3 камеры</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Глубина профиля</strong>
-															</td>
-															<td>60 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Высота профиля</strong>
-															</td>
-															<td>105 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Стеклопакет</strong>
-															</td>
-															<td>32 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Фурнитура</strong>
-															</td>
-															<td>SoftOPEN™ BASE, EU</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Теплозащита</strong>
-															</td>
-															<td>0,57 м²·°С/Вт</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Звукоизоляция</strong>
-															</td>
-															<td>≈37 дБ</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-										<p class="slide-materials__bottom">
-											S* – энергоэффективный стеклопакет, собственная разработка
-                компании Московские окна
-										</p>
-										<div class="materials__navigacions">
-											<button type="button" class="materials-button-prev swiper-button-prev"></button>
-											<button type="button" class="materials-button-next swiper-button-next"></button>
-										</div>
-									</div>
-								</div>
-								<div class="materials__body">
-									<div data-fls-slider="" class="materials__slider swiper">
-										<!-- Часть слайдера, которая двигается -->
-										<div class="materials__wrapper swiper-wrapper">
-											<!-- Слайд -->
-											<div class="materials__slide slide-materials swiper-slide">
-												<div class="slide-materials__image">
-													<img alt="Image" src="./assets/img/materials/01.webp">
-												</div>
-												<div class="slide-materials__name">ГОСТ 60™</div>
-												<p class="slide-materials__text">Классика, проверенная временем</p>
-												<a class="slide-materials__button button" href="#">от 6 668 руб/м²</a>
-												<table class="slide-materials__table">
-													<!--
-<thead>
-<tr>
-<th>Параметр</th>
-<th>Значение</th>
-</tr>
-</thead>
--->
-													<tbody>
-														<tr>
-															<td>Профиль</td>
-															<td>Рехау Blitz 3 камеры</td>
-														</tr>
-														<tr>
-															<td>Глубина профиля</td>
-															<td>60 мм</td>
-														</tr>
-														<tr>
-															<td>Высота профиля</td>
-															<td>105 мм</td>
-														</tr>
-														<tr>
-															<td>Стеклопакет</td>
-															<td>32 мм</td>
-														</tr>
-														<tr>
-															<td>Фурнитура</td>
-															<td>SoftOPEN™ BASE, EU</td>
-														</tr>
-														<tr>
-															<td>Теплозащита</td>
-															<td>0,57 м²·°С/Вт</td>
-														</tr>
-														<tr>
-															<td>Звукоизоляция</td>
-															<td>≈37 дБ</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<div class="materials__slide slide-materials swiper-slide">
-												<div class="slide-materials__image">
-													<img alt="Image" src="./assets/img/materials/01.webp">
-												</div>
-												<div class="slide-materials__name">ГОСТ 60™</div>
-												<p class="slide-materials__text">Классика, проверенная временем</p>
-												<a class="slide-materials__button button" href="#">от 6 668 руб/м²</a>
-												<table class="slide-materials__table">
-													<thead>
-														<tr>
-															<th>Параметр</th>
-															<th>Значение</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>
-																<strong>Профиль</strong>
-															</td>
-															<td>Рехау Blitz 3 камеры</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Глубина профиля</strong>
-															</td>
-															<td>60 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Высота профиля</strong>
-															</td>
-															<td>105 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Стеклопакет</strong>
-															</td>
-															<td>32 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Фурнитура</strong>
-															</td>
-															<td>SoftOPEN™ BASE, EU</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Теплозащита</strong>
-															</td>
-															<td>0,57 м²·°С/Вт</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Звукоизоляция</strong>
-															</td>
-															<td>≈37 дБ</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<div class="materials__slide slide-materials swiper-slide">
-												<div class="slide-materials__image">
-													<img alt="Image" src="./assets/img/materials/01.webp">
-												</div>
-												<div class="slide-materials__name">ГОСТ 60™</div>
-												<p class="slide-materials__text">Классика, проверенная временем</p>
-												<a class="slide-materials__button button" href="#">от 6 668 руб/м²</a>
-												<table class="slide-materials__table">
-													<thead>
-														<tr>
-															<th>Параметр</th>
-															<th>Значение</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>
-																<strong>Профиль</strong>
-															</td>
-															<td>Рехау Blitz 3 камеры</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Глубина профиля</strong>
-															</td>
-															<td>60 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Высота профиля</strong>
-															</td>
-															<td>105 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Стеклопакет</strong>
-															</td>
-															<td>32 мм</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Фурнитура</strong>
-															</td>
-															<td>SoftOPEN™ BASE, EU</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Теплозащита</strong>
-															</td>
-															<td>0,57 м²·°С/Вт</td>
-														</tr>
-														<tr>
-															<td>
-																<strong>Звукоизоляция</strong>
-															</td>
-															<td>≈37 дБ</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-										<p class="slide-materials__bottom">
-											S* – энергоэффективный стеклопакет, собственная разработка
-                компании Московские окна
-										</p>
-										<div class="materials__navigacions">
-											<button type="button" class="materials-button-prev swiper-button-prev"></button>
-											<button type="button" class="materials-button-next swiper-button-next"></button>
-										</div>
-									</div>
-								</div>
-								<div class="materials__body">
-									<div data-fls-slider="" class="materials__slider swiper">
-										<!-- Часть слайдера, которая двигается -->
-										<div class="materials__wrapper swiper-wrapper">
-											<!-- Слайд -->
-											<div class="materials__slide slide-materials swiper-slide">
-												<div class="slide-materials__image">
-													<img alt="Image" src="./assets/img/materials/01.webp">
-												</div>
-												<div class="slide-materials__name">ГОСТ 60™</div>
-												<p class="slide-materials__text">Классика, проверенная временем</p>
-												<a class="slide-materials__button button" href="#">от 6 668 руб/м²</a>
-												<table class="slide-materials__table">
-													<!--
-<thead>
-<tr>
-<th>Параметр</th>
-<th>Значение</th>
-</tr>
-</thead>
--->
-													<tbody>
-														<tr>
-															<td>Профиль</td>
-															<td>Рехау Blitz 3 камеры</td>
-														</tr>
-														<tr>
-															<td>Глубина профиля</td>
-															<td>60 мм</td>
-														</tr>
-														<tr>
-															<td>Высота профиля</td>
-															<td>105 мм</td>
-														</tr>
-														<tr>
-															<td>Стеклопакет</td>
-															<td>32 мм</td>
-														</tr>
-														<tr>
-															<td>Фурнитура</td>
-															<td>SoftOPEN™ BASE, EU</td>
-														</tr>
-														<tr>
-															<td>Теплозащита</td>
-															<td>0,57 м²·°С/Вт</td>
-														</tr>
-														<tr>
-															<td>Звукоизоляция</td>
-															<td>≈37 дБ</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-										<p class="slide-materials__bottom">
-											S* – энергоэффективный стеклопакет, собственная разработка
-                компании Московские окна
-										</p>
-										<div class="materials__navigacions">
-											<button type="button" class="materials-button-prev swiper-button-prev"></button>
-											<button type="button" class="materials-button-next swiper-button-next"></button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="foto">
-					<div class="foto__container">
-						<h2 class="foto__title title">Примеры выполненных объектов</h2>
-						<p class="foto__text">и довольных наших клиентов</p>
-						<div class="foto__items">
-							<div class="foto__item">
-								<div data-fls-gallery="" class="foto__gallery">
-									<a class="foto__image" href="./assets/img/foto/01.jpg">
-										<img src="./assets/img/foto/01.jpg">
-									</a>
-									<a class="foto__image" href="./assets/img/foto/02.jpg">
-										<img src="./assets/img/foto/02.jpg">
-									</a>
-									<a class="foto__image" href="./assets/img/foto/03.jpg">
-										<img src="./assets/img/foto/03.jpg">
-									</a>
-								</div>
-								<div class="foto__place foto-place">
-									<div class="foto-place__top">Натяжной потолок в спальне</div>
-									<div class="foto-place__address">г.Могилев, ул.Якубовского</div>
-								</div>
-								<div class="foto__bottom bottom-foto">
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/1.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Площадь</p>
-											<div class="bottom-foto__number">
-												12 м
-												<sup>2</sup>
-											</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/2.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Периметр</p>
-											<div class="bottom-foto__number">14 м.п.</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/3.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Свет</p>
-											<div class="bottom-foto__number">4000 К</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/4.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Контурная подсветка</p>
-											<div class="bottom-foto__number">3 м.п.</div>
-										</div>
-									</div>
-									<a data-fls-popup-link="popup" href="#" class="bottom-foto__button button">Рассчитать стоимость</a>
-								</div>
-							</div>
-							<div class="foto__item">
-								<div data-fls-gallery="" class="foto__gallery">
-									<a class="foto__image" href="./assets/img/foto/01.jpg" data-lg-id="2137c067-8c20-4d03-8160-e714e0a91e56">
-										<img src="./assets/img/foto/01.jpg">
-									</a>
-									<a class="foto__image" href="./assets/img/foto/02.jpg" data-lg-id="fb030bd8-e206-47c3-b301-d2705496a78b">
-										<img src="./assets/img/foto/02.jpg">
-									</a>
-									<a class="foto__image" href="./assets/img/foto/03.jpg" data-lg-id="f4da1ca7-d94f-4b48-9ea4-a2cfa4b066d9">
-										<img src="./assets/img/foto/03.jpg">
-									</a>
-								</div>
-								<div class="foto__place foto-place">
-									<div class="foto-place__top">Натяжной потолок в спальне</div>
-									<div class="foto-place__address">г.Могилев, ул.Якубовского</div>
-								</div>
-								<div class="foto__bottom bottom-foto">
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/1.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Площадь</p>
-											<div class="bottom-foto__number">
-												12 м
-												<sup>2</sup>
-											</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/2.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Периметр</p>
-											<div class="bottom-foto__number">14 м.п.</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/3.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Свет</p>
-											<div class="bottom-foto__number">4000 К</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/4.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Контурная подсветка</p>
-											<div class="bottom-foto__number">3 м.п.</div>
-										</div>
-									</div>
-									<a data-fls-popup-link="popup" href="#" class="bottom-foto__button button">Рассчитать стоимость</a>
-								</div>
-							</div>
-							<div class="foto__item">
-								<div data-fls-gallery="" class="foto__gallery">
-									<a class="foto__image" href="./assets/img/foto/01.jpg" data-lg-id="2137c067-8c20-4d03-8160-e714e0a91e56">
-										<img src="./assets/img/foto/01.jpg">
-									</a>
-									<a class="foto__image" href="./assets/img/foto/02.jpg" data-lg-id="fb030bd8-e206-47c3-b301-d2705496a78b">
-										<img src="./assets/img/foto/02.jpg">
-									</a>
-									<a class="foto__image" href="./assets/img/foto/03.jpg" data-lg-id="f4da1ca7-d94f-4b48-9ea4-a2cfa4b066d9">
-										<img src="./assets/img/foto/03.jpg">
-									</a>
-								</div>
-								<div class="foto__place foto-place">
-									<div class="foto-place__top">Натяжной потолок в спальне</div>
-									<div class="foto-place__address">г.Могилев, ул.Якубовского</div>
-								</div>
-								<div class="foto__bottom bottom-foto">
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/1.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Площадь</p>
-											<div class="bottom-foto__number">
-												12 м
-												<sup>2</sup>
-											</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/2.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Периметр</p>
-											<div class="bottom-foto__number">14 м.п.</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/3.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Свет</p>
-											<div class="bottom-foto__number">4000 К</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/4.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Контурная подсветка</p>
-											<div class="bottom-foto__number">3 м.п.</div>
-										</div>
-									</div>
-									<a data-fls-popup-link="popup" href="#" class="bottom-foto__button button">Рассчитать стоимость</a>
-								</div>
-							</div>
-							<div class="foto__item">
-								<div data-fls-gallery="" class="foto__gallery">
-									<a class="foto__image" href="./assets/img/foto/01.jpg" data-lg-id="2137c067-8c20-4d03-8160-e714e0a91e56">
-										<img src="./assets/img/foto/01.jpg">
-									</a>
-									<a class="foto__image" href="./assets/img/foto/02.jpg" data-lg-id="fb030bd8-e206-47c3-b301-d2705496a78b">
-										<img src="./assets/img/foto/02.jpg">
-									</a>
-									<a class="foto__image" href="./assets/img/foto/03.jpg" data-lg-id="f4da1ca7-d94f-4b48-9ea4-a2cfa4b066d9">
-										<img src="./assets/img/foto/03.jpg">
-									</a>
-								</div>
-								<div class="foto__place foto-place">
-									<div class="foto-place__top">Натяжной потолок в спальне</div>
-									<div class="foto-place__address">г.Могилев, ул.Якубовского</div>
-								</div>
-								<div class="foto__bottom bottom-foto">
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/1.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Площадь</p>
-											<div class="bottom-foto__number">
-												12 м
-												<sup>2</sup>
-											</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/2.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Периметр</p>
-											<div class="bottom-foto__number">14 м.п.</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/3.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Свет</p>
-											<div class="bottom-foto__number">4000 К</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/4.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Контурная подсветка</p>
-											<div class="bottom-foto__number">3 м.п.</div>
-										</div>
-									</div>
-									<a data-fls-popup-link="popup" href="#" class="bottom-foto__button button">Рассчитать стоимость</a>
-								</div>
-							</div>
-							<div class="foto__item">
-								<div data-fls-gallery="" class="foto__gallery">
-									<a class="foto__image" href="./assets/img/foto/01.jpg" data-lg-id="2137c067-8c20-4d03-8160-e714e0a91e56">
-										<img src="./assets/img/foto/01.jpg">
-									</a>
-									<a class="foto__image" href="./assets/img/foto/02.jpg" data-lg-id="fb030bd8-e206-47c3-b301-d2705496a78b">
-										<img src="./assets/img/foto/02.jpg">
-									</a>
-									<a class="foto__image" href="./assets/img/foto/03.jpg" data-lg-id="f4da1ca7-d94f-4b48-9ea4-a2cfa4b066d9">
-										<img src="./assets/img/foto/03.jpg">
-									</a>
-								</div>
-								<div class="foto__place foto-place">
-									<div class="foto-place__top">Натяжной потолок в спальне</div>
-									<div class="foto-place__address">г.Могилев, ул.Якубовского</div>
-								</div>
-								<div class="foto__bottom bottom-foto">
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/1.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Площадь</p>
-											<div class="bottom-foto__number">
-												12 м
-												<sup>2</sup>
-											</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/2.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Периметр</p>
-											<div class="bottom-foto__number">14 м.п.</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/3.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Свет</p>
-											<div class="bottom-foto__number">4000 К</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/4.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Контурная подсветка</p>
-											<div class="bottom-foto__number">3 м.п.</div>
-										</div>
-									</div>
-									<a data-fls-popup-link="popup" href="#" class="bottom-foto__button button">Рассчитать стоимость</a>
-								</div>
-							</div>
-							<div class="foto__item">
-								<div data-fls-gallery="" class="foto__gallery">
-									<a class="foto__image" href="./assets/img/foto/01.jpg" data-lg-id="2137c067-8c20-4d03-8160-e714e0a91e56">
-										<img src="./assets/img/foto/01.jpg">
-									</a>
-									<a class="foto__image" href="./assets/img/foto/02.jpg" data-lg-id="fb030bd8-e206-47c3-b301-d2705496a78b">
-										<img src="./assets/img/foto/02.jpg">
-									</a>
-									<a class="foto__image" href="./assets/img/foto/03.jpg" data-lg-id="f4da1ca7-d94f-4b48-9ea4-a2cfa4b066d9">
-										<img src="./assets/img/foto/03.jpg">
-									</a>
-								</div>
-								<div class="foto__place foto-place">
-									<div class="foto-place__top">Натяжной потолок в спальне</div>
-									<div class="foto-place__address">г.Могилев, ул.Якубовского</div>
-								</div>
-								<div class="foto__bottom bottom-foto">
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/1.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Площадь</p>
-											<div class="bottom-foto__number">
-												12 м
-												<sup>2</sup>
-											</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/2.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Периметр</p>
-											<div class="bottom-foto__number">14 м.п.</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/3.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Свет</p>
-											<div class="bottom-foto__number">4000 К</div>
-										</div>
-									</div>
-									<div class="bottom-foto__item">
-										<img src="./assets/img/foto/icon/4.svg" alt="#">
-										<div class="bottom-foto__block">
-											<p class="bottom-foto__text">Контурная подсветка</p>
-											<div class="bottom-foto__number">3 м.п.</div>
-										</div>
-									</div>
-									<a data-fls-popup-link="popup" href="#" class="bottom-foto__button button">Рассчитать стоимость</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="installment">
-					<img class="installment__img-bg" alt="Image" src="./assets/img/installment/bg.png">
-					<div class="installment__container">
-						<div class="installment__img-left">
-							<img class="" alt="Image" src="./assets/img/installment/left.png">
-						</div>
-						<div class="installment__img-right">
-							<img class="" alt="Image" src="./assets/img/installment/right.png">
-						</div>
-						<div class="installment__content">
-							<h2 class="installment__title">
-								Рассрочка
-								<span>до 12 месяцев</span>
+							<h2 class="blockheader__title">
+								<span>4 грубых ошибки</span>
+								при расчете и монтаже забора, которые
+          допускают 85% компаний
 							</h2>
-							<div class="installment__cards">
-								<div class="installment__card">
-									<img class="installment__card-img" alt="Image" src="./assets/img/installment/card-1.png">
-									<div class="installment__card-name">Черепаха</div>
-									<div class="installment__card-clock">8 месяцев</div>
-								</div>
-								<div class="installment__card">
-									<img class="installment__card-img" alt="Image" src="./assets/img/installment/card-2.png">
-									<div class="installment__card-name">Черепаха</div>
-									<div class="installment__card-clock">8 месяцев</div>
-								</div>
-								<div class="installment__card">
-									<img class="installment__card-img" alt="Image" src="./assets/img/installment/card-3.png">
-									<div class="installment__card-name">Черепаха</div>
-									<div class="installment__card-clock">8 месяцев</div>
-								</div>
-								<div class="installment__card">
-									<img class="installment__card-img" alt="Image" src="./assets/img/installment/card-4.png">
-									<div class="installment__card-name">Черепаха</div>
-									<div class="installment__card-clock">8 месяцев</div>
-								</div>
-								<div class="installment__card">
-									<img class="installment__card-img" alt="Image" src="./assets/img/installment/card-5.png">
-									<div class="installment__card-name">Черепаха</div>
-									<div class="installment__card-clock">8 месяцев</div>
-								</div>
-							</div>
-							<form class="installment__form form-installment" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="files/sendmail/sendmail.php">
-								<h3 class="form-installment__title">Рассчитать платежи</h3>
-								<p class="form-installment__text">Внутренняя рассрочка на 3 платежа</p>
-								<div class="form-installment__item">
-									<input data-fls-input-mask="+375(99) 999-99-99" required type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+375 (__) ___-__-__" class="form-installment__input input">
-									<button type="submit" class="form-installment__button button">Рассчитать</button>
-								</div>
-								<div data-fls-checkbox="" class="checkbox">
-									<input data-required="" id="c_1" data-error="Ознакомтесь с обработкой своих данных" class="checkbox__input" type="checkbox" value="Принято" name="check">
-									<label for="c_1" class="checkbox__label">
-										<span class="checkbox__text">
-											Я согласен на обработку персональных данных
-											<!--
-<a href="#" style="color: rgb(22, 216, 0)"
->политики конфиденциальности данных</a
->
--->
-										</span>
-									</label>
-								</div>
-							</form>
+							<p class="blockheader__text">
+								Для устранения последствий таких ошибок придется потратить большое
+          кол-во времени, сил и значительную сумму
+							</p>
 						</div>
-					</div>
-				</section>
-				<section class="ready">
-					<div class="ready__container">
-						<h2 class="ready__main-title title">Готовые решения для вашего дома</h2>
-						<div data-fls-tabs="" class="ready__tabs">
-							<nav data-fls-tabs-titles="" class="ready__navigation">
-								<button type="button" class="ready__title --tab-active">
-									в 1-комнатной квартире
-									<small class="ready__title-text-next">посмотреть</small>
-									<small class="ready__title-text-active">вы смотрите</small>
-								</button>
-								<button type="button" class="ready__title">
-									в 2-комнатной квартире
-									<small class="ready__title-text-next">посмотреть</small>
-									<small class="ready__title-text-active">вы смотрите</small>
-								</button>
-								<button type="button" class="ready__title">
-									в 3-комнатной квартире
-									<small class="ready__title-text-next">посмотреть</small>
-									<small class="ready__title-text-active">вы смотрите</small>
-								</button>
-							</nav>
-							<div data-fls-tabs-body="" class="ready__content">
-								<div class="ready__body ready-tab">
-									<div class="ready-tab__wrapper">
-										<div class="ready-tab__images">
-											<div class="ready-tab__image">
-												<p class="ready-tab__name">Балкон</p>
-												<img alt="Image" src="./assets/img/ready/okno-1.png">
-											</div>
-											<div class="ready-tab__image">
-												<p class="ready-tab__name">Балкон</p>
-												<img alt="Image" src="./assets/img/ready/okno-2.png">
-											</div>
-										</div>
-										<div class="ready-tab__content">
-											<h3 class="ready-tab__title">Пластиковые окна для 1-комнатной квартиры</h3>
-											<div class="ready-tab__item">
-												<div class="ready-tab__column">
-													<div class="ready-tab__block">
-														<div class="ready-tab__price-body">
-															<div class="ready-tab__price-new">
-																<div class="ready-tab__price-number">
-																	от
-																	<span>920 BYN</span>
-																</div>
-																<div class="ready-tab__price-text">Новая цена</div>
-															</div>
-															<div class="ready-tab__price-old">
-																<div class="ready-tab__price-number ready-tab__price-number--old">
-																	от
-																	<span>1200 BYN</span>
-																</div>
-																<div class="ready-tab__price-text">Старая цена</div>
-															</div>
-														</div>
-														<div class="ready-tab__installment">
-															<img alt="Image" src="./assets/img/ready/installment.png">
-															<span>В рассрочку: от 1 833 ₽ в мес.</span>
-														</div>
-													</div>
-													<a class="ready-tab__button button" href="#">Получить расчет под ключ</a>
-												</div>
-												<div class="ready-tab__present">
-													<img class="ready-tab__present-img" alt="Image" src="./assets/img/ready/okno-bg.png">
-													<p>
-														При заказе окон под ключ —
-														<b>москитная сетка в подарок!</b>
-													</p>
-												</div>
-											</div>
-											<div class="ready-tab__info">
-												<h4 class="ready-tab__info-title">Услуги</h4>
-												<ul class="ready-tab__list">
-													<li>
-														<span>Замер</span>
-														<span>Бесплатно</span>
-													</li>
-													<li>
-														<span>Доставка до квартиры</span>
-														<span>Бесплатно</span>
-													</li>
-													<li>
-														<span>Установка окон</span>
-														<span>от 1 600 ₽/м²</span>
-													</li>
-													<li>
-														<span>Отделка откосов</span>
-														<span>от 500 ₽/п.м.</span>
-													</li>
-													<li>
-														<span>Установка подоконников</span>
-														<span>от 850 ₽/п.м.</span>
-													</li>
-													<li>
-														<span>Монтаж отливов</span>
-														<span>от 200 ₽/п.м.</span>
-													</li>
-													<li>
-														<span>Демонтаж старых окон</span>
-														<span>от 450 ₽/п.м.</span>
-													</li>
-													<li>
-														<span>Вынос мусора</span>
-														<span>Бесплатно</span>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="ready__body">
-									<div class="ready-tab__wrapper">
-										<div class="ready-tab__images">
-											<div class="ready-tab__image">
-												<p class="ready-tab__name">Балкон</p>
-												<img alt="Image" src="./assets/img/ready/okno-1.png">
-											</div>
-											<div class="ready-tab__image">
-												<p class="ready-tab__name">Балкон</p>
-												<img alt="Image" src="./assets/img/ready/okno-2.png">
-											</div>
-											<div class="ready-tab__image">
-												<p class="ready-tab__name">Балкон</p>
-												<img alt="Image" src="./assets/img/ready/okno-2.png">
-											</div>
-										</div>
-										<div class="ready-tab__content">
-											<h3 class="ready-tab__title">Пластиковые окна для 1-комнатной квартиры</h3>
-											<div class="ready-tab__item">
-												<div class="ready-tab__column">
-													<div class="ready-tab__block">
-														<div class="ready-tab__price-body">
-															<div class="ready-tab__price-new">
-																<div class="ready-tab__price-number">
-																	от
-																	<span>920 BYN</span>
-																</div>
-																<div class="ready-tab__price-text">Новая цена</div>
-															</div>
-															<div class="ready-tab__price-old">
-																<div class="ready-tab__price-number ready-tab__price-number--old">
-																	от
-																	<span>1200 BYN</span>
-																</div>
-																<div class="ready-tab__price-text">Старая цена</div>
-															</div>
-														</div>
-														<div class="ready-tab__installment">
-															<img alt="Image" src="./assets/img/ready/installment.png">
-															<span>В рассрочку: от 1 833 ₽ в мес.</span>
-														</div>
-													</div>
-													<a class="ready-tab__button button" href="#">Получить расчет под ключ</a>
-												</div>
-												<div class="ready-tab__present">
-													<img class="ready-tab__present-img" alt="Image" src="./assets/img/ready/okno-bg.png">
-													<p>
-														При заказе окон под ключ —
-														<b>москитная сетка в подарок!</b>
-													</p>
-												</div>
-											</div>
-											<div class="ready-tab__info">
-												<h4 class="ready-tab__info-title">Услуги</h4>
-												<ul class="ready-tab__list">
-													<li>
-														<span>Замер</span>
-														<span>Бесплатно</span>
-													</li>
-													<li>
-														<span>Доставка до квартиры</span>
-														<span>Бесплатно</span>
-													</li>
-													<li>
-														<span>Установка окон</span>
-														<span>от 1 600 ₽/м²</span>
-													</li>
-													<li>
-														<span>Отделка откосов</span>
-														<span>от 500 ₽/п.м.</span>
-													</li>
-													<li>
-														<span>Установка подоконников</span>
-														<span>от 850 ₽/п.м.</span>
-													</li>
-													<li>
-														<span>Монтаж отливов</span>
-														<span>от 200 ₽/п.м.</span>
-													</li>
-													<li>
-														<span>Демонтаж старых окон</span>
-														<span>от 450 ₽/п.м.</span>
-													</li>
-													<li>
-														<span>Вынос мусора</span>
-														<span>Бесплатно</span>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="ready__body">
-									<div class="ready-tab__wrapper">
-										<div class="ready-tab__images">
-											<div class="ready-tab__image">
-												<p class="ready-tab__name">Балкон</p>
-												<img alt="Image" src="./assets/img/ready/okno-1.png">
-											</div>
-											<div class="ready-tab__image">
-												<p class="ready-tab__name">Балкон</p>
-												<img alt="Image" src="./assets/img/ready/okno-2.png">
-											</div>
-											<div class="ready-tab__image">
-												<p class="ready-tab__name">Балкон</p>
-												<img alt="Image" src="./assets/img/ready/okno-2.png">
-											</div>
-											<div class="ready-tab__image">
-												<p class="ready-tab__name">Балкон</p>
-												<img alt="Image" src="./assets/img/ready/okno-2.png">
-											</div>
-										</div>
-										<div class="ready-tab__content">
-											<h3 class="ready-tab__title">Пластиковые окна для 1-комнатной квартиры</h3>
-											<div class="ready-tab__item">
-												<div class="ready-tab__column">
-													<div class="ready-tab__block">
-														<div class="ready-tab__price-body">
-															<div class="ready-tab__price-new">
-																<div class="ready-tab__price-number">
-																	от
-																	<span>920 BYN</span>
-																</div>
-																<div class="ready-tab__price-text">Новая цена</div>
-															</div>
-															<div class="ready-tab__price-old">
-																<div class="ready-tab__price-number ready-tab__price-number--old">
-																	от
-																	<span>1200 BYN</span>
-																</div>
-																<div class="ready-tab__price-text">Старая цена</div>
-															</div>
-														</div>
-														<div class="ready-tab__installment">
-															<img alt="Image" src="./assets/img/ready/installment.png">
-															<span>В рассрочку: от 1 833 ₽ в мес.</span>
-														</div>
-													</div>
-													<a class="ready-tab__button button" href="#">Получить расчет под ключ</a>
-												</div>
-												<div class="ready-tab__present">
-													<img class="ready-tab__present-img" alt="Image" src="./assets/img/ready/okno-bg.png">
-													<p>
-														При заказе окон под ключ —
-														<b>москитная сетка в подарок!</b>
-													</p>
-												</div>
-											</div>
-											<div class="ready-tab__info">
-												<h4 class="ready-tab__info-title">Услуги</h4>
-												<ul class="ready-tab__list">
-													<li>
-														<span>Замер</span>
-														<span>Бесплатно</span>
-													</li>
-													<li>
-														<span>Доставка до квартиры</span>
-														<span>Бесплатно</span>
-													</li>
-													<li>
-														<span>Установка окон</span>
-														<span>от 1 600 ₽/м²</span>
-													</li>
-													<li>
-														<span>Отделка откосов</span>
-														<span>от 500 ₽/п.м.</span>
-													</li>
-													<li>
-														<span>Установка подоконников</span>
-														<span>от 850 ₽/п.м.</span>
-													</li>
-													<li>
-														<span>Монтаж отливов</span>
-														<span>от 200 ₽/п.м.</span>
-													</li>
-													<li>
-														<span>Демонтаж старых окон</span>
-														<span>от 450 ₽/п.м.</span>
-													</li>
-													<li>
-														<span>Вынос мусора</span>
-														<span>Бесплатно</span>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
+						<div class="mistake__items">
+							<div class="mistake__item">
+								<span class="mistake__number">01</span>
+								<h3 class="mistake__title">НЕ ПРОИЗВЕДЕНО ОБСЛЕДОВАНИЕ ГРУНТА</h3>
+								<p class="mistake__text">
+									Для разных типов грунта нужно использовать разные методы установки
+            забора
+								</p>
+								<div class="mistake__subtitle">Последствие:</div>
+								<ul class="mistake__list">
+									<li>
+										<strong>- 18 000 руб</strong>
+										из Вашего кошелька;
+									</li>
+									<li>
+										<strong>- 5 дней</strong>
+										на исправление;
+									</li>
+								</ul>
+								<img class="mistake__img-item-bg" alt="Image" src="./assets/img/mistake/card-bg.png">
+							</div>
+							<div class="mistake__item">
+								<span class="mistake__number">01</span>
+								<h3 class="mistake__title">НЕ ПРОИЗВЕДЕНО ОБСЛЕДОВАНИЕ ГРУНТА</h3>
+								<p class="mistake__text">
+									Для разных типов грунта нужно использовать разные методы установки
+            забора
+								</p>
+								<div class="mistake__subtitle">Последствие:</div>
+								<ul class="mistake__list">
+									<li>
+										<strong>- 18 000 руб</strong>
+										из Вашего кошелька;
+									</li>
+									<li>
+										<strong>- 5 дней</strong>
+										на исправление;
+									</li>
+								</ul>
+								<img class="mistake__img-item-bg" alt="Image" src="./assets/img/mistake/card-bg.png">
+							</div>
+							<div class="mistake__item">
+								<span class="mistake__number">01</span>
+								<h3 class="mistake__title">НЕ ПРОИЗВЕДЕНО ОБСЛЕДОВАНИЕ ГРУНТА</h3>
+								<p class="mistake__text">
+									Для разных типов грунта нужно использовать разные методы установки
+            забора
+								</p>
+								<div class="mistake__subtitle">Последствие:</div>
+								<ul class="mistake__list">
+									<li>
+										<strong>- 18 000 руб</strong>
+										из Вашего кошелька;
+									</li>
+									<li>
+										<strong>- 5 дней</strong>
+										на исправление;
+									</li>
+								</ul>
+								<img class="mistake__img-item-bg" alt="Image" src="./assets/img/mistake/card-bg.png">
+							</div>
+							<div class="mistake__item">
+								<span class="mistake__number">01</span>
+								<h3 class="mistake__title">НЕ ПРОИЗВЕДЕНО ОБСЛЕДОВАНИЕ ГРУНТА</h3>
+								<p class="mistake__text">
+									Для разных типов грунта нужно использовать разные методы установки
+            забора
+								</p>
+								<div class="mistake__subtitle">Последствие:</div>
+								<ul class="mistake__list">
+									<li>
+										<strong>- 18 000 руб</strong>
+										из Вашего кошелька;
+									</li>
+									<li>
+										<strong>- 5 дней</strong>
+										на исправление;
+									</li>
+								</ul>
+								<img class="mistake__img-item-bg" alt="Image" src="./assets/img/mistake/card-bg.png">
 							</div>
 						</div>
 					</div>
 				</section>
-				<section class="choice">
-					<div class="choice__img-left">
-						<img alt="Image" src="./assets/img/choice/left.png">
+				<section class="advantages">
+					<div class="advantages__container">
+						<div data-fls-blockheader="" class="blockheader">
+							<div class="blockheader__top">Преимущества</div>
+							<h2 class="blockheader__title">Наши преимущества</h2>
+						</div>
+						<div class="advantages__items">
+							<div class="advantages__item">
+								<img class="advantages__img" src="./assets/img/advantages/01.svg" alt="Image">
+								<h3 class="advantages__title">Производство</h3>
+								<p class="advantages__text">Собственное производство профнастила, штакетника и сетки рабицы</p>
+							</div>
+							<div class="advantages__item">
+								<img class="advantages__img" src="./assets/img/advantages/02.svg" alt="Image">
+								<h3 class="advantages__title">Цены</h3>
+								<p class="advantages__text">Только реальные цены без скрытых надбавок</p>
+							</div>
+							<div class="advantages__item">
+								<img class="advantages__img" src="./assets/img/advantages/02.svg" alt="Image">
+								<h3 class="advantages__title">Без предоплат</h3>
+								<p class="advantages__text">Работаем без предоплаты, вы платите по факту выполнения работ</p>
+							</div>
+							<div class="advantages__item">
+								<img class="advantages__img" src="./assets/img/advantages/04.svg" alt="Image">
+								<h3 class="advantages__title">Профессионализм</h3>
+								<p class="advantages__text">Профессиональные бригады выполнят все виды работ точно в срок</p>
+							</div>
+						</div>
 					</div>
-					<div class="choice__container">
-						<div class="choice__body">
-							<h2 class="choice__title title">
-								Нас выбрали более
-								<span>20000</span>
-								клиентов! Почему?
+				</section>
+				<section class="popular">
+					<div class="popular__container">
+						<div data-fls-blockheader="" class="blockheader">
+							<div class="blockheader__top">
+								Хотим
+								<strong>предостеречь</strong>
+								вас
+							</div>
+							<h2 class="blockheader__title">
+								Мы выбрали только
+								<span>ТОП-8 видов</span>
+								заборов, которые ценят за
+          качество и практичность
 							</h2>
-							<div class="choice__items">
-								<div class="choice__item">
-									<img class="choice__item-icon" alt="Image" src="./assets/img/choice/01.png">
-									<p class="choice__text">Не экономим на материалах и комплектующих, дорожим качеством.</p>
-								</div>
-								<div class="choice__item">
-									<img class="choice__item-icon" alt="Image" src="./assets/img/choice/02.png">
-									<p class="choice__text">Не экономим на материалах и комплектующих, дорожим качеством.</p>
-								</div>
-								<div class="choice__item">
-									<img class="choice__item-icon" alt="Image" src="./assets/img/choice/03.png">
-									<p class="choice__text">Не экономим на материалах и комплектующих, дорожим качеством.</p>
-								</div>
-								<div class="choice__item">
-									<img class="choice__item-icon" alt="Image" src="./assets/img/choice/04.png">
-									<p class="choice__text">Не экономим на материалах и комплектующих, дорожим качеством.</p>
-								</div>
-								<div class="choice__item">
-									<img class="choice__item-icon" alt="Image" src="./assets/img/choice/05.png">
-									<p class="choice__text">Не экономим на материалах и комплектующих, дорожим качеством.</p>
-								</div>
-								<div class="choice__item">
-									<img class="choice__item-icon" alt="Image" src="./assets/img/choice/06.png">
-									<p class="choice__text">Не экономим на материалах и комплектующих, дорожим качеством.</p>
-								</div>
-							</div>
-							<form class="choice__form form-choice" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="files/sendmail/sendmail.php">
-								<h3 class="form-installment__title form-choice__title">
-									<span>Рассчитаем</span>
-									со всеми скидками?
-								</h3>
-								<div class="form-choice__column">
-									<div class="form-installment__item">
-										<input data-fls-input-mask="+375(99) 999-99-99" required type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+375 (__) ___-__-__" class="form-installment__input input form-choice__input">
-										<button type="submit" class="form-installment__button button form-choice__button">ЖДУ ЗВОНКА!</button>
-									</div>
-									<div data-fls-checkbox="" class="checkbox">
-										<input data-required="" id="c_2" data-error="Ознакомтесь с обработкой своих данных" class="checkbox__input" type="checkbox" value="Принято" name="check">
-										<label for="c_2" class="checkbox__label">
-											<span class="checkbox__text">
-												Я согласен на обработку персональных данных
-												<!--
-<a href="#" style="color: rgb(22, 216, 0)"
->политики конфиденциальности данных</a
->
--->
-											</span>
-										</label>
-									</div>
-								</div>
-								<div class="form-choice__items">
-									<div class="form-choice__item">
-										<img class="form-choice__icon" alt="Image" src="./assets/img/choice/07.png">
-										<p class="form-choice__text-icon">Доступная цена</p>
-									</div>
-									<div class="form-choice__item">
-										<img class="form-choice__icon" alt="Image" src="./assets/img/choice/08.png">
-										<p class="form-choice__text-icon">
-											Рассрочка
-											<strong>до 12 месяцев</strong>
-										</p>
-									</div>
-								</div>
-							</form>
+							<p class="blockheader__text">
+								Для устранения последствий таких ошибок придется потратить большое
+          кол-во времени, сил и значительную сумму
+							</p>
 						</div>
-					</div>
-				</section>
-				<section class="guarantees">
-					<div class="guarantees__container">
-						<h2 class="guarantees__title title">На что стоит обратить внимание при выборе окон для остекления квартир</h2>
-						<!-- Оболочка слайдера -->
-						<div data-fls-slider="" class="guarantees__slider swiper">
-							<!-- Часть слайдера, которая двигается -->
-							<div class="guarantees__wrapper swiper-wrapper">
-								<!-- Слайд -->
-								<div class="guarantees__slide slide-guarantees swiper-slide">
-									<img class="slide-guarantees__img" alt="Image" src="./assets/img/guarantees/01.webp">
-									<div class="slide-guarantees__content">
-										<h3 class="slide-guarantees__title">Изготовим в соответствии с вашими пожеланиями</h3>
-										<p class="slide-guarantees__text">
-											Нашими специалистами разрабатываются любые оконные конструкции и балконные блоки с учётом всех пожеланий заказчика и особенностей помещения, в котором будут производиться работы
-										</p>
-										<a class="slide-guarantees__button" href="#">
-											<svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path fill-rule="evenodd" clip-rule="evenodd" d="M1 8a.5.5 0 01.5-.5h11.793l-3.147-3.146a.5.5 0 01.708-.708l4 4a.5.5 0 010 .708l-4 4a.5.5 0 01-.708-.708L13.293 8.5H1.5A.5.5 0 011 8z" fill="currentColor"></path>
-											</svg>
-										</a>
+						<div class="popular__items">
+							<div class="popular__item">
+								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
+								<div class="popular__name">
+									<img alt="Image" src="./assets/img/popular/text-bg.jpg">
+									ДЕРЕВЯННЫЕ ЗАБОРЫ
+									<div class="popular__name-est">
+										<p>В наличии</p>
 									</div>
 								</div>
-								<div class="guarantees__slide slide-guarantees swiper-slide">
-									<img class="slide-guarantees__img" alt="Image" src="./assets/img/guarantees/02.webp">
-									<div class="slide-guarantees__content">
-										<h3 class="slide-guarantees__title">Изготовим в соответствии с вашими пожеланиями</h3>
-										<p class="slide-guarantees__text">
-											Нашими специалистами разрабатываются любые оконные конструкции и балконные блоки с учётом всех пожеланий заказчика и особенностей помещения, в котором будут производиться работы
-										</p>
-										<a class="slide-guarantees__button" href="#">
-											<svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path fill-rule="evenodd" clip-rule="evenodd" d="M1 8a.5.5 0 01.5-.5h11.793l-3.147-3.146a.5.5 0 01.708-.708l4 4a.5.5 0 010 .708l-4 4a.5.5 0 01-.708-.708L13.293 8.5H1.5A.5.5 0 011 8z" fill="currentColor"></path>
-											</svg>
-										</a>
-									</div>
-								</div>
-								<div class="guarantees__slide slide-guarantees swiper-slide">
-									<img class="slide-guarantees__img" alt="Image" src="./assets/img/guarantees/03.webp">
-									<div class="slide-guarantees__content">
-										<h3 class="slide-guarantees__title">Изготовим в соответствии с вашими пожеланиями</h3>
-										<p class="slide-guarantees__text">
-											Нашими специалистами разрабатываются любые оконные конструкции и балконные блоки с учётом всех пожеланий заказчика и особенностей помещения, в котором будут производиться работы
-										</p>
-										<a class="slide-guarantees__button" href="#">
-											<svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path fill-rule="evenodd" clip-rule="evenodd" d="M1 8a.5.5 0 01.5-.5h11.793l-3.147-3.146a.5.5 0 01.708-.708l4 4a.5.5 0 010 .708l-4 4a.5.5 0 01-.708-.708L13.293 8.5H1.5A.5.5 0 011 8z" fill="currentColor"></path>
-											</svg>
-										</a>
-									</div>
-								</div>
-								<div class="guarantees__slide slide-guarantees swiper-slide">
-									<img class="slide-guarantees__img" alt="Image" src="./assets/img/guarantees/03.webp">
-									<div class="slide-guarantees__content">
-										<h3 class="slide-guarantees__title">Изготовим в соответствии с вашими пожеланиями</h3>
-										<p class="slide-guarantees__text">
-											Нашими специалистами разрабатываются любые оконные конструкции и балконные блоки с учётом всех пожеланий заказчика и особенностей помещения, в котором будут производиться работы
-										</p>
-										<a class="slide-guarantees__button" href="#">
-											<svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path fill-rule="evenodd" clip-rule="evenodd" d="M1 8a.5.5 0 01.5-.5h11.793l-3.147-3.146a.5.5 0 01.708-.708l4 4a.5.5 0 010 .708l-4 4a.5.5 0 01-.708-.708L13.293 8.5H1.5A.5.5 0 011 8z" fill="currentColor"></path>
-											</svg>
-										</a>
-									</div>
-								</div>
-								<div class="guarantees__slide slide-guarantees swiper-slide">
-									<img class="slide-guarantees__img" alt="Image" src="./assets/img/guarantees/01.webp">
-									<div class="slide-guarantees__content">
-										<h3 class="slide-guarantees__title">Изготовим в соответствии с вашими пожеланиями</h3>
-										<p class="slide-guarantees__text">
-											Нашими специалистами разрабатываются любые оконные конструкции и балконные блоки с учётом всех пожеланий заказчика и особенностей помещения, в котором будут производиться работы
-										</p>
-										<a class="slide-guarantees__button" href="#">
-											<svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path fill-rule="evenodd" clip-rule="evenodd" d="M1 8a.5.5 0 01.5-.5h11.793l-3.147-3.146a.5.5 0 01.708-.708l4 4a.5.5 0 010 .708l-4 4a.5.5 0 01-.708-.708L13.293 8.5H1.5A.5.5 0 011 8z" fill="currentColor"></path>
-											</svg>
-										</a>
-									</div>
-								</div>
-								<div class="guarantees__slide slide-guarantees swiper-slide">
-									<img class="slide-guarantees__img" alt="Image" src="./assets/img/guarantees/01.webp">
-									<div class="slide-guarantees__content">
-										<h3 class="slide-guarantees__title">Изготовим в соответствии с вашими пожеланиями</h3>
-										<p class="slide-guarantees__text">
-											Нашими специалистами разрабатываются любые оконные конструкции и балконные блоки с учётом всех пожеланий заказчика и особенностей помещения, в котором будут производиться работы
-										</p>
-										<a class="slide-guarantees__button" href="#">
-											<svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path fill-rule="evenodd" clip-rule="evenodd" d="M1 8a.5.5 0 01.5-.5h11.793l-3.147-3.146a.5.5 0 01.708-.708l4 4a.5.5 0 010 .708l-4 4a.5.5 0 01-.708-.708L13.293 8.5H1.5A.5.5 0 011 8z" fill="currentColor"></path>
-											</svg>
-										</a>
-									</div>
-								</div>
-							</div>
-							<div class="guarantees__navigacions">
-								<div type="button" class="guarantees-button-prev swiper-button-prev"></div>
-								<div type="button" class="guarantees-button-next swiper-button-next"></div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="cost">
-					<div class="cost__container">
-						<h2 class="cost__title title">Стоимость зависит от следующих параметров</h2>
-						<div class="cost__items">
-							<div class="cost__item">
-								<div class="cost__icon">
-									<img src="./assets/img/cost/icon.svg" alt="Image">
-								</div>
-								<div class="cost__block">
-									<h3 class="cost__item-title">Типа профильной системы:</h3>
-									<p class="cost__text">стандартный, усиленный, с повышенной шумоизоляцией</p>
-								</div>
-							</div>
-							<div class="cost__item">
-								<div class="cost__icon">
-									<img src="./assets/img/cost/icon.svg" alt="Image">
-								</div>
-								<div class="cost__block">
-									<h3 class="cost__item-title">Конструкции:</h3>
-									<p class="cost__text">распашная или раздвижная</p>
-								</div>
-							</div>
-							<div class="cost__item">
-								<div class="cost__icon">
-									<img src="./assets/img/cost/icon.svg" alt="Image">
-								</div>
-								<div class="cost__block">
-									<h3 class="cost__item-title">Типа профильной системы:</h3>
-									<p class="cost__text">стандартный, усиленный, с повышенной шумоизоляцией</p>
-								</div>
-							</div>
-							<div class="cost__item">
-								<div class="cost__icon">
-									<img src="./assets/img/cost/icon.svg" alt="Image">
-								</div>
-								<div class="cost__block">
-									<h3 class="cost__item-title">Типа профильной системы:</h3>
-									<p class="cost__text">стандартный, усиленный, с повышенной шумоизоляцией</p>
-								</div>
-							</div>
-							<div class="cost__item">
-								<div class="cost__icon">
-									<img src="./assets/img/cost/icon.svg" alt="Image">
-								</div>
-								<div class="cost__block">
-									<h3 class="cost__item-title">Типа профильной системы:</h3>
-									<p class="cost__text">стандартный, усиленный, с повышенной шумоизоляцией</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="dignity">
-					<div class="dignity__container">
-						<h2 class="dignity__title title">Преимущества установки окон в компании «Московские окна»</h2>
-						<div class="dignity__items">
-							<div class="dignity__item">
-								<img class="dignity__icon" src="./assets/img/dignity/01.svg" alt="#">
-								<h3 class="dignity__item-title">Проверенный штат</h3>
-								<p class="dignity__text">Штатные монтажные бригады (не наемные). Сотрудники – граждане РФ.</p>
-							</div>
-							<div class="dignity__item">
-								<img class="dignity__icon" src="./assets/img/dignity/02.svg" alt="#">
-								<h3 class="dignity__item-title">Надежные поставщики</h3>
-								<p class="dignity__text">
-									Все монтажные и крепежные материалы закупаются централизованно у проверенных поставщиков.
+								<a href="#" class="popular__button button">Перейти на страницу</a>
+								<p class="popular__text">
+									Каждый деревянный забор, который у нас можно купить, производится по
+            самым современным технологиям. Качественные материалы способствуют
+            тому, что изгородь долго сохраняет свои природные свойства и
+            привлекательный внешний вид.
 								</p>
 							</div>
-							<div class="dignity__item">
-								<img class="dignity__icon" src="./assets/img/dignity/03.svg" alt="#">
-								<h3 class="dignity__item-title">Проверенный штат</h3>
-								<p class="dignity__text">Штатные монтажные бригады (не наемные). Сотрудники – граждане РФ.</p>
-							</div>
-							<div class="dignity__item">
-								<img class="dignity__icon" src="./assets/img/dignity/04.svg" alt="#">
-								<h3 class="dignity__item-title">Проверенный штат</h3>
-								<p class="dignity__text">Штатные монтажные бригады (не наемные). Сотрудники – граждане РФ.</p>
-							</div>
-							<div class="dignity__item">
-								<img class="dignity__icon" src="./assets/img/dignity/05.svg" alt="#">
-								<h3 class="dignity__item-title">Проверенный штат</h3>
-								<p class="dignity__text">Штатные монтажные бригады (не наемные). Сотрудники – граждане РФ.</p>
-							</div>
-							<div class="dignity__item">
-								<img class="dignity__icon" src="./assets/img/dignity/06.svg" alt="#">
-								<h3 class="dignity__item-title">Проверенный штат</h3>
-								<p class="dignity__text">Штатные монтажные бригады (не наемные). Сотрудники – граждане РФ.</p>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="questions">
-					<div class="questions__container">
-						<h2 class="questions__title title">Вопросы и ответы</h2>
-						<p class="questions__text">
-							Если Вы не найдете здесь интересующую информацию, мы с радостью проконсультируем Вас лично. Смело обращайтесь в любой из наших офисов или просто звоните на номер «горячей линии»:
-							<a href="tel:+74951264282">+7 (495) 126-42-82</a>
-						</p>
-						<div class="questions__body">
-							<div data-fls-spollers="" class="spollers">
-								<details class="spollers__item">
-									<summary class="spollers__title">Занимаетесь ли вы остеклением частных домов и дач?</summary>
-									<div class="spollers__body">
-										Да, мы предлагаем остекление для загородных домов, коттеджей, дачных домов. Готовы выполнить остекление балкона, веранды или террасы. У нас вы можете заказать остекление для беседки или теплицы. Предлагаем холодное и теплое остекление – в зависимости от ваших потребностей.
+							<div class="popular__item">
+								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
+								<div class="popular__name">
+									ДЕРЕВЯННЫЕ ЗАБОРЫ
+									<div class="popular__name-est">
+										<p>В наличии</p>
 									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">Занимаетесь ли вы остеклением частных домов и дач?</summary>
-									<div class="spollers__body">
-										Да, мы предлагаем остекление для загородных домов, коттеджей, дачных домов. Готовы выполнить остекление балкона, веранды или террасы. У нас вы можете заказать остекление для беседки или теплицы. Предлагаем холодное и теплое остекление – в зависимости от ваших потребностей.
-									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">Занимаетесь ли вы остеклением частных домов и дач?</summary>
-									<div class="spollers__body">
-										Да, мы предлагаем остекление для загородных домов, коттеджей, дачных домов. Готовы выполнить остекление балкона, веранды или террасы. У нас вы можете заказать остекление для беседки или теплицы. Предлагаем холодное и теплое остекление – в зависимости от ваших потребностей.
-									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">Занимаетесь ли вы остеклением частных домов и дач?</summary>
-									<div class="spollers__body">
-										Да, мы предлагаем остекление для загородных домов, коттеджей, дачных домов. Готовы выполнить остекление балкона, веранды или террасы. У нас вы можете заказать остекление для беседки или теплицы. Предлагаем холодное и теплое остекление – в зависимости от ваших потребностей.
-									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">Занимаетесь ли вы остеклением частных домов и дач?</summary>
-									<div class="spollers__body">
-										Да, мы предлагаем остекление для загородных домов, коттеджей, дачных домов. Готовы выполнить остекление балкона, веранды или террасы. У нас вы можете заказать остекление для беседки или теплицы. Предлагаем холодное и теплое остекление – в зависимости от ваших потребностей.
-									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">Занимаетесь ли вы остеклением частных домов и дач?</summary>
-									<div class="spollers__body">
-										Да, мы предлагаем остекление для загородных домов, коттеджей, дачных домов. Готовы выполнить остекление балкона, веранды или террасы. У нас вы можете заказать остекление для беседки или теплицы. Предлагаем холодное и теплое остекление – в зависимости от ваших потребностей.
-									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">Занимаетесь ли вы остеклением частных домов и дач?</summary>
-									<div class="spollers__body">
-										Да, мы предлагаем остекление для загородных домов, коттеджей, дачных домов. Готовы выполнить остекление балкона, веранды или террасы. У нас вы можете заказать остекление для беседки или теплицы. Предлагаем холодное и теплое остекление – в зависимости от ваших потребностей.
-									</div>
-								</details>
-							</div>
-							<form class="questions__form form-questions" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="files/sendmail/sendmail.php">
-								<h3 class="form-questions__title">Возникли вопросы?</h3>
-								<p class="form-questions__text">Напишите, и наши специалисты подробно ответят вам в удобной форме.</p>
-								<textarea required data-fls-input="" autocomplete="off" name="text" placeholder="* Ваш вопрос" data-fls-form-errtext="Заполните поле" class="form-questions__textarea input"></textarea>
-								<input data-fls-input="" autocomplete="off" type="text" required name="name" data-fls-form-errtext="Заполните поле" placeholder="* Ваше имя" class="form-questions__input input">
-								<input data-fls-input-mask="+375(99) 999-99-99" required type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+375 (__) ___-__-__" class="form-questions__input input">
-								<select name="questions" data-fls-select="" data-fls-select-modif="form">
-									<option value="ответ на телефон" selected>Получить ответ на телефон</option>
-									<option value="ответ в viber">Получить ответ в viber</option>
-								</select>
-								<button type="submit" class="form-questions__button button">Отправить</button>
-								<p class="form-questions__check">
-									Нажимая на кнопку «Отправить», Вы принимаете условия
-									<a target="_blank" class="form-questions__policy" href="#">политики конфиденциальности</a>
-									в отношении обработки персональных данных.
+								</div>
+								<a href="#" class="popular__button button">Перейти на страницу</a>
+								<p class="popular__text">
+									Каждый деревянный забор, который у нас можно купить, производится по
+            самым современным технологиям. Качественные материалы способствуют
+            тому, что изгородь долго сохраняет свои природные свойства и
+            привлекательный внешний вид.
 								</p>
-							</form>
+							</div>
+							<div class="popular__item">
+								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
+								<div class="popular__name">
+									ДЕРЕВЯННЫЕ ЗАБОРЫ
+									<div class="popular__name-est">
+										<p>В наличии</p>
+									</div>
+								</div>
+								<a href="#" class="popular__button button">Перейти на страницу</a>
+								<p class="popular__text">
+									Каждый деревянный забор, который у нас можно купить, производится по
+            самым современным технологиям. Качественные материалы способствуют
+            тому, что изгородь долго сохраняет свои природные свойства и
+            привлекательный внешний вид.
+								</p>
+							</div>
+							<div class="popular__item">
+								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
+								<div class="popular__name">
+									ДЕРЕВЯННЫЕ ЗАБОРЫ
+									<div class="popular__name-est">
+										<p>В наличии</p>
+									</div>
+								</div>
+								<a href="#" class="popular__button button">Перейти на страницу</a>
+								<p class="popular__text">
+									Мы используем листы профнастила только отечественного производства.
+            Российское сырье лучше по качеству, чем китайское. Такой важный
+            параметр, как содержание цинка, у отечественного производителя выше
+            в полтора-два раза, что защищает от профнастил от коррозии. Кроме
+            этого отличаются такие характеристики, как толщина листа и
+            полимерное покрытие. Мы рекомендуем использовать лист толщиной 0,4
+            мм. Выбирая такой лист, можете быть уверены в качестве продукции
+								</p>
+							</div>
+							<div class="popular__item">
+								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
+								<div class="popular__name">
+									ДЕРЕВЯННЫЕ ЗАБОРЫ
+									<div class="popular__name-est">
+										<p>В наличии</p>
+									</div>
+								</div>
+								<a href="#" class="popular__button button">Перейти на страницу</a>
+								<p class="popular__text">
+									Каждый деревянный забор, который у нас можно купить, производится по
+            самым современным технологиям. Качественные материалы способствуют
+            тому, что изгородь долго сохраняет свои природные свойства и
+            привлекательный внешний вид.
+								</p>
+							</div>
+							<div class="popular__item">
+								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
+								<div class="popular__name">
+									ДЕРЕВЯННЫЕ ЗАБОРЫ
+									<div class="popular__name-est">
+										<p>В наличии</p>
+									</div>
+								</div>
+								<a href="#" class="popular__button button">Перейти на страницу</a>
+								<p class="popular__text">
+									Каждый деревянный забор, который у нас можно купить, производится по
+            самым современным технологиям. Качественные материалы способствуют
+            тому, что изгородь долго сохраняет свои природные свойства и
+            привлекательный внешний вид.
+								</p>
+							</div>
+							<div class="popular__item">
+								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
+								<div class="popular__name">
+									ДЕРЕВЯННЫЕ ЗАБОРЫ
+									<div class="popular__name-est">
+										<p>В наличии</p>
+									</div>
+								</div>
+								<a href="#" class="popular__button button">Перейти на страницу</a>
+								<p class="popular__text">
+									Каждый деревянный забор, который у нас можно купить, производится по
+            самым современным технологиям. Качественные материалы способствуют
+            тому, что изгородь долго сохраняет свои природные свойства и
+            привлекательный внешний вид.
+								</p>
+							</div>
+							<div class="popular__item">
+								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
+								<div class="popular__name">
+									ДЕРЕВЯННЫЕ ЗАБОРЫ
+									<div class="popular__name-est">
+										<p>В наличии</p>
+									</div>
+								</div>
+								<a href="#" class="popular__button button">Перейти на страницу</a>
+								<p class="popular__text">
+									Каждый деревянный забор, который у нас можно купить, производится по
+            самым современным технологиям. Качественные материалы способствуют
+            тому, что изгородь долго сохраняет свои природные свойства и
+            привлекательный внешний вид.
+								</p>
+							</div>
+							<div class="popular__item">
+								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
+								<div class="popular__name">
+									ДЕРЕВЯННЫЕ ЗАБОРЫ
+									<div class="popular__name-est">
+										<p>В наличии</p>
+									</div>
+								</div>
+								<a href="#" class="popular__button button">Перейти на страницу</a>
+								<p class="popular__text">
+									Каждый деревянный забор, который у нас можно купить, производится по
+            самым современным технологиям. Качественные материалы способствуют
+            тому, что изгородь долго сохраняет свои природные свойства и
+            привлекательный внешний вид.
+								</p>
+							</div>
+							<div class="popular__item">
+								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
+								<div class="popular__name">
+									ДЕРЕВЯННЫЕ ЗАБОРЫ
+									<div class="popular__name-est">
+										<p>В наличии</p>
+									</div>
+								</div>
+								<a href="#" class="popular__button button">Перейти на страницу</a>
+								<p class="popular__text">
+									Каждый деревянный забор, который у нас можно купить, производится по
+            самым современным технологиям. Качественные материалы способствуют
+            тому, что изгородь долго сохраняет свои природные свойства и
+            привлекательный внешний вид.
+								</p>
+							</div>
 						</div>
 					</div>
 				</section>
-				<section class="consultation">
-					<img class="consultation__img-bg" alt="" src="./assets/img/consultation/bg.jpg">
-					<div class="consultation__container">
-						<!--
-<div class="consultation__image">
-<img src="@img/consultation/bg.jpg" alt="">
-</div>
--->
-						<form class="consultation__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="files/sendmail/sendmail.php">
-							<h2 class="consultation__title">Бесплатная консультация</h2>
-							<p class="consultation__text">Оставьте свой номер телефона, и мы вам перезвоним</p>
-							<div class="consultation__item">
-								<input required data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="consultation__input input">
-								<input data-fls-input-mask="+375(99) 999-99-99" required type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+375 (__) ___-__-__" class="consultation__input input">
+				<section class="form">
+					<!-- <img class="form__img-bg" src="@img/form/01.webp" alt="Image" /> -->
+					<div class="form__container">
+						<h2 class="form__title">Поможем с выбором лучшего ограждения</h2>
+						<p class="form__text">И предоставим скидку 15% на работы и 4% на весь материал</p>
+						<form class="form__body" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="">
+							<div class="form__item">
+								<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="form__input input">
+								<button type="submit" class="form__button button">
+									<div class="button__text">Получить консультацию</div>
+								</button>
 							</div>
-							<div data-fls-checkbox="" class="checkbox">
-								<input required id="c_3" data-error="Ознакомтесь с обработкой своих данных" class="checkbox__input" type="checkbox" value="Принято" name="check">
-								<label for="c_3" class="checkbox__label checkbox__label-white">
-									<span class="checkbox__text">
-										Я согласен на обработку персональных данных
-										<!--
-<a href="#" style="color: rgb(22, 216, 0)"
->политики конфиденциальности данных</a
->
--->
-									</span>
-								</label>
-							</div>
-							<button type="submit" class="consultation__button button">Отправить</button>
+							<label data-fls-checkbox="" class="checkbox">
+								<input checked data-fls-form-errtext="Ознакомтесь с условия обработки персональных данных" class="checkbox__input" type="checkbox" value="согласен" name="check">
+								<span class="checkbox__text">Вы соглашаетесь на условия обработки персональных данных</span>
+							</label>
+							<p class="form__bootom">
+								Отправляя заявку вы соглашаетесь с Политикой конфиденциальности и
+          даёте согласие на обработку ваших персональных данных.
+							</p>
 						</form>
 					</div>
 				</section>
-				<section class="banner">
-					<div class="banner__container">
-						<h2 class="banner__title">VEKA — ведущий мировой производитель оконных систем</h2>
-						<div class="banner__social">
-							<a class="banner__social-link" href="#">
-								<img alt="Image" src="./assets/img/contacts/vk.png">
-							</a>
-							<a class="banner__social-link" href="#">
-								<img alt="Image" src="./assets/img/contacts/instagram.png">
-							</a>
-							<a class="banner__social-link" href="#">
-								<img alt="Image" src="./assets/img/contacts/viber.png">
-							</a>
-							<a class="banner__social-link" href="#">
-								<img alt="Image" src="./assets/img/contacts/telegram.png">
-							</a>
+				<section class="last-work">
+					<div class="last-work__container">
+						<div data-fls-blockheader="" class="blockheader">
+							<div class="blockheader__top">
+								Хотим
+								<strong>предостеречь</strong>
+								вас
+							</div>
+							<h2 class="blockheader__title">
+								<span>4 грубых ошибки</span>
+								при расчете и монтаже забора, которые
+          допускают 85% компаний
+							</h2>
+							<p class="blockheader__text">
+								Для устранения последствий таких ошибок придется потратить большое
+          кол-во времени, сил и значительную сумму
+							</p>
+						</div>
+						<div class="last-work__slider-container">
+							<div data-fls-slider="" class="last-work__slider swiper">
+								<div class="last-work__wrapper swiper-wrapper">
+									<img class="last-work__wrapper-bg" alt="Image" src="./assets/img/last-work/bg.jpg">
+									<div class="last-work__slide swiper-slide">
+										<div data-fls-gallery="" class="last-work__images">
+											<a href="./assets/img/last-work/01.jpg">
+												<img class="last-work__img-bg" alt="Image" src="./assets/img/last-work/01.jpg">
+											</a>
+											<div class="last-work__images-bottom">
+												<p class="last-work-images-bottom-text">Еще фото</p>
+												<div class="last-work__images-bottom-item">
+													<a href="./assets/img/last-work/02.jpg">
+														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/02.jpg">
+													</a>
+													<a href="./assets/img/last-work/03.jpg">
+														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/03.jpg">
+													</a>
+													<a href="./assets/img/last-work/03.jpg">
+														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/03.jpg">
+													</a>
+												</div>
+											</div>
+										</div>
+										<div class="last-work__content">
+											<h3 class="last-work__title">Деревянный забор ранчо</h3>
+											<div class="last-work__city">
+												<img alt="Image" src="./assets/img/last-work/local.png">
+												<p>Л.О. ВОЕЙКОВО</p>
+											</div>
+											<div class="last-work__sale-body">
+												<img alt="Image" src="./assets/img/last-work/tickets.png">
+												<div class="last-work__sale-text">
+													<strong>Экономия составила 20%</strong>
+													<p>по сравнению с работами конкурентов</p>
+												</div>
+											</div>
+											<div class="last-work__info">
+												<div class="last-work__info-item">
+													<h4 class="last-work__info-title">Длина</h4>
+													<div class="last-work__info-text">65 м</div>
+												</div>
+												<div class="last-work__info-item">
+													<h4 class="last-work__info-title">Высота</h4>
+													<div class="last-work__info-text">2,0 м</div>
+												</div>
+												<div class="last-work__info-item">
+													<h4 class="last-work__info-title">Номер краски</h4>
+													<div class="last-work__info-text">568Х</div>
+												</div>
+												<div class="last-work__info-item">
+													<h4 class="last-work__info-title">Обработка</h4>
+													<div class="last-work__info-text">Грунтовка Valti в 1 слой, Tikkurila Vinha в 2 слоя</div>
+												</div>
+											</div>
+											<div class="last-work__list-body">
+												<strong class="last-work__list-title">Было сделано:</strong>
+												<ul class="last-work__list">
+													<li>- Изготовление секций «Ранчо» на производстве</li>
+													<li>- Откатные Ворота Ролтэк 4 метра + Автоматика Came</li>
+													<li>- Установка столбов 60х60 методом бутования щебнем</li>
+													<li>- Покраска металлокаркаса - каркаса Tikkurila Metalista</li>
+													<li>- Изготовление 7 дней и установка 1 день.</li>
+												</ul>
+											</div>
+											<div class="last-work__bottom">
+												<a data-fls-button="" href="#" class="last-work__button button">
+													<img class="button__img" alt="Image" src="./assets/img/last-work/calc.png">
+													<div class="button__text">Рассчитать стоимость в калькуляторе</div>
+												</a>
+												<a class="last-work__link" href="#">Посмотреть полный прайс</a>
+											</div>
+										</div>
+									</div>
+									<div class="last-work__slide swiper-slide">
+										<div class="last-work__images">
+											<img class="last-work__img-bg" alt="Image" src="./assets/img/last-work/01.jpg">
+											<div class="last-work__images-bottom">
+												<p class="last-work-images-bottom-text"></p>
+												<div class="last-work__images-bottom-item">
+													<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/02.jpg">
+													<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/03.jpg">
+													<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/04.jpg">
+												</div>
+											</div>
+										</div>
+										<div class="last-work__content">
+											<h3 class="last-work__title">Деревянный забор ранчо</h3>
+											<div class="last-work__city">
+												<img alt="Image" src="./assets/img/last-work/local.png">
+												<p>Л.О. ВОЕЙКОВО</p>
+											</div>
+											<div class="last-work__sale-body">
+												<img alt="Image" src="./assets/img/last-work/tickets.png">
+												<div class="last-work__sale-text">
+													<strong>Экономия составила 20%</strong>
+													<p>по сравнению с работами конкурентов</p>
+												</div>
+											</div>
+											<div class="last-work__info">
+												<div class="last-work__info-item">
+													<h4 class="last-work__info-title">Длина</h4>
+													<div class="last-work__info-text">65 м</div>
+												</div>
+												<div class="last-work__info-item">
+													<h4 class="last-work__info-title">Высота</h4>
+													<div class="last-work__info-text">2,0 м</div>
+												</div>
+												<div class="last-work__info-item">
+													<h4 class="last-work__info-title">Номер краски</h4>
+													<div class="last-work__info-text">568Х</div>
+												</div>
+												<div class="last-work__info-item">
+													<h4 class="last-work__info-title">Обработка</h4>
+													<div class="last-work__info-text">Грунтовка Valti в 1 слой, Tikkurila Vinha в 2 слоя</div>
+												</div>
+											</div>
+											<div class="last-work__list-body">
+												<strong class="last-work__list-title">Было сделано:</strong>
+												<ul class="last-work__list">
+													<li>- Изготовление секций «Ранчо» на производстве</li>
+													<li>- Откатные Ворота Ролтэк 4 метра + Автоматика Came</li>
+													<li>- Установка столбов 60х60 методом бутования щебнем</li>
+													<li>- Покраска металлокаркаса - каркаса Tikkurila Metalista</li>
+													<li>- Изготовление 7 дней и установка 1 день.</li>
+												</ul>
+											</div>
+											<div class="last-work__bottom">
+												<a data-fls-button="" href="#" class="button">
+													<img class="button__img" alt="Image" src="./assets/img/last-work/calc.png">
+													<div class="button__text">Рассчитать стоимость в калькуляторе</div>
+												</a>
+												<a class="last-work__link" href="#">Посмотреть полный прайс</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="swiper-pagination"></div>
+							</div>
+							<button type="button" class="last-work-button-prev swiper-button-prev"></button>
+							<button type="button" class="last-work-button-next swiper-button-next"></button>
 						</div>
 					</div>
 				</section>
-				<div data-fls-phonebottom="" class="phone">
-					<div class="phone__icon">
-						<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewbox="0 0 48 48">
-							<path fill="#fff" d="M24,5C21.361,5,13.33,5,8.89,9.054C6.246,11.688,5,15.494,5,21v3c0,5.506,1.246,9.312,3.921,11.976 c1.332,1.215,3.148,2.186,5.368,2.857L15,39.047v5.328C15,45,15.181,45,15.241,45c0.123,0,0.32-0.039,0.694-0.371 c0.09-0.089,0.75-0.803,3.96-4.399l0.324-0.363l0.485,0.031C21.779,39.965,22.888,40,24,40c2.639,0,10.67,0,15.11-4.055 C41.753,33.311,43,29.505,43,24v-3c0-5.506-1.246-9.312-3.921-11.976C34.67,5,26.639,5,24,5z"></path>
-							<path fill="#7e57c2" d="M33.451 28.854c-1.111-.936-1.624-1.219-3.158-2.14C29.654 26.331 28.68 26 28.169 26c-.349 0-.767.267-1.023.523C26.49 27.179 26.275 28 25.125 28c-1.125 0-3.09-1.145-4.5-2.625C19.145 23.965 18 22 18 20.875c0-1.15.806-1.38 1.462-2.037C19.718 18.583 20 18.165 20 17.816c0-.511-.331-1.47-.714-2.109-.921-1.535-1.203-2.048-2.14-3.158-.317-.376-.678-.548-1.056-.549-.639-.001-1.478.316-2.046.739-.854.637-1.747 1.504-1.986 2.584-.032.147-.051.295-.057.443-.046 1.125.396 2.267.873 3.234 1.123 2.279 2.609 4.485 4.226 6.455.517.63 1.08 1.216 1.663 1.782.566.582 1.152 1.145 1.782 1.663 1.97 1.617 4.176 3.103 6.455 4.226.958.472 2.086.906 3.2.874.159-.005.318-.023.477-.058 1.08-.238 1.947-1.132 2.584-1.986.423-.568.74-1.406.739-2.046C33.999 29.532 33.827 29.171 33.451 28.854zM34 24c-.552 0-1-.448-1-1v-1c0-4.962-4.038-9-9-9-.552 0-1-.448-1-1s.448-1 1-1c6.065 0 11 4.935 11 11v1C35 23.552 34.552 24 34 24zM27.858 22c-.444 0-.85-.298-.967-.748-.274-1.051-1.094-1.872-2.141-2.142-.535-.139-.856-.684-.718-1.219.138-.534.682-.855 1.219-.718 1.748.453 3.118 1.822 3.575 3.574.139.535-.181 1.08-.715 1.22C28.026 21.989 27.941 22 27.858 22z"></path>
-							<path fill="#7e57c2" d="M31,23c-0.552,0-1-0.448-1-1c0-3.188-2.494-5.818-5.678-5.986c-0.552-0.029-0.975-0.5-0.946-1.051 c0.029-0.552,0.508-0.976,1.051-0.946C28.674,14.241,32,17.748,32,22C32,22.552,31.552,23,31,23z"></path>
-							<path fill="#7e57c2" d="M24,4C19.5,4,12.488,4.414,8.216,8.316C5.196,11.323,4,15.541,4,21c0,0.452-0.002,0.956,0.002,1.5 C3.998,23.043,4,23.547,4,23.999c0,5.459,1.196,9.677,4.216,12.684c1.626,1.485,3.654,2.462,5.784,3.106v4.586 C14,45.971,15.049,46,15.241,46h0.009c0.494-0.002,0.921-0.244,1.349-0.624c0.161-0.143,2.02-2.215,4.042-4.481 C21.845,40.972,22.989,41,23.999,41c0,0,0,0,0,0s0,0,0,0c4.5,0,11.511-0.415,15.784-4.317c3.019-3.006,4.216-7.225,4.216-12.684 c0-0.452,0.002-0.956-0.002-1.5c0.004-0.544,0.002-1.047,0.002-1.5c0-5.459-1.196-9.677-4.216-12.684C35.511,4.414,28.5,4,24,4z M41,23.651l0,0.348c0,4.906-1.045,8.249-3.286,10.512C33.832,38,26.437,38,23.999,38c-0.742,0-1.946-0.001-3.367-0.1 C20.237,38.344,16,43.083,16,43.083V37.22c-2.104-0.505-4.183-1.333-5.714-2.708C8.045,32.248,7,28.905,7,23.999l0-0.348 c0-0.351-0.001-0.73,0.002-1.173C6.999,22.078,6.999,21.7,7,21.348L7,21c0-4.906,1.045-8.249,3.286-10.512 C14.167,6.999,21.563,6.999,24,6.999c2.437,0,9.832,0,13.713,3.489c2.242,2.263,3.286,5.606,3.286,10.512l0,0.348 c0,0.351,0.001,0.73-0.002,1.173C41,22.922,41,23.3,41,23.651z"></path>
-						</svg>
+				<section class="works">
+					<div class="works__container">
+						<div class="masonry">
+							<ul class="masonry__filter filter-masonry">
+								<li class="filter-masonry__item">
+									<button data-fls-masonry-filter-link="*" class="filter-masonry__link">Все</button>
+								</li>
+								<li class="filter-masonry__item">
+									<button data-fls-masonry-filter-link="a" class="filter-masonry__link">Фильтр А</button>
+								</li>
+								<li class="filter-masonry__item">
+									<button data-fls-masonry-filter-link="b" class="filter-masonry__link">Фильтр B</button>
+								</li>
+								<li class="filter-masonry__item">
+									<button data-fls-masonry-filter-link="c" class="filter-masonry__link">Фильтр C</button>
+								</li>
+							</ul>
+							<div data-fls-gallery="" data-fls-masonry="" class="masonry__items">
+								<a href="./assets/img/works/01.jpg" data-fls-masonry-item="" data-fls-masonry-filter="a" class="masonry__item">
+									<img src="./assets/img/works/01.jpg">
+								</a>
+								<a href="./assets/img/works/01.jpg" data-fls-masonry-item="" data-fls-masonry-filter="b" class="masonry__item">
+									<img src="./assets/img/works/01.jpg">
+								</a>
+								<a href="./assets/img/works/01.jpg" data-fls-masonry-item="" data-fls-masonry-filter="c" class="masonry__item">
+									<img src="./assets/img/works/01.jpg">
+								</a>
+								<a href="./assets/img/works/01.jpg" data-fls-masonry-item="" data-fls-masonry-filter="a" class="masonry__item">
+									<img src="./assets/img/works/01.jpg">
+								</a>
+								<a href="./assets/img/works/01.jpg" data-fls-masonry-item="" data-fls-masonry-filter="b" class="masonry__item">
+									<img src="./assets/img/works/01.jpg">
+								</a>
+								<a href="./assets/img/works/01.jpg" data-fls-masonry-item="" data-fls-masonry-filter="c" class="masonry__item">
+									<img src="./assets/img/works/01.jpg">
+								</a>
+								<a href="./assets/img/works/01.jpg" data-fls-masonry-item="" data-fls-masonry-filter="a" class="masonry__item">
+									<img src="./assets/img/works/01.jpg">
+								</a>
+								<a href="./assets/img/works/01.jpg" data-fls-masonry-item="" data-fls-masonry-filter="b" class="masonry__item">
+									<img src="./assets/img/works/01.jpg">
+								</a>
+								<a href="./assets/img/works/01.jpg" data-fls-masonry-item="" data-fls-masonry-filter="c" class="masonry__item">
+									<img src="./assets/img/works/01.jpg">
+								</a>
+								<a href="./assets/img/works/01.jpg" data-fls-masonry-item="" data-fls-masonry-filter="a" class="masonry__item">
+									<img src="./assets/img/works/01.jpg">
+								</a>
+								<a href="./assets/img/works/01.jpg" data-fls-masonry-item="" data-fls-masonry-filter="b" class="masonry__item">
+									<img src="./assets/img/works/01.jpg">
+								</a>
+								<a href="./assets/img/works/01.jpg" data-fls-masonry-item="" data-fls-masonry-filter="c" class="masonry__item">
+									<img src="./assets/img/works/01.jpg">
+								</a>
+							</div>
+						</div>
+						<a data-fls-button="" href="#" class="button button--center">
+							<div class="button__text">Посмотреть все работы</div>
+							<img class="button__img" alt="Image" src="./assets/img/works/btn-ico.png">
+						</a>
 					</div>
-					<a class="phone__link" href="tel:+375296582077">+375 (29) 658-20-77</a>
-				</div>
+				</section>
+				<section class="warranty">
+					<div class="warranty__container">
+						<div data-fls-blockheader="" class="blockheader">
+							<div class="blockheader__top">гарантии</div>
+							<h2 class="blockheader__title">Отдел гарантии</h2>
+						</div>
+						<div class="warranty__items">
+							<div class="warranty__item">
+								<img class="warranty__img" src="./assets/img/warranty/01.svg" alt="Image">
+								<p class="warranty__text">Работаем без предоплаты</p>
+							</div>
+							<div class="warranty__item">
+								<img class="warranty__img" src="./assets/img/warranty/02.svg" alt="Image">
+								<p class="warranty__text">Гарантия до 24 месяцев</p>
+							</div>
+							<div class="warranty__item">
+								<img class="warranty__img" src="./assets/img/warranty/03.svg" alt="Image">
+								<p class="warranty__text">Собственное производство</p>
+							</div>
+							<div class="warranty__item">
+								<img class="warranty__img" src="./assets/img/warranty/04.svg" alt="Image">
+								<p class="warranty__text">Цены ниже рыночных</p>
+							</div>
+						</div>
+						<a data-fls-button="" href="#" class="button button--center">
+							<img class="button__img" alt="Image" src="./assets/img/header/calc.png">
+							<div class="button__text">
+								<p>Рассчитать стоимость</p>
+								<small>(прямо сейчас за 1 минуту)</small>
+							</div>
+						</a>
+					</div>
+				</section>
+				<section class="reviews">
+					<div class="reviews__container">
+						<div class="reviews__top">
+							<h2 class="reviews__title">О нас пишут</h2>
+							<div class="reviews__link">Все отзывы</div>
+						</div>
+						<!-- Оболочка слайдера -->
+						<div class="reviews__slider-container">
+							<div data-fls-slider="" class="reviews__slider swiper">
+								<!-- Часть слайдера, которая двигается -->
+								<div class="reviews__wrapper swiper-wrapper">
+									<!-- Слайд -->
+									<div class="reviews__slide slide-reviews swiper-slide">
+										<div class="slide-reviews__top">
+											<div class="slide-reviews__info">
+												<div class="slide-reviews__avatar">
+													<img alt="Image" src="./assets/img/reviews/avatar.webp">
+												</div>
+												<div class="slide-reviews__date">
+													<time datetime="29-03-2025" class="slide-reviews__time">29 марта 2025</time>
+													<div class="slide-reviews__name">Синицин И.</div>
+												</div>
+											</div>
+											<div class="slide-reviews__rating">
+												<img src="./assets/img/reviews/stars.svg" alt="Image">
+											</div>
+										</div>
+										<p class="slide-reviews__text">
+											Обратился в эту компанию ещё 5 лет назад сделали забор и
+                откатные ворота. Сделали на совесть, забор не перекосился.
+                Ворота открываются ровненько, всё работает как часы.
+										</p>
+										<a class="slide-reviews__button" href="#">Отзыв полностью</a>
+									</div>
+									<div class="reviews__slide slide-reviews swiper-slide">
+										<div class="slide-reviews__top">
+											<div class="slide-reviews__info">
+												<div class="slide-reviews__avatar">
+													<img alt="Image" src="./assets/img/reviews/avatar.webp">
+												</div>
+												<div class="slide-reviews__date">
+													<time datetime="29-03-2025" class="slide-reviews__time">29 марта 2025</time>
+													<div class="slide-reviews__name">Синицин И.</div>
+												</div>
+											</div>
+											<div class="slide-reviews__rating">
+												<img src="./assets/img/reviews/stars.svg" alt="Image">
+											</div>
+										</div>
+										<p class="slide-reviews__text">
+											Обратился в эту компанию ещё 5 лет назад сделали забор и
+                откатные ворота. Сделали на совесть, забор не перекосился.
+                Ворота открываются ровненько, всё работает как часы.
+										</p>
+										<a class="slide-reviews__button" href="#">Отзыв полностью</a>
+									</div>
+									<div class="reviews__slide slide-reviews swiper-slide">
+										<div class="slide-reviews__top">
+											<div class="slide-reviews__info">
+												<div class="slide-reviews__avatar">
+													<img alt="Image" src="./assets/img/reviews/avatar.webp">
+												</div>
+												<div class="slide-reviews__date">
+													<time datetime="29-03-2025" class="slide-reviews__time">29 марта 2025</time>
+													<div class="slide-reviews__name">Синицин И.</div>
+												</div>
+											</div>
+											<div class="slide-reviews__rating">
+												<img src="./assets/img/reviews/stars.svg" alt="Image">
+											</div>
+										</div>
+										<p class="slide-reviews__text">
+											Обратился в эту компанию ещё 5 лет назад сделали забор и
+                откатные ворота. Сделали на совесть, забор не перекосился.
+                Ворота открываются ровненько, всё работает как часы.
+										</p>
+										<a class="slide-reviews__button" href="#">Отзыв полностью</a>
+									</div>
+								</div>
+							</div>
+							<button type="button" class="reviews-button-prev swiper-button-prev"></button>
+							<button type="button" class="reviews-button-next swiper-button-next"></button>
+						</div>
+					</div>
+				</section>
+				<section class="company">
+					<div class="company__container">
+						<div data-fls-blockheader="" class="blockheader">
+							<div class="blockheader__top">Прежде чем оставить заявку</div>
+							<h2 class="blockheader__title">
+								<span>Что нужно знать</span>
+								о нашей компании
+							</h2>
+							<div data-fls-watcher="" class="company__items">
+								<div class="company__item">
+									<img class="company__img" src="./assets/img/company/01.svg" alt="Image">
+									<span data-fls-digcounter="" class="company__number">24</span>
+									<p class="company__text">месяца гарантия на все виды работ</p>
+								</div>
+								<div class="company__item">
+									<img class="company__img" src="./assets/img/company/02.svg" alt="Image">
+									<span data-fls-digcounter="" class="company__number">200</span>
+									<p class="company__text">месяца гарантия на все виды работ</p>
+								</div>
+								<div class="company__item">
+									<img class="company__img" src="./assets/img/company/03.svg" alt="Image">
+									<span data-fls-digcounter="" class="company__number">2007</span>
+									<p class="company__text">месяца гарантия на все виды работ</p>
+								</div>
+								<div class="company__item">
+									<img class="company__img" src="./assets/img/company/04.svg" alt="Image">
+									<span data-fls-digcounter="" class="company__number">25000</span>
+									<p class="company__text">месяца гарантия на все виды работ</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
 			</main>
 			<footer data-fls-footer="" class="footer">
-				<div class="footer__container">
-					<div class="footer__body">
-						<div class="footer__item">
-							<a class="footer__logo" href="#">
-								<img alt="#" src="./assets/img/footer/logo.png">
-							</a>
-							<a class="footer__phone" href="tel:375291061880">+375 (29) 106-18-80</a>
-							<a class="footer__phone" href="tel:375336888990">+375 (33) 688-89-90</a>
-							<a data-fls-popup-link="popup" class="footer__button button" href="#">Вызвать замерщика</a>
-						</div>
-						<nav class="footer__nav">
-							<h3 class="footer__nav-title">Новинки Потолков</h3>
-							<ul class="footer__list">
-								<li>
-									<a href="#">Euro KRAAB</a>
-								</li>
-								<li>
-									<a href="#">Бесщелевые KRAAB</a>
-								</li>
-								<li>
-									<a href="#">Парящие натяжные</a>
-								</li>
-								<li>
-									<a href="#">Световые линии</a>
-								</li>
-								<li>
-									<a href="#">Реечные Lumfer</a>
-								</li>
-							</ul>
-						</nav>
-						<nav class="footer__nav">
-							<h3 class="footer__nav-title">Информация</h3>
-							<ul class="footer__list">
-								<li>
-									<a href="#">Цены</a>
-								</li>
-								<li>
-									<a href="#">Акции</a>
-								</li>
-								<li>
-									<a href="#">Услуги</a>
-								</li>
-								<li>
-									<a href="#">Отзывы</a>
-								</li>
-								<li>
-									<a href="#">О компании</a>
-								</li>
-							</ul>
-						</nav>
-						<nav class="footer__nav">
-							<h3 class="footer__nav-title">Контакты</h3>
-							<ul class="footer__list">
-								<li>
-									<a href="#">г. Могилев, ул. Орловского, 19Д</a>
-								</li>
-								<li>
-									<a href="mailto:everest-potolki.bel@yandex.by">everest-potolki.bel@yandex.by</a>
-								</li>
-							</ul>
-						</nav>
-						<div class="footer__map">
-							<iframe width="100%" height="100%" src="https://yandex.ru/map-widget/v1/?um=constructor%3A3b1f82549db84fe6b029b4f10d0aceba1af0650f8eacc25240c88f8902133e4d&amp;source=constructor" frameborder="0"></iframe>
-						</div>
-					</div>
-				</div>
+				<div class="footer__container"></div>
 			</footer>
 		</div>
 	</body>

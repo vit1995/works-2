@@ -27,15 +27,6 @@
     fetch(link.href, fetchOpts);
   }
 })();
-function getHash() {
-  if (location.hash) {
-    return location.hash.replace("#", "");
-  }
-}
-function setHash(hash) {
-  hash = hash ? `#${hash}` : window.location.href.split("#")[0];
-  history.pushState("", "", hash);
-}
 let slideUp = (target, duration = 500, showmore = 0) => {
   if (!target.classList.contains("--slide")) {
     target.classList.add("--slide");
@@ -148,20 +139,11 @@ let bodyLock = (delay = 500) => {
     }, delay);
   }
 };
-function dataMediaQueries(array, dataSetValue) {
-  const media = Array.from(array).filter((item) => item.dataset[dataSetValue]).map((item) => {
-    const [value, type = "max"] = item.dataset[dataSetValue].split(",");
-    return { value, type, item };
-  });
-  if (media.length === 0) return [];
-  const breakpointsArray = media.map(({ value, type }) => `(${type}-width: ${value}px),${value},${type}`);
-  const uniqueQueries = [...new Set(breakpointsArray)];
-  return uniqueQueries.map((query) => {
-    const [mediaQuery, mediaBreakpoint, mediaType] = query.split(",");
-    const matchMedia = window.matchMedia(mediaQuery);
-    const itemsArray = media.filter((item) => item.value === mediaBreakpoint && item.type === mediaType);
-    return { itemsArray, matchMedia };
-  });
+function getDigFormat(item2, sepp = " ") {
+  return item2.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, `$1${sepp}`);
+}
+function uniqArray(array) {
+  return array.filter((item2, index, self2) => self2.indexOf(item2) === index);
 }
 const gotoBlock = (targetBlock, noHeader = false, speed = 500, offsetTop = 0) => {
   const targetBlockElement = document.querySelector(targetBlock);
@@ -196,122 +178,6 @@ const gotoBlock = (targetBlock, noHeader = false, speed = 500, offsetTop = 0) =>
     });
   }
 };
-function tabs() {
-  const tabs2 = document.querySelectorAll("[data-fls-tabs]");
-  let tabsActiveHash = [];
-  if (tabs2.length > 0) {
-    const hash = getHash();
-    if (hash && hash.startsWith("tab-")) {
-      tabsActiveHash = hash.replace("tab-", "").split("-");
-    }
-    tabs2.forEach((tabsBlock, index) => {
-      tabsBlock.classList.add("--tab-init");
-      tabsBlock.setAttribute("data-fls-tabs-index", index);
-      tabsBlock.addEventListener("click", setTabsAction);
-      initTabs(tabsBlock);
-    });
-    let mdQueriesArray = dataMediaQueries(tabs2, "flsTabs");
-    if (mdQueriesArray && mdQueriesArray.length) {
-      mdQueriesArray.forEach((mdQueriesItem) => {
-        mdQueriesItem.matchMedia.addEventListener("change", function() {
-          setTitlePosition(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-        });
-        setTitlePosition(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-      });
-    }
-  }
-  function setTitlePosition(tabsMediaArray, matchMedia) {
-    tabsMediaArray.forEach((tabsMediaItem) => {
-      tabsMediaItem = tabsMediaItem.item;
-      let tabsTitles = tabsMediaItem.querySelector("[data-fls-tabs-titles]");
-      let tabsTitleItems = tabsMediaItem.querySelectorAll("[data-fls-tabs-title]");
-      let tabsContent = tabsMediaItem.querySelector("[data-fls-tabs-body]");
-      let tabsContentItems = tabsMediaItem.querySelectorAll("[data-fls-tabs-item]");
-      tabsTitleItems = Array.from(tabsTitleItems).filter((item) => item.closest("[data-fls-tabs]") === tabsMediaItem);
-      tabsContentItems = Array.from(tabsContentItems).filter((item) => item.closest("[data-fls-tabs]") === tabsMediaItem);
-      tabsContentItems.forEach((tabsContentItem, index) => {
-        if (matchMedia.matches) {
-          tabsContent.append(tabsTitleItems[index]);
-          tabsContent.append(tabsContentItem);
-          tabsMediaItem.classList.add("--tab-spoller");
-        } else {
-          tabsTitles.append(tabsTitleItems[index]);
-          tabsMediaItem.classList.remove("--tab-spoller");
-        }
-      });
-    });
-  }
-  function initTabs(tabsBlock) {
-    let tabsTitles = tabsBlock.querySelectorAll("[data-fls-tabs-titles]>*");
-    let tabsContent = tabsBlock.querySelectorAll("[data-fls-tabs-body]>*");
-    const tabsBlockIndex = tabsBlock.dataset.flsTabsIndex;
-    const tabsActiveHashBlock = tabsActiveHash[0] == tabsBlockIndex;
-    if (tabsActiveHashBlock) {
-      const tabsActiveTitle = tabsBlock.querySelector("[data-fls-tabs-titles]>.--tab-active");
-      tabsActiveTitle ? tabsActiveTitle.classList.remove("--tab-active") : null;
-    }
-    if (tabsContent.length) {
-      tabsContent.forEach((tabsContentItem, index) => {
-        tabsTitles[index].setAttribute("data-fls-tabs-title", "");
-        tabsContentItem.setAttribute("data-fls-tabs-item", "");
-        if (tabsActiveHashBlock && index == tabsActiveHash[1]) {
-          tabsTitles[index].classList.add("--tab-active");
-        }
-        tabsContentItem.hidden = !tabsTitles[index].classList.contains("--tab-active");
-      });
-    }
-  }
-  function setTabsStatus(tabsBlock) {
-    let tabsTitles = tabsBlock.querySelectorAll("[data-fls-tabs-title]");
-    let tabsContent = tabsBlock.querySelectorAll("[data-fls-tabs-item]");
-    const tabsBlockIndex = tabsBlock.dataset.flsTabsIndex;
-    function isTabsAnamate(tabsBlock2) {
-      if (tabsBlock2.hasAttribute("data-fls-tabs-animate")) {
-        return tabsBlock2.dataset.flsTabsAnimate > 0 ? Number(tabsBlock2.dataset.flsTabsAnimate) : 500;
-      }
-    }
-    const tabsBlockAnimate = isTabsAnamate(tabsBlock);
-    if (tabsContent.length > 0) {
-      const isHash = tabsBlock.hasAttribute("data-fls-tabs-hash");
-      tabsContent = Array.from(tabsContent).filter((item) => item.closest("[data-fls-tabs]") === tabsBlock);
-      tabsTitles = Array.from(tabsTitles).filter((item) => item.closest("[data-fls-tabs]") === tabsBlock);
-      tabsContent.forEach((tabsContentItem, index) => {
-        if (tabsTitles[index].classList.contains("--tab-active")) {
-          if (tabsBlockAnimate) {
-            slideDown(tabsContentItem, tabsBlockAnimate);
-          } else {
-            tabsContentItem.hidden = false;
-          }
-          if (isHash && !tabsContentItem.closest(".popup")) {
-            setHash(`tab-${tabsBlockIndex}-${index}`);
-          }
-        } else {
-          if (tabsBlockAnimate) {
-            slideUp(tabsContentItem, tabsBlockAnimate);
-          } else {
-            tabsContentItem.hidden = true;
-          }
-        }
-      });
-    }
-  }
-  function setTabsAction(e) {
-    const el = e.target;
-    if (el.closest("[data-fls-tabs-title]")) {
-      const tabTitle = el.closest("[data-fls-tabs-title]");
-      const tabsBlock = tabTitle.closest("[data-fls-tabs]");
-      if (!tabTitle.classList.contains("--tab-active") && !tabsBlock.querySelector(".--slide")) {
-        let tabActiveTitle = tabsBlock.querySelectorAll("[data-fls-tabs-title].--tab-active");
-        tabActiveTitle.length ? tabActiveTitle = Array.from(tabActiveTitle).filter((item) => item.closest("[data-fls-tabs]") === tabsBlock) : null;
-        tabActiveTitle.length ? tabActiveTitle[0].classList.remove("--tab-active") : null;
-        tabTitle.classList.add("--tab-active");
-        setTabsStatus(tabsBlock);
-      }
-      e.preventDefault();
-    }
-  }
-}
-window.addEventListener("load", tabs);
 let formValidate = {
   getErrors(form) {
     let error = 0;
@@ -868,9 +734,9 @@ class SelectConstructor {
     selectInput.addEventListener("input", () => {
       const inputValue = selectInput.value.toLowerCase();
       const selectOptionsItems = selectOptions.querySelectorAll(`.${this.selectClasses.classSelectOption}`);
-      selectOptionsItems.forEach((item) => {
-        const itemText = item.textContent.toLowerCase();
-        item.hidden = !itemText.includes(inputValue);
+      selectOptionsItems.forEach((item2) => {
+        const itemText = item2.textContent.toLowerCase();
+        item2.hidden = !itemText.includes(inputValue);
       });
       if (selectOptions.hidden) {
         this.selectAction(selectItem);
@@ -887,125 +753,6 @@ class SelectConstructor {
   }
 }
 document.querySelector("select[data-fls-select]") ? window.addEventListener("load", () => window.flsSelect = new SelectConstructor({})) : null;
-function spollers() {
-  const spollersArray = document.querySelectorAll("[data-fls-spollers]");
-  if (spollersArray.length > 0) {
-    let initSpollers2 = function(spollersArray2, matchMedia = false) {
-      spollersArray2.forEach((spollersBlock) => {
-        spollersBlock = matchMedia ? spollersBlock.item : spollersBlock;
-        if (matchMedia.matches || !matchMedia) {
-          spollersBlock.classList.add("--spoller-init");
-          initSpollerBody2(spollersBlock);
-        } else {
-          spollersBlock.classList.remove("--spoller-init");
-          initSpollerBody2(spollersBlock, false);
-        }
-      });
-    }, initSpollerBody2 = function(spollersBlock, hideSpollerBody = true) {
-      let spollerItems = spollersBlock.querySelectorAll("details");
-      if (spollerItems.length) {
-        spollerItems.forEach((spollerItem) => {
-          let spollerTitle = spollerItem.querySelector("summary");
-          if (hideSpollerBody) {
-            spollerTitle.removeAttribute("tabindex");
-            if (!spollerItem.hasAttribute("data-fls-spollers-open")) {
-              spollerItem.open = false;
-              spollerTitle.nextElementSibling.hidden = true;
-            } else {
-              spollerTitle.classList.add("--spoller-active");
-              spollerItem.open = true;
-            }
-          } else {
-            spollerTitle.setAttribute("tabindex", "-1");
-            spollerTitle.classList.remove("--spoller-active");
-            spollerItem.open = true;
-            spollerTitle.nextElementSibling.hidden = false;
-          }
-        });
-      }
-    }, setSpollerAction2 = function(e) {
-      const el = e.target;
-      if (el.closest("summary") && el.closest("[data-fls-spollers]")) {
-        e.preventDefault();
-        if (el.closest("[data-fls-spollers]").classList.contains("--spoller-init")) {
-          const spollerTitle = el.closest("summary");
-          const spollerBlock = spollerTitle.closest("details");
-          const spollersBlock = spollerTitle.closest("[data-fls-spollers]");
-          const oneSpoller = spollersBlock.hasAttribute("data-fls-spollers-one");
-          const scrollSpoller = spollerBlock.hasAttribute("data-fls-spollers-scroll");
-          const spollerSpeed = spollersBlock.dataset.flsSpollersSpeed ? parseInt(spollersBlock.dataset.flsSpollersSpeed) : 500;
-          if (!spollersBlock.querySelectorAll(".--slide").length) {
-            if (oneSpoller && !spollerBlock.open) {
-              hideSpollersBody2(spollersBlock);
-            }
-            !spollerBlock.open ? spollerBlock.open = true : setTimeout(() => {
-              spollerBlock.open = false;
-            }, spollerSpeed);
-            spollerTitle.classList.toggle("--spoller-active");
-            slideToggle(spollerTitle.nextElementSibling, spollerSpeed);
-            if (scrollSpoller && spollerTitle.classList.contains("--spoller-active")) {
-              const scrollSpollerValue = spollerBlock.dataset.flsSpollersScroll;
-              const scrollSpollerOffset = +scrollSpollerValue ? +scrollSpollerValue : 0;
-              const scrollSpollerNoHeader = spollerBlock.hasAttribute("data-fls-spollers-scroll-noheader") ? document.querySelector(".header").offsetHeight : 0;
-              window.scrollTo(
-                {
-                  top: spollerBlock.offsetTop - (scrollSpollerOffset + scrollSpollerNoHeader),
-                  behavior: "smooth"
-                }
-              );
-            }
-          }
-        }
-      }
-      if (!el.closest("[data-fls-spollers]")) {
-        const spollersClose = document.querySelectorAll("[data-fls-spollers-close]");
-        if (spollersClose.length) {
-          spollersClose.forEach((spollerClose) => {
-            const spollersBlock = spollerClose.closest("[data-fls-spollers]");
-            const spollerCloseBlock = spollerClose.parentNode;
-            if (spollersBlock.classList.contains("--spoller-init")) {
-              const spollerSpeed = spollersBlock.dataset.flsSpollersSpeed ? parseInt(spollersBlock.dataset.flsSpollersSpeed) : 500;
-              spollerClose.classList.remove("--spoller-active");
-              slideUp(spollerClose.nextElementSibling, spollerSpeed);
-              setTimeout(() => {
-                spollerCloseBlock.open = false;
-              }, spollerSpeed);
-            }
-          });
-        }
-      }
-    }, hideSpollersBody2 = function(spollersBlock) {
-      const spollerActiveBlock = spollersBlock.querySelector("details[open]");
-      if (spollerActiveBlock && !spollersBlock.querySelectorAll(".--slide").length) {
-        const spollerActiveTitle = spollerActiveBlock.querySelector("summary");
-        const spollerSpeed = spollersBlock.dataset.flsSpollersSpeed ? parseInt(spollersBlock.dataset.flsSpollersSpeed) : 500;
-        spollerActiveTitle.classList.remove("--spoller-active");
-        slideUp(spollerActiveTitle.nextElementSibling, spollerSpeed);
-        setTimeout(() => {
-          spollerActiveBlock.open = false;
-        }, spollerSpeed);
-      }
-    };
-    var initSpollers = initSpollers2, initSpollerBody = initSpollerBody2, setSpollerAction = setSpollerAction2, hideSpollersBody = hideSpollersBody2;
-    document.addEventListener("click", setSpollerAction2);
-    const spollersRegular = Array.from(spollersArray).filter(function(item, index, self2) {
-      return !item.dataset.flsSpollers.split(",")[0];
-    });
-    if (spollersRegular.length) {
-      initSpollers2(spollersRegular);
-    }
-    let mdQueriesArray = dataMediaQueries(spollersArray, "flsSpollers");
-    if (mdQueriesArray && mdQueriesArray.length) {
-      mdQueriesArray.forEach((mdQueriesItem) => {
-        mdQueriesItem.matchMedia.addEventListener("change", function() {
-          initSpollers2(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-        });
-        initSpollers2(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-      });
-    }
-  }
-}
-window.addEventListener("load", spollers);
 function isObject$1(obj) {
   return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
 }
@@ -4343,15 +4090,15 @@ var breakpoints = {
 };
 function prepareClasses(entries, prefix) {
   const resultClasses = [];
-  entries.forEach((item) => {
-    if (typeof item === "object") {
-      Object.keys(item).forEach((classNames) => {
-        if (item[classNames]) {
+  entries.forEach((item2) => {
+    if (typeof item2 === "object") {
+      Object.keys(item2).forEach((classNames) => {
+        if (item2[classNames]) {
           resultClasses.push(prefix + classNames);
         }
       });
-    } else if (typeof item === "string") {
-      resultClasses.push(prefix + item);
+    } else if (typeof item2 === "string") {
+      resultClasses.push(prefix + item2);
     }
   });
   return resultClasses;
@@ -5829,422 +5576,6 @@ function Pagination(_ref) {
     destroy
   });
 }
-function Parallax(_ref) {
-  let {
-    swiper,
-    extendParams,
-    on
-  } = _ref;
-  extendParams({
-    parallax: {
-      enabled: false
-    }
-  });
-  const elementsSelector = "[data-swiper-parallax], [data-swiper-parallax-x], [data-swiper-parallax-y], [data-swiper-parallax-opacity], [data-swiper-parallax-scale]";
-  const setTransform = (el, progress) => {
-    const {
-      rtl
-    } = swiper;
-    const rtlFactor = rtl ? -1 : 1;
-    const p = el.getAttribute("data-swiper-parallax") || "0";
-    let x = el.getAttribute("data-swiper-parallax-x");
-    let y = el.getAttribute("data-swiper-parallax-y");
-    const scale = el.getAttribute("data-swiper-parallax-scale");
-    const opacity = el.getAttribute("data-swiper-parallax-opacity");
-    const rotate = el.getAttribute("data-swiper-parallax-rotate");
-    if (x || y) {
-      x = x || "0";
-      y = y || "0";
-    } else if (swiper.isHorizontal()) {
-      x = p;
-      y = "0";
-    } else {
-      y = p;
-      x = "0";
-    }
-    if (x.indexOf("%") >= 0) {
-      x = `${parseInt(x, 10) * progress * rtlFactor}%`;
-    } else {
-      x = `${x * progress * rtlFactor}px`;
-    }
-    if (y.indexOf("%") >= 0) {
-      y = `${parseInt(y, 10) * progress}%`;
-    } else {
-      y = `${y * progress}px`;
-    }
-    if (typeof opacity !== "undefined" && opacity !== null) {
-      const currentOpacity = opacity - (opacity - 1) * (1 - Math.abs(progress));
-      el.style.opacity = currentOpacity;
-    }
-    let transform = `translate3d(${x}, ${y}, 0px)`;
-    if (typeof scale !== "undefined" && scale !== null) {
-      const currentScale = scale - (scale - 1) * (1 - Math.abs(progress));
-      transform += ` scale(${currentScale})`;
-    }
-    if (rotate && typeof rotate !== "undefined" && rotate !== null) {
-      const currentRotate = rotate * progress * -1;
-      transform += ` rotate(${currentRotate}deg)`;
-    }
-    el.style.transform = transform;
-  };
-  const setTranslate2 = () => {
-    const {
-      el,
-      slides,
-      progress,
-      snapGrid,
-      isElement
-    } = swiper;
-    const elements = elementChildren(el, elementsSelector);
-    if (swiper.isElement) {
-      elements.push(...elementChildren(swiper.hostEl, elementsSelector));
-    }
-    elements.forEach((subEl) => {
-      setTransform(subEl, progress);
-    });
-    slides.forEach((slideEl, slideIndex) => {
-      let slideProgress = slideEl.progress;
-      if (swiper.params.slidesPerGroup > 1 && swiper.params.slidesPerView !== "auto") {
-        slideProgress += Math.ceil(slideIndex / 2) - progress * (snapGrid.length - 1);
-      }
-      slideProgress = Math.min(Math.max(slideProgress, -1), 1);
-      slideEl.querySelectorAll(`${elementsSelector}, [data-swiper-parallax-rotate]`).forEach((subEl) => {
-        setTransform(subEl, slideProgress);
-      });
-    });
-  };
-  const setTransition2 = function(duration) {
-    if (duration === void 0) {
-      duration = swiper.params.speed;
-    }
-    const {
-      el,
-      hostEl
-    } = swiper;
-    const elements = [...el.querySelectorAll(elementsSelector)];
-    if (swiper.isElement) {
-      elements.push(...hostEl.querySelectorAll(elementsSelector));
-    }
-    elements.forEach((parallaxEl) => {
-      let parallaxDuration = parseInt(parallaxEl.getAttribute("data-swiper-parallax-duration"), 10) || duration;
-      if (duration === 0) parallaxDuration = 0;
-      parallaxEl.style.transitionDuration = `${parallaxDuration}ms`;
-    });
-  };
-  on("beforeInit", () => {
-    if (!swiper.params.parallax.enabled) return;
-    swiper.params.watchSlidesProgress = true;
-    swiper.originalParams.watchSlidesProgress = true;
-  });
-  on("init", () => {
-    if (!swiper.params.parallax.enabled) return;
-    setTranslate2();
-  });
-  on("setTranslate", () => {
-    if (!swiper.params.parallax.enabled) return;
-    setTranslate2();
-  });
-  on("setTransition", (_swiper, duration) => {
-    if (!swiper.params.parallax.enabled) return;
-    setTransition2(duration);
-  });
-}
-function Autoplay(_ref) {
-  let {
-    swiper,
-    extendParams,
-    on,
-    emit,
-    params
-  } = _ref;
-  swiper.autoplay = {
-    running: false,
-    paused: false,
-    timeLeft: 0
-  };
-  extendParams({
-    autoplay: {
-      enabled: false,
-      delay: 3e3,
-      waitForTransition: true,
-      disableOnInteraction: false,
-      stopOnLastSlide: false,
-      reverseDirection: false,
-      pauseOnMouseEnter: false
-    }
-  });
-  let timeout;
-  let raf;
-  let autoplayDelayTotal = params && params.autoplay ? params.autoplay.delay : 3e3;
-  let autoplayDelayCurrent = params && params.autoplay ? params.autoplay.delay : 3e3;
-  let autoplayTimeLeft;
-  let autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
-  let wasPaused;
-  let isTouched;
-  let pausedByTouch;
-  let touchStartTimeout;
-  let slideChanged;
-  let pausedByInteraction;
-  let pausedByPointerEnter;
-  function onTransitionEnd(e) {
-    if (!swiper || swiper.destroyed || !swiper.wrapperEl) return;
-    if (e.target !== swiper.wrapperEl) return;
-    swiper.wrapperEl.removeEventListener("transitionend", onTransitionEnd);
-    if (pausedByPointerEnter || e.detail && e.detail.bySwiperTouchMove) {
-      return;
-    }
-    resume();
-  }
-  const calcTimeLeft = () => {
-    if (swiper.destroyed || !swiper.autoplay.running) return;
-    if (swiper.autoplay.paused) {
-      wasPaused = true;
-    } else if (wasPaused) {
-      autoplayDelayCurrent = autoplayTimeLeft;
-      wasPaused = false;
-    }
-    const timeLeft = swiper.autoplay.paused ? autoplayTimeLeft : autoplayStartTime + autoplayDelayCurrent - (/* @__PURE__ */ new Date()).getTime();
-    swiper.autoplay.timeLeft = timeLeft;
-    emit("autoplayTimeLeft", timeLeft, timeLeft / autoplayDelayTotal);
-    raf = requestAnimationFrame(() => {
-      calcTimeLeft();
-    });
-  };
-  const getSlideDelay = () => {
-    let activeSlideEl;
-    if (swiper.virtual && swiper.params.virtual.enabled) {
-      activeSlideEl = swiper.slides.find((slideEl) => slideEl.classList.contains("swiper-slide-active"));
-    } else {
-      activeSlideEl = swiper.slides[swiper.activeIndex];
-    }
-    if (!activeSlideEl) return void 0;
-    const currentSlideDelay = parseInt(activeSlideEl.getAttribute("data-swiper-autoplay"), 10);
-    return currentSlideDelay;
-  };
-  const run = (delayForce) => {
-    if (swiper.destroyed || !swiper.autoplay.running) return;
-    cancelAnimationFrame(raf);
-    calcTimeLeft();
-    let delay = typeof delayForce === "undefined" ? swiper.params.autoplay.delay : delayForce;
-    autoplayDelayTotal = swiper.params.autoplay.delay;
-    autoplayDelayCurrent = swiper.params.autoplay.delay;
-    const currentSlideDelay = getSlideDelay();
-    if (!Number.isNaN(currentSlideDelay) && currentSlideDelay > 0 && typeof delayForce === "undefined") {
-      delay = currentSlideDelay;
-      autoplayDelayTotal = currentSlideDelay;
-      autoplayDelayCurrent = currentSlideDelay;
-    }
-    autoplayTimeLeft = delay;
-    const speed = swiper.params.speed;
-    const proceed = () => {
-      if (!swiper || swiper.destroyed) return;
-      if (swiper.params.autoplay.reverseDirection) {
-        if (!swiper.isBeginning || swiper.params.loop || swiper.params.rewind) {
-          swiper.slidePrev(speed, true, true);
-          emit("autoplay");
-        } else if (!swiper.params.autoplay.stopOnLastSlide) {
-          swiper.slideTo(swiper.slides.length - 1, speed, true, true);
-          emit("autoplay");
-        }
-      } else {
-        if (!swiper.isEnd || swiper.params.loop || swiper.params.rewind) {
-          swiper.slideNext(speed, true, true);
-          emit("autoplay");
-        } else if (!swiper.params.autoplay.stopOnLastSlide) {
-          swiper.slideTo(0, speed, true, true);
-          emit("autoplay");
-        }
-      }
-      if (swiper.params.cssMode) {
-        autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
-        requestAnimationFrame(() => {
-          run();
-        });
-      }
-    };
-    if (delay > 0) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        proceed();
-      }, delay);
-    } else {
-      requestAnimationFrame(() => {
-        proceed();
-      });
-    }
-    return delay;
-  };
-  const start = () => {
-    autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
-    swiper.autoplay.running = true;
-    run();
-    emit("autoplayStart");
-  };
-  const stop = () => {
-    swiper.autoplay.running = false;
-    clearTimeout(timeout);
-    cancelAnimationFrame(raf);
-    emit("autoplayStop");
-  };
-  const pause = (internal, reset) => {
-    if (swiper.destroyed || !swiper.autoplay.running) return;
-    clearTimeout(timeout);
-    if (!internal) {
-      pausedByInteraction = true;
-    }
-    const proceed = () => {
-      emit("autoplayPause");
-      if (swiper.params.autoplay.waitForTransition) {
-        swiper.wrapperEl.addEventListener("transitionend", onTransitionEnd);
-      } else {
-        resume();
-      }
-    };
-    swiper.autoplay.paused = true;
-    if (reset) {
-      if (slideChanged) {
-        autoplayTimeLeft = swiper.params.autoplay.delay;
-      }
-      slideChanged = false;
-      proceed();
-      return;
-    }
-    const delay = autoplayTimeLeft || swiper.params.autoplay.delay;
-    autoplayTimeLeft = delay - ((/* @__PURE__ */ new Date()).getTime() - autoplayStartTime);
-    if (swiper.isEnd && autoplayTimeLeft < 0 && !swiper.params.loop) return;
-    if (autoplayTimeLeft < 0) autoplayTimeLeft = 0;
-    proceed();
-  };
-  const resume = () => {
-    if (swiper.isEnd && autoplayTimeLeft < 0 && !swiper.params.loop || swiper.destroyed || !swiper.autoplay.running) return;
-    autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
-    if (pausedByInteraction) {
-      pausedByInteraction = false;
-      run(autoplayTimeLeft);
-    } else {
-      run();
-    }
-    swiper.autoplay.paused = false;
-    emit("autoplayResume");
-  };
-  const onVisibilityChange = () => {
-    if (swiper.destroyed || !swiper.autoplay.running) return;
-    const document2 = getDocument();
-    if (document2.visibilityState === "hidden") {
-      pausedByInteraction = true;
-      pause(true);
-    }
-    if (document2.visibilityState === "visible") {
-      resume();
-    }
-  };
-  const onPointerEnter = (e) => {
-    if (e.pointerType !== "mouse") return;
-    pausedByInteraction = true;
-    pausedByPointerEnter = true;
-    if (swiper.animating || swiper.autoplay.paused) return;
-    pause(true);
-  };
-  const onPointerLeave = (e) => {
-    if (e.pointerType !== "mouse") return;
-    pausedByPointerEnter = false;
-    if (swiper.autoplay.paused) {
-      resume();
-    }
-  };
-  const attachMouseEvents = () => {
-    if (swiper.params.autoplay.pauseOnMouseEnter) {
-      swiper.el.addEventListener("pointerenter", onPointerEnter);
-      swiper.el.addEventListener("pointerleave", onPointerLeave);
-    }
-  };
-  const detachMouseEvents = () => {
-    if (swiper.el && typeof swiper.el !== "string") {
-      swiper.el.removeEventListener("pointerenter", onPointerEnter);
-      swiper.el.removeEventListener("pointerleave", onPointerLeave);
-    }
-  };
-  const attachDocumentEvents = () => {
-    const document2 = getDocument();
-    document2.addEventListener("visibilitychange", onVisibilityChange);
-  };
-  const detachDocumentEvents = () => {
-    const document2 = getDocument();
-    document2.removeEventListener("visibilitychange", onVisibilityChange);
-  };
-  on("init", () => {
-    if (swiper.params.autoplay.enabled) {
-      attachMouseEvents();
-      attachDocumentEvents();
-      start();
-    }
-  });
-  on("destroy", () => {
-    detachMouseEvents();
-    detachDocumentEvents();
-    if (swiper.autoplay.running) {
-      stop();
-    }
-  });
-  on("_freeModeStaticRelease", () => {
-    if (pausedByTouch || pausedByInteraction) {
-      resume();
-    }
-  });
-  on("_freeModeNoMomentumRelease", () => {
-    if (!swiper.params.autoplay.disableOnInteraction) {
-      pause(true, true);
-    } else {
-      stop();
-    }
-  });
-  on("beforeTransitionStart", (_s, speed, internal) => {
-    if (swiper.destroyed || !swiper.autoplay.running) return;
-    if (internal || !swiper.params.autoplay.disableOnInteraction) {
-      pause(true, true);
-    } else {
-      stop();
-    }
-  });
-  on("sliderFirstMove", () => {
-    if (swiper.destroyed || !swiper.autoplay.running) return;
-    if (swiper.params.autoplay.disableOnInteraction) {
-      stop();
-      return;
-    }
-    isTouched = true;
-    pausedByTouch = false;
-    pausedByInteraction = false;
-    touchStartTimeout = setTimeout(() => {
-      pausedByInteraction = true;
-      pausedByTouch = true;
-      pause(true);
-    }, 200);
-  });
-  on("touchEnd", () => {
-    if (swiper.destroyed || !swiper.autoplay.running || !isTouched) return;
-    clearTimeout(touchStartTimeout);
-    clearTimeout(timeout);
-    if (swiper.params.autoplay.disableOnInteraction) {
-      pausedByTouch = false;
-      isTouched = false;
-      return;
-    }
-    if (pausedByTouch && swiper.params.cssMode) resume();
-    pausedByTouch = false;
-    isTouched = false;
-  });
-  on("slideChange", () => {
-    if (swiper.destroyed || !swiper.autoplay.running) return;
-    slideChanged = true;
-  });
-  Object.assign(swiper.autoplay, {
-    start,
-    stop,
-    pause,
-    resume
-  });
-}
 function effectInit(params) {
   const {
     effect,
@@ -6396,30 +5727,31 @@ function EffectFade(_ref) {
   });
 }
 function initSliders() {
-  if (document.querySelector(".hero__slider")) {
-    new Swiper(".hero__slider", {
+  if (document.querySelector(".last-work__slider")) {
+    new Swiper(".last-work__slider", {
       // <- Указываем класс нужного слайдера
       // Подключаем модули слайдера
       // для конкретного случая
-      modules: [Navigation, Pagination, Autoplay, Parallax],
+      modules: [Navigation, Pagination],
       observer: true,
       observeParents: true,
       slidesPerView: 1,
       spaceBetween: 0,
-      autoHeight: true,
-      speed: 1200,
+      //autoHeight: true,
+      speed: 800,
       //touchRatio: 0,
       //simulateTouch: false,
       //loop: true,
       //preloadImages: false,
       //lazy: true,
-      parallax: true,
-      // Эфекты
-      // effect: 'fade',
+      /*
+      // Эффекты
+      effect: 'fade',
       autoplay: {
-        delay: 4e3,
-        disableOnInteraction: false
+      	delay: 3000,
+      	disableOnInteraction: false,
       },
+      */
       // Пагинация
       pagination: {
         el: ".swiper-pagination",
@@ -6434,8 +5766,76 @@ function initSliders() {
       */
       // Кнопки "влево/вправо"
       navigation: {
-        prevEl: ".hero-button-prev",
-        nextEl: ".hero-button-next"
+        prevEl: ".last-work-button-prev",
+        nextEl: ".last-work-button-next"
+      },
+      /*
+      // Брейкпоинты
+      breakpoints: {
+      	640: {
+      		slidesPerView: 1,
+      		spaceBetween: 0,
+      		autoHeight: true,
+      	},
+      	768: {
+      		slidesPerView: 2,
+      		spaceBetween: 20,
+      	},
+      	992: {
+      		slidesPerView: 3,
+      		spaceBetween: 20,
+      	},
+      	1268: {
+      		slidesPerView: 4,
+      		spaceBetween: 30,
+      	},
+      },
+      */
+      // События
+      on: {}
+    });
+  }
+  if (document.querySelector(".reviews__slider")) {
+    new Swiper(".reviews__slider", {
+      // <- Указываем класс нужного слайдера
+      // Подключаем модули слайдера
+      // для конкретного случая
+      modules: [Navigation, Pagination],
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1,
+      spaceBetween: 0,
+      //autoHeight: true,
+      speed: 800,
+      //touchRatio: 0,
+      //simulateTouch: false,
+      //loop: true,
+      //preloadImages: false,
+      //lazy: true,
+      /*
+      // Эффекты
+      effect: 'fade',
+      autoplay: {
+      	delay: 3000,
+      	disableOnInteraction: false,
+      },
+      */
+      // Пагинация
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+      },
+      // Скроллбар
+      /*
+      scrollbar: {
+      	el: '.swiper-scrollbar',
+      	draggable: true,
+      },
+      */
+      // Кнопки "влево/вправо"
+      navigation: {
+        prevEl: ".reviews-button-prev",
+        nextEl: ".reviews-button-next"
       },
       /*
       // Брейкпоинты
@@ -6520,134 +5920,6 @@ function initSliders() {
         fromEdge: function(swiper) {
         }
       }
-    });
-  }
-  if (document.querySelector(".materials__slider")) {
-    new Swiper(".materials__slider", {
-      // <- Указываем класс нужного слайдера
-      // Подключаем модули слайдера
-      // для конкретного случая
-      modules: [Navigation, Pagination],
-      observer: true,
-      observeParents: true,
-      slidesPerView: 1,
-      spaceBetween: 20,
-      autoHeight: true,
-      speed: 1200,
-      //touchRatio: 0,
-      //simulateTouch: false,
-      //loop: true,
-      //preloadImages: false,
-      //lazy: true,
-      // Эфекты
-      // effect: 'fade',
-      // autoplay: {
-      // 	delay: 4000,
-      // 	disableOnInteraction: false,
-      // },
-      // Пагинация
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true
-      },
-      // Скроллбар
-      /*
-      scrollbar: {
-      	el: '.swiper-scrollbar',
-      	draggable: true,
-      },
-      */
-      // Кнопки "влево/вправо"
-      navigation: {
-        prevEl: ".materials-button-prev",
-        nextEl: ".materials-button-next"
-      },
-      // Брейкпоинты
-      breakpoints: {
-        640: {
-          slidesPerView: 1,
-          spaceBetween: 20,
-          autoHeight: true
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 20
-        },
-        992: {
-          slidesPerView: 3,
-          spaceBetween: 20
-        },
-        1268: {
-          slidesPerView: 4,
-          spaceBetween: 30
-        }
-      },
-      // События
-      on: {}
-    });
-  }
-  if (document.querySelector(".guarantees__slider")) {
-    new Swiper(".guarantees__slider", {
-      // <- Указываем класс нужного слайдера
-      // Подключаем модули слайдера
-      // для конкретного случая
-      modules: [Navigation, Pagination],
-      observer: true,
-      observeParents: true,
-      slidesPerView: 1,
-      spaceBetween: 20,
-      autoHeight: true,
-      speed: 1200,
-      //touchRatio: 0,
-      //simulateTouch: false,
-      //loop: true,
-      //preloadImages: false,
-      //lazy: true,
-      // Эфекты
-      // effect: 'fade',
-      // autoplay: {
-      // 	delay: 4000,
-      // 	disableOnInteraction: false,
-      // },
-      // Пагинация
-      // pagination: {
-      // 	el: '.swiper-pagination',
-      // 	clickable: true,
-      // },
-      // Скроллбар
-      /*
-      scrollbar: {
-      	el: '.swiper-scrollbar',
-      	draggable: true,
-      },
-      */
-      // Кнопки "влево/вправо"
-      navigation: {
-        prevEl: ".guarantees-button-prev",
-        nextEl: ".guarantees-button-next"
-      },
-      // Брейкпоинты
-      breakpoints: {
-        640: {
-          slidesPerView: 1,
-          spaceBetween: 20,
-          autoHeight: true
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 20
-        },
-        992: {
-          slidesPerView: 3,
-          spaceBetween: 20
-        },
-        1268: {
-          slidesPerView: 4,
-          spaceBetween: 30
-        }
-      },
-      // События
-      on: {}
     });
   }
 }
@@ -6963,90 +6235,2230 @@ function menuInit() {
   });
 }
 document.querySelector("[data-fls-menu]") ? window.addEventListener("load", menuInit) : null;
-document.addEventListener("DOMContentLoaded", () => {
-  const menu = document.querySelector(".menu");
-  function isMobileView() {
-    return window.innerWidth <= 991.98;
-  }
-  menu.addEventListener("click", function(e) {
-    if (!isMobileView()) return;
-    const targetElement = e.target;
-    const menuItem = targetElement.closest(".menu__item");
-    if (menuItem) {
-      closeAllSubmenus();
-      if (menuItem.querySelector(".submenu-catalog")) {
-        menuItem.querySelector(".submenu-catalog").classList.add("active");
-      } else if (menuItem.querySelector(".submenu")) {
-        menuItem.querySelector(".submenu").classList.add("active");
-      }
-    }
-    if (targetElement.closest(".submenu-close")) {
-      const submenu = targetElement.closest(".submenu");
-      if (submenu) {
-        submenu.classList.remove("active");
-      }
-    }
-    if (targetElement.closest(".submenu-catalog__close")) {
-      targetElement.closest(".submenu-catalog").classList.remove("active");
-    }
-    if (targetElement.closest(".submenu-catalog__title")) {
-      const title = targetElement.closest(".submenu-catalog__title");
-      const list = title.nextElementSibling;
-      title.closest(".submenu-catalog").querySelectorAll(".submenu-catalog__list").forEach((el) => {
-        if (el !== list) el.classList.remove("active");
-      });
-      list.classList.toggle("active");
-    }
-  });
-  document.addEventListener("click", function(e) {
-    if (!isMobileView()) return;
-    if (!e.target.closest(".menu")) {
-      closeAllSubmenus();
-    }
-  });
-  function closeAllSubmenus() {
-    document.querySelectorAll(".submenu, .submenu-catalog, .submenu-catalog__list").forEach((el) => {
-      el.classList.remove("active");
-    });
-  }
-  window.addEventListener("resize", function() {
-    if (!isMobileView()) {
-      closeAllSubmenus();
-    }
-  });
-});
-function headerScroll() {
-  const header = document.querySelector("[data-fls-header-scroll]");
-  const headerShow = header.hasAttribute("data-fls-header-scroll-show");
-  const headerShowTimer = header.dataset.flsHeaderScrollShow ? header.dataset.flsHeaderScrollShow : 500;
-  const startPoint = header.dataset.flsHeaderScroll ? header.dataset.flsHeaderScroll : 1;
-  let scrollDirection = 0;
-  let timer;
-  document.addEventListener("scroll", function(e) {
-    const scrollTop = window.scrollY;
-    clearTimeout(timer);
-    if (scrollTop >= startPoint) {
-      !header.classList.contains("--header-scroll") ? header.classList.add("--header-scroll") : null;
-      if (headerShow) {
-        if (scrollTop > scrollDirection) {
-          header.classList.contains("--header-show") ? header.classList.remove("--header-show") : null;
-        } else {
-          !header.classList.contains("--header-show") ? header.classList.add("--header-show") : null;
-        }
-        timer = setTimeout(() => {
-          !header.classList.contains("--header-show") ? header.classList.add("--header-show") : null;
-        }, headerShowTimer);
-      }
-    } else {
-      header.classList.contains("--header-scroll") ? header.classList.remove("--header-scroll") : null;
-      if (headerShow) {
-        header.classList.contains("--header-show") ? header.classList.remove("--header-show") : null;
-      }
-    }
-    scrollDirection = scrollTop <= 0 ? 0 : scrollTop;
-  });
+function getDefaultExportFromCjs(x) {
+  return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
 }
-document.querySelector("[data-fls-header-scroll]") ? window.addEventListener("load", headerScroll) : null;
+var isotope = { exports: {} };
+var outlayer = { exports: {} };
+var evEmitter$1 = { exports: {} };
+var evEmitter = evEmitter$1.exports;
+var hasRequiredEvEmitter;
+function requireEvEmitter() {
+  if (hasRequiredEvEmitter) return evEmitter$1.exports;
+  hasRequiredEvEmitter = 1;
+  (function(module) {
+    (function(global, factory) {
+      if (module.exports) {
+        module.exports = factory();
+      } else {
+        global.EvEmitter = factory();
+      }
+    })(typeof window != "undefined" ? window : evEmitter, function() {
+      function EvEmitter() {
+      }
+      var proto = EvEmitter.prototype;
+      proto.on = function(eventName, listener) {
+        if (!eventName || !listener) {
+          return;
+        }
+        var events2 = this._events = this._events || {};
+        var listeners = events2[eventName] = events2[eventName] || [];
+        if (listeners.indexOf(listener) == -1) {
+          listeners.push(listener);
+        }
+        return this;
+      };
+      proto.once = function(eventName, listener) {
+        if (!eventName || !listener) {
+          return;
+        }
+        this.on(eventName, listener);
+        var onceEvents = this._onceEvents = this._onceEvents || {};
+        var onceListeners = onceEvents[eventName] = onceEvents[eventName] || {};
+        onceListeners[listener] = true;
+        return this;
+      };
+      proto.off = function(eventName, listener) {
+        var listeners = this._events && this._events[eventName];
+        if (!listeners || !listeners.length) {
+          return;
+        }
+        var index = listeners.indexOf(listener);
+        if (index != -1) {
+          listeners.splice(index, 1);
+        }
+        return this;
+      };
+      proto.emitEvent = function(eventName, args) {
+        var listeners = this._events && this._events[eventName];
+        if (!listeners || !listeners.length) {
+          return;
+        }
+        listeners = listeners.slice(0);
+        args = args || [];
+        var onceListeners = this._onceEvents && this._onceEvents[eventName];
+        for (var i = 0; i < listeners.length; i++) {
+          var listener = listeners[i];
+          var isOnce = onceListeners && onceListeners[listener];
+          if (isOnce) {
+            this.off(eventName, listener);
+            delete onceListeners[listener];
+          }
+          listener.apply(this, args);
+        }
+        return this;
+      };
+      proto.allOff = function() {
+        delete this._events;
+        delete this._onceEvents;
+      };
+      return EvEmitter;
+    });
+  })(evEmitter$1);
+  return evEmitter$1.exports;
+}
+var getSize = { exports: {} };
+/*!
+ * getSize v2.0.3
+ * measure size of elements
+ * MIT license
+ */
+var hasRequiredGetSize;
+function requireGetSize() {
+  if (hasRequiredGetSize) return getSize.exports;
+  hasRequiredGetSize = 1;
+  (function(module) {
+    (function(window2, factory) {
+      if (module.exports) {
+        module.exports = factory();
+      } else {
+        window2.getSize = factory();
+      }
+    })(window, function factory() {
+      function getStyleSize(value) {
+        var num = parseFloat(value);
+        var isValid = value.indexOf("%") == -1 && !isNaN(num);
+        return isValid && num;
+      }
+      function noop() {
+      }
+      var logError = typeof console == "undefined" ? noop : function(message) {
+        console.error(message);
+      };
+      var measurements = [
+        "paddingLeft",
+        "paddingRight",
+        "paddingTop",
+        "paddingBottom",
+        "marginLeft",
+        "marginRight",
+        "marginTop",
+        "marginBottom",
+        "borderLeftWidth",
+        "borderRightWidth",
+        "borderTopWidth",
+        "borderBottomWidth"
+      ];
+      var measurementsLength = measurements.length;
+      function getZeroSize() {
+        var size = {
+          width: 0,
+          height: 0,
+          innerWidth: 0,
+          innerHeight: 0,
+          outerWidth: 0,
+          outerHeight: 0
+        };
+        for (var i = 0; i < measurementsLength; i++) {
+          var measurement = measurements[i];
+          size[measurement] = 0;
+        }
+        return size;
+      }
+      function getStyle(elem) {
+        var style = getComputedStyle(elem);
+        if (!style) {
+          logError("Style returned " + style + ". Are you running this code in a hidden iframe on Firefox? See https://bit.ly/getsizebug1");
+        }
+        return style;
+      }
+      var isSetup = false;
+      var isBoxSizeOuter;
+      function setup() {
+        if (isSetup) {
+          return;
+        }
+        isSetup = true;
+        var div = document.createElement("div");
+        div.style.width = "200px";
+        div.style.padding = "1px 2px 3px 4px";
+        div.style.borderStyle = "solid";
+        div.style.borderWidth = "1px 2px 3px 4px";
+        div.style.boxSizing = "border-box";
+        var body = document.body || document.documentElement;
+        body.appendChild(div);
+        var style = getStyle(div);
+        isBoxSizeOuter = Math.round(getStyleSize(style.width)) == 200;
+        getSize2.isBoxSizeOuter = isBoxSizeOuter;
+        body.removeChild(div);
+      }
+      function getSize2(elem) {
+        setup();
+        if (typeof elem == "string") {
+          elem = document.querySelector(elem);
+        }
+        if (!elem || typeof elem != "object" || !elem.nodeType) {
+          return;
+        }
+        var style = getStyle(elem);
+        if (style.display == "none") {
+          return getZeroSize();
+        }
+        var size = {};
+        size.width = elem.offsetWidth;
+        size.height = elem.offsetHeight;
+        var isBorderBox = size.isBorderBox = style.boxSizing == "border-box";
+        for (var i = 0; i < measurementsLength; i++) {
+          var measurement = measurements[i];
+          var value = style[measurement];
+          var num = parseFloat(value);
+          size[measurement] = !isNaN(num) ? num : 0;
+        }
+        var paddingWidth = size.paddingLeft + size.paddingRight;
+        var paddingHeight = size.paddingTop + size.paddingBottom;
+        var marginWidth = size.marginLeft + size.marginRight;
+        var marginHeight = size.marginTop + size.marginBottom;
+        var borderWidth = size.borderLeftWidth + size.borderRightWidth;
+        var borderHeight = size.borderTopWidth + size.borderBottomWidth;
+        var isBorderBoxSizeOuter = isBorderBox && isBoxSizeOuter;
+        var styleWidth = getStyleSize(style.width);
+        if (styleWidth !== false) {
+          size.width = styleWidth + // add padding and border unless it's already including it
+          (isBorderBoxSizeOuter ? 0 : paddingWidth + borderWidth);
+        }
+        var styleHeight = getStyleSize(style.height);
+        if (styleHeight !== false) {
+          size.height = styleHeight + // add padding and border unless it's already including it
+          (isBorderBoxSizeOuter ? 0 : paddingHeight + borderHeight);
+        }
+        size.innerWidth = size.width - (paddingWidth + borderWidth);
+        size.innerHeight = size.height - (paddingHeight + borderHeight);
+        size.outerWidth = size.width + marginWidth;
+        size.outerHeight = size.height + marginHeight;
+        return size;
+      }
+      return getSize2;
+    });
+  })(getSize);
+  return getSize.exports;
+}
+var utils$1 = { exports: {} };
+var matchesSelector = { exports: {} };
+var hasRequiredMatchesSelector;
+function requireMatchesSelector() {
+  if (hasRequiredMatchesSelector) return matchesSelector.exports;
+  hasRequiredMatchesSelector = 1;
+  (function(module) {
+    (function(window2, factory) {
+      if (module.exports) {
+        module.exports = factory();
+      } else {
+        window2.matchesSelector = factory();
+      }
+    })(window, function factory() {
+      var matchesMethod = function() {
+        var ElemProto = window.Element.prototype;
+        if (ElemProto.matches) {
+          return "matches";
+        }
+        if (ElemProto.matchesSelector) {
+          return "matchesSelector";
+        }
+        var prefixes = ["webkit", "moz", "ms", "o"];
+        for (var i = 0; i < prefixes.length; i++) {
+          var prefix = prefixes[i];
+          var method = prefix + "MatchesSelector";
+          if (ElemProto[method]) {
+            return method;
+          }
+        }
+      }();
+      return function matchesSelector2(elem, selector) {
+        return elem[matchesMethod](selector);
+      };
+    });
+  })(matchesSelector);
+  return matchesSelector.exports;
+}
+var hasRequiredUtils;
+function requireUtils() {
+  if (hasRequiredUtils) return utils$1.exports;
+  hasRequiredUtils = 1;
+  (function(module) {
+    (function(window2, factory) {
+      if (module.exports) {
+        module.exports = factory(
+          window2,
+          requireMatchesSelector()
+        );
+      } else {
+        window2.fizzyUIUtils = factory(
+          window2,
+          window2.matchesSelector
+        );
+      }
+    })(window, function factory(window2, matchesSelector2) {
+      var utils2 = {};
+      utils2.extend = function(a, b) {
+        for (var prop in b) {
+          a[prop] = b[prop];
+        }
+        return a;
+      };
+      utils2.modulo = function(num, div) {
+        return (num % div + div) % div;
+      };
+      var arraySlice = Array.prototype.slice;
+      utils2.makeArray = function(obj) {
+        if (Array.isArray(obj)) {
+          return obj;
+        }
+        if (obj === null || obj === void 0) {
+          return [];
+        }
+        var isArrayLike = typeof obj == "object" && typeof obj.length == "number";
+        if (isArrayLike) {
+          return arraySlice.call(obj);
+        }
+        return [obj];
+      };
+      utils2.removeFrom = function(ary, obj) {
+        var index = ary.indexOf(obj);
+        if (index != -1) {
+          ary.splice(index, 1);
+        }
+      };
+      utils2.getParent = function(elem, selector) {
+        while (elem.parentNode && elem != document.body) {
+          elem = elem.parentNode;
+          if (matchesSelector2(elem, selector)) {
+            return elem;
+          }
+        }
+      };
+      utils2.getQueryElement = function(elem) {
+        if (typeof elem == "string") {
+          return document.querySelector(elem);
+        }
+        return elem;
+      };
+      utils2.handleEvent = function(event) {
+        var method = "on" + event.type;
+        if (this[method]) {
+          this[method](event);
+        }
+      };
+      utils2.filterFindElements = function(elems, selector) {
+        elems = utils2.makeArray(elems);
+        var ffElems = [];
+        elems.forEach(function(elem) {
+          if (!(elem instanceof HTMLElement)) {
+            return;
+          }
+          if (!selector) {
+            ffElems.push(elem);
+            return;
+          }
+          if (matchesSelector2(elem, selector)) {
+            ffElems.push(elem);
+          }
+          var childElems = elem.querySelectorAll(selector);
+          for (var i = 0; i < childElems.length; i++) {
+            ffElems.push(childElems[i]);
+          }
+        });
+        return ffElems;
+      };
+      utils2.debounceMethod = function(_class, methodName, threshold) {
+        threshold = threshold || 100;
+        var method = _class.prototype[methodName];
+        var timeoutName = methodName + "Timeout";
+        _class.prototype[methodName] = function() {
+          var timeout = this[timeoutName];
+          clearTimeout(timeout);
+          var args = arguments;
+          var _this = this;
+          this[timeoutName] = setTimeout(function() {
+            method.apply(_this, args);
+            delete _this[timeoutName];
+          }, threshold);
+        };
+      };
+      utils2.docReady = function(callback) {
+        var readyState = document.readyState;
+        if (readyState == "complete" || readyState == "interactive") {
+          setTimeout(callback);
+        } else {
+          document.addEventListener("DOMContentLoaded", callback);
+        }
+      };
+      utils2.toDashed = function(str) {
+        return str.replace(/(.)([A-Z])/g, function(match, $1, $2) {
+          return $1 + "-" + $2;
+        }).toLowerCase();
+      };
+      var console2 = window2.console;
+      utils2.htmlInit = function(WidgetClass, namespace) {
+        utils2.docReady(function() {
+          var dashedNamespace = utils2.toDashed(namespace);
+          var dataAttr = "data-" + dashedNamespace;
+          var dataAttrElems = document.querySelectorAll("[" + dataAttr + "]");
+          var jsDashElems = document.querySelectorAll(".js-" + dashedNamespace);
+          var elems = utils2.makeArray(dataAttrElems).concat(utils2.makeArray(jsDashElems));
+          var dataOptionsAttr = dataAttr + "-options";
+          var jQuery = window2.jQuery;
+          elems.forEach(function(elem) {
+            var attr = elem.getAttribute(dataAttr) || elem.getAttribute(dataOptionsAttr);
+            var options;
+            try {
+              options = attr && JSON.parse(attr);
+            } catch (error) {
+              if (console2) {
+                console2.error("Error parsing " + dataAttr + " on " + elem.className + ": " + error);
+              }
+              return;
+            }
+            var instance = new WidgetClass(elem, options);
+            if (jQuery) {
+              jQuery.data(elem, namespace, instance);
+            }
+          });
+        });
+      };
+      return utils2;
+    });
+  })(utils$1);
+  return utils$1.exports;
+}
+var item$1 = { exports: {} };
+var hasRequiredItem$1;
+function requireItem$1() {
+  if (hasRequiredItem$1) return item$1.exports;
+  hasRequiredItem$1 = 1;
+  (function(module) {
+    (function(window2, factory) {
+      if (module.exports) {
+        module.exports = factory(
+          requireEvEmitter(),
+          requireGetSize()
+        );
+      } else {
+        window2.Outlayer = {};
+        window2.Outlayer.Item = factory(
+          window2.EvEmitter,
+          window2.getSize
+        );
+      }
+    })(window, function factory(EvEmitter, getSize2) {
+      function isEmptyObj(obj) {
+        for (var prop in obj) {
+          return false;
+        }
+        prop = null;
+        return true;
+      }
+      var docElemStyle = document.documentElement.style;
+      var transitionProperty = typeof docElemStyle.transition == "string" ? "transition" : "WebkitTransition";
+      var transformProperty = typeof docElemStyle.transform == "string" ? "transform" : "WebkitTransform";
+      var transitionEndEvent = {
+        WebkitTransition: "webkitTransitionEnd",
+        transition: "transitionend"
+      }[transitionProperty];
+      var vendorProperties = {
+        transform: transformProperty,
+        transition: transitionProperty,
+        transitionDuration: transitionProperty + "Duration",
+        transitionProperty: transitionProperty + "Property",
+        transitionDelay: transitionProperty + "Delay"
+      };
+      function Item(element, layout) {
+        if (!element) {
+          return;
+        }
+        this.element = element;
+        this.layout = layout;
+        this.position = {
+          x: 0,
+          y: 0
+        };
+        this._create();
+      }
+      var proto = Item.prototype = Object.create(EvEmitter.prototype);
+      proto.constructor = Item;
+      proto._create = function() {
+        this._transn = {
+          ingProperties: {},
+          clean: {},
+          onEnd: {}
+        };
+        this.css({
+          position: "absolute"
+        });
+      };
+      proto.handleEvent = function(event) {
+        var method = "on" + event.type;
+        if (this[method]) {
+          this[method](event);
+        }
+      };
+      proto.getSize = function() {
+        this.size = getSize2(this.element);
+      };
+      proto.css = function(style) {
+        var elemStyle = this.element.style;
+        for (var prop in style) {
+          var supportedProp = vendorProperties[prop] || prop;
+          elemStyle[supportedProp] = style[prop];
+        }
+      };
+      proto.getPosition = function() {
+        var style = getComputedStyle(this.element);
+        var isOriginLeft = this.layout._getOption("originLeft");
+        var isOriginTop = this.layout._getOption("originTop");
+        var xValue = style[isOriginLeft ? "left" : "right"];
+        var yValue = style[isOriginTop ? "top" : "bottom"];
+        var x = parseFloat(xValue);
+        var y = parseFloat(yValue);
+        var layoutSize = this.layout.size;
+        if (xValue.indexOf("%") != -1) {
+          x = x / 100 * layoutSize.width;
+        }
+        if (yValue.indexOf("%") != -1) {
+          y = y / 100 * layoutSize.height;
+        }
+        x = isNaN(x) ? 0 : x;
+        y = isNaN(y) ? 0 : y;
+        x -= isOriginLeft ? layoutSize.paddingLeft : layoutSize.paddingRight;
+        y -= isOriginTop ? layoutSize.paddingTop : layoutSize.paddingBottom;
+        this.position.x = x;
+        this.position.y = y;
+      };
+      proto.layoutPosition = function() {
+        var layoutSize = this.layout.size;
+        var style = {};
+        var isOriginLeft = this.layout._getOption("originLeft");
+        var isOriginTop = this.layout._getOption("originTop");
+        var xPadding = isOriginLeft ? "paddingLeft" : "paddingRight";
+        var xProperty = isOriginLeft ? "left" : "right";
+        var xResetProperty = isOriginLeft ? "right" : "left";
+        var x = this.position.x + layoutSize[xPadding];
+        style[xProperty] = this.getXValue(x);
+        style[xResetProperty] = "";
+        var yPadding = isOriginTop ? "paddingTop" : "paddingBottom";
+        var yProperty = isOriginTop ? "top" : "bottom";
+        var yResetProperty = isOriginTop ? "bottom" : "top";
+        var y = this.position.y + layoutSize[yPadding];
+        style[yProperty] = this.getYValue(y);
+        style[yResetProperty] = "";
+        this.css(style);
+        this.emitEvent("layout", [this]);
+      };
+      proto.getXValue = function(x) {
+        var isHorizontal = this.layout._getOption("horizontal");
+        return this.layout.options.percentPosition && !isHorizontal ? x / this.layout.size.width * 100 + "%" : x + "px";
+      };
+      proto.getYValue = function(y) {
+        var isHorizontal = this.layout._getOption("horizontal");
+        return this.layout.options.percentPosition && isHorizontal ? y / this.layout.size.height * 100 + "%" : y + "px";
+      };
+      proto._transitionTo = function(x, y) {
+        this.getPosition();
+        var curX = this.position.x;
+        var curY = this.position.y;
+        var didNotMove = x == this.position.x && y == this.position.y;
+        this.setPosition(x, y);
+        if (didNotMove && !this.isTransitioning) {
+          this.layoutPosition();
+          return;
+        }
+        var transX = x - curX;
+        var transY = y - curY;
+        var transitionStyle = {};
+        transitionStyle.transform = this.getTranslate(transX, transY);
+        this.transition({
+          to: transitionStyle,
+          onTransitionEnd: {
+            transform: this.layoutPosition
+          },
+          isCleaning: true
+        });
+      };
+      proto.getTranslate = function(x, y) {
+        var isOriginLeft = this.layout._getOption("originLeft");
+        var isOriginTop = this.layout._getOption("originTop");
+        x = isOriginLeft ? x : -x;
+        y = isOriginTop ? y : -y;
+        return "translate3d(" + x + "px, " + y + "px, 0)";
+      };
+      proto.goTo = function(x, y) {
+        this.setPosition(x, y);
+        this.layoutPosition();
+      };
+      proto.moveTo = proto._transitionTo;
+      proto.setPosition = function(x, y) {
+        this.position.x = parseFloat(x);
+        this.position.y = parseFloat(y);
+      };
+      proto._nonTransition = function(args) {
+        this.css(args.to);
+        if (args.isCleaning) {
+          this._removeStyles(args.to);
+        }
+        for (var prop in args.onTransitionEnd) {
+          args.onTransitionEnd[prop].call(this);
+        }
+      };
+      proto.transition = function(args) {
+        if (!parseFloat(this.layout.options.transitionDuration)) {
+          this._nonTransition(args);
+          return;
+        }
+        var _transition = this._transn;
+        for (var prop in args.onTransitionEnd) {
+          _transition.onEnd[prop] = args.onTransitionEnd[prop];
+        }
+        for (prop in args.to) {
+          _transition.ingProperties[prop] = true;
+          if (args.isCleaning) {
+            _transition.clean[prop] = true;
+          }
+        }
+        if (args.from) {
+          this.css(args.from);
+          this.element.offsetHeight;
+        }
+        this.enableTransition(args.to);
+        this.css(args.to);
+        this.isTransitioning = true;
+      };
+      function toDashedAll(str) {
+        return str.replace(/([A-Z])/g, function($1) {
+          return "-" + $1.toLowerCase();
+        });
+      }
+      var transitionProps = "opacity," + toDashedAll(transformProperty);
+      proto.enableTransition = function() {
+        if (this.isTransitioning) {
+          return;
+        }
+        var duration = this.layout.options.transitionDuration;
+        duration = typeof duration == "number" ? duration + "ms" : duration;
+        this.css({
+          transitionProperty: transitionProps,
+          transitionDuration: duration,
+          transitionDelay: this.staggerDelay || 0
+        });
+        this.element.addEventListener(transitionEndEvent, this, false);
+      };
+      proto.onwebkitTransitionEnd = function(event) {
+        this.ontransitionend(event);
+      };
+      proto.onotransitionend = function(event) {
+        this.ontransitionend(event);
+      };
+      var dashedVendorProperties = {
+        "-webkit-transform": "transform"
+      };
+      proto.ontransitionend = function(event) {
+        if (event.target !== this.element) {
+          return;
+        }
+        var _transition = this._transn;
+        var propertyName = dashedVendorProperties[event.propertyName] || event.propertyName;
+        delete _transition.ingProperties[propertyName];
+        if (isEmptyObj(_transition.ingProperties)) {
+          this.disableTransition();
+        }
+        if (propertyName in _transition.clean) {
+          this.element.style[event.propertyName] = "";
+          delete _transition.clean[propertyName];
+        }
+        if (propertyName in _transition.onEnd) {
+          var onTransitionEnd = _transition.onEnd[propertyName];
+          onTransitionEnd.call(this);
+          delete _transition.onEnd[propertyName];
+        }
+        this.emitEvent("transitionEnd", [this]);
+      };
+      proto.disableTransition = function() {
+        this.removeTransitionStyles();
+        this.element.removeEventListener(transitionEndEvent, this, false);
+        this.isTransitioning = false;
+      };
+      proto._removeStyles = function(style) {
+        var cleanStyle = {};
+        for (var prop in style) {
+          cleanStyle[prop] = "";
+        }
+        this.css(cleanStyle);
+      };
+      var cleanTransitionStyle = {
+        transitionProperty: "",
+        transitionDuration: "",
+        transitionDelay: ""
+      };
+      proto.removeTransitionStyles = function() {
+        this.css(cleanTransitionStyle);
+      };
+      proto.stagger = function(delay) {
+        delay = isNaN(delay) ? 0 : delay;
+        this.staggerDelay = delay + "ms";
+      };
+      proto.removeElem = function() {
+        this.element.parentNode.removeChild(this.element);
+        this.css({ display: "" });
+        this.emitEvent("remove", [this]);
+      };
+      proto.remove = function() {
+        if (!parseFloat(this.layout.options.transitionDuration)) {
+          this.removeElem();
+          return;
+        }
+        this.once("transitionEnd", function() {
+          this.removeElem();
+        });
+        this.hide();
+      };
+      proto.reveal = function() {
+        delete this.isHidden;
+        this.css({ display: "" });
+        var options = this.layout.options;
+        var onTransitionEnd = {};
+        var transitionEndProperty = this.getHideRevealTransitionEndProperty("visibleStyle");
+        onTransitionEnd[transitionEndProperty] = this.onRevealTransitionEnd;
+        this.transition({
+          from: options.hiddenStyle,
+          to: options.visibleStyle,
+          isCleaning: true,
+          onTransitionEnd
+        });
+      };
+      proto.onRevealTransitionEnd = function() {
+        if (!this.isHidden) {
+          this.emitEvent("reveal");
+        }
+      };
+      proto.getHideRevealTransitionEndProperty = function(styleProperty) {
+        var optionStyle = this.layout.options[styleProperty];
+        if (optionStyle.opacity) {
+          return "opacity";
+        }
+        for (var prop in optionStyle) {
+          return prop;
+        }
+      };
+      proto.hide = function() {
+        this.isHidden = true;
+        this.css({ display: "" });
+        var options = this.layout.options;
+        var onTransitionEnd = {};
+        var transitionEndProperty = this.getHideRevealTransitionEndProperty("hiddenStyle");
+        onTransitionEnd[transitionEndProperty] = this.onHideTransitionEnd;
+        this.transition({
+          from: options.visibleStyle,
+          to: options.hiddenStyle,
+          // keep hidden stuff hidden
+          isCleaning: true,
+          onTransitionEnd
+        });
+      };
+      proto.onHideTransitionEnd = function() {
+        if (this.isHidden) {
+          this.css({ display: "none" });
+          this.emitEvent("hide");
+        }
+      };
+      proto.destroy = function() {
+        this.css({
+          position: "",
+          left: "",
+          right: "",
+          top: "",
+          bottom: "",
+          transition: "",
+          transform: ""
+        });
+      };
+      return Item;
+    });
+  })(item$1);
+  return item$1.exports;
+}
+/*!
+ * Outlayer v2.1.1
+ * the brains and guts of a layout library
+ * MIT license
+ */
+var hasRequiredOutlayer;
+function requireOutlayer() {
+  if (hasRequiredOutlayer) return outlayer.exports;
+  hasRequiredOutlayer = 1;
+  (function(module) {
+    (function(window2, factory) {
+      if (module.exports) {
+        module.exports = factory(
+          window2,
+          requireEvEmitter(),
+          requireGetSize(),
+          requireUtils(),
+          requireItem$1()
+        );
+      } else {
+        window2.Outlayer = factory(
+          window2,
+          window2.EvEmitter,
+          window2.getSize,
+          window2.fizzyUIUtils,
+          window2.Outlayer.Item
+        );
+      }
+    })(window, function factory(window2, EvEmitter, getSize2, utils2, Item) {
+      var console2 = window2.console;
+      var jQuery = window2.jQuery;
+      var noop = function() {
+      };
+      var GUID = 0;
+      var instances = {};
+      function Outlayer(element, options) {
+        var queryElement = utils2.getQueryElement(element);
+        if (!queryElement) {
+          if (console2) {
+            console2.error("Bad element for " + this.constructor.namespace + ": " + (queryElement || element));
+          }
+          return;
+        }
+        this.element = queryElement;
+        if (jQuery) {
+          this.$element = jQuery(this.element);
+        }
+        this.options = utils2.extend({}, this.constructor.defaults);
+        this.option(options);
+        var id = ++GUID;
+        this.element.outlayerGUID = id;
+        instances[id] = this;
+        this._create();
+        var isInitLayout = this._getOption("initLayout");
+        if (isInitLayout) {
+          this.layout();
+        }
+      }
+      Outlayer.namespace = "outlayer";
+      Outlayer.Item = Item;
+      Outlayer.defaults = {
+        containerStyle: {
+          position: "relative"
+        },
+        initLayout: true,
+        originLeft: true,
+        originTop: true,
+        resize: true,
+        resizeContainer: true,
+        // item options
+        transitionDuration: "0.4s",
+        hiddenStyle: {
+          opacity: 0,
+          transform: "scale(0.001)"
+        },
+        visibleStyle: {
+          opacity: 1,
+          transform: "scale(1)"
+        }
+      };
+      var proto = Outlayer.prototype;
+      utils2.extend(proto, EvEmitter.prototype);
+      proto.option = function(opts) {
+        utils2.extend(this.options, opts);
+      };
+      proto._getOption = function(option) {
+        var oldOption = this.constructor.compatOptions[option];
+        return oldOption && this.options[oldOption] !== void 0 ? this.options[oldOption] : this.options[option];
+      };
+      Outlayer.compatOptions = {
+        // currentName: oldName
+        initLayout: "isInitLayout",
+        horizontal: "isHorizontal",
+        layoutInstant: "isLayoutInstant",
+        originLeft: "isOriginLeft",
+        originTop: "isOriginTop",
+        resize: "isResizeBound",
+        resizeContainer: "isResizingContainer"
+      };
+      proto._create = function() {
+        this.reloadItems();
+        this.stamps = [];
+        this.stamp(this.options.stamp);
+        utils2.extend(this.element.style, this.options.containerStyle);
+        var canBindResize = this._getOption("resize");
+        if (canBindResize) {
+          this.bindResize();
+        }
+      };
+      proto.reloadItems = function() {
+        this.items = this._itemize(this.element.children);
+      };
+      proto._itemize = function(elems) {
+        var itemElems = this._filterFindItemElements(elems);
+        var Item2 = this.constructor.Item;
+        var items = [];
+        for (var i = 0; i < itemElems.length; i++) {
+          var elem = itemElems[i];
+          var item2 = new Item2(elem, this);
+          items.push(item2);
+        }
+        return items;
+      };
+      proto._filterFindItemElements = function(elems) {
+        return utils2.filterFindElements(elems, this.options.itemSelector);
+      };
+      proto.getItemElements = function() {
+        return this.items.map(function(item2) {
+          return item2.element;
+        });
+      };
+      proto.layout = function() {
+        this._resetLayout();
+        this._manageStamps();
+        var layoutInstant = this._getOption("layoutInstant");
+        var isInstant = layoutInstant !== void 0 ? layoutInstant : !this._isLayoutInited;
+        this.layoutItems(this.items, isInstant);
+        this._isLayoutInited = true;
+      };
+      proto._init = proto.layout;
+      proto._resetLayout = function() {
+        this.getSize();
+      };
+      proto.getSize = function() {
+        this.size = getSize2(this.element);
+      };
+      proto._getMeasurement = function(measurement, size) {
+        var option = this.options[measurement];
+        var elem;
+        if (!option) {
+          this[measurement] = 0;
+        } else {
+          if (typeof option == "string") {
+            elem = this.element.querySelector(option);
+          } else if (option instanceof HTMLElement) {
+            elem = option;
+          }
+          this[measurement] = elem ? getSize2(elem)[size] : option;
+        }
+      };
+      proto.layoutItems = function(items, isInstant) {
+        items = this._getItemsForLayout(items);
+        this._layoutItems(items, isInstant);
+        this._postLayout();
+      };
+      proto._getItemsForLayout = function(items) {
+        return items.filter(function(item2) {
+          return !item2.isIgnored;
+        });
+      };
+      proto._layoutItems = function(items, isInstant) {
+        this._emitCompleteOnItems("layout", items);
+        if (!items || !items.length) {
+          return;
+        }
+        var queue = [];
+        items.forEach(function(item2) {
+          var position = this._getItemLayoutPosition(item2);
+          position.item = item2;
+          position.isInstant = isInstant || item2.isLayoutInstant;
+          queue.push(position);
+        }, this);
+        this._processLayoutQueue(queue);
+      };
+      proto._getItemLayoutPosition = function() {
+        return {
+          x: 0,
+          y: 0
+        };
+      };
+      proto._processLayoutQueue = function(queue) {
+        this.updateStagger();
+        queue.forEach(function(obj, i) {
+          this._positionItem(obj.item, obj.x, obj.y, obj.isInstant, i);
+        }, this);
+      };
+      proto.updateStagger = function() {
+        var stagger = this.options.stagger;
+        if (stagger === null || stagger === void 0) {
+          this.stagger = 0;
+          return;
+        }
+        this.stagger = getMilliseconds(stagger);
+        return this.stagger;
+      };
+      proto._positionItem = function(item2, x, y, isInstant, i) {
+        if (isInstant) {
+          item2.goTo(x, y);
+        } else {
+          item2.stagger(i * this.stagger);
+          item2.moveTo(x, y);
+        }
+      };
+      proto._postLayout = function() {
+        this.resizeContainer();
+      };
+      proto.resizeContainer = function() {
+        var isResizingContainer = this._getOption("resizeContainer");
+        if (!isResizingContainer) {
+          return;
+        }
+        var size = this._getContainerSize();
+        if (size) {
+          this._setContainerMeasure(size.width, true);
+          this._setContainerMeasure(size.height, false);
+        }
+      };
+      proto._getContainerSize = noop;
+      proto._setContainerMeasure = function(measure, isWidth) {
+        if (measure === void 0) {
+          return;
+        }
+        var elemSize = this.size;
+        if (elemSize.isBorderBox) {
+          measure += isWidth ? elemSize.paddingLeft + elemSize.paddingRight + elemSize.borderLeftWidth + elemSize.borderRightWidth : elemSize.paddingBottom + elemSize.paddingTop + elemSize.borderTopWidth + elemSize.borderBottomWidth;
+        }
+        measure = Math.max(measure, 0);
+        this.element.style[isWidth ? "width" : "height"] = measure + "px";
+      };
+      proto._emitCompleteOnItems = function(eventName, items) {
+        var _this = this;
+        function onComplete() {
+          _this.dispatchEvent(eventName + "Complete", null, [items]);
+        }
+        var count = items.length;
+        if (!items || !count) {
+          onComplete();
+          return;
+        }
+        var doneCount = 0;
+        function tick() {
+          doneCount++;
+          if (doneCount == count) {
+            onComplete();
+          }
+        }
+        items.forEach(function(item2) {
+          item2.once(eventName, tick);
+        });
+      };
+      proto.dispatchEvent = function(type, event, args) {
+        var emitArgs = event ? [event].concat(args) : args;
+        this.emitEvent(type, emitArgs);
+        if (jQuery) {
+          this.$element = this.$element || jQuery(this.element);
+          if (event) {
+            var $event = jQuery.Event(event);
+            $event.type = type;
+            this.$element.trigger($event, args);
+          } else {
+            this.$element.trigger(type, args);
+          }
+        }
+      };
+      proto.ignore = function(elem) {
+        var item2 = this.getItem(elem);
+        if (item2) {
+          item2.isIgnored = true;
+        }
+      };
+      proto.unignore = function(elem) {
+        var item2 = this.getItem(elem);
+        if (item2) {
+          delete item2.isIgnored;
+        }
+      };
+      proto.stamp = function(elems) {
+        elems = this._find(elems);
+        if (!elems) {
+          return;
+        }
+        this.stamps = this.stamps.concat(elems);
+        elems.forEach(this.ignore, this);
+      };
+      proto.unstamp = function(elems) {
+        elems = this._find(elems);
+        if (!elems) {
+          return;
+        }
+        elems.forEach(function(elem) {
+          utils2.removeFrom(this.stamps, elem);
+          this.unignore(elem);
+        }, this);
+      };
+      proto._find = function(elems) {
+        if (!elems) {
+          return;
+        }
+        if (typeof elems == "string") {
+          elems = this.element.querySelectorAll(elems);
+        }
+        elems = utils2.makeArray(elems);
+        return elems;
+      };
+      proto._manageStamps = function() {
+        if (!this.stamps || !this.stamps.length) {
+          return;
+        }
+        this._getBoundingRect();
+        this.stamps.forEach(this._manageStamp, this);
+      };
+      proto._getBoundingRect = function() {
+        var boundingRect = this.element.getBoundingClientRect();
+        var size = this.size;
+        this._boundingRect = {
+          left: boundingRect.left + size.paddingLeft + size.borderLeftWidth,
+          top: boundingRect.top + size.paddingTop + size.borderTopWidth,
+          right: boundingRect.right - (size.paddingRight + size.borderRightWidth),
+          bottom: boundingRect.bottom - (size.paddingBottom + size.borderBottomWidth)
+        };
+      };
+      proto._manageStamp = noop;
+      proto._getElementOffset = function(elem) {
+        var boundingRect = elem.getBoundingClientRect();
+        var thisRect = this._boundingRect;
+        var size = getSize2(elem);
+        var offset = {
+          left: boundingRect.left - thisRect.left - size.marginLeft,
+          top: boundingRect.top - thisRect.top - size.marginTop,
+          right: thisRect.right - boundingRect.right - size.marginRight,
+          bottom: thisRect.bottom - boundingRect.bottom - size.marginBottom
+        };
+        return offset;
+      };
+      proto.handleEvent = utils2.handleEvent;
+      proto.bindResize = function() {
+        window2.addEventListener("resize", this);
+        this.isResizeBound = true;
+      };
+      proto.unbindResize = function() {
+        window2.removeEventListener("resize", this);
+        this.isResizeBound = false;
+      };
+      proto.onresize = function() {
+        this.resize();
+      };
+      utils2.debounceMethod(Outlayer, "onresize", 100);
+      proto.resize = function() {
+        if (!this.isResizeBound || !this.needsResizeLayout()) {
+          return;
+        }
+        this.layout();
+      };
+      proto.needsResizeLayout = function() {
+        var size = getSize2(this.element);
+        var hasSizes = this.size && size;
+        return hasSizes && size.innerWidth !== this.size.innerWidth;
+      };
+      proto.addItems = function(elems) {
+        var items = this._itemize(elems);
+        if (items.length) {
+          this.items = this.items.concat(items);
+        }
+        return items;
+      };
+      proto.appended = function(elems) {
+        var items = this.addItems(elems);
+        if (!items.length) {
+          return;
+        }
+        this.layoutItems(items, true);
+        this.reveal(items);
+      };
+      proto.prepended = function(elems) {
+        var items = this._itemize(elems);
+        if (!items.length) {
+          return;
+        }
+        var previousItems = this.items.slice(0);
+        this.items = items.concat(previousItems);
+        this._resetLayout();
+        this._manageStamps();
+        this.layoutItems(items, true);
+        this.reveal(items);
+        this.layoutItems(previousItems);
+      };
+      proto.reveal = function(items) {
+        this._emitCompleteOnItems("reveal", items);
+        if (!items || !items.length) {
+          return;
+        }
+        var stagger = this.updateStagger();
+        items.forEach(function(item2, i) {
+          item2.stagger(i * stagger);
+          item2.reveal();
+        });
+      };
+      proto.hide = function(items) {
+        this._emitCompleteOnItems("hide", items);
+        if (!items || !items.length) {
+          return;
+        }
+        var stagger = this.updateStagger();
+        items.forEach(function(item2, i) {
+          item2.stagger(i * stagger);
+          item2.hide();
+        });
+      };
+      proto.revealItemElements = function(elems) {
+        var items = this.getItems(elems);
+        this.reveal(items);
+      };
+      proto.hideItemElements = function(elems) {
+        var items = this.getItems(elems);
+        this.hide(items);
+      };
+      proto.getItem = function(elem) {
+        for (var i = 0; i < this.items.length; i++) {
+          var item2 = this.items[i];
+          if (item2.element == elem) {
+            return item2;
+          }
+        }
+      };
+      proto.getItems = function(elems) {
+        elems = utils2.makeArray(elems);
+        var items = [];
+        elems.forEach(function(elem) {
+          var item2 = this.getItem(elem);
+          if (item2) {
+            items.push(item2);
+          }
+        }, this);
+        return items;
+      };
+      proto.remove = function(elems) {
+        var removeItems = this.getItems(elems);
+        this._emitCompleteOnItems("remove", removeItems);
+        if (!removeItems || !removeItems.length) {
+          return;
+        }
+        removeItems.forEach(function(item2) {
+          item2.remove();
+          utils2.removeFrom(this.items, item2);
+        }, this);
+      };
+      proto.destroy = function() {
+        var style = this.element.style;
+        style.height = "";
+        style.position = "";
+        style.width = "";
+        this.items.forEach(function(item2) {
+          item2.destroy();
+        });
+        this.unbindResize();
+        var id = this.element.outlayerGUID;
+        delete instances[id];
+        delete this.element.outlayerGUID;
+        if (jQuery) {
+          jQuery.removeData(this.element, this.constructor.namespace);
+        }
+      };
+      Outlayer.data = function(elem) {
+        elem = utils2.getQueryElement(elem);
+        var id = elem && elem.outlayerGUID;
+        return id && instances[id];
+      };
+      Outlayer.create = function(namespace, options) {
+        var Layout = subclass(Outlayer);
+        Layout.defaults = utils2.extend({}, Outlayer.defaults);
+        utils2.extend(Layout.defaults, options);
+        Layout.compatOptions = utils2.extend({}, Outlayer.compatOptions);
+        Layout.namespace = namespace;
+        Layout.data = Outlayer.data;
+        Layout.Item = subclass(Item);
+        utils2.htmlInit(Layout, namespace);
+        if (jQuery && jQuery.bridget) {
+          jQuery.bridget(namespace, Layout);
+        }
+        return Layout;
+      };
+      function subclass(Parent) {
+        function SubClass() {
+          Parent.apply(this, arguments);
+        }
+        SubClass.prototype = Object.create(Parent.prototype);
+        SubClass.prototype.constructor = SubClass;
+        return SubClass;
+      }
+      var msUnits = {
+        ms: 1,
+        s: 1e3
+      };
+      function getMilliseconds(time) {
+        if (typeof time == "number") {
+          return time;
+        }
+        var matches = time.match(/(^\d*\.?\d*)(\w*)/);
+        var num = matches && matches[1];
+        var unit = matches && matches[2];
+        if (!num.length) {
+          return 0;
+        }
+        num = parseFloat(num);
+        var mult = msUnits[unit] || 1;
+        return num * mult;
+      }
+      Outlayer.Item = Item;
+      return Outlayer;
+    });
+  })(outlayer);
+  return outlayer.exports;
+}
+var item = { exports: {} };
+var hasRequiredItem;
+function requireItem() {
+  if (hasRequiredItem) return item.exports;
+  hasRequiredItem = 1;
+  (function(module) {
+    (function(window2, factory) {
+      if (module.exports) {
+        module.exports = factory(
+          requireOutlayer()
+        );
+      } else {
+        window2.Isotope = window2.Isotope || {};
+        window2.Isotope.Item = factory(
+          window2.Outlayer
+        );
+      }
+    })(window, function factory(Outlayer) {
+      function Item() {
+        Outlayer.Item.apply(this, arguments);
+      }
+      var proto = Item.prototype = Object.create(Outlayer.Item.prototype);
+      var _create = proto._create;
+      proto._create = function() {
+        this.id = this.layout.itemGUID++;
+        _create.call(this);
+        this.sortData = {};
+      };
+      proto.updateSortData = function() {
+        if (this.isIgnored) {
+          return;
+        }
+        this.sortData.id = this.id;
+        this.sortData["original-order"] = this.id;
+        this.sortData.random = Math.random();
+        var getSortData = this.layout.options.getSortData;
+        var sorters = this.layout._sorters;
+        for (var key in getSortData) {
+          var sorter = sorters[key];
+          this.sortData[key] = sorter(this.element, this);
+        }
+      };
+      var _destroy = proto.destroy;
+      proto.destroy = function() {
+        _destroy.apply(this, arguments);
+        this.css({
+          display: ""
+        });
+      };
+      return Item;
+    });
+  })(item);
+  return item.exports;
+}
+var layoutMode = { exports: {} };
+var hasRequiredLayoutMode;
+function requireLayoutMode() {
+  if (hasRequiredLayoutMode) return layoutMode.exports;
+  hasRequiredLayoutMode = 1;
+  (function(module) {
+    (function(window2, factory) {
+      if (module.exports) {
+        module.exports = factory(
+          requireGetSize(),
+          requireOutlayer()
+        );
+      } else {
+        window2.Isotope = window2.Isotope || {};
+        window2.Isotope.LayoutMode = factory(
+          window2.getSize,
+          window2.Outlayer
+        );
+      }
+    })(window, function factory(getSize2, Outlayer) {
+      function LayoutMode(isotope2) {
+        this.isotope = isotope2;
+        if (isotope2) {
+          this.options = isotope2.options[this.namespace];
+          this.element = isotope2.element;
+          this.items = isotope2.filteredItems;
+          this.size = isotope2.size;
+        }
+      }
+      var proto = LayoutMode.prototype;
+      var facadeMethods = [
+        "_resetLayout",
+        "_getItemLayoutPosition",
+        "_manageStamp",
+        "_getContainerSize",
+        "_getElementOffset",
+        "needsResizeLayout",
+        "_getOption"
+      ];
+      facadeMethods.forEach(function(methodName) {
+        proto[methodName] = function() {
+          return Outlayer.prototype[methodName].apply(this.isotope, arguments);
+        };
+      });
+      proto.needsVerticalResizeLayout = function() {
+        var size = getSize2(this.isotope.element);
+        var hasSizes = this.isotope.size && size;
+        return hasSizes && size.innerHeight != this.isotope.size.innerHeight;
+      };
+      proto._getMeasurement = function() {
+        this.isotope._getMeasurement.apply(this, arguments);
+      };
+      proto.getColumnWidth = function() {
+        this.getSegmentSize("column", "Width");
+      };
+      proto.getRowHeight = function() {
+        this.getSegmentSize("row", "Height");
+      };
+      proto.getSegmentSize = function(segment, size) {
+        var segmentName = segment + size;
+        var outerSize = "outer" + size;
+        this._getMeasurement(segmentName, outerSize);
+        if (this[segmentName]) {
+          return;
+        }
+        var firstItemSize = this.getFirstItemSize();
+        this[segmentName] = firstItemSize && firstItemSize[outerSize] || // or size of container
+        this.isotope.size["inner" + size];
+      };
+      proto.getFirstItemSize = function() {
+        var firstItem = this.isotope.filteredItems[0];
+        return firstItem && firstItem.element && getSize2(firstItem.element);
+      };
+      proto.layout = function() {
+        this.isotope.layout.apply(this.isotope, arguments);
+      };
+      proto.getSize = function() {
+        this.isotope.getSize();
+        this.size = this.isotope.size;
+      };
+      LayoutMode.modes = {};
+      LayoutMode.create = function(namespace, options) {
+        function Mode() {
+          LayoutMode.apply(this, arguments);
+        }
+        Mode.prototype = Object.create(proto);
+        Mode.prototype.constructor = Mode;
+        if (options) {
+          Mode.options = options;
+        }
+        Mode.prototype.namespace = namespace;
+        LayoutMode.modes[namespace] = Mode;
+        return Mode;
+      };
+      return LayoutMode;
+    });
+  })(layoutMode);
+  return layoutMode.exports;
+}
+var masonry$1 = { exports: {} };
+var masonry = { exports: {} };
+/*!
+ * Masonry v4.2.2
+ * Cascading grid layout library
+ * https://masonry.desandro.com
+ * MIT License
+ * by David DeSandro
+ */
+var hasRequiredMasonry$1;
+function requireMasonry$1() {
+  if (hasRequiredMasonry$1) return masonry.exports;
+  hasRequiredMasonry$1 = 1;
+  (function(module) {
+    (function(window2, factory) {
+      if (module.exports) {
+        module.exports = factory(
+          requireOutlayer(),
+          requireGetSize()
+        );
+      } else {
+        window2.Masonry = factory(
+          window2.Outlayer,
+          window2.getSize
+        );
+      }
+    })(window, function factory(Outlayer, getSize2) {
+      var Masonry = Outlayer.create("masonry");
+      Masonry.compatOptions.fitWidth = "isFitWidth";
+      var proto = Masonry.prototype;
+      proto._resetLayout = function() {
+        this.getSize();
+        this._getMeasurement("columnWidth", "outerWidth");
+        this._getMeasurement("gutter", "outerWidth");
+        this.measureColumns();
+        this.colYs = [];
+        for (var i = 0; i < this.cols; i++) {
+          this.colYs.push(0);
+        }
+        this.maxY = 0;
+        this.horizontalColIndex = 0;
+      };
+      proto.measureColumns = function() {
+        this.getContainerWidth();
+        if (!this.columnWidth) {
+          var firstItem = this.items[0];
+          var firstItemElem = firstItem && firstItem.element;
+          this.columnWidth = firstItemElem && getSize2(firstItemElem).outerWidth || // if first elem has no width, default to size of container
+          this.containerWidth;
+        }
+        var columnWidth = this.columnWidth += this.gutter;
+        var containerWidth = this.containerWidth + this.gutter;
+        var cols = containerWidth / columnWidth;
+        var excess = columnWidth - containerWidth % columnWidth;
+        var mathMethod = excess && excess < 1 ? "round" : "floor";
+        cols = Math[mathMethod](cols);
+        this.cols = Math.max(cols, 1);
+      };
+      proto.getContainerWidth = function() {
+        var isFitWidth = this._getOption("fitWidth");
+        var container = isFitWidth ? this.element.parentNode : this.element;
+        var size = getSize2(container);
+        this.containerWidth = size && size.innerWidth;
+      };
+      proto._getItemLayoutPosition = function(item2) {
+        item2.getSize();
+        var remainder = item2.size.outerWidth % this.columnWidth;
+        var mathMethod = remainder && remainder < 1 ? "round" : "ceil";
+        var colSpan = Math[mathMethod](item2.size.outerWidth / this.columnWidth);
+        colSpan = Math.min(colSpan, this.cols);
+        var colPosMethod = this.options.horizontalOrder ? "_getHorizontalColPosition" : "_getTopColPosition";
+        var colPosition = this[colPosMethod](colSpan, item2);
+        var position = {
+          x: this.columnWidth * colPosition.col,
+          y: colPosition.y
+        };
+        var setHeight = colPosition.y + item2.size.outerHeight;
+        var setMax = colSpan + colPosition.col;
+        for (var i = colPosition.col; i < setMax; i++) {
+          this.colYs[i] = setHeight;
+        }
+        return position;
+      };
+      proto._getTopColPosition = function(colSpan) {
+        var colGroup = this._getTopColGroup(colSpan);
+        var minimumY = Math.min.apply(Math, colGroup);
+        return {
+          col: colGroup.indexOf(minimumY),
+          y: minimumY
+        };
+      };
+      proto._getTopColGroup = function(colSpan) {
+        if (colSpan < 2) {
+          return this.colYs;
+        }
+        var colGroup = [];
+        var groupCount = this.cols + 1 - colSpan;
+        for (var i = 0; i < groupCount; i++) {
+          colGroup[i] = this._getColGroupY(i, colSpan);
+        }
+        return colGroup;
+      };
+      proto._getColGroupY = function(col, colSpan) {
+        if (colSpan < 2) {
+          return this.colYs[col];
+        }
+        var groupColYs = this.colYs.slice(col, col + colSpan);
+        return Math.max.apply(Math, groupColYs);
+      };
+      proto._getHorizontalColPosition = function(colSpan, item2) {
+        var col = this.horizontalColIndex % this.cols;
+        var isOver = colSpan > 1 && col + colSpan > this.cols;
+        col = isOver ? 0 : col;
+        var hasSize = item2.size.outerWidth && item2.size.outerHeight;
+        this.horizontalColIndex = hasSize ? col + colSpan : this.horizontalColIndex;
+        return {
+          col,
+          y: this._getColGroupY(col, colSpan)
+        };
+      };
+      proto._manageStamp = function(stamp) {
+        var stampSize = getSize2(stamp);
+        var offset = this._getElementOffset(stamp);
+        var isOriginLeft = this._getOption("originLeft");
+        var firstX = isOriginLeft ? offset.left : offset.right;
+        var lastX = firstX + stampSize.outerWidth;
+        var firstCol = Math.floor(firstX / this.columnWidth);
+        firstCol = Math.max(0, firstCol);
+        var lastCol = Math.floor(lastX / this.columnWidth);
+        lastCol -= lastX % this.columnWidth ? 0 : 1;
+        lastCol = Math.min(this.cols - 1, lastCol);
+        var isOriginTop = this._getOption("originTop");
+        var stampMaxY = (isOriginTop ? offset.top : offset.bottom) + stampSize.outerHeight;
+        for (var i = firstCol; i <= lastCol; i++) {
+          this.colYs[i] = Math.max(stampMaxY, this.colYs[i]);
+        }
+      };
+      proto._getContainerSize = function() {
+        this.maxY = Math.max.apply(Math, this.colYs);
+        var size = {
+          height: this.maxY
+        };
+        if (this._getOption("fitWidth")) {
+          size.width = this._getContainerFitWidth();
+        }
+        return size;
+      };
+      proto._getContainerFitWidth = function() {
+        var unusedCols = 0;
+        var i = this.cols;
+        while (--i) {
+          if (this.colYs[i] !== 0) {
+            break;
+          }
+          unusedCols++;
+        }
+        return (this.cols - unusedCols) * this.columnWidth - this.gutter;
+      };
+      proto.needsResizeLayout = function() {
+        var previousWidth = this.containerWidth;
+        this.getContainerWidth();
+        return previousWidth != this.containerWidth;
+      };
+      return Masonry;
+    });
+  })(masonry);
+  return masonry.exports;
+}
+/*!
+ * Masonry layout mode
+ * sub-classes Masonry
+ * https://masonry.desandro.com
+ */
+var hasRequiredMasonry;
+function requireMasonry() {
+  if (hasRequiredMasonry) return masonry$1.exports;
+  hasRequiredMasonry = 1;
+  (function(module) {
+    (function(window2, factory) {
+      if (module.exports) {
+        module.exports = factory(
+          requireLayoutMode(),
+          requireMasonry$1()
+        );
+      } else {
+        factory(
+          window2.Isotope.LayoutMode,
+          window2.Masonry
+        );
+      }
+    })(window, function factory(LayoutMode, Masonry) {
+      var MasonryMode = LayoutMode.create("masonry");
+      var proto = MasonryMode.prototype;
+      var keepModeMethods = {
+        _getElementOffset: true,
+        layout: true,
+        _getMeasurement: true
+      };
+      for (var method in Masonry.prototype) {
+        if (!keepModeMethods[method]) {
+          proto[method] = Masonry.prototype[method];
+        }
+      }
+      var measureColumns = proto.measureColumns;
+      proto.measureColumns = function() {
+        this.items = this.isotope.filteredItems;
+        measureColumns.call(this);
+      };
+      var _getOption = proto._getOption;
+      proto._getOption = function(option) {
+        if (option == "fitWidth") {
+          return this.options.isFitWidth !== void 0 ? this.options.isFitWidth : this.options.fitWidth;
+        }
+        return _getOption.apply(this.isotope, arguments);
+      };
+      return MasonryMode;
+    });
+  })(masonry$1);
+  return masonry$1.exports;
+}
+var fitRows = { exports: {} };
+var hasRequiredFitRows;
+function requireFitRows() {
+  if (hasRequiredFitRows) return fitRows.exports;
+  hasRequiredFitRows = 1;
+  (function(module, exports) {
+    (function(window2, factory) {
+      {
+        module.exports = factory(
+          requireLayoutMode()
+        );
+      }
+    })(window, function factory(LayoutMode) {
+      var FitRows = LayoutMode.create("fitRows");
+      var proto = FitRows.prototype;
+      proto._resetLayout = function() {
+        this.x = 0;
+        this.y = 0;
+        this.maxY = 0;
+        this._getMeasurement("gutter", "outerWidth");
+      };
+      proto._getItemLayoutPosition = function(item2) {
+        item2.getSize();
+        var itemWidth = item2.size.outerWidth + this.gutter;
+        var containerWidth = this.isotope.size.innerWidth + this.gutter;
+        if (this.x !== 0 && itemWidth + this.x > containerWidth) {
+          this.x = 0;
+          this.y = this.maxY;
+        }
+        var position = {
+          x: this.x,
+          y: this.y
+        };
+        this.maxY = Math.max(this.maxY, this.y + item2.size.outerHeight);
+        this.x += itemWidth;
+        return position;
+      };
+      proto._getContainerSize = function() {
+        return { height: this.maxY };
+      };
+      return FitRows;
+    });
+  })(fitRows);
+  return fitRows.exports;
+}
+var vertical = { exports: {} };
+var hasRequiredVertical;
+function requireVertical() {
+  if (hasRequiredVertical) return vertical.exports;
+  hasRequiredVertical = 1;
+  (function(module) {
+    (function(window2, factory) {
+      if (module.exports) {
+        module.exports = factory(
+          requireLayoutMode()
+        );
+      } else {
+        factory(
+          window2.Isotope.LayoutMode
+        );
+      }
+    })(window, function factory(LayoutMode) {
+      var Vertical = LayoutMode.create("vertical", {
+        horizontalAlignment: 0
+      });
+      var proto = Vertical.prototype;
+      proto._resetLayout = function() {
+        this.y = 0;
+      };
+      proto._getItemLayoutPosition = function(item2) {
+        item2.getSize();
+        var x = (this.isotope.size.innerWidth - item2.size.outerWidth) * this.options.horizontalAlignment;
+        var y = this.y;
+        this.y += item2.size.outerHeight;
+        return { x, y };
+      };
+      proto._getContainerSize = function() {
+        return { height: this.y };
+      };
+      return Vertical;
+    });
+  })(vertical);
+  return vertical.exports;
+}
+/*!
+ * Isotope v3.0.6
+ *
+ * Licensed GPLv3 for open source use
+ * or Isotope Commercial License for commercial use
+ *
+ * https://isotope.metafizzy.co
+ * Copyright 2010-2018 Metafizzy
+ */
+var hasRequiredIsotope;
+function requireIsotope() {
+  if (hasRequiredIsotope) return isotope.exports;
+  hasRequiredIsotope = 1;
+  (function(module) {
+    (function(window2, factory) {
+      if (module.exports) {
+        module.exports = factory(
+          window2,
+          requireOutlayer(),
+          requireGetSize(),
+          requireMatchesSelector(),
+          requireUtils(),
+          requireItem(),
+          requireLayoutMode(),
+          // include default layout modes
+          requireMasonry(),
+          requireFitRows(),
+          requireVertical()
+        );
+      } else {
+        window2.Isotope = factory(
+          window2,
+          window2.Outlayer,
+          window2.getSize,
+          window2.matchesSelector,
+          window2.fizzyUIUtils,
+          window2.Isotope.Item,
+          window2.Isotope.LayoutMode
+        );
+      }
+    })(window, function factory(window2, Outlayer, getSize2, matchesSelector2, utils2, Item, LayoutMode) {
+      var jQuery = window2.jQuery;
+      var trim = String.prototype.trim ? function(str) {
+        return str.trim();
+      } : function(str) {
+        return str.replace(/^\s+|\s+$/g, "");
+      };
+      var Isotope2 = Outlayer.create("isotope", {
+        layoutMode: "masonry",
+        isJQueryFiltering: true,
+        sortAscending: true
+      });
+      Isotope2.Item = Item;
+      Isotope2.LayoutMode = LayoutMode;
+      var proto = Isotope2.prototype;
+      proto._create = function() {
+        this.itemGUID = 0;
+        this._sorters = {};
+        this._getSorters();
+        Outlayer.prototype._create.call(this);
+        this.modes = {};
+        this.filteredItems = this.items;
+        this.sortHistory = ["original-order"];
+        for (var name in LayoutMode.modes) {
+          this._initLayoutMode(name);
+        }
+      };
+      proto.reloadItems = function() {
+        this.itemGUID = 0;
+        Outlayer.prototype.reloadItems.call(this);
+      };
+      proto._itemize = function() {
+        var items = Outlayer.prototype._itemize.apply(this, arguments);
+        for (var i = 0; i < items.length; i++) {
+          var item2 = items[i];
+          item2.id = this.itemGUID++;
+        }
+        this._updateItemsSortData(items);
+        return items;
+      };
+      proto._initLayoutMode = function(name) {
+        var Mode = LayoutMode.modes[name];
+        var initialOpts = this.options[name] || {};
+        this.options[name] = Mode.options ? utils2.extend(Mode.options, initialOpts) : initialOpts;
+        this.modes[name] = new Mode(this);
+      };
+      proto.layout = function() {
+        if (!this._isLayoutInited && this._getOption("initLayout")) {
+          this.arrange();
+          return;
+        }
+        this._layout();
+      };
+      proto._layout = function() {
+        var isInstant = this._getIsInstant();
+        this._resetLayout();
+        this._manageStamps();
+        this.layoutItems(this.filteredItems, isInstant);
+        this._isLayoutInited = true;
+      };
+      proto.arrange = function(opts) {
+        this.option(opts);
+        this._getIsInstant();
+        var filtered = this._filter(this.items);
+        this.filteredItems = filtered.matches;
+        this._bindArrangeComplete();
+        if (this._isInstant) {
+          this._noTransition(this._hideReveal, [filtered]);
+        } else {
+          this._hideReveal(filtered);
+        }
+        this._sort();
+        this._layout();
+      };
+      proto._init = proto.arrange;
+      proto._hideReveal = function(filtered) {
+        this.reveal(filtered.needReveal);
+        this.hide(filtered.needHide);
+      };
+      proto._getIsInstant = function() {
+        var isLayoutInstant = this._getOption("layoutInstant");
+        var isInstant = isLayoutInstant !== void 0 ? isLayoutInstant : !this._isLayoutInited;
+        this._isInstant = isInstant;
+        return isInstant;
+      };
+      proto._bindArrangeComplete = function() {
+        var isLayoutComplete, isHideComplete, isRevealComplete;
+        var _this = this;
+        function arrangeParallelCallback() {
+          if (isLayoutComplete && isHideComplete && isRevealComplete) {
+            _this.dispatchEvent("arrangeComplete", null, [_this.filteredItems]);
+          }
+        }
+        this.once("layoutComplete", function() {
+          isLayoutComplete = true;
+          arrangeParallelCallback();
+        });
+        this.once("hideComplete", function() {
+          isHideComplete = true;
+          arrangeParallelCallback();
+        });
+        this.once("revealComplete", function() {
+          isRevealComplete = true;
+          arrangeParallelCallback();
+        });
+      };
+      proto._filter = function(items) {
+        var filter = this.options.filter;
+        filter = filter || "*";
+        var matches = [];
+        var hiddenMatched = [];
+        var visibleUnmatched = [];
+        var test = this._getFilterTest(filter);
+        for (var i = 0; i < items.length; i++) {
+          var item2 = items[i];
+          if (item2.isIgnored) {
+            continue;
+          }
+          var isMatched = test(item2);
+          if (isMatched) {
+            matches.push(item2);
+          }
+          if (isMatched && item2.isHidden) {
+            hiddenMatched.push(item2);
+          } else if (!isMatched && !item2.isHidden) {
+            visibleUnmatched.push(item2);
+          }
+        }
+        return {
+          matches,
+          needReveal: hiddenMatched,
+          needHide: visibleUnmatched
+        };
+      };
+      proto._getFilterTest = function(filter) {
+        if (jQuery && this.options.isJQueryFiltering) {
+          return function(item2) {
+            return jQuery(item2.element).is(filter);
+          };
+        }
+        if (typeof filter == "function") {
+          return function(item2) {
+            return filter(item2.element);
+          };
+        }
+        return function(item2) {
+          return matchesSelector2(item2.element, filter);
+        };
+      };
+      proto.updateSortData = function(elems) {
+        var items;
+        if (elems) {
+          elems = utils2.makeArray(elems);
+          items = this.getItems(elems);
+        } else {
+          items = this.items;
+        }
+        this._getSorters();
+        this._updateItemsSortData(items);
+      };
+      proto._getSorters = function() {
+        var getSortData = this.options.getSortData;
+        for (var key in getSortData) {
+          var sorter = getSortData[key];
+          this._sorters[key] = mungeSorter(sorter);
+        }
+      };
+      proto._updateItemsSortData = function(items) {
+        var len = items && items.length;
+        for (var i = 0; len && i < len; i++) {
+          var item2 = items[i];
+          item2.updateSortData();
+        }
+      };
+      var mungeSorter = /* @__PURE__ */ function() {
+        function mungeSorter2(sorter) {
+          if (typeof sorter != "string") {
+            return sorter;
+          }
+          var args = trim(sorter).split(" ");
+          var query = args[0];
+          var attrMatch = query.match(/^\[(.+)\]$/);
+          var attr = attrMatch && attrMatch[1];
+          var getValue = getValueGetter(attr, query);
+          var parser = Isotope2.sortDataParsers[args[1]];
+          sorter = parser ? function(elem) {
+            return elem && parser(getValue(elem));
+          } : (
+            // otherwise just return value
+            function(elem) {
+              return elem && getValue(elem);
+            }
+          );
+          return sorter;
+        }
+        function getValueGetter(attr, query) {
+          if (attr) {
+            return function getAttribute(elem) {
+              return elem.getAttribute(attr);
+            };
+          }
+          return function getChildText(elem) {
+            var child = elem.querySelector(query);
+            return child && child.textContent;
+          };
+        }
+        return mungeSorter2;
+      }();
+      Isotope2.sortDataParsers = {
+        "parseInt": function(val) {
+          return parseInt(val, 10);
+        },
+        "parseFloat": function(val) {
+          return parseFloat(val);
+        }
+      };
+      proto._sort = function() {
+        if (!this.options.sortBy) {
+          return;
+        }
+        var sortBys = utils2.makeArray(this.options.sortBy);
+        if (!this._getIsSameSortBy(sortBys)) {
+          this.sortHistory = sortBys.concat(this.sortHistory);
+        }
+        var itemSorter = getItemSorter(this.sortHistory, this.options.sortAscending);
+        this.filteredItems.sort(itemSorter);
+      };
+      proto._getIsSameSortBy = function(sortBys) {
+        for (var i = 0; i < sortBys.length; i++) {
+          if (sortBys[i] != this.sortHistory[i]) {
+            return false;
+          }
+        }
+        return true;
+      };
+      function getItemSorter(sortBys, sortAsc) {
+        return function sorter(itemA, itemB) {
+          for (var i = 0; i < sortBys.length; i++) {
+            var sortBy = sortBys[i];
+            var a = itemA.sortData[sortBy];
+            var b = itemB.sortData[sortBy];
+            if (a > b || a < b) {
+              var isAscending = sortAsc[sortBy] !== void 0 ? sortAsc[sortBy] : sortAsc;
+              var direction = isAscending ? 1 : -1;
+              return (a > b ? 1 : -1) * direction;
+            }
+          }
+          return 0;
+        };
+      }
+      proto._mode = function() {
+        var layoutMode2 = this.options.layoutMode;
+        var mode = this.modes[layoutMode2];
+        if (!mode) {
+          throw new Error("No layout mode: " + layoutMode2);
+        }
+        mode.options = this.options[layoutMode2];
+        return mode;
+      };
+      proto._resetLayout = function() {
+        Outlayer.prototype._resetLayout.call(this);
+        this._mode()._resetLayout();
+      };
+      proto._getItemLayoutPosition = function(item2) {
+        return this._mode()._getItemLayoutPosition(item2);
+      };
+      proto._manageStamp = function(stamp) {
+        this._mode()._manageStamp(stamp);
+      };
+      proto._getContainerSize = function() {
+        return this._mode()._getContainerSize();
+      };
+      proto.needsResizeLayout = function() {
+        return this._mode().needsResizeLayout();
+      };
+      proto.appended = function(elems) {
+        var items = this.addItems(elems);
+        if (!items.length) {
+          return;
+        }
+        var filteredItems = this._filterRevealAdded(items);
+        this.filteredItems = this.filteredItems.concat(filteredItems);
+      };
+      proto.prepended = function(elems) {
+        var items = this._itemize(elems);
+        if (!items.length) {
+          return;
+        }
+        this._resetLayout();
+        this._manageStamps();
+        var filteredItems = this._filterRevealAdded(items);
+        this.layoutItems(this.filteredItems);
+        this.filteredItems = filteredItems.concat(this.filteredItems);
+        this.items = items.concat(this.items);
+      };
+      proto._filterRevealAdded = function(items) {
+        var filtered = this._filter(items);
+        this.hide(filtered.needHide);
+        this.reveal(filtered.matches);
+        this.layoutItems(filtered.matches, true);
+        return filtered.matches;
+      };
+      proto.insert = function(elems) {
+        var items = this.addItems(elems);
+        if (!items.length) {
+          return;
+        }
+        var i, item2;
+        var len = items.length;
+        for (i = 0; i < len; i++) {
+          item2 = items[i];
+          this.element.appendChild(item2.element);
+        }
+        var filteredInsertItems = this._filter(items).matches;
+        for (i = 0; i < len; i++) {
+          items[i].isLayoutInstant = true;
+        }
+        this.arrange();
+        for (i = 0; i < len; i++) {
+          delete items[i].isLayoutInstant;
+        }
+        this.reveal(filteredInsertItems);
+      };
+      var _remove = proto.remove;
+      proto.remove = function(elems) {
+        elems = utils2.makeArray(elems);
+        var removeItems = this.getItems(elems);
+        _remove.call(this, elems);
+        var len = removeItems && removeItems.length;
+        for (var i = 0; len && i < len; i++) {
+          var item2 = removeItems[i];
+          utils2.removeFrom(this.filteredItems, item2);
+        }
+      };
+      proto.shuffle = function() {
+        for (var i = 0; i < this.items.length; i++) {
+          var item2 = this.items[i];
+          item2.sortData.random = Math.random();
+        }
+        this.options.sortBy = "random";
+        this._sort();
+        this._layout();
+      };
+      proto._noTransition = function(fn, args) {
+        var transitionDuration = this.options.transitionDuration;
+        this.options.transitionDuration = 0;
+        var returnValue = fn.apply(this, args);
+        this.options.transitionDuration = transitionDuration;
+        return returnValue;
+      };
+      proto.getFilteredItemElements = function() {
+        return this.filteredItems.map(function(item2) {
+          return item2.element;
+        });
+      };
+      return Isotope2;
+    });
+  })(isotope);
+  return isotope.exports;
+}
+var isotopeExports = requireIsotope();
+const Isotope = /* @__PURE__ */ getDefaultExportFromCjs(isotopeExports);
+function masonryRun() {
+  document.addEventListener("click", documentActions);
+  const isotope2 = document.querySelector("[data-fls-masonry]");
+  const isotopeItems = new Isotope(isotope2, {
+    itemSelector: "[data-fls-masonry-item]",
+    masonry: {
+      fitWidth: false,
+      gutter: 20
+    }
+  });
+  const firstFilter = document.querySelector('[data-fls-masonry-filter-link][data-fls-masonry-filter-link="*"]');
+  if (firstFilter && !document.querySelector("[data-fls-masonry-filter-link].--active")) {
+    firstFilter.classList.add("--active");
+  }
+  function documentActions(e) {
+    const targetElement = e.target;
+    if (targetElement.closest("[data-fls-masonry-filter-link]")) {
+      const filterItem = targetElement.closest("[data-fls-masonry-filter-link]");
+      const filterValue = filterItem.dataset.flsMasonryFilterLink;
+      const filterActiveItem = document.querySelector("[data-fls-masonry-filter-link].--active");
+      filterValue === "*" ? isotopeItems.arrange({ filter: `` }) : isotopeItems.arrange({ filter: `[data-fls-masonry-filter="${filterValue}"]` });
+      if (filterActiveItem) {
+        filterActiveItem.classList.remove("--active");
+      }
+      filterItem.classList.add("--active");
+      e.preventDefault();
+    }
+  }
+}
+document.querySelector("[data-fls-masonry]") ? window.addEventListener("load", masonryRun) : null;
+document.addEventListener("DOMContentLoaded", function() {
+  function initSpollers() {
+    const spollers = document.querySelectorAll("[data-spoller]");
+    const pcBreakpoint = 1200;
+    spollers.forEach((spoller) => {
+      spoller.addEventListener("click", function(e) {
+        if (window.innerWidth >= pcBreakpoint) {
+          return;
+        }
+        e.preventDefault();
+        e.stopPropagation();
+        const menuItem = this.closest(".menu__item");
+        const subMenu = menuItem.querySelector(".sub-menu");
+        document.querySelectorAll(".sub-menu._spoller-active").forEach((menu) => {
+          if (menu !== subMenu) {
+            menu.classList.remove("_spoller-active");
+            const trigger = menu.previousElementSibling;
+            if (trigger && trigger.hasAttribute("data-spoller")) {
+              trigger.classList.remove("_active");
+            }
+          }
+        });
+        subMenu.classList.toggle("_spoller-active");
+        this.classList.toggle("_active");
+      });
+    });
+    document.addEventListener("click", function(e) {
+      if (window.innerWidth >= pcBreakpoint) return;
+      if (!e.target.closest(".menu__item")) {
+        document.querySelectorAll(".sub-menu._spoller-active").forEach((menu) => {
+          menu.classList.remove("_spoller-active");
+          const trigger = menu.previousElementSibling;
+          if (trigger && trigger.hasAttribute("data-spoller")) {
+            trigger.classList.remove("_active");
+          }
+        });
+      }
+    });
+    function handleResize() {
+      if (window.innerWidth >= pcBreakpoint) {
+        document.querySelectorAll(".sub-menu._spoller-active").forEach((menu) => {
+          menu.classList.remove("_spoller-active");
+          const trigger = menu.previousElementSibling;
+          if (trigger && trigger.hasAttribute("data-spoller")) {
+            trigger.classList.remove("_active");
+          }
+        });
+      }
+    }
+    window.addEventListener("resize", handleResize);
+  }
+  initSpollers();
+});
 /*!
  * lightgallery | 2.9.0-beta.1 | June 15th 2025
  * http://www.lightgalleryjs.com/
@@ -7746,10 +9158,10 @@ var utils = {
   getDynamicOptions: function(items, extraProps, getCaptionFromTitleOrAlt, exThumbImage) {
     var dynamicElements = [];
     var availableDynamicOptions = __spreadArrays(defaultDynamicOptions, extraProps);
-    [].forEach.call(items, function(item) {
+    [].forEach.call(items, function(item2) {
       var dynamicEl = {};
-      for (var i = 0; i < item.attributes.length; i++) {
-        var attr = item.attributes[i];
+      for (var i = 0; i < item2.attributes.length; i++) {
+        var attr = item2.attributes[i];
         if (attr.specified) {
           var dynamicAttr = convertToData(attr.name);
           var label = "";
@@ -7761,7 +9173,7 @@ var utils = {
           }
         }
       }
-      var currentItem = $LG(item);
+      var currentItem = $LG(item2);
       var alt = currentItem.find("img").first().attr("alt");
       var title = currentItem.attr("title");
       var thumb = exThumbImage ? currentItem.attr(exThumbImage) : currentItem.find("img").first().attr("src");
@@ -8121,8 +9533,8 @@ var LightGallery = (
       var itemsToBeInsertedToDom = this.getItemsToBeInsertedToDom(index, index);
       this.currentItemsInDom = itemsToBeInsertedToDom;
       var items = "";
-      itemsToBeInsertedToDom.forEach(function(item) {
-        items = items + ('<div id="' + item + '" class="lg-item"></div>');
+      itemsToBeInsertedToDom.forEach(function(item2) {
+        items = items + ('<div id="' + item2 + '" class="lg-item"></div>');
       });
       this.$inner.append(items);
       this.addHtml(index);
@@ -8578,14 +9990,14 @@ var LightGallery = (
     LightGallery2.prototype.organizeSlideItems = function(index, prevIndex) {
       var _this = this;
       var itemsToBeInsertedToDom = this.getItemsToBeInsertedToDom(index, prevIndex, this.settings.numberOfSlideItemsInDom);
-      itemsToBeInsertedToDom.forEach(function(item) {
-        if (_this.currentItemsInDom.indexOf(item) === -1) {
-          _this.$inner.append('<div id="' + item + '" class="lg-item"></div>');
+      itemsToBeInsertedToDom.forEach(function(item2) {
+        if (_this.currentItemsInDom.indexOf(item2) === -1) {
+          _this.$inner.append('<div id="' + item2 + '" class="lg-item"></div>');
         }
       });
-      this.currentItemsInDom.forEach(function(item) {
-        if (itemsToBeInsertedToDom.indexOf(item) === -1) {
-          $LG("#" + item).remove();
+      this.currentItemsInDom.forEach(function(item2) {
+        if (itemsToBeInsertedToDom.indexOf(item2) === -1) {
+          $LG("#" + item2).remove();
         }
       });
       return itemsToBeInsertedToDom;
@@ -8733,10 +10145,10 @@ var LightGallery = (
     LightGallery2.prototype.updateCounterTotal = function() {
       this.getElementById("lg-counter-all").html(this.galleryItems.length + "");
     };
-    LightGallery2.prototype.getSlideType = function(item) {
-      if (item.__slideVideoInfo) {
+    LightGallery2.prototype.getSlideType = function(item2) {
+      if (item2.__slideVideoInfo) {
         return "video";
-      } else if (item.iframe) {
+      } else if (item2.iframe) {
         return "iframe";
       } else {
         return "image";
@@ -9295,479 +10707,12 @@ var LightGallery = (
 function lightGallery(el, options) {
   return new LightGallery(el, options);
 }
-function getDefaultExportFromCjs(x) {
-  return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
-}
-var lgThumbnail_min$1 = { exports: {} };
-/**
- * lightgallery | 2.9.0-beta.1 | June 15th 2025
- * http://www.lightgalleryjs.com/
- * Copyright (c) 2020 Sachin Neravath;
- * @license GPLv3
- */
-var lgThumbnail_min = lgThumbnail_min$1.exports;
-var hasRequiredLgThumbnail_min;
-function requireLgThumbnail_min() {
-  if (hasRequiredLgThumbnail_min) return lgThumbnail_min$1.exports;
-  hasRequiredLgThumbnail_min = 1;
-  (function(module, exports) {
-    !function(t, e) {
-      module.exports = e();
-    }(lgThumbnail_min, function() {
-      var t = function() {
-        return (t = Object.assign || function(t2) {
-          for (var e2, i2 = 1, s2 = arguments.length; i2 < s2; i2++) for (var h2 in e2 = arguments[i2]) Object.prototype.hasOwnProperty.call(e2, h2) && (t2[h2] = e2[h2]);
-          return t2;
-        }).apply(this, arguments);
-      }, e = { thumbnail: true, animateThumb: true, currentPagerPosition: "middle", alignThumbnails: "middle", thumbWidth: 100, thumbHeight: "80px", thumbMargin: 5, appendThumbnailsTo: ".lg-components", toggleThumb: false, enableThumbDrag: true, enableThumbSwipe: true, thumbnailSwipeThreshold: 10, loadYouTubeThumbnail: true, youTubeThumbSize: 1, thumbnailPluginStrings: { toggleThumbnails: "Toggle thumbnails" } }, i = "lgContainerResize", s = "lgUpdateSlides", h = "lgBeforeOpen", n = "lgBeforeSlide";
-      return function() {
-        function o(t2, e2) {
-          return this.thumbOuterWidth = 0, this.thumbTotalWidth = 0, this.translateX = 0, this.thumbClickable = false, this.core = t2, this.$LG = e2, this;
-        }
-        return o.prototype.init = function() {
-          this.settings = t(t({}, e), this.core.settings), this.thumbOuterWidth = 0, this.thumbTotalWidth = this.core.galleryItems.length * (this.settings.thumbWidth + this.settings.thumbMargin), this.translateX = 0, this.setAnimateThumbStyles(), this.core.settings.allowMediaOverlap || (this.settings.toggleThumb = false), this.settings.thumbnail && (this.build(), this.settings.animateThumb ? (this.settings.enableThumbDrag && this.enableThumbDrag(), this.settings.enableThumbSwipe && this.enableThumbSwipe(), this.thumbClickable = false) : this.thumbClickable = true, this.toggleThumbBar(), this.thumbKeyPress());
-        }, o.prototype.build = function() {
-          var t2 = this;
-          this.setThumbMarkup(), this.manageActiveClassOnSlideChange(), this.$lgThumb.first().on("click.lg touchend.lg", function(e2) {
-            var i2 = t2.$LG(e2.target);
-            i2.hasAttribute("data-lg-item-id") && setTimeout(function() {
-              if (t2.thumbClickable && !t2.core.lgBusy) {
-                var e3 = parseInt(i2.attr("data-lg-item-id"));
-                t2.core.slide(e3, false, true, false);
-              }
-            }, 50);
-          }), this.core.LGel.on(n + ".thumb", function(e2) {
-            var i2 = e2.detail.index;
-            t2.animateThumb(i2);
-          }), this.core.LGel.on(h + ".thumb", function() {
-            t2.thumbOuterWidth = t2.core.outer.get().offsetWidth;
-          }), this.core.LGel.on(s + ".thumb", function() {
-            t2.rebuildThumbnails();
-          }), this.core.LGel.on(i + ".thumb", function() {
-            t2.core.lgOpened && setTimeout(function() {
-              t2.thumbOuterWidth = t2.core.outer.get().offsetWidth, t2.animateThumb(t2.core.index), t2.thumbOuterWidth = t2.core.outer.get().offsetWidth;
-            }, 50);
-          });
-        }, o.prototype.setThumbMarkup = function() {
-          var t2 = "lg-thumb-outer ";
-          this.settings.alignThumbnails && (t2 += "lg-thumb-align-" + this.settings.alignThumbnails);
-          var e2 = '<div class="' + t2 + '">\n        <div class="lg-thumb lg-group">\n        </div>\n        </div>';
-          this.core.outer.addClass("lg-has-thumb"), ".lg-components" === this.settings.appendThumbnailsTo ? this.core.$lgComponents.append(e2) : this.core.outer.append(e2), this.$thumbOuter = this.core.outer.find(".lg-thumb-outer").first(), this.$lgThumb = this.core.outer.find(".lg-thumb").first(), this.settings.animateThumb && this.core.outer.find(".lg-thumb").css("transition-duration", this.core.settings.speed + "ms").css("width", this.thumbTotalWidth + "px").css("position", "relative"), this.setThumbItemHtml(this.core.galleryItems);
-        }, o.prototype.enableThumbDrag = function() {
-          var t2 = this, e2 = { cords: { startX: 0, endX: 0 }, isMoved: false, newTranslateX: 0, startTime: /* @__PURE__ */ new Date(), endTime: /* @__PURE__ */ new Date(), touchMoveTime: 0 }, i2 = false;
-          this.$thumbOuter.addClass("lg-grab"), this.core.outer.find(".lg-thumb").first().on("mousedown.lg.thumb", function(s2) {
-            t2.thumbTotalWidth > t2.thumbOuterWidth && (s2.preventDefault(), e2.cords.startX = s2.pageX, e2.startTime = /* @__PURE__ */ new Date(), t2.thumbClickable = false, i2 = true, t2.core.outer.get().scrollLeft += 1, t2.core.outer.get().scrollLeft -= 1, t2.$thumbOuter.removeClass("lg-grab").addClass("lg-grabbing"));
-          }), this.$LG(window).on("mousemove.lg.thumb.global" + this.core.lgId, function(s2) {
-            t2.core.lgOpened && i2 && (e2.cords.endX = s2.pageX, e2 = t2.onThumbTouchMove(e2));
-          }), this.$LG(window).on("mouseup.lg.thumb.global" + this.core.lgId, function() {
-            t2.core.lgOpened && (e2.isMoved ? e2 = t2.onThumbTouchEnd(e2) : t2.thumbClickable = true, i2 && (i2 = false, t2.$thumbOuter.removeClass("lg-grabbing").addClass("lg-grab")));
-          });
-        }, o.prototype.enableThumbSwipe = function() {
-          var t2 = this, e2 = { cords: { startX: 0, endX: 0 }, isMoved: false, newTranslateX: 0, startTime: /* @__PURE__ */ new Date(), endTime: /* @__PURE__ */ new Date(), touchMoveTime: 0 };
-          this.$lgThumb.on("touchstart.lg", function(i2) {
-            t2.thumbTotalWidth > t2.thumbOuterWidth && (i2.preventDefault(), e2.cords.startX = i2.targetTouches[0].pageX, t2.thumbClickable = false, e2.startTime = /* @__PURE__ */ new Date());
-          }), this.$lgThumb.on("touchmove.lg", function(i2) {
-            t2.thumbTotalWidth > t2.thumbOuterWidth && (i2.preventDefault(), e2.cords.endX = i2.targetTouches[0].pageX, e2 = t2.onThumbTouchMove(e2));
-          }), this.$lgThumb.on("touchend.lg", function() {
-            e2.isMoved ? e2 = t2.onThumbTouchEnd(e2) : t2.thumbClickable = true;
-          });
-        }, o.prototype.rebuildThumbnails = function() {
-          var t2 = this;
-          this.$thumbOuter.addClass("lg-rebuilding-thumbnails"), setTimeout(function() {
-            t2.thumbTotalWidth = t2.core.galleryItems.length * (t2.settings.thumbWidth + t2.settings.thumbMargin), t2.$lgThumb.css("width", t2.thumbTotalWidth + "px"), t2.$lgThumb.empty(), t2.setThumbItemHtml(t2.core.galleryItems), t2.animateThumb(t2.core.index);
-          }, 50), setTimeout(function() {
-            t2.$thumbOuter.removeClass("lg-rebuilding-thumbnails");
-          }, 200);
-        }, o.prototype.setTranslate = function(t2) {
-          this.$lgThumb.css("transform", "translate3d(-" + t2 + "px, 0px, 0px)");
-        }, o.prototype.getPossibleTransformX = function(t2) {
-          return t2 > this.thumbTotalWidth - this.thumbOuterWidth && (t2 = this.thumbTotalWidth - this.thumbOuterWidth), t2 < 0 && (t2 = 0), t2;
-        }, o.prototype.animateThumb = function(t2) {
-          if (this.$lgThumb.css("transition-duration", this.core.settings.speed + "ms"), this.settings.animateThumb) {
-            var e2 = 0;
-            switch (this.settings.currentPagerPosition) {
-              case "left":
-                e2 = 0;
-                break;
-              case "middle":
-                e2 = this.thumbOuterWidth / 2 - this.settings.thumbWidth / 2;
-                break;
-              case "right":
-                e2 = this.thumbOuterWidth - this.settings.thumbWidth;
-            }
-            this.translateX = (this.settings.thumbWidth + this.settings.thumbMargin) * t2 - 1 - e2, this.translateX > this.thumbTotalWidth - this.thumbOuterWidth && (this.translateX = this.thumbTotalWidth - this.thumbOuterWidth), this.translateX < 0 && (this.translateX = 0), this.setTranslate(this.translateX);
-          }
-        }, o.prototype.onThumbTouchMove = function(t2) {
-          return t2.newTranslateX = this.translateX, t2.isMoved = true, t2.touchMoveTime = (/* @__PURE__ */ new Date()).valueOf(), t2.newTranslateX -= t2.cords.endX - t2.cords.startX, t2.newTranslateX = this.getPossibleTransformX(t2.newTranslateX), this.setTranslate(t2.newTranslateX), this.$thumbOuter.addClass("lg-dragging"), t2;
-        }, o.prototype.onThumbTouchEnd = function(t2) {
-          t2.isMoved = false, t2.endTime = /* @__PURE__ */ new Date(), this.$thumbOuter.removeClass("lg-dragging");
-          var e2 = t2.endTime.valueOf() - t2.startTime.valueOf(), i2 = t2.cords.endX - t2.cords.startX, s2 = Math.abs(i2) / e2;
-          return s2 > 0.15 && t2.endTime.valueOf() - t2.touchMoveTime < 30 ? ((s2 += 1) > 2 && (s2 += 1), s2 += s2 * (Math.abs(i2) / this.thumbOuterWidth), this.$lgThumb.css("transition-duration", Math.min(s2 - 1, 2) + "settings"), i2 *= s2, this.translateX = this.getPossibleTransformX(this.translateX - i2), this.setTranslate(this.translateX)) : this.translateX = t2.newTranslateX, Math.abs(t2.cords.endX - t2.cords.startX) < this.settings.thumbnailSwipeThreshold && (this.thumbClickable = true), t2;
-        }, o.prototype.getThumbHtml = function(t2, e2, i2) {
-          var s2, h2 = this.core.galleryItems[e2].__slideVideoInfo || {};
-          s2 = h2.youtube && this.settings.loadYouTubeThumbnail ? "//img.youtube.com/vi/" + h2.youtube[1] + "/" + this.settings.youTubeThumbSize + ".jpg" : t2;
-          var n2 = document.createElement("div");
-          n2.setAttribute("data-lg-item-id", e2 + ""), n2.className = "lg-thumb-item " + (e2 === this.core.index ? "active" : ""), n2.style.cssText = "width: " + this.settings.thumbWidth + "px; height: " + this.settings.thumbHeight + "; margin-right: " + this.settings.thumbMargin + "px;";
-          var o2 = document.createElement("img");
-          return o2.alt = i2 || "", o2.setAttribute("data-lg-item-id", e2 + ""), o2.src = s2, n2.appendChild(o2), n2;
-        }, o.prototype.setThumbItemHtml = function(t2) {
-          for (var e2 = 0; e2 < t2.length; e2++) {
-            var i2 = this.getThumbHtml(t2[e2].thumb, e2, t2[e2].alt);
-            this.$lgThumb.append(i2);
-          }
-        }, o.prototype.setAnimateThumbStyles = function() {
-          this.settings.animateThumb && this.core.outer.addClass("lg-animate-thumb");
-        }, o.prototype.manageActiveClassOnSlideChange = function() {
-          var t2 = this;
-          this.core.LGel.on(n + ".thumb", function(e2) {
-            var i2 = t2.core.outer.find(".lg-thumb-item"), s2 = e2.detail.index;
-            i2.removeClass("active"), i2.eq(s2).addClass("active");
-          });
-        }, o.prototype.toggleThumbBar = function() {
-          var t2 = this;
-          this.settings.toggleThumb && (this.core.outer.addClass("lg-can-toggle"), this.core.$toolbar.append('<button type="button" aria-label="' + this.settings.thumbnailPluginStrings.toggleThumbnails + '" class="lg-toggle-thumb lg-icon"></button>'), this.core.outer.find(".lg-toggle-thumb").first().on("click.lg", function() {
-            t2.core.outer.toggleClass("lg-components-open");
-          }));
-        }, o.prototype.thumbKeyPress = function() {
-          var t2 = this;
-          this.$LG(window).on("keydown.lg.thumb.global" + this.core.lgId, function(e2) {
-            t2.core.lgOpened && t2.settings.toggleThumb && (38 === e2.keyCode ? (e2.preventDefault(), t2.core.outer.addClass("lg-components-open")) : 40 === e2.keyCode && (e2.preventDefault(), t2.core.outer.removeClass("lg-components-open")));
-          });
-        }, o.prototype.destroy = function() {
-          this.settings.thumbnail && (this.$LG(window).off(".lg.thumb.global" + this.core.lgId), this.core.LGel.off(".lg.thumb"), this.core.LGel.off(".thumb"), this.$thumbOuter.remove(), this.core.outer.removeClass("lg-has-thumb"));
-        }, o;
-      }();
-    });
-  })(lgThumbnail_min$1);
-  return lgThumbnail_min$1.exports;
-}
-var lgThumbnail_minExports = requireLgThumbnail_min();
-const lgThumbnail = /* @__PURE__ */ getDefaultExportFromCjs(lgThumbnail_minExports);
-var lgZoom_min$1 = { exports: {} };
-/**
- * lightgallery | 2.9.0-beta.1 | June 15th 2025
- * http://www.lightgalleryjs.com/
- * Copyright (c) 2020 Sachin Neravath;
- * @license GPLv3
- */
-var lgZoom_min = lgZoom_min$1.exports;
-var hasRequiredLgZoom_min;
-function requireLgZoom_min() {
-  if (hasRequiredLgZoom_min) return lgZoom_min$1.exports;
-  hasRequiredLgZoom_min = 1;
-  (function(module, exports) {
-    !function(e, t) {
-      module.exports = t();
-    }(lgZoom_min, function() {
-      var e = function() {
-        return (e = Object.assign || function(e2) {
-          for (var t2, o2 = 1, i2 = arguments.length; o2 < i2; o2++) for (var s2 in t2 = arguments[o2]) Object.prototype.hasOwnProperty.call(t2, s2) && (e2[s2] = t2[s2]);
-          return e2;
-        }).apply(this, arguments);
-      }, t = { scale: 1, zoom: true, infiniteZoom: true, actualSize: true, showZoomInOutIcons: false, actualSizeIcons: { zoomIn: "lg-zoom-in", zoomOut: "lg-zoom-out" }, enableZoomAfter: 300, zoomPluginStrings: { zoomIn: "Zoom in", zoomOut: "Zoom out", viewActualSize: "View actual size" } }, o = "lgContainerResize", i = "lgBeforeOpen", s = "lgAfterOpen", a = "lgSlideItemLoad", n = "lgAfterSlide", r = "lgRotateLeft", l = "lgRotateRight", c = "lgFlipHorizontal", g = "lgFlipVertical";
-      return function() {
-        function h(o2, i2) {
-          return this.core = o2, this.$LG = i2, this.settings = e(e({}, t), this.core.settings), this;
-        }
-        return h.prototype.buildTemplates = function() {
-          var e2 = this.settings.showZoomInOutIcons ? '<button id="' + this.core.getIdName("lg-zoom-in") + '" type="button" aria-label="' + this.settings.zoomPluginStrings.zoomIn + '" class="lg-zoom-in lg-icon"></button><button id="' + this.core.getIdName("lg-zoom-out") + '" type="button" aria-label="' + this.settings.zoomPluginStrings.zoomOut + '" class="lg-zoom-out lg-icon"></button>' : "";
-          this.settings.actualSize && (e2 += '<button id="' + this.core.getIdName("lg-actual-size") + '" type="button" aria-label="' + this.settings.zoomPluginStrings.viewActualSize + '" class="' + this.settings.actualSizeIcons.zoomIn + ' lg-icon"></button>'), this.core.outer.addClass("lg-use-transition-for-zoom"), this.core.$toolbar.first().append(e2);
-        }, h.prototype.enableZoom = function(e2) {
-          var t2 = this, o2 = this.settings.enableZoomAfter + e2.detail.delay;
-          this.$LG("body").first().hasClass("lg-from-hash") && e2.detail.delay ? o2 = 0 : this.$LG("body").first().removeClass("lg-from-hash"), this.zoomableTimeout = setTimeout(function() {
-            t2.isImageSlide(t2.core.index) && (t2.core.getSlideItem(e2.detail.index).addClass("lg-zoomable"), e2.detail.index === t2.core.index && t2.setZoomEssentials());
-          }, o2 + 30);
-        }, h.prototype.enableZoomOnSlideItemLoad = function() {
-          this.core.LGel.on(a + ".zoom", this.enableZoom.bind(this));
-        }, h.prototype.getDragCords = function(e2) {
-          return { x: e2.pageX, y: e2.pageY };
-        }, h.prototype.getSwipeCords = function(e2) {
-          return { x: e2.touches[0].pageX, y: e2.touches[0].pageY };
-        }, h.prototype.getDragAllowedAxises = function(e2, t2) {
-          if (!this.containerRect) return { allowX: false, allowY: false };
-          var o2 = this.core.getSlideItem(this.core.index).find(".lg-image").first().get(), i2 = 0, s2 = 0, a2 = o2.getBoundingClientRect();
-          e2 ? (i2 = o2.offsetHeight * e2, s2 = o2.offsetWidth * e2) : t2 ? (i2 = a2.height + t2 * a2.height, s2 = a2.width + t2 * a2.width) : (i2 = a2.height, s2 = a2.width);
-          var n2 = i2 > this.containerRect.height;
-          return { allowX: s2 > this.containerRect.width, allowY: n2 };
-        }, h.prototype.setZoomEssentials = function() {
-          this.containerRect = this.core.$content.get().getBoundingClientRect();
-        }, h.prototype.zoomImage = function(e2, t2, o2, i2) {
-          if (this.containerRect && !(Math.abs(t2) <= 0)) {
-            var s2, a2, n2 = this.containerRect.width / 2 + this.containerRect.left, r2 = this.containerRect.height / 2 + this.containerRect.top + this.scrollTop;
-            1 === e2 && (this.positionChanged = false);
-            var l2 = this.getDragAllowedAxises(0, t2), c2 = l2.allowY, g2 = l2.allowX;
-            this.positionChanged && (s2 = this.left / (this.scale - t2), a2 = this.top / (this.scale - t2), this.pageX = n2 - s2, this.pageY = r2 - a2, this.positionChanged = false);
-            var h2, m, u = this.getPossibleSwipeDragCords(t2), d = n2 - this.pageX, f = r2 - this.pageY;
-            if (e2 - t2 > 1) {
-              var p = (e2 - t2) / Math.abs(t2);
-              h2 = (d = (t2 < 0 ? -d : d) + this.left * (p + (t2 < 0 ? -1 : 1))) / p, m = (f = (t2 < 0 ? -f : f) + this.top * (p + (t2 < 0 ? -1 : 1))) / p;
-            } else {
-              h2 = d * (p = (e2 - t2) * t2), m = f * p;
-            }
-            o2 && (g2 ? this.isBeyondPossibleLeft(h2, u.minX) ? h2 = u.minX : this.isBeyondPossibleRight(h2, u.maxX) && (h2 = u.maxX) : e2 > 1 && (h2 < u.minX ? h2 = u.minX : h2 > u.maxX && (h2 = u.maxX)), c2 ? this.isBeyondPossibleTop(m, u.minY) ? m = u.minY : this.isBeyondPossibleBottom(m, u.maxY) && (m = u.maxY) : e2 > 1 && (m < u.minY ? m = u.minY : m > u.maxY && (m = u.maxY))), this.setZoomStyles({ x: h2, y: m, scale: e2 }), this.left = h2, this.top = m, i2 && this.setZoomImageSize();
-          }
-        }, h.prototype.resetImageTranslate = function(e2) {
-          if (this.isImageSlide(e2)) {
-            var t2 = this.core.getSlideItem(e2).find(".lg-image").first();
-            this.imageReset = false, t2.removeClass("reset-transition reset-transition-y reset-transition-x"), this.core.outer.removeClass("lg-actual-size"), t2.css("width", "auto").css("height", "auto"), setTimeout(function() {
-              t2.removeClass("no-transition");
-            }, 10);
-          }
-        }, h.prototype.setZoomImageSize = function() {
-          var e2 = this, t2 = this.core.getSlideItem(this.core.index).find(".lg-image").first();
-          setTimeout(function() {
-            var o2 = e2.getCurrentImageActualSizeScale();
-            e2.scale >= o2 && (t2.addClass("no-transition"), e2.imageReset = true);
-          }, 500), setTimeout(function() {
-            var o2 = e2.getCurrentImageActualSizeScale();
-            if (e2.scale >= o2) {
-              var i2 = e2.getDragAllowedAxises(e2.scale);
-              t2.css("width", t2.get().naturalWidth + "px").css("height", t2.get().naturalHeight + "px"), e2.core.outer.addClass("lg-actual-size"), i2.allowX && i2.allowY ? t2.addClass("reset-transition") : i2.allowX && !i2.allowY ? t2.addClass("reset-transition-x") : !i2.allowX && i2.allowY && t2.addClass("reset-transition-y");
-            }
-          }, 550);
-        }, h.prototype.setZoomStyles = function(e2) {
-          var t2 = this.core.getSlideItem(this.core.index).find(".lg-img-wrap").first(), o2 = this.core.getSlideItem(this.core.index).find(".lg-image").first(), i2 = this.core.outer.find(".lg-current .lg-dummy-img").first();
-          this.scale = e2.scale, o2.css("transform", "scale3d(" + e2.scale + ", " + e2.scale + ", 1)"), i2.css("transform", "scale3d(" + e2.scale + ", " + e2.scale + ", 1)");
-          var s2 = "translate3d(" + e2.x + "px, " + e2.y + "px, 0)";
-          t2.css("transform", s2);
-        }, h.prototype.setActualSize = function(e2, t2) {
-          var o2 = this;
-          if (!this.zoomInProgress) {
-            this.zoomInProgress = true;
-            var i2 = this.core.galleryItems[this.core.index];
-            this.resetImageTranslate(e2), setTimeout(function() {
-              if (i2.src && !o2.core.outer.hasClass("lg-first-slide-loading")) {
-                var e3 = o2.getCurrentImageActualSizeScale(), s2 = o2.scale;
-                o2.core.outer.hasClass("lg-zoomed") ? o2.scale = 1 : o2.scale = o2.getScale(e3), o2.setPageCords(t2), o2.beginZoom(o2.scale), o2.zoomImage(o2.scale, o2.scale - s2, true, true);
-              }
-            }, 50), setTimeout(function() {
-              o2.core.outer.removeClass("lg-grabbing").addClass("lg-grab");
-            }, 60), setTimeout(function() {
-              o2.zoomInProgress = false;
-            }, 610);
-          }
-        }, h.prototype.getNaturalWidth = function(e2) {
-          var t2 = this.core.getSlideItem(e2).find(".lg-image").first(), o2 = this.core.galleryItems[e2].width;
-          return o2 ? parseFloat(o2) : t2.get().naturalWidth;
-        }, h.prototype.getActualSizeScale = function(e2, t2) {
-          return e2 >= t2 ? e2 / t2 || 2 : 1;
-        }, h.prototype.getCurrentImageActualSizeScale = function() {
-          var e2 = this.core.getSlideItem(this.core.index).find(".lg-image").first().get().offsetWidth, t2 = this.getNaturalWidth(this.core.index) || e2;
-          return this.getActualSizeScale(t2, e2);
-        }, h.prototype.getPageCords = function(e2) {
-          var t2 = {};
-          if (e2) t2.x = e2.pageX || e2.touches[0].pageX, t2.y = e2.pageY || e2.touches[0].pageY;
-          else {
-            var o2 = this.core.$content.get().getBoundingClientRect();
-            t2.x = o2.width / 2 + o2.left, t2.y = o2.height / 2 + this.scrollTop + o2.top;
-          }
-          return t2;
-        }, h.prototype.setPageCords = function(e2) {
-          var t2 = this.getPageCords(e2);
-          this.pageX = t2.x, this.pageY = t2.y;
-        }, h.prototype.manageActualPixelClassNames = function() {
-          this.core.getElementById("lg-actual-size").removeClass(this.settings.actualSizeIcons.zoomIn).addClass(this.settings.actualSizeIcons.zoomOut);
-        }, h.prototype.beginZoom = function(e2) {
-          return this.core.outer.removeClass("lg-zoom-drag-transition lg-zoom-dragging"), e2 > 1 ? (this.core.outer.addClass("lg-zoomed"), this.manageActualPixelClassNames()) : this.resetZoom(), e2 > 1;
-        }, h.prototype.getScale = function(e2) {
-          var t2 = this.getCurrentImageActualSizeScale();
-          return e2 < 1 ? e2 = 1 : e2 > t2 && (e2 = t2), e2;
-        }, h.prototype.init = function() {
-          var e2 = this;
-          if (this.settings.zoom) {
-            this.buildTemplates(), this.enableZoomOnSlideItemLoad();
-            var t2 = null;
-            this.core.outer.on("dblclick.lg", function(t3) {
-              e2.$LG(t3.target).hasClass("lg-image") && e2.setActualSize(e2.core.index, t3);
-            }), this.core.outer.on("touchstart.lg", function(o2) {
-              var i2 = e2.$LG(o2.target);
-              1 === o2.touches.length && i2.hasClass("lg-image") && (t2 ? (clearTimeout(t2), t2 = null, o2.preventDefault(), e2.setActualSize(e2.core.index, o2)) : t2 = setTimeout(function() {
-                t2 = null;
-              }, 300));
-            }), this.core.LGel.on(o + ".zoom " + l + ".zoom " + r + ".zoom " + c + ".zoom " + g + ".zoom", function() {
-              if (e2.core.lgOpened && e2.isImageSlide(e2.core.index) && !e2.core.touchAction) {
-                var t3 = e2.core.getSlideItem(e2.core.index).find(".lg-img-wrap").first();
-                e2.top = 0, e2.left = 0, e2.setZoomEssentials(), e2.setZoomSwipeStyles(t3, { x: 0, y: 0 }), e2.positionChanged = true;
-              }
-            }), this.$LG(window).on("scroll.lg.zoom.global" + this.core.lgId, function() {
-              e2.core.lgOpened && (e2.scrollTop = e2.$LG(window).scrollTop());
-            }), this.core.getElementById("lg-zoom-out").on("click.lg", function() {
-              if (e2.isImageSlide(e2.core.index)) {
-                var t3 = 0;
-                e2.imageReset && (e2.resetImageTranslate(e2.core.index), t3 = 50), setTimeout(function() {
-                  var t4 = e2.scale - e2.settings.scale;
-                  t4 < 1 && (t4 = 1), e2.beginZoom(t4), e2.zoomImage(t4, -e2.settings.scale, true, !e2.settings.infiniteZoom);
-                }, t3);
-              }
-            }), this.core.getElementById("lg-zoom-in").on("click.lg", function() {
-              e2.zoomIn();
-            }), this.core.getElementById("lg-actual-size").on("click.lg", function() {
-              e2.setActualSize(e2.core.index);
-            }), this.core.LGel.on(i + ".zoom", function() {
-              e2.core.outer.find(".lg-item").removeClass("lg-zoomable");
-            }), this.core.LGel.on(s + ".zoom", function() {
-              e2.scrollTop = e2.$LG(window).scrollTop(), e2.pageX = e2.core.outer.width() / 2, e2.pageY = e2.core.outer.height() / 2 + e2.scrollTop, e2.scale = 1;
-            }), this.core.LGel.on(n + ".zoom", function(t3) {
-              var o2 = t3.detail.prevIndex;
-              e2.scale = 1, e2.positionChanged = false, e2.zoomInProgress = false, e2.resetZoom(o2), e2.resetImageTranslate(o2), e2.isImageSlide(e2.core.index) && e2.setZoomEssentials();
-            }), this.zoomDrag(), this.pinchZoom(), this.zoomSwipe(), this.zoomableTimeout = false, this.positionChanged = false, this.zoomInProgress = false;
-          }
-        }, h.prototype.zoomIn = function() {
-          if (this.isImageSlide(this.core.index)) {
-            var e2 = this.scale + this.settings.scale;
-            this.settings.infiniteZoom || (e2 = this.getScale(e2)), this.beginZoom(e2), this.zoomImage(e2, Math.min(this.settings.scale, e2 - this.scale), true, !this.settings.infiniteZoom);
-          }
-        }, h.prototype.resetZoom = function(e2) {
-          this.core.outer.removeClass("lg-zoomed lg-zoom-drag-transition");
-          var t2 = this.core.getElementById("lg-actual-size"), o2 = this.core.getSlideItem(void 0 !== e2 ? e2 : this.core.index);
-          t2.removeClass(this.settings.actualSizeIcons.zoomOut).addClass(this.settings.actualSizeIcons.zoomIn), o2.find(".lg-img-wrap").first().removeAttr("style"), o2.find(".lg-image").first().removeAttr("style"), this.scale = 1, this.left = 0, this.top = 0, this.setPageCords();
-        }, h.prototype.getTouchDistance = function(e2) {
-          return Math.sqrt((e2.touches[0].pageX - e2.touches[1].pageX) * (e2.touches[0].pageX - e2.touches[1].pageX) + (e2.touches[0].pageY - e2.touches[1].pageY) * (e2.touches[0].pageY - e2.touches[1].pageY));
-        }, h.prototype.pinchZoom = function() {
-          var e2 = this, t2 = 0, o2 = false, i2 = 1, s2 = 0, a2 = this.core.getSlideItem(this.core.index);
-          this.core.outer.on("touchstart.lg", function(o3) {
-            if (a2 = e2.core.getSlideItem(e2.core.index), e2.isImageSlide(e2.core.index) && 2 === o3.touches.length) {
-              if (o3.preventDefault(), e2.core.outer.hasClass("lg-first-slide-loading")) return;
-              i2 = e2.scale || 1, e2.core.outer.removeClass("lg-zoom-drag-transition lg-zoom-dragging"), e2.setPageCords(o3), e2.resetImageTranslate(e2.core.index), e2.core.touchAction = "pinch", t2 = e2.getTouchDistance(o3);
-            }
-          }), this.core.$inner.on("touchmove.lg", function(n2) {
-            if (2 === n2.touches.length && "pinch" === e2.core.touchAction && (e2.$LG(n2.target).hasClass("lg-item") || a2.get().contains(n2.target))) {
-              n2.preventDefault();
-              var r2 = e2.getTouchDistance(n2), l2 = t2 - r2;
-              if (!o2 && Math.abs(l2) > 5 && (o2 = true), o2) {
-                s2 = e2.scale;
-                var c2 = Math.max(1, i2 + 0.02 * -l2);
-                e2.scale = Math.round(100 * (c2 + Number.EPSILON)) / 100;
-                var g2 = e2.scale - s2;
-                e2.zoomImage(e2.scale, Math.round(100 * (g2 + Number.EPSILON)) / 100, false, false);
-              }
-            }
-          }), this.core.$inner.on("touchend.lg", function(i3) {
-            if ("pinch" === e2.core.touchAction && (e2.$LG(i3.target).hasClass("lg-item") || a2.get().contains(i3.target))) {
-              if (o2 = false, t2 = 0, e2.scale <= 1) e2.resetZoom();
-              else {
-                var s3 = e2.getCurrentImageActualSizeScale();
-                if (e2.scale >= s3) {
-                  var n2 = s3 - e2.scale;
-                  0 === n2 && (n2 = 0.01), e2.zoomImage(s3, n2, false, true);
-                }
-                e2.manageActualPixelClassNames(), e2.core.outer.addClass("lg-zoomed");
-              }
-              e2.core.touchAction = void 0;
-            }
-          });
-        }, h.prototype.touchendZoom = function(e2, t2, o2, i2, s2) {
-          var a2 = t2.x - e2.x, n2 = t2.y - e2.y, r2 = Math.abs(a2) / s2 + 1, l2 = Math.abs(n2) / s2 + 1;
-          r2 > 2 && (r2 += 1), l2 > 2 && (l2 += 1), a2 *= r2, n2 *= l2;
-          var c2 = this.core.getSlideItem(this.core.index).find(".lg-img-wrap").first(), g2 = {};
-          g2.x = this.left + a2, g2.y = this.top + n2;
-          var h2 = this.getPossibleSwipeDragCords();
-          (Math.abs(a2) > 15 || Math.abs(n2) > 15) && (i2 && (this.isBeyondPossibleTop(g2.y, h2.minY) ? g2.y = h2.minY : this.isBeyondPossibleBottom(g2.y, h2.maxY) && (g2.y = h2.maxY)), o2 && (this.isBeyondPossibleLeft(g2.x, h2.minX) ? g2.x = h2.minX : this.isBeyondPossibleRight(g2.x, h2.maxX) && (g2.x = h2.maxX)), i2 ? this.top = g2.y : g2.y = this.top, o2 ? this.left = g2.x : g2.x = this.left, this.setZoomSwipeStyles(c2, g2), this.positionChanged = true);
-        }, h.prototype.getZoomSwipeCords = function(e2, t2, o2, i2, s2) {
-          var a2 = {};
-          if (i2) {
-            if (a2.y = this.top + (t2.y - e2.y), this.isBeyondPossibleTop(a2.y, s2.minY)) {
-              var n2 = s2.minY - a2.y;
-              a2.y = s2.minY - n2 / 6;
-            } else if (this.isBeyondPossibleBottom(a2.y, s2.maxY)) {
-              var r2 = a2.y - s2.maxY;
-              a2.y = s2.maxY + r2 / 6;
-            }
-          } else a2.y = this.top;
-          if (o2) {
-            if (a2.x = this.left + (t2.x - e2.x), this.isBeyondPossibleLeft(a2.x, s2.minX)) {
-              var l2 = s2.minX - a2.x;
-              a2.x = s2.minX - l2 / 6;
-            } else if (this.isBeyondPossibleRight(a2.x, s2.maxX)) {
-              var c2 = a2.x - s2.maxX;
-              a2.x = s2.maxX + c2 / 6;
-            }
-          } else a2.x = this.left;
-          return a2;
-        }, h.prototype.isBeyondPossibleLeft = function(e2, t2) {
-          return e2 >= t2;
-        }, h.prototype.isBeyondPossibleRight = function(e2, t2) {
-          return e2 <= t2;
-        }, h.prototype.isBeyondPossibleTop = function(e2, t2) {
-          return e2 >= t2;
-        }, h.prototype.isBeyondPossibleBottom = function(e2, t2) {
-          return e2 <= t2;
-        }, h.prototype.isImageSlide = function(e2) {
-          var t2 = this.core.galleryItems[e2];
-          return "image" === this.core.getSlideType(t2);
-        }, h.prototype.getPossibleSwipeDragCords = function(e2) {
-          var t2 = this.core.getSlideItem(this.core.index).find(".lg-image").first(), o2 = this.core.mediaContainerPosition.bottom, i2 = t2.get().getBoundingClientRect(), s2 = i2.height, a2 = i2.width;
-          return e2 && (s2 += e2 * s2, a2 += e2 * a2), { minY: (s2 - this.containerRect.height) / 2, maxY: (this.containerRect.height - s2) / 2 + o2, minX: (a2 - this.containerRect.width) / 2, maxX: (this.containerRect.width - a2) / 2 };
-        }, h.prototype.setZoomSwipeStyles = function(e2, t2) {
-          e2.css("transform", "translate3d(" + t2.x + "px, " + t2.y + "px, 0)");
-        }, h.prototype.zoomSwipe = function() {
-          var e2, t2, o2 = this, i2 = {}, s2 = {}, a2 = false, n2 = false, r2 = false, l2 = /* @__PURE__ */ new Date(), c2 = this.core.getSlideItem(this.core.index);
-          this.core.$inner.on("touchstart.lg", function(s3) {
-            if (o2.isImageSlide(o2.core.index) && (c2 = o2.core.getSlideItem(o2.core.index), (o2.$LG(s3.target).hasClass("lg-item") || c2.get().contains(s3.target)) && 1 === s3.touches.length && o2.core.outer.hasClass("lg-zoomed"))) {
-              s3.preventDefault(), l2 = /* @__PURE__ */ new Date(), o2.core.touchAction = "zoomSwipe", t2 = o2.core.getSlideItem(o2.core.index).find(".lg-img-wrap").first();
-              var a3 = o2.getDragAllowedAxises(0);
-              r2 = a3.allowY, ((n2 = a3.allowX) || r2) && (i2 = o2.getSwipeCords(s3)), e2 = o2.getPossibleSwipeDragCords(), o2.core.outer.addClass("lg-zoom-dragging lg-zoom-drag-transition");
-            }
-          }), this.core.$inner.on("touchmove.lg", function(l3) {
-            if (1 === l3.touches.length && "zoomSwipe" === o2.core.touchAction && (o2.$LG(l3.target).hasClass("lg-item") || c2.get().contains(l3.target))) {
-              l3.preventDefault(), o2.core.touchAction = "zoomSwipe", s2 = o2.getSwipeCords(l3);
-              var g2 = o2.getZoomSwipeCords(i2, s2, n2, r2, e2);
-              (Math.abs(s2.x - i2.x) > 15 || Math.abs(s2.y - i2.y) > 15) && (a2 = true, o2.setZoomSwipeStyles(t2, g2));
-            }
-          }), this.core.$inner.on("touchend.lg", function(e3) {
-            if ("zoomSwipe" === o2.core.touchAction && (o2.$LG(e3.target).hasClass("lg-item") || c2.get().contains(e3.target))) {
-              if (e3.preventDefault(), o2.core.touchAction = void 0, o2.core.outer.removeClass("lg-zoom-dragging"), !a2) return;
-              a2 = false;
-              var t3 = (/* @__PURE__ */ new Date()).valueOf() - l2.valueOf();
-              o2.touchendZoom(i2, s2, n2, r2, t3);
-            }
-          });
-        }, h.prototype.zoomDrag = function() {
-          var e2, t2, o2, i2, s2 = this, a2 = {}, n2 = {}, r2 = false, l2 = false, c2 = false, g2 = false;
-          this.core.outer.on("mousedown.lg.zoom", function(t3) {
-            if (s2.isImageSlide(s2.core.index)) {
-              var n3 = s2.core.getSlideItem(s2.core.index);
-              if (s2.$LG(t3.target).hasClass("lg-item") || n3.get().contains(t3.target)) {
-                e2 = /* @__PURE__ */ new Date(), i2 = s2.core.getSlideItem(s2.core.index).find(".lg-img-wrap").first();
-                var l3 = s2.getDragAllowedAxises(0);
-                g2 = l3.allowY, c2 = l3.allowX, s2.core.outer.hasClass("lg-zoomed") && s2.$LG(t3.target).hasClass("lg-object") && (c2 || g2) && (t3.preventDefault(), a2 = s2.getDragCords(t3), o2 = s2.getPossibleSwipeDragCords(), r2 = true, s2.core.outer.removeClass("lg-grab").addClass("lg-grabbing lg-zoom-drag-transition lg-zoom-dragging"));
-              }
-            }
-          }), this.$LG(window).on("mousemove.lg.zoom.global" + this.core.lgId, function(e3) {
-            if (r2) {
-              l2 = true, n2 = s2.getDragCords(e3);
-              var t3 = s2.getZoomSwipeCords(a2, n2, c2, g2, o2);
-              s2.setZoomSwipeStyles(i2, t3);
-            }
-          }), this.$LG(window).on("mouseup.lg.zoom.global" + this.core.lgId, function(o3) {
-            if (r2) {
-              if (t2 = /* @__PURE__ */ new Date(), r2 = false, s2.core.outer.removeClass("lg-zoom-dragging"), l2 && (a2.x !== n2.x || a2.y !== n2.y)) {
-                n2 = s2.getDragCords(o3);
-                var i3 = t2.valueOf() - e2.valueOf();
-                s2.touchendZoom(a2, n2, c2, g2, i3);
-              }
-              l2 = false;
-            }
-            s2.core.outer.removeClass("lg-grabbing").addClass("lg-grab");
-          });
-        }, h.prototype.closeGallery = function() {
-          this.resetZoom(), this.zoomInProgress = false;
-        }, h.prototype.destroy = function() {
-          this.$LG(window).off(".lg.zoom.global" + this.core.lgId), this.core.LGel.off(".lg.zoom"), this.core.LGel.off(".zoom"), clearTimeout(this.zoomableTimeout), this.zoomableTimeout = false;
-        }, h;
-      }();
-    });
-  })(lgZoom_min$1);
-  return lgZoom_min$1.exports;
-}
-var lgZoom_minExports = requireLgZoom_min();
-const lgZoom = /* @__PURE__ */ getDefaultExportFromCjs(lgZoom_minExports);
 const KEY = "7EC452A9-0CFD441C-BD984C7C-17C8456E";
 const galleries = document.querySelectorAll("[data-fls-gallery]");
 if (galleries.length) {
   galleries.forEach((gallery) => {
     lightGallery(gallery, {
-      plugins: [lgZoom, lgThumbnail],
+      // plugins: [lgZoom, lgThumbnail],
       licenseKey: KEY,
       speed: 500
     });
@@ -9803,7 +10748,7 @@ class DynamicAdapt {
       this.objects.push(object);
     });
     this.arraySort(this.objects);
-    this.mediaQueries = this.objects.map(({ breakpoint }) => `(${this.type}-width: ${breakpoint / 16}em),${breakpoint}`).filter((item, index, self2) => self2.indexOf(item) === index);
+    this.mediaQueries = this.objects.map(({ breakpoint }) => `(${this.type}-width: ${breakpoint / 16}em),${breakpoint}`).filter((item2, index, self2) => self2.indexOf(item2) === index);
     this.mediaQueries.forEach((media) => {
       const mediaSplit = media.split(",");
       const matchMedia = window.matchMedia(mediaSplit[0]);
@@ -9892,6 +10837,48 @@ class DynamicAdapt {
 if (document.querySelector("[data-fls-dynamic]")) {
   window.addEventListener("load", () => new DynamicAdapt());
 }
+function digitsCounter() {
+  function digitsCountersInit(digitsCountersItems) {
+    let digitsCounters = digitsCountersItems ? digitsCountersItems : document.querySelectorAll("[data-fls-digcounter]");
+    if (digitsCounters.length) {
+      digitsCounters.forEach((digitsCounter2) => {
+        if (digitsCounter2.hasAttribute("data-fls-digcounter-go")) return;
+        digitsCounter2.setAttribute("data-fls-digcounter-go", "");
+        digitsCounter2.dataset.flsDigcounter = digitsCounter2.innerHTML;
+        digitsCounter2.innerHTML = `0`;
+        digitsCountersAnimate(digitsCounter2);
+      });
+    }
+  }
+  function digitsCountersAnimate(digitsCounter2) {
+    let startTimestamp = null;
+    const duration = parseFloat(digitsCounter2.dataset.flsDigcounterSpeed) ? parseFloat(digitsCounter2.dataset.flsDigcounterSpeed) : 1e3;
+    const startValue = parseFloat(digitsCounter2.dataset.flsDigcounter);
+    const format = digitsCounter2.dataset.flsDigcounterFormat ? digitsCounter2.dataset.flsDigcounterFormat : " ";
+    const startPosition = 0;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const value = Math.floor(progress * (startPosition + startValue));
+      digitsCounter2.innerHTML = typeof digitsCounter2.dataset.flsDigcounterFormat !== "undefined" ? getDigFormat(value, format) : value;
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        digitsCounter2.removeAttribute("data-fls-digcounter-go");
+      }
+    };
+    window.requestAnimationFrame(step);
+  }
+  function digitsCounterAction(e) {
+    const entry = e.detail.entry;
+    const targetElement = entry.target;
+    if (targetElement.querySelectorAll("[data-fls-digcounter]").length && !targetElement.querySelectorAll("[data-fls-watcher]").length && entry.isIntersecting) {
+      digitsCountersInit(targetElement.querySelectorAll("[data-fls-digcounter]"));
+    }
+  }
+  document.addEventListener("watcherCallback", digitsCounterAction);
+}
+document.querySelector("[data-fls-digcounter]") ? window.addEventListener("load", digitsCounter) : null;
 var inputmask_min$1 = { exports: {} };
 /*!
  * dist/inputmask.min
@@ -12657,3 +13644,121 @@ function formInit() {
   formFieldsInit();
 }
 document.querySelector("[data-fls-form]") ? window.addEventListener("load", formInit) : null;
+class ScrollWatcher {
+  constructor(props) {
+    let defaultConfig = {
+      logging: true
+    };
+    this.config = Object.assign(defaultConfig, props);
+    this.observer;
+    !document.documentElement.hasAttribute("data-fls-watch") ? this.scrollWatcherRun() : null;
+  }
+  // Обновляем конструктор
+  scrollWatcherUpdate() {
+    this.scrollWatcherRun();
+  }
+  // Запускаем конструктор
+  scrollWatcherRun() {
+    document.documentElement.setAttribute("data-fls-watch", "");
+    this.scrollWatcherConstructor(document.querySelectorAll("[data-fls-watcher]"));
+  }
+  // Конструктор наблюдателей
+  scrollWatcherConstructor(items) {
+    if (items.length) {
+      let uniqParams = uniqArray(Array.from(items).map(function(item2) {
+        if (item2.dataset.flsWatcher === "navigator" && !item2.dataset.flsWatcherThreshold) {
+          let valueOfThreshold;
+          if (item2.clientHeight > 2) {
+            valueOfThreshold = window.innerHeight / 2 / (item2.clientHeight - 1);
+            if (valueOfThreshold > 1) {
+              valueOfThreshold = 1;
+            }
+          } else {
+            valueOfThreshold = 1;
+          }
+          item2.setAttribute(
+            "data-fls-watcher-threshold",
+            valueOfThreshold.toFixed(2)
+          );
+        }
+        return `${item2.dataset.flsWatcherRoot ? item2.dataset.flsWatcherRoot : null}|${item2.dataset.flsWatcherMargin ? item2.dataset.flsWatcherMargin : "0px"}|${item2.dataset.flsWatcherThreshold ? item2.dataset.flsWatcherThreshold : 0}`;
+      }));
+      uniqParams.forEach((uniqParam) => {
+        let uniqParamArray = uniqParam.split("|");
+        let paramsWatch = {
+          root: uniqParamArray[0],
+          margin: uniqParamArray[1],
+          threshold: uniqParamArray[2]
+        };
+        let groupItems = Array.from(items).filter(function(item2) {
+          let watchRoot = item2.dataset.flsWatcherRoot ? item2.dataset.flsWatcherRoot : null;
+          let watchMargin = item2.dataset.flsWatcherMargin ? item2.dataset.flsWatcherMargin : "0px";
+          let watchThreshold = item2.dataset.flsWatcherThreshold ? item2.dataset.flsWatcherThreshold : 0;
+          if (String(watchRoot) === paramsWatch.root && String(watchMargin) === paramsWatch.margin && String(watchThreshold) === paramsWatch.threshold) {
+            return item2;
+          }
+        });
+        let configWatcher = this.getScrollWatcherConfig(paramsWatch);
+        this.scrollWatcherInit(groupItems, configWatcher);
+      });
+    }
+  }
+  // Функция создания настроек
+  getScrollWatcherConfig(paramsWatch) {
+    let configWatcher = {};
+    if (document.querySelector(paramsWatch.root)) {
+      configWatcher.root = document.querySelector(paramsWatch.root);
+    } else if (paramsWatch.root !== "null") ;
+    configWatcher.rootMargin = paramsWatch.margin;
+    if (paramsWatch.margin.indexOf("px") < 0 && paramsWatch.margin.indexOf("%") < 0) {
+      return;
+    }
+    if (paramsWatch.threshold === "prx") {
+      paramsWatch.threshold = [];
+      for (let i = 0; i <= 1; i += 5e-3) {
+        paramsWatch.threshold.push(i);
+      }
+    } else {
+      paramsWatch.threshold = paramsWatch.threshold.split(",");
+    }
+    configWatcher.threshold = paramsWatch.threshold;
+    return configWatcher;
+  }
+  // Функция создания нового наблюдателя с вашими настройками
+  scrollWatcherCreate(configWatcher) {
+    this.observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        this.scrollWatcherCallback(entry, observer);
+      });
+    }, configWatcher);
+  }
+  // Функция инициализации наблюдателя с его настройками
+  scrollWatcherInit(items, configWatcher) {
+    this.scrollWatcherCreate(configWatcher);
+    items.forEach((item2) => this.observer.observe(item2));
+  }
+  // Функция обработки базовых действий точек срабатывания
+  scrollWatcherIntersecting(entry, targetElement) {
+    if (entry.isIntersecting) {
+      !targetElement.classList.contains("--watcher-view") ? targetElement.classList.add("--watcher-view") : null;
+    } else {
+      targetElement.classList.contains("--watcher-view") ? targetElement.classList.remove("--watcher-view") : null;
+    }
+  }
+  // Функция отключения слежения за объектом
+  scrollWatcherOff(targetElement, observer) {
+    observer.unobserve(targetElement);
+  }
+  // Функция обработки наблюдения
+  scrollWatcherCallback(entry, observer) {
+    const targetElement = entry.target;
+    this.scrollWatcherIntersecting(entry, targetElement);
+    targetElement.hasAttribute("data-fls-watcher-once") && entry.isIntersecting ? this.scrollWatcherOff(targetElement, observer) : null;
+    document.dispatchEvent(new CustomEvent("watcherCallback", {
+      detail: {
+        entry
+      }
+    }));
+  }
+}
+document.querySelector("[data-fls-watcher]") ? window.addEventListener("load", () => new ScrollWatcher({})) : null;

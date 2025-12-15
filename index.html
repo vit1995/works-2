@@ -5,8 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1765550253381"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1765550253381">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1765830309847"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1765830309847">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -30,10 +30,14 @@
 						</a>
 						<div data-fls-dynamic=".menu__body, 1200" class="top-header__social">
 							<p class="top-header__social-text">Напишите нам напрямую</p>
-							<select required name="tonnage" data-fls-select="" data-fls-select-modif="social">
-								<option value="в Telegram" selected data-fls-select-asset="assets/img/header/tg.png">в Telegram</option>
-								<option data-fls-select-asset="assets/img/header/vb.png" value="в Viber">в Viber</option>
-							</select>
+							<div class="top-header__social-icons">
+								<a href="#">
+									<img class="top-header__social-icon" alt="Image" src="./assets/img/header/tg.png">
+								</a>
+								<a href="#">
+									<img class="top-header__social-icon" alt="Image" src="./assets/img/header/vb.png">
+								</a>
+							</div>
 						</div>
 						<div data-fls-dynamic=".menu__body, 430" class="top-header__info">
 							<p class="top-header__info-text">Звоните, мы сейчас работаем</p>
@@ -175,11 +179,21 @@
 					</div>
 				</section>
 				<section data-fls-calc="" class="page__calculator calculator">
+					<img class="calculator__img-bg" alt="Image" src="./assets/img/calculator/bg-sections.jpg">
 					<div class="calculator__container">
+						<div data-fls-blockheader="" class="blockheader">
+							<div class="blockheader__top">
+								<h2 class="blockheader__title">Калькулятор забора</h2>
+								<p class="blockheader__subtitle">Калькулятор</p>
+							</div>
+							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
+						</div>
 						<div class="calculator__body">
 							<!-- верх квиза -->
 							<div id="calc" class="calculator__top">
-								<h4 data-watch="" data-watch-once="" class="calculator__top-title title">Подберите подходящие пластиковые окна с помощью нашей программы и узнайте</h4>
+								<h4 data-watch="" data-watch-once="" class="calculator__top-title title">
+									<!-- Подберите подходящие пластиковые окна с помощью нашей программы и узнайте -->
+								</h4>
 								<!--
 <div style="text-align: center" class="calculator__top-subtitle">
 и получите подарок
@@ -194,70 +208,64 @@
 										<!-- 1 Слайд -->
 										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
 											<div class="slide-calculator__body">
-												<h5 class="slide-calculator__title">Что именно хотите остеклить?</h5>
+												<div class="slide-calculator__title">
+													<p>Вопрос 1</p>
+													<h4>Какой забор Вам необходим?</h4>
+												</div>
 												<div class="options">
 													<div class="options__item">
-														<input data-required="" id="o_1" class="options__input input" checked type="radio" value="Забор жалюзи" name="step_1">
+														<input data-required="" id="o_1" class="options__input input" checked type="radio" value="Деревянный забор" name="step_1">
 														<label for="o_1" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/01.webp">
+																<img alt="#" src="./assets/img/calculator/1-1.jpg">
 															</div>
 														</label>
-														<h3 class="options__title">Забор жалюзи</h3>
+														<h3 class="options__title">Деревянный забор</h3>
 													</div>
 													<div class="options__item">
-														<input data-required="" id="o_2" class="options__input input" type="radio" value="Забор из штакетника" name="step_1">
+														<input data-required="" id="o_2" class="options__input input" type="radio" value="Из профлиста" name="step_1">
 														<label for="o_2" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/02.webp">
+																<img alt="#" src="./assets/img/calculator/2-1.jpg">
 															</div>
 														</label>
-														<h3 class="options__title">Забор из штакетника</h3>
+														<h3 class="options__title">Из профлиста</h3>
 													</div>
 													<div class="options__item">
-														<input data-required="" id="o_3" class="options__input input" type="radio" value="Забор рабица" name="step_1">
+														<input data-required="" id="o_3" class="options__input input" type="radio" value="Из 3D сетки Гиттер" name="step_1">
 														<label for="o_3" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/03.webp">
+																<img alt="#" src="./assets/img/calculator/3-1.jpg">
 															</div>
 														</label>
-														<h3 class="options__title">Забор рабица</h3>
+														<h3 class="options__title">Из 3D сетки Гиттер</h3>
 													</div>
 													<div class="options__item">
-														<input data-required="" id="o_4" class="options__input input" type="radio" value="Забор из профнастила" name="step_1">
+														<input data-required="" id="o_4" class="options__input input" type="radio" value="Из евроштакетника" name="step_1">
 														<label for="o_4" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/04.webp">
+																<img alt="#" src="./assets/img/calculator/4-1.jpg">
 															</div>
 														</label>
-														<h3 class="options__title">Забор из профнастила</h3>
+														<h3 class="options__title">Из евроштакетника</h3>
 													</div>
 													<div class="options__item">
-														<input data-required="" id="o_5" class="options__input input" type="radio" value="Не знаю" name="step_1">
+														<input data-required="" id="o_5" class="options__input input" type="radio" value="Из сетки рабицы" name="step_1">
 														<label for="o_5" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/05.webp">
+																<img alt="#" src="./assets/img/calculator/5-1.jpg">
 															</div>
 														</label>
-														<h3 class="options__title">Раздвижные системы</h3>
+														<h3 class="options__title">Из сетки рабицы</h3>
 													</div>
 													<div class="options__item">
-														<input data-required="" id="o_6" class="options__input input" type="radio" value="Не знаю" name="step_1">
+														<input data-required="" id="o_6" class="options__input input" type="radio" value="Заборы жалюзи" name="step_1">
 														<label for="o_6" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/06.webp">
+																<img alt="#" src="./assets/img/calculator/6-1.jpg">
 															</div>
 														</label>
-														<h3 class="options__title">Раздвижные системы</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_7" class="options__input input" type="radio" value="Не знаю" name="step_1">
-														<label for="o_7" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/00.webp">
-															</div>
-														</label>
-														<h3 class="options__title">Другое</h3>
+														<h3 class="options__title">Заборы жалюзи</h3>
 													</div>
 												</div>
 											</div>
@@ -265,61 +273,48 @@
 										<!-- 2 слайд -->
 										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
 											<div class="slide-calculator__body">
-												<h5 class="slide-calculator__title">Что именно хотите остеклить?</h5>
-												<div class="options">
-													<div class="options__item">
-														<input data-required="" id="o_8" class="options__input input" checked type="radio" value="Забор жалюзи" name="step_2">
-														<label for="o_8" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/01.webp">
+												<div class="slide-calculator__title">
+													<p>Вопрос 1</p>
+													<h4>Какой забор Вам необходим?</h4>
+												</div>
+												<div class="slider-container">
+													<!-- Слайдер для метров -->
+													<div class="slider-section">
+														<div class="value-display">
+															<img class="value-display-img" alt="Image" src="./assets/img/calculator/metr.png">
+															<span class="unit">Укажите длину, м</span>
+															<input type="number" min="0" max="500" value="250" class="value-input" id="valueInputMeters" name="width_m">
+														</div>
+														<div class="slider-wrapper">
+															<div class="slider-track">
+																<div class="slider-fill" id="sliderFillMeters"></div>
 															</div>
-														</label>
-														<h3 class="options__title">Забор жалюзи</h3>
+															<input type="range" min="0" max="500" value="250" class="slider-input" id="rangeSliderMeters">
+														</div>
+														<div class="slider-labels">
+															<span>0м</span>
+															<span>250м</span>
+															<span>500м</span>
+														</div>
 													</div>
-													<div class="options__item">
-														<input data-required="" id="o_9" class="options__input input" type="radio" value="Забор из штакетника" name="step_2">
-														<label for="o_9" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/02.webp">
+													<!-- Слайдер для сантиметров -->
+													<div class="slider-section">
+														<div class="value-display">
+															<img class="value-display-img" alt="Image" src="./assets/img/calculator/metr2.png">
+															<span class="unit">Укажите высоту, cм</span>
+															<input type="number" min="0" max="500" value="250" class="value-input" id="valueInputCm" name="height_cm">
+														</div>
+														<div class="slider-wrapper">
+															<div class="slider-track">
+																<div class="slider-fill" id="sliderFillCm"></div>
 															</div>
-														</label>
-														<h3 class="options__title">Забор из штакетника</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="10" class="options__input input" type="radio" value="Забор рабица" name="step_2">
-														<label for="10" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/03.webp">
-															</div>
-														</label>
-														<h3 class="options__title">Забор рабица</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_11" class="options__input input" type="radio" value="Забор из профнастила" name="step_2">
-														<label for="o_11" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/04.webp">
-															</div>
-														</label>
-														<h3 class="options__title">Забор из профнастила</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_12" class="options__input input" type="radio" value="Забор из профнастила" name="step_2">
-														<label for="o_12" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/04.webp">
-															</div>
-														</label>
-														<h3 class="options__title">Забор из профнастила</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_13" class="options__input input" type="radio" value="Забор из профнастила" name="step_2">
-														<label for="o_13" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/00.webp">
-															</div>
-														</label>
-														<h3 class="options__title">Забор из профнастила</h3>
+															<input type="range" min="0" max="500" value="250" class="slider-input" id="rangeSliderCm">
+														</div>
+														<div class="slider-labels">
+															<span>0см</span>
+															<span>250см</span>
+															<span>500см</span>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -327,79 +322,37 @@
 										<!-- 3 слайд -->
 										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
 											<div class="slide-calculator__body">
-												<h5 class="slide-calculator__title">Что именно хотите остеклить?</h5>
+												<div class="slide-calculator__title">
+													<p>Вопрос 3</p>
+													<h4>Выберите ворота</h4>
+												</div>
 												<div class="options">
 													<div class="options__item">
-														<input data-required="" id="o_4" class="options__input input" checked type="radio" value="Забор жалюзи" name="step_3">
-														<label for="o_14" class="options__label">
+														<input data-required="" id="o_7" class="options__input input" checked type="radio" value="Распашные ворота" name="step_3">
+														<label for="o_7" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/01.webp">
+																<img alt="#" src="./assets/img/calculator/1-2.jpg">
 															</div>
 														</label>
-														<h3 class="options__title">Забор жалюзи</h3>
+														<h3 class="options__title">Распашные ворота</h3>
 													</div>
 													<div class="options__item">
-														<input data-required="" id="o_15" class="options__input input" type="radio" value="Забор из штакетника" name="step_3">
-														<label for="o_15" class="options__label">
+														<input data-required="" id="o_8" class="options__input input" type="radio" value="Откатные ворота" name="step_3">
+														<label for="o_8" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/02.webp">
+																<img alt="#" src="./assets/img/calculator/2-2.jpg">
 															</div>
 														</label>
-														<h3 class="options__title">Забор из штакетника</h3>
+														<h3 class="options__title">Откатные ворота</h3>
 													</div>
 													<div class="options__item">
-														<input data-required="" id="o_16" class="options__input input" type="radio" value="Забор рабица" name="step_3">
-														<label for="o_16" class="options__label">
+														<input data-required="" id="o_9" class="options__input input" type="radio" value="Не нужны ворота" name="step_3">
+														<label for="o_9" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/03.webp">
+																<img alt="#" src="./assets/img/calculator/no.jpg">
 															</div>
 														</label>
-														<h3 class="options__title">Забор рабица</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_17" class="options__input input" type="radio" value="Забор из профнастила" name="step_3">
-														<label for="o_17" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/04.webp">
-															</div>
-														</label>
-														<h3 class="options__title">Забор из профнастила</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_18" class="options__input input" type="radio" value="Не знаю" name="step_3">
-														<label for="o_18" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/05.webp">
-															</div>
-														</label>
-														<h3 class="options__title">Раздвижные системы</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_19" class="options__input input" type="radio" value="Не знаю" name="step_3">
-														<label for="o_19" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/06.webp">
-															</div>
-														</label>
-														<h3 class="options__title">Раздвижные системы</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_20" class="options__input input" type="radio" value="Не знаю" name="step_3">
-														<label for="o_20" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/06.webp">
-															</div>
-														</label>
-														<h3 class="options__title">Раздвижные системы</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_21" class="options__input input" type="radio" value="Не знаю" name="step_3">
-														<label for="o_21" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/00.webp">
-															</div>
-														</label>
-														<h3 class="options__title">Другое</h3>
+														<h3 class="options__title">Не нужны ворота</h3>
 													</div>
 												</div>
 											</div>
@@ -407,52 +360,37 @@
 										<!-- 4 слайд -->
 										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
 											<div class="slide-calculator__body">
-												<h5 class="slide-calculator__title">Что именно хотите остеклить?</h5>
+												<div class="slide-calculator__title">
+													<p>Вопрос 4</p>
+													<h4>Выберите калитку</h4>
+												</div>
 												<div class="options">
 													<div class="options__item">
-														<input data-required="" id="o_22" class="options__input input" checked type="radio" value="Забор жалюзи" name="step_4">
-														<label for="o_22" class="options__label">
+														<input data-required="" id="o_10" class="options__input input" checked type="radio" value="Калитка без замка" name="step_4">
+														<label for="o_10" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/01.webp">
+																<img alt="#" src="./assets/img/calculator/1-3.jpg">
 															</div>
 														</label>
-														<h3 class="options__title">Забор жалюзи</h3>
+														<h3 class="options__title">Калитка без замка</h3>
 													</div>
 													<div class="options__item">
-														<input data-required="" id="o_23" class="options__input input" type="radio" value="Забор из штакетника" name="step_4">
-														<label for="o_23" class="options__label">
+														<input data-required="" id="o_11" class="options__input input" type="radio" value="Калитка с замком" name="step_4">
+														<label for="o_11" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/02.webp">
+																<img alt="#" src="./assets/img/calculator/2-3.jpg">
 															</div>
 														</label>
-														<h3 class="options__title">Забор из штакетника</h3>
+														<h3 class="options__title">Калитка с замком</h3>
 													</div>
 													<div class="options__item">
-														<input data-required="" id="o_24" class="options__input input" type="radio" value="Забор рабица" name="step_4">
-														<label for="o_24" class="options__label">
+														<input data-required="" id="o_12" class="options__input input" type="radio" value="Забор рабица" name="step_4">
+														<label for="o_12" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/03.webp">
+																<img alt="#" src="./assets/img/calculator/no.jpg">
 															</div>
 														</label>
-														<h3 class="options__title">Забор рабица</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_25" class="options__input input" type="radio" value="Забор из профнастила" name="step_4">
-														<label for="o_25" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/04.webp">
-															</div>
-														</label>
-														<h3 class="options__title">Забор из профнастила</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_26" class="options__input input" type="radio" value="Не знаю" name="step_4">
-														<label for="o_26" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/05.webp">
-															</div>
-														</label>
-														<h3 class="options__title">Раздвижные системы</h3>
+														<h3 class="options__title">Не нужна калитка</h3>
 													</div>
 												</div>
 											</div>
@@ -460,41 +398,28 @@
 										<!-- 5 слайд -->
 										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
 											<div class="slide-calculator__body">
-												<h5 class="slide-calculator__title">Как скоро хотите, чтобы работы были выполнены?</h5>
-												<div class="radio">
-													<div class="radio__item">
-														<input data-required="" id="o_27" class="radio__input" checked type="radio" value="до 1000" name="step_5">
-														<label for="o_27" class="radio__label">
-															<span class="radio__text">Горит!</span>
+												<div class="slide-calculator__title">
+													<p>Вопрос 5</p>
+													<h4>Нужен ли монтаж?</h4>
+												</div>
+												<div class="options">
+													<div class="options__item">
+														<input data-required="" id="o_13" class="options__input input" checked type="radio" value="Калитка без замка" name="step_5">
+														<label for="o_13" class="options__label">
+															<div class="options__text options__text-ibg">
+																<img alt="#" src="./assets/img/calculator/1-4.jpg">
+															</div>
 														</label>
+														<h3 class="options__title">Калитка без замка</h3>
 													</div>
-													<div class="radio__item">
-														<input id="o_44" class="radio__input" type="radio" value="от 1000 до
-													1500 кв.м" name="step_5">
-														<label for="o_44" class="radio__label">
-															<span class="radio__text">В течение месяца</span>
+													<div class="options__item">
+														<input data-required="" id="o_14" class="options__input input" type="radio" value="Калитка с замком" name="step_5">
+														<label for="o_14" class="options__label">
+															<div class="options__text options__text-ibg">
+																<img alt="#" src="./assets/img/calculator/2-4.jpg">
+															</div>
 														</label>
-													</div>
-													<div class="radio__item">
-														<input id="o_28" class="radio__input" type="radio" value="от 1500 до
-													2000 кв.м." name="step_5">
-														<label for="o_28" class="radio__label">
-															<span class="radio__text">Месяц-два</span>
-														</label>
-													</div>
-													<div class="radio__item">
-														<input data-required="" id="o_29" class="radio__input" checked type="radio" value="от 2000 до
-														2500 кв.м." name="step_5">
-														<label for="o_29" class="radio__label">
-															<span class="radio__text">Более трех месяцов</span>
-														</label>
-													</div>
-													<div class="radio__item">
-														<input id="o_30" class="radio__input" type="radio" value="от 2500 до
-													3000 кв.м" name="step_5">
-														<label for="o_30" class="radio__label">
-															<span class="radio__text">Пропустить вопрос</span>
-														</label>
+														<h3 class="options__title">Калитка с замком</h3>
 													</div>
 												</div>
 											</div>
@@ -502,48 +427,78 @@
 										<!-- 6 слайд -->
 										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
 											<div class="slide-calculator__body">
-												<h5 class="slide-calculator__title">Как скоро хотите, чтобы работы были выполнены?</h5>
+												<div class="slide-calculator__title">
+													<p>Вопрос 6</p>
+													<h4>Когда планируете установку забора?</h4>
+												</div>
 												<div class="radio">
 													<div class="radio__item">
-														<input data-required="" id="o_31" class="radio__input" checked type="radio" value="до 1000" name="step_6">
-														<label for="o_31" class="radio__label">
-															<span class="radio__text">Москва</span>
+														<input data-required="" id="o_15" class="radio__input" checked type="radio" value="Нужно сейчас" name="step_6">
+														<label for="o_15" class="radio__label">
+															<span class="radio__text">Нужно сейчас</span>
 														</label>
 													</div>
 													<div class="radio__item">
-														<input id="o_32" class="radio__input" type="radio" value="от 1000 до
-													1500 кв.м" name="step_6">
-														<label for="o_32" class="radio__label">
-															<span class="radio__text">До 50 км от МКАД</span>
+														<input id="o_16" class="radio__input" type="radio" value="В течении 2-х недель" name="step_6">
+														<label for="o_16" class="radio__label">
+															<span class="radio__text">В течении 2-х недель</span>
 														</label>
 													</div>
 													<div class="radio__item">
-														<input id="o_33" class="radio__input" type="radio" value="от 1500 до
-													2000 кв.м." name="step_6">
-														<label for="o_33" class="radio__label">
-															<span class="radio__text">50-100 км от МКАД</span>
+														<input id="o_17" class="radio__input" type="radio" value="В течении месяца" name="step_6">
+														<label for="o_17" class="radio__label">
+															<span class="radio__text">В течении месяца</span>
 														</label>
 													</div>
 													<div class="radio__item">
-														<input data-required="" id="o_34" class="radio__input" checked type="radio" value="от 2000 до
-														2500 кв.м." name="step_6">
-														<label for="o_34" class="radio__label">
-															<span class="radio__text">Более 100 км от МКАД</span>
+														<input data-required="" id="o_18" class="radio__input" checked type="radio" value="Более месяца" name="step_6">
+														<label for="o_18" class="radio__label">
+															<span class="radio__text">Более месяца</span>
 														</label>
 													</div>
-													<div class="radio__item">
-														<input id="o_35" class="radio__input" type="radio" value="от 2500 до
-													3000 кв.м" name="step_6">
-														<label for="o_35" class="radio__label">
-															<span class="radio__text">Пропустить вопрос</span>
+												</div>
+											</div>
+										</div>
+										<!-- 7 слайд -->
+										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
+											<div class="slide-calculator__body">
+												<div class="slide-calculator__title">
+													<p>Вопрос 7</p>
+													<h4>Выберите подарок:</h4>
+												</div>
+												<div class="options">
+													<div class="options__item">
+														<input data-required="" id="o_19" class="options__input input" checked type="radio" value="Распашные ворота" name="step_7">
+														<label for="o_19" class="options__label">
+															<div class="options__text options__text-ibg">
+																<img alt="#" src="./assets/img/calculator/1-5.jpg">
+															</div>
 														</label>
+														<h3 class="options__title">Скидка 20% на материал</h3>
+													</div>
+													<div class="options__item">
+														<input data-required="" id="o_20" class="options__input input" type="radio" value="Откатные ворота" name="step_7">
+														<label for="o_20" class="options__label">
+															<div class="options__text options__text-ibg">
+																<img alt="#" src="./assets/img/calculator/2-5.png">
+															</div>
+														</label>
+														<h3 class="options__title">2 туи</h3>
+													</div>
+													<div class="options__item">
+														<input data-required="" id="o_21" class="options__input input" type="radio" value="Не нужны ворота" name="step_7">
+														<label for="o_21" class="options__label">
+															<div class="options__text options__text-ibg">
+																<img alt="#" src="./assets/img/calculator/3-5.png">
+															</div>
+														</label>
+														<h3 class="options__title">Калитка в подарок</h3>
 													</div>
 												</div>
 											</div>
 										</div>
 										<!-- Конечная страница !форма! -->
 										<div class="calculator__slide swiper-slide slide-calculator slide-calculator-block slide-main-block">
-											<img class="slide-calculator-block__image-bg" alt="Image" src="./assets/img/calculator/quiz-final-bg.png">
 											<div class="slide-calculator-block__content">
 												<h3 class="slide-calculator-block__title-last">Расчет стоимости сформирован</h3>
 												<p class="slide-calculator-block__text">
@@ -586,31 +541,52 @@ value="Получить расчет"
 													</div>
 												</div>
 											</div>
-											<div class="slide-calculator-block__image">
-												<!--
-<div class="popup__circle popup__circle--calc">
-<img src="@img/popup/pdf-circle.svg" alt="#" />
-<svg
-class="circle-arrow"
-width="18"
-height="20"
-viewBox="0 0 18 20"
-fill="none"
-xmlns="http://www.w3.org/2000/svg"
->
-<path
-d="M16.7251 11.4014C16.7251 15.439 13.4884 18.7127 9.50133 18.7127C5.51426 18.7127 2.27751 15.4349 2.27751 11.3973C2.27751 7.35977 5.51426 4.08607 9.50133 4.08607C10.0681 4.08607 10.6348 4.15478 11.1856 4.28815L8.86276 6.64037L9.76474 7.55377L13.4924 3.77487L9.76873 0L8.86276 0.913404L10.8303 2.89379C6.19274 2.1461 1.83849 5.35109 1.10414 10.0474C0.369784 14.7438 3.53469 19.1492 8.1723 19.8928C12.8099 20.6365 17.1602 17.4315 17.8945 12.7351C17.9624 12.2946 17.9983 11.846 17.9983 11.3973H16.7251V11.4014Z"
-fill="white"
-></path>
-<p style="color: white">
-Засекайте
-<span>45</span>
-минут
-</p>
-</svg>
-</div>
--->
-												<img alt="#" src="./assets/img/calculator/quiz-final.webp">
+											<div class="banner-calculator__body">
+												<div class="banner-calculator__top">
+													<img class="banner-calculator__img-bg" alt="Image" src="./assets/img/calculator/banner/bannert-bg.jpg">
+													<div class="banner-calculator__worker">
+														<div class="banner-calculator__avatar">
+															<img alt="Image" src="./assets/img/calculator/banner/man.png">
+														</div>
+														<a class="banner-calculator__name" href="#">Михаил</a>
+													</div>
+													<div class="banner-calculator__information">
+														<div class="banner-calculator__online">Мы онлайн</div>
+														<div class="banner-calculator__position">Старший менеджер</div>
+														<div class="banner-calculator__test">Пройдите этот тест и 
+Я лично для Вас рассчитаю 
+стоимость в 3-х вариантах</div>
+													</div>
+												</div>
+												<div class="banner-calculator__bottom">
+													<p class="banner-calculator__subtitle">Пока что:</p>
+													<div class="banner-calculator__items">
+														<div class="banner-calculator__item">
+															<img class="banner-calculator__item-img-left" alt="Image" src="./assets/img/calculator/banner/01.png">
+															<p class="banner-calculator__item-text">
+																<strong>Расчет</strong>
+																не известен
+															</p>
+															<img class="banner-calculator__item-img-rigth" alt="Image" src="./assets/img/calculator/banner/qv.png">
+														</div>
+														<div class="banner-calculator__item">
+															<img class="banner-calculator__item-img-left" alt="Image" src="./assets/img/calculator/banner/02.png">
+															<p class="banner-calculator__item-text">
+																<strong>Расчет</strong>
+																не известен
+															</p>
+															<img class="banner-calculator__item-img-rigth" alt="Image" src="./assets/img/calculator/banner/def.png">
+														</div>
+														<div class="banner-calculator__item">
+															<img class="banner-calculator__item-img-left" alt="Image" src="./assets/img/calculator/banner/03.png">
+															<p class="banner-calculator__item-text">
+																<strong>Расчет</strong>
+																не известен
+															</p>
+															<img class="banner-calculator__item-img-rigth" alt="Image" src="./assets/img/calculator/banner/qv.png">
+														</div>
+													</div>
+												</div>
 											</div>
 										</div>
 									</form>
@@ -643,40 +619,49 @@ fill="white"
 								</div>
 								<div id="banner" class="calculator__banner banner-calculator">
 									<div class="banner-calculator__body">
-										<div class="banner-calculator__content">
-											<img class="banner-calculator__img-bg" alt="" src="./assets/img/calculator/banner-bg.webp">
-											<h4 class="banner-calculator__title">В результате:</h4>
-											<div class="banner-calculator__items">
-												<div class="banner-calculator__item">
-													<p>
-														<b>Получите подборку подходящих окон ПВХ</b>
-														с гарантией лучшей цены
-													</p>
-													<img class="banner-calculator__item-image" alt="#" src="./assets/img/calculator/item-1.webp">
+										<div class="banner-calculator__top">
+											<img class="banner-calculator__img-bg" alt="Image" src="./assets/img/calculator/banner/bannert-bg.jpg">
+											<div class="banner-calculator__worker">
+												<div class="banner-calculator__avatar">
+													<img alt="Image" src="./assets/img/calculator/banner/man.png">
 												</div>
-												<div class="banner-calculator__item">
-													<p>
-														<b>Получите подборку подходящих окон ПВХ</b>
-														с гарантией лучшей цены
-													</p>
-													<img class="banner-calculator__item-image" alt="#" src="./assets/img/calculator/item-2.webp">
-												</div>
-												<div class="banner-calculator__item">
-													<p>
-														<b>Получите подборку подходящих окон ПВХ</b>
-														с гарантией лучшей цены
-													</p>
-													<img class="banner-calculator__item-image" alt="#" src="./assets/img/calculator/item-3.webp">
-												</div>
+												<a class="banner-calculator__name" href="#">Михаил</a>
+											</div>
+											<div class="banner-calculator__information">
+												<div class="banner-calculator__online">Мы онлайн</div>
+												<div class="banner-calculator__position">Старший менеджер</div>
+												<div class="banner-calculator__test">Пройдите этот тест и 
+Я лично для Вас рассчитаю 
+стоимость в 3-х вариантах</div>
 											</div>
 										</div>
-										<div class="banner-calculator__image">
-											<img alt="#" src="./assets/img/calculator/human.webp">
-											<div class="banner-calculator__block">
-												<p class="banner-calculator__text">
-													Найду такое решение, которое максимально удовлетворяет вашим потребностям, соответствует бюджету и нашим стандартам.
-												</p>
-												<div class="banner-calculator__name">Дмитрий Ефремов</div>
+										<div class="banner-calculator__bottom">
+											<p class="banner-calculator__subtitle">Пока что:</p>
+											<div class="banner-calculator__items">
+												<div class="banner-calculator__item">
+													<img class="banner-calculator__item-img-left" alt="Image" src="./assets/img/calculator/banner/01.png">
+													<p class="banner-calculator__item-text">
+														<strong>Расчет</strong>
+														не известен
+													</p>
+													<img class="banner-calculator__item-img-rigth" alt="Image" src="./assets/img/calculator/banner/qv.png">
+												</div>
+												<div class="banner-calculator__item">
+													<img class="banner-calculator__item-img-left" alt="Image" src="./assets/img/calculator/banner/02.png">
+													<p class="banner-calculator__item-text">
+														<strong>Расчет</strong>
+														не известен
+													</p>
+													<img class="banner-calculator__item-img-rigth" alt="Image" src="./assets/img/calculator/banner/def.png">
+												</div>
+												<div class="banner-calculator__item">
+													<img class="banner-calculator__item-img-left" alt="Image" src="./assets/img/calculator/banner/03.png">
+													<p class="banner-calculator__item-text">
+														<strong>Расчет</strong>
+														не известен
+													</p>
+													<img class="banner-calculator__item-img-rigth" alt="Image" src="./assets/img/calculator/banner/qv.png">
+												</div>
 											</div>
 										</div>
 									</div>
@@ -688,17 +673,11 @@ fill="white"
 				<section class="mistake">
 					<img class="mistake__img-bg" alt="Image" src="./assets/img/mistake/bg.jpg">
 					<div class="mistake__container">
-						<div data-fls-blockheader="" class="blockheader blockheader--white">
+						<div data-fls-blockheader="" class="blockheader">
 							<div class="blockheader__top">
-								Хотим
-								<strong>предостеречь</strong>
-								вас
+								<h2 class="blockheader__title">4 грубых ошибки</h2>
+								<p class="blockheader__subtitle">4 грубых ошибки</p>
 							</div>
-							<h2 class="blockheader__title">
-								<span>4 грубых ошибки</span>
-								при расчете и монтаже забора, которые
-          допускают 85% компаний
-							</h2>
 							<p class="blockheader__text">
 								Для устранения последствий таких ошибок придется потратить большое
           кол-во времени, сил и значительную сумму
@@ -726,7 +705,24 @@ fill="white"
 								<img class="mistake__img-item-bg" alt="Image" src="./assets/img/mistake/card-bg.png">
 							</div>
 							<div class="mistake__item">
-								<span class="mistake__number">01</span>
+								<span class="mistake__number">02</span>
+								<h3 class="mistake__title">НЕПРАВИЛЬНОЕ ЗАГЛУБЛЕНИЕ ФУНДАМЕНТА</h3>
+								<p class="mistake__text">Начнет со временем клониться упадёт</p>
+								<div class="mistake__subtitle">Последствие:</div>
+								<ul class="mistake__list">
+									<li>
+										<strong>- 18 000 руб</strong>
+										из Вашего кошелька;
+									</li>
+									<li>
+										<strong>- 5 дней</strong>
+										на исправление;
+									</li>
+								</ul>
+								<img class="mistake__img-item-bg" alt="Image" src="./assets/img/mistake/card-bg.png">
+							</div>
+							<div class="mistake__item">
+								<span class="mistake__number">03</span>
 								<h3 class="mistake__title">НЕ ПРОИЗВЕДЕНО ОБСЛЕДОВАНИЕ ГРУНТА</h3>
 								<p class="mistake__text">
 									Для разных типов грунта нужно использовать разные методы установки
@@ -746,27 +742,7 @@ fill="white"
 								<img class="mistake__img-item-bg" alt="Image" src="./assets/img/mistake/card-bg.png">
 							</div>
 							<div class="mistake__item">
-								<span class="mistake__number">01</span>
-								<h3 class="mistake__title">НЕ ПРОИЗВЕДЕНО ОБСЛЕДОВАНИЕ ГРУНТА</h3>
-								<p class="mistake__text">
-									Для разных типов грунта нужно использовать разные методы установки
-            забора
-								</p>
-								<div class="mistake__subtitle">Последствие:</div>
-								<ul class="mistake__list">
-									<li>
-										<strong>- 18 000 руб</strong>
-										из Вашего кошелька;
-									</li>
-									<li>
-										<strong>- 5 дней</strong>
-										на исправление;
-									</li>
-								</ul>
-								<img class="mistake__img-item-bg" alt="Image" src="./assets/img/mistake/card-bg.png">
-							</div>
-							<div class="mistake__item">
-								<span class="mistake__number">01</span>
+								<span class="mistake__number">04</span>
 								<h3 class="mistake__title">НЕ ПРОИЗВЕДЕНО ОБСЛЕДОВАНИЕ ГРУНТА</h3>
 								<p class="mistake__text">
 									Для разных типов грунта нужно использовать разные методы установки
@@ -791,8 +767,11 @@ fill="white"
 				<section class="advantages">
 					<div class="advantages__container">
 						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">Преимущества</div>
-							<h2 class="blockheader__title">Наши преимущества</h2>
+							<div class="blockheader__top">
+								<h2 class="blockheader__title">Калькулятор забора</h2>
+								<p class="blockheader__subtitle">Калькулятор</p>
+							</div>
+							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
 						</div>
 						<div class="advantages__items">
 							<div class="advantages__item">
@@ -818,238 +797,283 @@ fill="white"
 						</div>
 					</div>
 				</section>
-				<section class="popular">
-					<div class="popular__container">
+				<section class="products">
+					<div class="products__container">
 						<div data-fls-blockheader="" class="blockheader">
 							<div class="blockheader__top">
-								Хотим
-								<strong>предостеречь</strong>
-								вас
+								<h2 class="blockheader__title">Наша продукция</h2>
+								<p class="blockheader__subtitle">Калькулятор</p>
 							</div>
-							<h2 class="blockheader__title">
-								Мы выбрали только
-								<span>ТОП-8 видов</span>
-								заборов, которые ценят за
-          качество и практичность
-							</h2>
-							<p class="blockheader__text">
-								Для устранения последствий таких ошибок придется потратить большое
-          кол-во времени, сил и значительную сумму
-							</p>
+							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
 						</div>
-						<div class="popular__items">
-							<div class="popular__item">
-								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
-								<div class="popular__name">
-									<img alt="Image" src="./assets/img/popular/text-bg.jpg">
-									ДЕРЕВЯННЫЕ ЗАБОРЫ
-									<div class="popular__name-est">
-										<p>В наличии</p>
+						<div class="products__items">
+							<div class="products__item">
+								<img class="products__img" alt="Image" src="./assets/img/products/01.webp">
+								<div class="products__info">
+									<p class="products__name">Заборы из профнастила</p>
+									<p class="products__text">
+										Самые распространенные ограждения для дачи и приусадебных участков
+              благодаря своей эстетичности и надежности. Самые распространенные
+              ограждения для дачи и приусадебных участков благодаря своей
+              эстетичности и надежности. Самые распространенные ограждения для
+              дачи и приусадебных участков благодаря своей эстетичности и
+              надежности. Самые распространенные ограждения для дачи и
+              приусадебных участков благодаря своей эстетичности и надежности.
+              Самые распространенные ограждения для дачи и приусадебных участков
+              благодаря своей эстетичности и надежности. Самые распространенные
+              ограждения для дачи и приусадебных участков благодаря своей
+              эстетичности и надежности. Самые распространенные ограждения для
+              дачи и приусадебных участков благодаря своей эстетичности и
+              надежности. Самые распространенные ограждения для дачи и
+              приусадебных участков благодаря своей эстетичности и надежности.
+              Самые распространенные ограждения для дачи и приусадебных участков
+              благодаря своей эстетичности и надежности. Самые распространенные
+              ограждения для дачи и приусадебных участков благодаря своей
+              эстетичности и надежности. Самые распространенные ограждения для
+              дачи и приусадебных участков благодаря своей эстетичности и
+              надежности. Самые распространенные ограждения для дачи и
+              приусадебных участков благодаря своей эстетичности и надежности.
+              Самые распространенные ограждения для дачи и приусадебных участков
+              благодаря своей эстетичности и надежности. Самые распространенные
+              ограждения для дачи и приусадебных участков благодаря своей
+              эстетичности и надежности. Самые распространенные ограждения для
+              дачи и приусадебных участков благодаря своей эстетичности и
+              надежности. Самые распространенные ограждения для дачи и
+              приусадебных участков благодаря своей эстетичности и надежности.
+              Самые распространенные ограждения для дачи и приусадебных участков
+              благодаря своей эстетичности и надежности. Самые распространенные
+              ограждения для дачи и приусадебных участков благодаря своей
+              эстетичности и надежности.
+									</p>
+									<div class="products__bottom">
+										<div class="products__price">
+											Цена: от
+											<span>314</span>
+											руб./п.м.
+										</div>
+										<a class="products__button" href="#">Обратная связь</a>
 									</div>
 								</div>
-								<a href="#" class="popular__button button">Перейти на страницу</a>
-								<p class="popular__text">
-									Каждый деревянный забор, который у нас можно купить, производится по
-            самым современным технологиям. Качественные материалы способствуют
-            тому, что изгородь долго сохраняет свои природные свойства и
-            привлекательный внешний вид.
-								</p>
 							</div>
-							<div class="popular__item">
-								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
-								<div class="popular__name">
-									ДЕРЕВЯННЫЕ ЗАБОРЫ
-									<div class="popular__name-est">
-										<p>В наличии</p>
+							<div class="products__item">
+								<img class="products__img" alt="Image" src="./assets/img/products/02.webp">
+								<div class="products__info">
+									<p class="products__name">Заборы из профнастила</p>
+									<p class="products__text">
+										Самые распространенные ограждения для дачи и приусадебных участков
+              благодаря своей эстетичности и надежности.
+									</p>
+									<div class="products__bottom">
+										<div class="products__price">
+											Цена: от
+											<span>314</span>
+											руб./п.м.
+										</div>
+										<a class="products__button" href="#">Обратная связь</a>
 									</div>
 								</div>
-								<a href="#" class="popular__button button">Перейти на страницу</a>
-								<p class="popular__text">
-									Каждый деревянный забор, который у нас можно купить, производится по
-            самым современным технологиям. Качественные материалы способствуют
-            тому, что изгородь долго сохраняет свои природные свойства и
-            привлекательный внешний вид.
-								</p>
 							</div>
-							<div class="popular__item">
-								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
-								<div class="popular__name">
-									ДЕРЕВЯННЫЕ ЗАБОРЫ
-									<div class="popular__name-est">
-										<p>В наличии</p>
+							<div class="products__item">
+								<img class="products__img" alt="Image" src="./assets/img/products/03.webp">
+								<div class="products__info">
+									<p class="products__name">Заборы из профнастила</p>
+									<p class="products__text">
+										Самые распространенные ограждения для дачи и приусадебных участков
+              благодаря своей эстетичности и надежности.
+									</p>
+									<div class="products__bottom">
+										<div class="products__price">
+											Цена: от
+											<span>314</span>
+											руб./п.м.
+										</div>
+										<a class="products__button" href="#">Обратная связь</a>
 									</div>
 								</div>
-								<a href="#" class="popular__button button">Перейти на страницу</a>
-								<p class="popular__text">
-									Каждый деревянный забор, который у нас можно купить, производится по
-            самым современным технологиям. Качественные материалы способствуют
-            тому, что изгородь долго сохраняет свои природные свойства и
-            привлекательный внешний вид.
-								</p>
 							</div>
-							<div class="popular__item">
-								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
-								<div class="popular__name">
-									ДЕРЕВЯННЫЕ ЗАБОРЫ
-									<div class="popular__name-est">
-										<p>В наличии</p>
+							<div class="products__item">
+								<img class="products__img" alt="Image" src="./assets/img/products/01.webp">
+								<div class="products__info">
+									<p class="products__name">Заборы из профнастила</p>
+									<p class="products__text">
+										Самые распространенные ограждения для дачи и приусадебных участков
+              благодаря своей эстетичности и надежности.
+									</p>
+									<div class="products__bottom">
+										<div class="products__price">
+											Цена: от
+											<span>314</span>
+											руб./п.м.
+										</div>
+										<a class="products__button" href="#">Обратная связь</a>
 									</div>
 								</div>
-								<a href="#" class="popular__button button">Перейти на страницу</a>
-								<p class="popular__text">
-									Мы используем листы профнастила только отечественного производства.
-            Российское сырье лучше по качеству, чем китайское. Такой важный
-            параметр, как содержание цинка, у отечественного производителя выше
-            в полтора-два раза, что защищает от профнастил от коррозии. Кроме
-            этого отличаются такие характеристики, как толщина листа и
-            полимерное покрытие. Мы рекомендуем использовать лист толщиной 0,4
-            мм. Выбирая такой лист, можете быть уверены в качестве продукции
-								</p>
 							</div>
-							<div class="popular__item">
-								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
-								<div class="popular__name">
-									ДЕРЕВЯННЫЕ ЗАБОРЫ
-									<div class="popular__name-est">
-										<p>В наличии</p>
+							<div class="products__item">
+								<img class="products__img" alt="Image" src="./assets/img/products/02.webp">
+								<div class="products__info">
+									<p class="products__name">Заборы из профнастила</p>
+									<p class="products__text">
+										Самые распространенные ограждения для дачи и приусадебных участков
+              благодаря своей эстетичности и надежности.
+									</p>
+									<div class="products__bottom">
+										<div class="products__price">
+											Цена: от
+											<span>314</span>
+											руб./п.м.
+										</div>
+										<a class="products__button" href="#">Обратная связь</a>
 									</div>
 								</div>
-								<a href="#" class="popular__button button">Перейти на страницу</a>
-								<p class="popular__text">
-									Каждый деревянный забор, который у нас можно купить, производится по
-            самым современным технологиям. Качественные материалы способствуют
-            тому, что изгородь долго сохраняет свои природные свойства и
-            привлекательный внешний вид.
-								</p>
 							</div>
-							<div class="popular__item">
-								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
-								<div class="popular__name">
-									ДЕРЕВЯННЫЕ ЗАБОРЫ
-									<div class="popular__name-est">
-										<p>В наличии</p>
+							<div class="products__item">
+								<img class="products__img" alt="Image" src="./assets/img/products/03.webp">
+								<div class="products__info">
+									<p class="products__name">Заборы из профнастила</p>
+									<p class="products__text">
+										Самые распространенные ограждения для дачи и приусадебных участков
+              благодаря своей эстетичности и надежности.
+									</p>
+									<div class="products__bottom">
+										<div class="products__price">
+											Цена: от
+											<span>314</span>
+											руб./п.м.
+										</div>
+										<a class="products__button" href="#">Обратная связь</a>
 									</div>
 								</div>
-								<a href="#" class="popular__button button">Перейти на страницу</a>
-								<p class="popular__text">
-									Каждый деревянный забор, который у нас можно купить, производится по
-            самым современным технологиям. Качественные материалы способствуют
-            тому, что изгородь долго сохраняет свои природные свойства и
-            привлекательный внешний вид.
-								</p>
-							</div>
-							<div class="popular__item">
-								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
-								<div class="popular__name">
-									ДЕРЕВЯННЫЕ ЗАБОРЫ
-									<div class="popular__name-est">
-										<p>В наличии</p>
-									</div>
-								</div>
-								<a href="#" class="popular__button button">Перейти на страницу</a>
-								<p class="popular__text">
-									Каждый деревянный забор, который у нас можно купить, производится по
-            самым современным технологиям. Качественные материалы способствуют
-            тому, что изгородь долго сохраняет свои природные свойства и
-            привлекательный внешний вид.
-								</p>
-							</div>
-							<div class="popular__item">
-								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
-								<div class="popular__name">
-									ДЕРЕВЯННЫЕ ЗАБОРЫ
-									<div class="popular__name-est">
-										<p>В наличии</p>
-									</div>
-								</div>
-								<a href="#" class="popular__button button">Перейти на страницу</a>
-								<p class="popular__text">
-									Каждый деревянный забор, который у нас можно купить, производится по
-            самым современным технологиям. Качественные материалы способствуют
-            тому, что изгородь долго сохраняет свои природные свойства и
-            привлекательный внешний вид.
-								</p>
-							</div>
-							<div class="popular__item">
-								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
-								<div class="popular__name">
-									ДЕРЕВЯННЫЕ ЗАБОРЫ
-									<div class="popular__name-est">
-										<p>В наличии</p>
-									</div>
-								</div>
-								<a href="#" class="popular__button button">Перейти на страницу</a>
-								<p class="popular__text">
-									Каждый деревянный забор, который у нас можно купить, производится по
-            самым современным технологиям. Качественные материалы способствуют
-            тому, что изгородь долго сохраняет свои природные свойства и
-            привлекательный внешний вид.
-								</p>
-							</div>
-							<div class="popular__item">
-								<img class="popular__image" alt="#" src="./assets/img/popular/01.jpg">
-								<div class="popular__name">
-									ДЕРЕВЯННЫЕ ЗАБОРЫ
-									<div class="popular__name-est">
-										<p>В наличии</p>
-									</div>
-								</div>
-								<a href="#" class="popular__button button">Перейти на страницу</a>
-								<p class="popular__text">
-									Каждый деревянный забор, который у нас можно купить, производится по
-            самым современным технологиям. Качественные материалы способствуют
-            тому, что изгородь долго сохраняет свои природные свойства и
-            привлекательный внешний вид.
-								</p>
 							</div>
 						</div>
 					</div>
 				</section>
-				<section class="form">
-					<!-- <img class="form__img-bg" src="@img/form/01.webp" alt="Image" /> -->
-					<div class="form__container">
-						<h2 class="form__title">Поможем с выбором лучшего ограждения</h2>
-						<p class="form__text">И предоставим скидку 15% на работы и 4% на весь материал</p>
-						<form class="form__body" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="">
-							<div class="form__item">
-								<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="form__input input">
-								<button type="submit" class="form__button button">
-									<div class="button__text">Получить консультацию</div>
-								</button>
+				<section class="quality">
+					<div class="quality__container">
+						<div data-fls-blockheader="" class="blockheader">
+							<div class="blockheader__top">
+								<h2 class="blockheader__title">По нашим данным</h2>
+								<p class="blockheader__subtitle">данным</p>
 							</div>
-							<label data-fls-checkbox="" class="checkbox">
-								<input checked data-fls-form-errtext="Ознакомтесь с условия обработки персональных данных" class="checkbox__input" type="checkbox" value="согласен" name="check">
-								<span class="checkbox__text">Вы соглашаетесь на условия обработки персональных данных</span>
-							</label>
-							<p class="form__bootom">
-								Отправляя заявку вы соглашаетесь с Политикой конфиденциальности и
-          даёте согласие на обработку ваших персональных данных.
+							<p class="blockheader__text">
+								5-ти степенчатая система контроля качества, которая не допустит таких
+          рисков
 							</p>
-						</form>
+						</div>
+						<div class="quality__body">
+							<div class="quality__items">
+								<div class="quality__item">
+									<img class="quality__item-img" alt="Image" src="./assets/img/quality/1.png">
+									<div class="quality__block">
+										<h3 class="quality__title">Во-первых, еще до монтажа</h3>
+										<p class="quality__text">
+											Обработаем поверхность материала ультрастойкими грунтами и
+                антисептиками в производственных условиях
+										</p>
+									</div>
+								</div>
+								<div class="quality__item">
+									<img class="quality__item-img" alt="Image" src="./assets/img/quality/2.png">
+									<div class="quality__block">
+										<h3 class="quality__title">Во-первых, еще до монтажа</h3>
+										<p class="quality__text">
+											Обработаем поверхность материала ультрастойкими грунтами и
+                антисептиками в производственных условиях
+										</p>
+									</div>
+								</div>
+								<div class="quality__item">
+									<img class="quality__item-img" alt="Image" src="./assets/img/quality/3.png">
+									<div class="quality__block">
+										<h3 class="quality__title">Во-первых, еще до монтажа</h3>
+										<p class="quality__text">
+											Обработаем поверхность материала ультрастойкими грунтами и
+                антисептиками в производственных условиях
+										</p>
+									</div>
+								</div>
+								<div class="quality__item">
+									<img class="quality__item-img" alt="Image" src="./assets/img/quality/1.png">
+									<div class="quality__block">
+										<h3 class="quality__title">Во-первых, еще до монтажа</h3>
+										<p class="quality__text">
+											Обработаем поверхность материала ультрастойкими грунтами и
+                антисептиками в производственных условиях
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="quality__image">
+								<img alt="Image" src="./assets/img/quality/man.png">
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="discount">
+					<img class="discount__img-bg" alt="Image" src="./assets/img/discount/01.png">
+					<div class="discount__container">
+						<div data-fls-blockheader="" class="blockheader">
+							<div class="blockheader__top">
+								<h2 class="blockheader__title">Форма</h2>
+								<p class="blockheader__subtitle">Форма</p>
+							</div>
+							<p class="blockheader__text">112 видов заборов под Ваш бюджет</p>
+						</div>
+						<div class="discount__body">
+							<div class="discount__content">
+								<h3 class="discount__form-title">
+									<strong>Скачайте прямо сейчас</strong>
+									прайс-каталог и получите
+            скиду 19% на материал.
+								</h3>
+								<div class="discount__subtitle">
+									<img alt="Image" src="./assets/img/discount/i.png">
+									<p>Скидка закрепится за номером телефона</p>
+								</div>
+								<form class="discount__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="">
+									<div class="discount__item">
+										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="discount__input input">
+										<button type="submit" class="discount__button button">
+											<img class="button__img" alt="Image" src="./assets/img/hero/down.png">
+											<div class="button__text">
+												<p>Получить прайс-каталог</p>
+												<small>+ получить скидку -19%</small>
+											</div>
+										</button>
+									</div>
+									<label data-fls-checkbox="" class="checkbox">
+										<input checked data-fls-form-errtext="Ознакомтесь с условия обработки персональных данных" class="checkbox__input" type="checkbox" value="согласен" name="check">
+										<span class="checkbox__text">Вы соглашаетесь на условия обработки персональных данных</span>
+									</label>
+								</form>
+								<div class="discount__circle-body">
+									<img alt="Image" src="./assets/img/discount/pdf.png">
+									<p class="discount__circle-pdf">Так же внутри Вы получите инструкцию в PDF</p>
+									<p class="discount__circle-text">"Советы 2022 года по подбору забора"</p>
+								</div>
+							</div>
+						</div>
 					</div>
 				</section>
 				<section class="last-work">
 					<div class="last-work__container">
 						<div data-fls-blockheader="" class="blockheader">
 							<div class="blockheader__top">
-								Хотим
-								<strong>предостеречь</strong>
-								вас
+								<h2 class="blockheader__title">Калькулятор забора</h2>
+								<p class="blockheader__subtitle">Калькулятор</p>
 							</div>
-							<h2 class="blockheader__title">
-								<span>4 грубых ошибки</span>
-								при расчете и монтаже забора, которые
-          допускают 85% компаний
-							</h2>
-							<p class="blockheader__text">
-								Для устранения последствий таких ошибок придется потратить большое
-          кол-во времени, сил и значительную сумму
-							</p>
+							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
 						</div>
 						<div class="last-work__slider-container">
 							<div data-fls-slider="" class="last-work__slider swiper">
 								<div class="last-work__wrapper swiper-wrapper">
-									<img class="last-work__wrapper-bg" alt="Image" src="./assets/img/last-work/bg.jpg">
+									<!--
+<img
+class="last-work__wrapper-bg"
+src="@img/last-work/bg.jpg"
+alt="Image"
+/>
+-->
 									<div class="last-work__slide swiper-slide">
 										<div data-fls-gallery="" class="last-work__images">
 											<a href="./assets/img/last-work/01.jpg">
@@ -1190,200 +1214,340 @@ fill="white"
 						</div>
 					</div>
 				</section>
-				<section class="works">
-					<div class="works__container">
-						<div class="masonry">
-							<ul class="masonry__filter filter-masonry">
-								<li class="filter-masonry__item">
-									<button data-fls-masonry-filter-link="*" class="filter-masonry__link">Все</button>
-								</li>
-								<li class="filter-masonry__item">
-									<button data-fls-masonry-filter-link="der" class="filter-masonry__link">Деревянные заборы</button>
-								</li>
-								<li class="filter-masonry__item">
-									<button data-fls-masonry-filter-link="gitter" class="filter-masonry__link">Из 3D сетки гиттер</button>
-								</li>
-							</ul>
-							<div data-fls-gallery="" data-fls-masonry="" class="masonry__items">
-								<a href="./assets/img/works/der/01.jpg" data-fls-masonry-item="" data-fls-masonry-filter="der" class="masonry__item">
-									<img src="./assets/img/works/der/01.jpg">
-								</a>
-								<a href="./assets/img/works/der/02.jpg" data-fls-masonry-item="" data-fls-masonry-filter="der" class="masonry__item">
-									<img src="./assets/img/works/der/02.jpg">
-								</a>
-								<a href="./assets/img/works/der/03.jpg" data-fls-masonry-item="" data-fls-masonry-filter="der" class="masonry__item">
-									<img src="./assets/img/works/der/03.jpg">
-								</a>
-								<a href="./assets/img/works/der/04.jpg" data-fls-masonry-item="" data-fls-masonry-filter="der" class="masonry__item">
-									<img src="./assets/img/works/der/04.jpg">
-								</a>
-								<a href="./assets/img/works/der/05.jpg" data-fls-masonry-item="" data-fls-masonry-filter="der" class="masonry__item">
-									<img src="./assets/img/works/der/05.jpg">
-								</a>
-								<a href="./assets/img/works/gitter/01.jpg" data-fls-masonry-item="" data-fls-masonry-filter="gitter" class="masonry__item">
-									<img src="./assets/img/works/gitter/01.jpg">
-								</a>
-								<a href="./assets/img/works/gitter/02.png" data-fls-masonry-item="" data-fls-masonry-filter="gitter" class="masonry__item">
-									<img src="./assets/img/works/gitter/02.png">
-								</a>
-								<a href="./assets/img/works/gitter/03.jpg" data-fls-masonry-item="" data-fls-masonry-filter="gitter" class="masonry__item">
-									<img src="./assets/img/works/gitter/03.jpg">
-								</a>
-							</div>
-						</div>
-						<a data-fls-button="" href="#" class="button button--center">
-							<div class="button__text">Посмотреть все работы</div>
-							<img class="button__img" alt="Image" src="./assets/img/works/btn-ico.png">
-						</a>
+				<div class="number">
+					<div data-fls-watcher="" class="number__container">
+						и еще
+						<span data-fls-digcounter="" class="image-number">237</span>
+						за 2024 год
 					</div>
-				</section>
-				<section class="warranty">
-					<div class="warranty__container">
+				</div>
+				<section class="services">
+					<div class="services__container">
 						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">гарантии</div>
-							<h2 class="blockheader__title">Отдел гарантии</h2>
+							<div class="blockheader__top">
+								<h2 class="blockheader__title">О компании</h2>
+								<p class="blockheader__subtitle">Услуги</p>
+							</div>
+							<p class="blockheader__text">Сделаем качественно</p>
 						</div>
-						<div class="warranty__items">
-							<div class="warranty__item">
-								<img class="warranty__img" src="./assets/img/warranty/01.svg" alt="Image">
-								<p class="warranty__text">Работаем без предоплаты</p>
-							</div>
-							<div class="warranty__item">
-								<img class="warranty__img" src="./assets/img/warranty/02.svg" alt="Image">
-								<p class="warranty__text">Гарантия до 24 месяцев</p>
-							</div>
-							<div class="warranty__item">
-								<img class="warranty__img" src="./assets/img/warranty/03.svg" alt="Image">
-								<p class="warranty__text">Собственное производство</p>
-							</div>
-							<div class="warranty__item">
-								<img class="warranty__img" src="./assets/img/warranty/04.svg" alt="Image">
-								<p class="warranty__text">Цены ниже рыночных</p>
-							</div>
-						</div>
-						<a data-fls-button="" href="#" class="button button--center">
-							<img class="button__img" alt="Image" src="./assets/img/header/calc.png">
-							<div class="button__text">
-								<p>Рассчитать стоимость</p>
-								<small>(прямо сейчас за 1 минуту)</small>
-							</div>
-						</a>
-					</div>
-				</section>
-				<section class="reviews">
-					<div class="reviews__container">
-						<div class="reviews__top">
-							<h2 class="reviews__title">О нас пишут</h2>
-							<div class="reviews__link">Все отзывы</div>
-						</div>
-						<!-- Оболочка слайдера -->
-						<div class="reviews__slider-container">
-							<div data-fls-slider="" class="reviews__slider swiper">
-								<!-- Часть слайдера, которая двигается -->
-								<div class="reviews__wrapper swiper-wrapper">
-									<!-- Слайд -->
-									<div class="reviews__slide slide-reviews swiper-slide">
-										<div class="slide-reviews__top">
-											<div class="slide-reviews__info">
-												<div class="slide-reviews__avatar">
-													<img alt="Image" src="./assets/img/reviews/avatar.webp">
-												</div>
-												<div class="slide-reviews__date">
-													<time datetime="29-03-2025" class="slide-reviews__time">29 марта 2025</time>
-													<div class="slide-reviews__name">Синицин И.</div>
-												</div>
-											</div>
-											<div class="slide-reviews__rating">
-												<img src="./assets/img/reviews/stars.svg" alt="Image">
-											</div>
-										</div>
-										<p class="slide-reviews__text">
-											Обратился в эту компанию ещё 5 лет назад сделали забор и
-                откатные ворота. Сделали на совесть, забор не перекосился.
-                Ворота открываются ровненько, всё работает как часы.
-										</p>
-										<a class="slide-reviews__button" href="#">Отзыв полностью</a>
-									</div>
-									<div class="reviews__slide slide-reviews swiper-slide">
-										<div class="slide-reviews__top">
-											<div class="slide-reviews__info">
-												<div class="slide-reviews__avatar">
-													<img alt="Image" src="./assets/img/reviews/avatar.webp">
-												</div>
-												<div class="slide-reviews__date">
-													<time datetime="29-03-2025" class="slide-reviews__time">29 марта 2025</time>
-													<div class="slide-reviews__name">Синицин И.</div>
-												</div>
-											</div>
-											<div class="slide-reviews__rating">
-												<img src="./assets/img/reviews/stars.svg" alt="Image">
-											</div>
-										</div>
-										<p class="slide-reviews__text">
-											Обратился в эту компанию ещё 5 лет назад сделали забор и
-                откатные ворота. Сделали на совесть, забор не перекосился.
-                Ворота открываются ровненько, всё работает как часы.
-										</p>
-										<a class="slide-reviews__button" href="#">Отзыв полностью</a>
-									</div>
-									<div class="reviews__slide slide-reviews swiper-slide">
-										<div class="slide-reviews__top">
-											<div class="slide-reviews__info">
-												<div class="slide-reviews__avatar">
-													<img alt="Image" src="./assets/img/reviews/avatar.webp">
-												</div>
-												<div class="slide-reviews__date">
-													<time datetime="29-03-2025" class="slide-reviews__time">29 марта 2025</time>
-													<div class="slide-reviews__name">Синицин И.</div>
-												</div>
-											</div>
-											<div class="slide-reviews__rating">
-												<img src="./assets/img/reviews/stars.svg" alt="Image">
-											</div>
-										</div>
-										<p class="slide-reviews__text">
-											Обратился в эту компанию ещё 5 лет назад сделали забор и
-                откатные ворота. Сделали на совесть, забор не перекосился.
-                Ворота открываются ровненько, всё работает как часы.
-										</p>
-										<a class="slide-reviews__button" href="#">Отзыв полностью</a>
-									</div>
+						<div class="services__items">
+							<div class="services__item">
+								<img class="services__item-img" alt="Image" src="./assets/img/services/1.jpg">
+								<div class="services__block">
+									<h3 class="services__item-title">Производим полный цикл работ, от выбора - до монтажа</h3>
+									<p class="services__item-text">Подбор, доставка, монтаж и обслуживание</p>
 								</div>
 							</div>
-							<button type="button" class="reviews-button-prev swiper-button-prev"></button>
-							<button type="button" class="reviews-button-next swiper-button-next"></button>
+							<div class="services__item">
+								<img class="services__item-img" alt="Image" src="./assets/img/services/2.jpg">
+								<div class="services__block">
+									<h3 class="services__item-title">Производим полный цикл работ, от выбора - до монтажа</h3>
+									<p class="services__item-text">Подбор, доставка, монтаж и обслуживание</p>
+								</div>
+							</div>
+							<div class="services__item">
+								<img class="services__item-img" alt="Image" src="./assets/img/services/3.jpg">
+								<div class="services__block">
+									<h3 class="services__item-title">Производим полный цикл работ, от выбора - до монтажа</h3>
+									<p class="services__item-text">Подбор, доставка, монтаж и обслуживание</p>
+								</div>
+							</div>
+							<div class="services__item">
+								<img class="services__item-img" alt="Image" src="./assets/img/services/1.jpg">
+								<div class="services__block">
+									<h3 class="services__item-title">Производим полный цикл работ, от выбора - до монтажа</h3>
+									<p class="services__item-text">Подбор, доставка, монтаж и обслуживание</p>
+								</div>
+							</div>
+							<div class="services__item">
+								<img class="services__item-img" alt="Image" src="./assets/img/services/1.jpg">
+								<div class="services__block">
+									<h3 class="services__item-title">Производим полный цикл работ, от выбора - до монтажа</h3>
+									<p class="services__item-text">Подбор, доставка, монтаж и обслуживание</p>
+								</div>
+							</div>
+							<div class="services__item">
+								<img class="services__item-img" alt="Image" src="./assets/img/services/1.jpg">
+								<div class="services__block">
+									<h3 class="services__item-title">Производим полный цикл работ, от выбора - до монтажа</h3>
+									<p class="services__item-text">Подбор, доставка, монтаж и обслуживание</p>
+								</div>
+							</div>
+							<div class="services__item">
+								<img class="services__item-img" alt="Image" src="./assets/img/services/1.jpg">
+								<div class="services__block">
+									<h3 class="services__item-title">Производим полный цикл работ, от выбора - до монтажа</h3>
+									<p class="services__item-text">Подбор, доставка, монтаж и обслуживание</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</section>
+				<section class="gallery">
+					<div class="gallery__container">
+						<div data-fls-blockheader="" class="blockheader">
+							<div class="blockheader__top">
+								<h2 class="blockheader__title">Калькулятор забора</h2>
+								<p class="blockheader__subtitle">Калькулятор</p>
+							</div>
+							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
+						</div>
+						<div data-fls-gallery="" class="gallery__body">
+							<a href="./assets/img/gallery/01.jpg" class="gallery__item">
+								<img alt="#" src="./assets/img/gallery/01.jpg">
+							</a>
+							<a href="./assets/img/gallery/02.jpg" class="gallery__item">
+								<img alt="#" src="./assets/img/gallery/02.jpg">
+							</a>
+							<a href="./assets/img/gallery/03.jpg" class="gallery__item">
+								<img alt="#" src="./assets/img/gallery/03.jpg">
+							</a>
+							<a href="./assets/img/gallery/04.jpg" class="gallery__item">
+								<img alt="#" src="./assets/img/gallery/04.jpg">
+							</a>
+							<a href="./assets/img/gallery/05.jpg" class="gallery__item">
+								<img alt="#" src="./assets/img/gallery/05.jpg">
+							</a>
+							<a href="./assets/img/gallery/06.jpg" class="gallery__item">
+								<img alt="#" src="./assets/img/gallery/06.jpg">
+							</a>
+							<a href="./assets/img/gallery/07.jpg" class="gallery__item">
+								<img alt="#" src="./assets/img/gallery/07.jpg">
+							</a>
+							<a href="./assets/img/gallery/08.jpg" class="gallery__item">
+								<img alt="#" src="./assets/img/gallery/08.jpg">
+							</a>
+							<a href="./assets/img/gallery/09.jpg" class="gallery__item">
+								<img alt="#" src="./assets/img/gallery/09.jpg">
+							</a>
+							<a href="./assets/img/gallery/10.jpg" class="gallery__item">
+								<img alt="#" src="./assets/img/gallery/10.jpg">
+							</a>
+						</div>
+					</div>
+				</section>
+				<div class="reviews">
+					<div class="reviews__container">
+						<div data-fls-blockheader="" class="blockheader">
+							<div class="blockheader__top">
+								<h2 class="blockheader__title">Отзывы</h2>
+								<p class="blockheader__subtitle">Отзывы</p>
+							</div>
+							<p class="blockheader__text">Главный показатель качества нашей работ — это ваши благодарные отзывы!</p>
+						</div>
+						<div class="reviews__top">
+							<p>Больше отзывов на</p>
+							<div class="reviews__top-item">
+								<div class="reviews__top-rating">
+									<span>4.8</span>
+									<img src="./assets/img/reviews/arrow-red.svg" alt="Image">
+								</div>
+								<a href="#" class="reviews__top-yandex">
+									<img src="./assets/img/reviews/yandex.svg" alt="Image">
+								</a>
+							</div>
+						</div>
+						<div class="reviews__items">
+							<div class="reviews__item item-reviews">
+								<div class="item-reviews__top">
+									<img class="item-reviews__avatar" alt="Image" src="./assets/img/reviews/avatar.png">
+									<div class="item-reviews__name">Петр Малакхов</div>
+									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
+								</div>
+								<div class="item-reviews__text">
+									<p>
+										Переделывали старое утепление на ППУ. Дом стал значительно теплее
+              и комфортнее. Ещё хотел бы отметить внимательное отношение
+              менеджера к деталям и моим просьбам. Чувствовалось участие и
+              искренне желание найти оптимальное решение для улучшения изоляции.
+              Это особенно приятно. Спасибо!
+									</p>
+								</div>
+								<div class="item-reviews__bottom">
+									<div class="item-reviews__arrows">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+									</div>
+									<a class="item-reviews__yandex" href="#">
+										<img src="./assets/img/reviews/yandex.svg" alt="Image">
+									</a>
+								</div>
+							</div>
+							<div class="reviews__item item-reviews">
+								<div class="item-reviews__top">
+									<img class="item-reviews__avatar" alt="Image" src="./assets/img/reviews/avatar.png">
+									<div class="item-reviews__name">Петр Малакхов</div>
+									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
+								</div>
+								<div class="item-reviews__text">
+									<p>
+										Переделывали старое утепление на ППУ. Дом стал значительно теплее
+              и комфортнее. Ещё хотел бы отметить внимательное отношение
+              менеджера к деталям и моим просьбам. Чувствовалось участие и
+              искренне желание найти оптимальное решение для улучшения изоляции.
+              Это особенно приятно. Спасибо!
+									</p>
+								</div>
+								<div class="item-reviews__bottom">
+									<div class="item-reviews__arrows">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+									</div>
+									<a class="item-reviews__yandex" href="#">
+										<img src="./assets/img/reviews/yandex.svg" alt="Image">
+									</a>
+								</div>
+							</div>
+							<div class="reviews__item item-reviews">
+								<div class="item-reviews__top">
+									<img class="item-reviews__avatar" alt="Image" src="./assets/img/reviews/avatar.png">
+									<div class="item-reviews__name">Петр Малакхов</div>
+									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
+								</div>
+								<div class="item-reviews__text">
+									<p>
+										Переделывали старое утепление на ППУ. Дом стал значительно теплее
+              и комфортнее. Ещё хотел бы отметить внимательное отношение
+              менеджера к деталям и моим просьбам. Чувствовалось участие и
+              искренне желание найти оптимальное решение для улучшения изоляции.
+              Это особенно приятно. Спасибо!
+									</p>
+								</div>
+								<div class="item-reviews__bottom">
+									<div class="item-reviews__arrows">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+									</div>
+									<a class="item-reviews__yandex" href="#">
+										<img src="./assets/img/reviews/yandex.svg" alt="Image">
+									</a>
+								</div>
+							</div>
+							<div class="reviews__item item-reviews">
+								<div class="item-reviews__top">
+									<img class="item-reviews__avatar" alt="Image" src="./assets/img/reviews/avatar.png">
+									<div class="item-reviews__name">Петр Малакхов</div>
+									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
+								</div>
+								<div class="item-reviews__text">
+									<p>
+										Переделывали старое утепление на ППУ. Дом стал значительно теплее
+              и комфортнее. Ещё хотел бы отметить внимательное отношение
+              менеджера к деталям и моим просьбам. Чувствовалось участие и
+              искренне желание найти оптимальное решение для улучшения изоляции.
+              Это особенно приятно. Спасибо!
+									</p>
+								</div>
+								<div class="item-reviews__bottom">
+									<div class="item-reviews__arrows">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+									</div>
+									<a class="item-reviews__yandex" href="#">
+										<img src="./assets/img/reviews/yandex.svg" alt="Image">
+									</a>
+								</div>
+							</div>
+							<div class="reviews__item item-reviews">
+								<div class="item-reviews__top">
+									<img class="item-reviews__avatar" alt="Image" src="./assets/img/reviews/avatar.png">
+									<div class="item-reviews__name">Петр Малакхов</div>
+									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
+								</div>
+								<div class="item-reviews__text">
+									<p>
+										Переделывали старое утепление на ППУ. Дом стал значительно теплее
+              и комфортнее. Ещё хотел бы отметить внимательное отношение
+              менеджера к деталям и моим просьбам. Чувствовалось участие и
+              искренне желание найти оптимальное решение для улучшения изоляции.
+              Это особенно приятно. Спасибо!
+									</p>
+								</div>
+								<div class="item-reviews__bottom">
+									<div class="item-reviews__arrows">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+									</div>
+									<a class="item-reviews__yandex" href="#">
+										<img src="./assets/img/reviews/yandex.svg" alt="Image">
+									</a>
+								</div>
+							</div>
+							<div class="reviews__item item-reviews">
+								<div class="item-reviews__top">
+									<img class="item-reviews__avatar" alt="Image" src="./assets/img/reviews/avatar.png">
+									<div class="item-reviews__name">Петр Малакхов</div>
+									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
+								</div>
+								<div class="item-reviews__text">
+									<p>
+										Переделывали старое утепление на ППУ. Дом стал значительно теплее
+              и комфортнее. Ещё хотел бы отметить внимательное отношение
+              менеджера к деталям и моим просьбам. Чувствовалось участие и
+              искренне желание найти оптимальное решение для улучшения изоляции.
+              Это особенно приятно. Спасибо!
+									</p>
+								</div>
+								<div class="item-reviews__bottom">
+									<div class="item-reviews__arrows">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+									</div>
+									<a class="item-reviews__yandex" href="#">
+										<img src="./assets/img/reviews/yandex.svg" alt="Image">
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<section class="company">
 					<div class="company__container">
 						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">Прежде чем оставить заявку</div>
-							<h2 class="blockheader__title">
-								<span>Что нужно знать</span>
-								о нашей компании
-							</h2>
-							<div data-fls-watcher="" class="company__items">
-								<div class="company__item">
-									<img class="company__img" src="./assets/img/company/01.svg" alt="Image">
-									<span data-fls-digcounter="" class="company__number">24</span>
-									<p class="company__text">месяца гарантия на все виды работ</p>
-								</div>
-								<div class="company__item">
-									<img class="company__img" src="./assets/img/company/02.svg" alt="Image">
-									<span data-fls-digcounter="" class="company__number">200</span>
-									<p class="company__text">месяца гарантия на все виды работ</p>
-								</div>
-								<div class="company__item">
-									<img class="company__img" src="./assets/img/company/03.svg" alt="Image">
-									<span data-fls-digcounter="" class="company__number">2007</span>
-									<p class="company__text">месяца гарантия на все виды работ</p>
-								</div>
-								<div class="company__item">
-									<img class="company__img" src="./assets/img/company/04.svg" alt="Image">
-									<span data-fls-digcounter="" class="company__number">25000</span>
-									<p class="company__text">месяца гарантия на все виды работ</p>
-								</div>
+							<div class="blockheader__top">
+								<h2 class="blockheader__title">Калькулятор забора</h2>
+								<p class="blockheader__subtitle">Калькулятор</p>
+							</div>
+							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
+						</div>
+						<div data-fls-watcher="" class="company__items">
+							<div class="company__item">
+								<img class="company__img" src="./assets/img/company/01.svg" alt="Image">
+								<span data-fls-digcounter="" class="company__number">24</span>
+								<p class="company__text">месяца гарантия на все виды работ</p>
+							</div>
+							<div class="company__item">
+								<img class="company__img" src="./assets/img/company/02.svg" alt="Image">
+								<span data-fls-digcounter="" class="company__number">200</span>
+								<p class="company__text">месяца гарантия на все виды работ</p>
+							</div>
+							<div class="company__item">
+								<img class="company__img" src="./assets/img/company/03.svg" alt="Image">
+								<span data-fls-digcounter="" class="company__number">2007</span>
+								<p class="company__text">месяца гарантия на все виды работ</p>
+							</div>
+							<div class="company__item">
+								<img class="company__img" src="./assets/img/company/04.svg" alt="Image">
+								<span data-fls-digcounter="" class="company__number">25000</span>
+								<p class="company__text">месяца гарантия на все виды работ</p>
 							</div>
 						</div>
 					</div>

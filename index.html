@@ -5,8 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1765830309847"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1765830309847">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1765956924407"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1765956924407">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -129,7 +129,7 @@
 												<p>5 декабря</p>
 											</div>
 										</div>
-										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="form-hero__input input">
+										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" placeholder="+375(__) ___-__-__" type="text" name="phone" class="form-hero__input input">
 										<button type="submit" class="form-hero__button button">
 											<img class="button__img" alt="Image" src="./assets/img/hero/down.png">
 											<div class="button__text">
@@ -187,6 +187,30 @@
 								<p class="blockheader__subtitle">Калькулятор</p>
 							</div>
 							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
+						</div>
+						<div class="calculator__top top-calculator">
+							<div class="top-calculator__item">
+								<img alt="Image" src="./assets/img/calculator/1test.png">
+								<div class="top-calculator__block">
+									<strong>Расчет стоимости</strong>
+									<p>в 3 вариантах</p>
+								</div>
+							</div>
+							<div class="top-calculator__item">
+								<img alt="Image" src="./assets/img/calculator/2test.png">
+								<div class="top-calculator__block">
+									<strong>"Советы 2025 г</strong>
+									<p>по подбору забора" в PDF</p>
+								</div>
+							</div>
+							<div class="top-calculator__item">
+								<img alt="Image" src="./assets/img/calculator/3test.png">
+								<div class="top-calculator__block">
+									<strong>1 из 3 
+подарков</strong>
+									<p>на выбор</p>
+								</div>
+							</div>
 						</div>
 						<div class="calculator__body">
 							<!-- верх квиза -->
@@ -500,44 +524,26 @@
 										<!-- Конечная страница !форма! -->
 										<div class="calculator__slide swiper-slide slide-calculator slide-calculator-block slide-main-block">
 											<div class="slide-calculator-block__content">
-												<h3 class="slide-calculator-block__title-last">Расчет стоимости сформирован</h3>
-												<p class="slide-calculator-block__text">
-													Выберите мессенджер, куда прислать расчет стоимости,полезный PDF. Свяжемся и расскажем, как
-													<b>окупить минимум 50%</b>
-													от стоимости остекления
-												</p>
-												<div class="slide-calculator-block__form">
-													<select data-fls-select="" name="select" data-fls-select-modif="calculator">
-														<option data-fls-select-asset="assets/img/contacts/whats-app.png" value="WhatsApp" selected>WhatsApp</option>
-														<option data-fls-select-asset="assets/img/contacts/viber.png" value="Telegram">Telegram</option>
-														<option data-fls-select-asset="assets/img/contacts/telegram.png" value="Email">Email</option>
-														<option data-fls-select-asset="assets/img/contacts/email.png" value="Email">Email</option>
-													</select>
-													<input data-required="" type="text" name="name" data-error="заполните поле" placeholder="Ваше имя" class="data-contact__input input input-form">
-													<input data-required="" id="phone" type="text" name="phone" data-error="заполните поле" placeholder="+375 (__) ___-__-__" class="data-contact__input input input-form">
-													<p class="slide-calculator-block__text-small">
-														Персональная
-														<b>скидка</b>
-														персональная скидка от нашей компании будет
-														<b>закреплена за вашим номером</b>
-													</p>
-													<!-- <button type="submit" class="slide-calculator-block__button button">Получить примеры + смету + подарок</button> -->
-													<!--
-<button
-type="submit"
-class="slide-calculator-block__button button"
-value="Получить расчет"
-/>
--->
-													<button class="slide-calculator-block__button button" type="submit">Получить результат + бонусы</button>
-													<div data-fls-checkbox="" class="checkbox">
-														<input data-required="" id="c_6" data-error="Ознакомтесь с обработкой своих данных" class="checkbox__input" type="checkbox" value="Принято" name="check">
-														<label for="c_6" class="checkbox__label checkbox__label-calc">
-															<span class="checkbox__text">
-																Cогласен с условиями
-																<a href="#">политики конфиденциальности данных</a>
-															</span>
-														</label>
+												<p class="slide-calculator-block__subtitle">Последний шаг!</p>
+												<div class="slide-calculator__title slide-calculator__title--last">
+													<p>Вопрос 8</p>
+													<h4>Куда Вам удобней получить расчет?</h4>
+												</div>
+												<div class="slide-calculator-block__body">
+													<div class="slide-calculator-block__form">
+														<select data-fls-select="" name="select" data-fls-select-modif="calculator">
+															<option data-fls-select-asset="assets/img/contacts/whats-app.png" value="WhatsApp" selected>WhatsApp</option>
+															<option data-fls-select-asset="assets/img/contacts/viber.png" value="Telegram">Telegram</option>
+															<option data-fls-select-asset="assets/img/contacts/telegram.png" value="Email">Email</option>
+															<option data-fls-select-asset="assets/img/contacts/email.png" value="Email">Email</option>
+														</select>
+														<input data-fls-form-errtext="Заполните поле" required type="text" name="name" data-error="заполните поле" placeholder="Ваше имя" class="slide-calculator-block__input input">
+														<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" placeholder="+375(__) ___-__-__" id="phone" type="text" name="phone" data-error="заполните поле" class="slide-calculator-block__input input input input-form">
+														<button class="slide-calculator-block__button button" type="submit">Получить расчет 
+												+ закрепить подарок</button>
+													</div>
+													<div class="slide-calculator-block__image">
+														<img alt="Image" src="./assets/img/calculator/phone.png">
 													</div>
 												</div>
 											</div>
@@ -553,35 +559,34 @@ value="Получить расчет"
 													<div class="banner-calculator__information">
 														<div class="banner-calculator__online">Мы онлайн</div>
 														<div class="banner-calculator__position">Старший менеджер</div>
-														<div class="banner-calculator__test">Пройдите этот тест и 
-Я лично для Вас рассчитаю 
-стоимость в 3-х вариантах</div>
+														<div class="banner-calculator__test banner-calculator__test--last">Отлично! Я приступаю
+к расчет стоимости!</div>
 													</div>
 												</div>
 												<div class="banner-calculator__bottom">
-													<p class="banner-calculator__subtitle">Пока что:</p>
+													<p class="banner-calculator__subtitle">Теперь</p>
 													<div class="banner-calculator__items">
 														<div class="banner-calculator__item">
 															<img class="banner-calculator__item-img-left" alt="Image" src="./assets/img/calculator/banner/01.png">
-															<p class="banner-calculator__item-text">
+															<p class="banner-calculator__item-text banner-calculator__item-text--last">
 																<strong>Расчет</strong>
-																не известен
+																известен
 															</p>
 															<img class="banner-calculator__item-img-rigth" alt="Image" src="./assets/img/calculator/banner/qv.png">
 														</div>
 														<div class="banner-calculator__item">
 															<img class="banner-calculator__item-img-left" alt="Image" src="./assets/img/calculator/banner/02.png">
-															<p class="banner-calculator__item-text">
-																<strong>Расчет</strong>
-																не известен
+															<p class="banner-calculator__item-text banner-calculator__item-text--last">
+																<strong>PDF</strong>
+																открыт
 															</p>
 															<img class="banner-calculator__item-img-rigth" alt="Image" src="./assets/img/calculator/banner/def.png">
 														</div>
 														<div class="banner-calculator__item">
 															<img class="banner-calculator__item-img-left" alt="Image" src="./assets/img/calculator/banner/03.png">
-															<p class="banner-calculator__item-text">
-																<strong>Расчет</strong>
-																не известен
+															<p class="banner-calculator__item-text banner-calculator__item-text--last">
+																<strong>Подарок</strong>
+																доступен
 															</p>
 															<img class="banner-calculator__item-img-rigth" alt="Image" src="./assets/img/calculator/banner/qv.png">
 														</div>
@@ -1075,22 +1080,14 @@ alt="Image"
 />
 -->
 									<div class="last-work__slide swiper-slide">
-										<div data-fls-gallery="" class="last-work__images">
-											<a href="./assets/img/last-work/01.jpg">
-												<img class="last-work__img-bg" alt="Image" src="./assets/img/last-work/01.jpg">
-											</a>
+										<div class="last-work__images">
+											<img class="last-work__img-bg" alt="Image" src="./assets/img/last-work/01.jpg">
 											<div class="last-work__images-bottom">
-												<p class="last-work-images-bottom-text">Еще фото</p>
+												<p class="last-work-images-bottom-text"></p>
 												<div class="last-work__images-bottom-item">
-													<a href="./assets/img/last-work/02.jpg">
-														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/02.jpg">
-													</a>
-													<a href="./assets/img/last-work/03.jpg">
-														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/03.jpg">
-													</a>
-													<a href="./assets/img/last-work/03.jpg">
-														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/03.jpg">
-													</a>
+													<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/02.jpg">
+													<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/03.jpg">
+													<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/04.jpg">
 												</div>
 											</div>
 										</div>
@@ -1198,7 +1195,7 @@ alt="Image"
 												</ul>
 											</div>
 											<div class="last-work__bottom">
-												<a data-fls-button="" href="#" class="button">
+												<a data-fls-button="" href="#" class="last-work__button button">
 													<img class="button__img" alt="Image" src="./assets/img/last-work/calc.png">
 													<div class="button__text">Рассчитать стоимость в калькуляторе</div>
 												</a>
@@ -1323,6 +1320,90 @@ alt="Image"
 							<a href="./assets/img/gallery/10.jpg" class="gallery__item">
 								<img alt="#" src="./assets/img/gallery/10.jpg">
 							</a>
+						</div>
+					</div>
+				</section>
+				<section class="warranty">
+					<img class="warranty__img-bg" alt="Image" src="./assets/img/warranty/bg.jpg">
+					<img class="warranty__decor-l" alt="Image" src="./assets/img/warranty/green-l.png">
+					<img class="warranty__decor-r" alt="Image" src="./assets/img/warranty/green-r.png">
+					<div class="warranty__container">
+						<div data-fls-blockheader="" class="blockheader">
+							<div class="blockheader__top">
+								<h2 class="blockheader__title">Гарантия</h2>
+								<p class="blockheader__subtitle">Гарантия</p>
+							</div>
+							<p class="blockheader__text">Все аспекты учитываются в договоре</p>
+						</div>
+						<div class="warranty__body">
+							<div class="warranty__content">
+								<div class="warranty__top top-warranty">
+									<div class="top-warranty__item">
+										<img class="top-warranty__img" alt="Image" src="./assets/img/warranty/01.png">
+										<div class="top-warranty__block">
+											<h3 class="top-warranty__title">Берем на себя материальную ответственность за сроки</h3>
+											<p class="top-warranty__text">Либо платим неустойку 1% от суммы в договоре за день</p>
+										</div>
+									</div>
+									<div class="top-warranty__item">
+										<img class="top-warranty__img" alt="Image" src="./assets/img/warranty/02.png">
+										<div class="top-warranty__block">
+											<h3 class="top-warranty__title">Берем на себя материальную ответственность за сроки</h3>
+											<p class="top-warranty__text">Либо платим неустойку 1% от суммы в договоре за день</p>
+										</div>
+									</div>
+									<div class="top-warranty__item">
+										<img class="top-warranty__img" alt="Image" src="./assets/img/warranty/03.png">
+										<div class="top-warranty__block">
+											<h3 class="top-warranty__title">Берем на себя материальную ответственность за сроки</h3>
+											<p class="top-warranty__text">Либо платим неустойку 1% от суммы в договоре за день</p>
+										</div>
+									</div>
+								</div>
+								<div class="warranty__bottom bottom-warranty">
+									<div class="bottom-warranty__item">
+										<p class="bottom-warranty__text">Сертификаты</p>
+										<div class="bottom-warranty__image">
+											<img alt="Image" src="./assets/img/warranty/doc1.jpg">
+										</div>
+										<a href="#" class="bottom-warranty__link">Посмотреть сертификаты</a>
+									</div>
+									<div class="bottom-warranty__item">
+										<p class="bottom-warranty__text">Сертификаты</p>
+										<div class="bottom-warranty__image">
+											<img alt="Image" src="./assets/img/warranty/doc1.jpg">
+										</div>
+										<a href="#" class="bottom-warranty__link">Посмотреть сертификаты</a>
+									</div>
+									<div class="bottom-warranty__item">
+										<p class="bottom-warranty__text">Сертификаты</p>
+										<div class="bottom-warranty__image">
+											<img alt="Image" src="./assets/img/warranty/doc1.jpg">
+										</div>
+										<a href="#" class="bottom-warranty__link">Посмотреть сертификаты</a>
+									</div>
+									<div class="bottom-warranty__card">
+										<img class="bottom-warranty__card-img-bg" alt="Image" src="./assets/img/warranty/card-bg.png">
+										<div class="bottom-warranty__card-top">
+											<span class="bottom-warranty__card-number">2</span>
+											<div class="bottom-warranty__card-text">
+												года гарантии на
+												<strong>работы</strong>
+											</div>
+										</div>
+										<div class="bottom-warranty__card-bottom">
+											<span class="bottom-warranty__card-number">20</span>
+											<div class="bottom-warranty__card-text">
+												лет гарантии на
+												<strong>материал</strong>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="warranty__image">
+								<img alt="Image" src="./assets/img/warranty/man.png">
+							</div>
 						</div>
 					</div>
 				</section>
@@ -1523,8 +1604,8 @@ alt="Image"
 					<div class="company__container">
 						<div data-fls-blockheader="" class="blockheader">
 							<div class="blockheader__top">
-								<h2 class="blockheader__title">Калькулятор забора</h2>
-								<p class="blockheader__subtitle">Калькулятор</p>
+								<h2 class="blockheader__title">Наша компания</h2>
+								<p class="blockheader__subtitle">Наша компания</p>
 							</div>
 							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
 						</div>
@@ -1552,6 +1633,389 @@ alt="Image"
 						</div>
 					</div>
 				</section>
+				<section class="connection">
+					<img class="connection__img-bg-section" alt="Image" src="./assets/img/tabs/bg-sections.jpg">
+					<div class="connection__container">
+						<div data-fls-blockheader="" class="blockheader">
+							<div class="blockheader__top">
+								<h2 class="blockheader__title">Связь</h2>
+								<p class="blockheader__subtitle">Связь</p>
+							</div>
+							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
+						</div>
+						<div data-fls-tabs="" class="connection__wrapper">
+							<nav data-fls-tabs-titles="" class="connection__navigation">
+								<button type="button" class="connection__title --tab-active">1. Проконсультируем</button>
+								<button type="button" class="connection__title">2. Бесплатный замер</button>
+								<button type="button" class="connection__title">3. Подписание договора</button>
+								<button type="button" class="connection__title">4. Изготовление и доставка</button>
+								<button type="button" class="connection__title">5. Быстрый монтаж</button>
+								<button type="button" class="connection__title">6. Принятие работы</button>
+							</nav>
+							<div data-fls-tabs-body="" class="connection__content">
+								<div class="connection__body">
+									<div class="connection__box box-connection box-connection--1">
+										<div class="connection__form form-connection">
+											<h4 class="form-connection__title">
+												<strong>Заполните форму</strong>
+												- мы перезвоним в течении 5
+                  минут и проконсультируем Вас по всем вопросам
+											</h4>
+											<div class="form-connection__clock">
+												<img alt="Image" src="./assets/img/tabs/tab1/clock.png">
+												<p>Пн-Пт с 9.00 до 21.00</p>
+											</div>
+											<form class="form-connection__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="">
+												<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="form-connection__input input">
+												<button type="submit" class="form-connection__button button">
+													<img class="button__img" alt="Image" src="./assets/img/hero/down.png">
+													<div class="button__text">
+														<p>Получить прайс-каталог</p>
+														<small>+ получить скидку -19%</small>
+													</div>
+												</button>
+												<label data-fls-checkbox="" class="checkbox">
+													<input checked data-fls-form-errtext="Ознакомтесь с условия обработки персональных данных" class="checkbox__input" type="checkbox" value="согласен" name="check">
+													<span class="checkbox__text">Вы соглашаетесь на условия обработки персональных данных</span>
+												</label>
+											</form>
+											<img class="form-connection__img-timer" alt="Image" src="./assets/img/tabs/tab1/timer.png">
+										</div>
+										<div class="connection__social social-connection">
+											<div class="social-connection__item">
+												<h4 class="social-connection__title">Либо позвоните нам напрямую прямо сейчас</h4>
+												<img class="social-connection__img-phone" alt="Image" src="./assets/img/tabs/tab1/phone.png">
+												<div class="social-connection__online">Мы работаем</div>
+												<a class="social-connection__phone-link" href="tel:+8129241115">+7 (812) 924-11-15</a>
+											</div>
+											<div class="social-connection__item">
+												<h4 class="social-connection__title">А так же пишите</h4>
+												<div class="social-connection__online">Мы онлайн</div>
+												<div class="social-connection__socials-body">
+													<a class="social-connection__social-link" href="#">
+														<img alt="Image" src="./assets/img/tabs/tab1/viber.png">
+														<p>Viber</p>
+													</a>
+													<a class="social-connection__social-link" href="#">
+														<img alt="Image" src="./assets/img/header/tg.png">
+														<p>Telegram</p>
+													</a>
+												</div>
+											</div>
+										</div>
+										<div class="connection__boss boss-connection">
+											<img class="boss-connection__img-bg" alt="Image" src="./assets/img/tabs/tab1/bg.png">
+											<img class="boss-connection__img-man" alt="Image" src="./assets/img/tabs/tab1/man.png">
+											<div class="boss-connection__block">
+												<div class="boss-connection__name">Дмитрий Сергеевич</div>
+												<div class="boss-connection__works">Руководитель проектов</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="connection__body">
+									<div class="connection__box box-connection box-connection--2">
+										<img class="box-connection__img-bg" alt="Image" src="./assets/img/tabs/tab2/bg.jpg">
+										<h4 class="box-connection-title">Бесплатный выезд замерщика в удобное для Вас время</h4>
+										<div class="box-connection__body">
+											<div class="box-connection__items">
+												<div class="box-connection__item">
+													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/01.png">
+													<div class="box-connection__item-text">
+														<strong>Составление</strong>
+														замерного листа
+													</div>
+												</div>
+												<div class="box-connection__item">
+													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/02.png">
+													<div class="box-connection__item-text">
+														<strong>Составление</strong>
+														замерного листа
+													</div>
+												</div>
+												<div class="box-connection__item">
+													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/03.png">
+													<div class="box-connection__item-text">
+														<strong>Составление</strong>
+														замерного листа
+													</div>
+												</div>
+												<div class="box-connection__item">
+													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/04.png">
+													<div class="box-connection__item-text">
+														<strong>Составление</strong>
+														замерного листа
+													</div>
+												</div>
+												<div class="box-connection__item">
+													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/05.png">
+													<div class="box-connection__item-text">
+														<strong>Составление</strong>
+														замерного листа
+													</div>
+												</div>
+												<div class="box-connection__item">
+													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/06.png">
+													<div class="box-connection__item-text">
+														<strong>Составление</strong>
+														замерного листа
+													</div>
+												</div>
+											</div>
+											<a data-fls-button="" href="#" class="button">
+												<img class="button__img" alt="Image" src="./assets/img/header/calc.png">
+												<div class="button__text">Узнать стоимость в 3-х вариантах</div>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="connection__body">
+									<div class="connection__box box-connection box-connection--3">
+										<img class="box-connection__img-bg" alt="Image" src="./assets/img/tabs/tab3/bg.jpg">
+										<h4 class="box-connection-title">Бесплатный выезд замерщика в удобное для Вас время</h4>
+										<p class="box-connection__text">Этапы перед подписанием:</p>
+										<div class="box-connection__body">
+											<div class="box-connection__items">
+												<div class="box-connection__item">
+													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/01.png">
+													<div class="box-connection__item-text">
+														<strong>Составление</strong>
+														замерного листа
+													</div>
+												</div>
+												<div class="box-connection__item">
+													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/02.png">
+													<div class="box-connection__item-text">
+														<strong>Составление</strong>
+														замерного листа
+													</div>
+												</div>
+												<div class="box-connection__item">
+													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/03.png">
+													<div class="box-connection__item-text">
+														<strong>Составление</strong>
+														замерного листа
+													</div>
+												</div>
+												<div class="box-connection__item">
+													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/04.png">
+													<div class="box-connection__item-text">
+														<strong>Составление</strong>
+														замерного листа
+													</div>
+												</div>
+											</div>
+											<a data-fls-button="" href="#" class="button">
+												<img class="button__img" alt="Image" src="./assets/img/header/calc.png">
+												<div class="button__text">Узнать стоимость в 3-х вариантах</div>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="connection__body">
+									<div class="connection__box box-connection box-connection--4">
+										<img class="box-connection__img-bg" alt="Image" src="./assets/img/tabs/tab4/bg.jpg">
+										<div class="box-connection__body box-connection__body--4">
+											<div class="box-connection__column">
+												<h4 class="box-connection-title">Изготовление и быстрая доставка</h4>
+												<p class="box-connection__text">В любую точку г. Санкт-Петербурга и Ленинградской области</p>
+												<a data-fls-button="" href="#" class="button">
+													<img class="button__img" alt="Image" src="./assets/img/header/calc.png">
+													<div class="button__text">Узнать стоимость в 3-х вариантах</div>
+												</a>
+											</div>
+											<div class="box-connection__items box-connection__items--4">
+												<div class="box-connection__item">
+													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/01.png">
+													<div class="box-connection__item-text">
+														<strong>Составление</strong>
+														замерного листа
+													</div>
+												</div>
+												<div class="box-connection__item">
+													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/02.png">
+													<div class="box-connection__item-text">
+														<strong>Составление</strong>
+														замерного листа
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="connection__body">
+									<div class="connection__box box-connection box-connection--5">
+										<img class="box-connection__img-bg" alt="Image" src="./assets/img/tabs/tab5/bg.jpg">
+										<div class="box-connection__column">
+											<h4 class="box-connection-title">Изготовление и быстрая доставка</h4>
+											<p class="box-connection__text">В любую точку г. Санкт-Петербурга и Ленинградской области</p>
+											<a data-fls-button="" href="#" class="button">
+												<img class="button__img" alt="Image" src="./assets/img/header/calc.png">
+												<div class="button__text">Узнать стоимость в 3-х вариантах</div>
+											</a>
+										</div>
+										<div class="box-connection__items box-connection__items--4">
+											<div class="box-connection__item">
+												<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/01.png">
+												<div class="box-connection__item-text">
+													<strong>Полное информирование</strong>
+													о этапах доставки, от
+                    выезда до прибытия
+												</div>
+											</div>
+											<div class="box-connection__item box-connection__item--list">
+												<p>Мы делаем:</p>
+												<ul class="box-connection__list">
+													<li>Монтаж забора</li>
+													<li>Монтаж ворот</li>
+													<li>Монтаж калиток</li>
+													<li>Уборка и вывоз мусора</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="connection__body">
+									<div class="connection__box box-connection box-connection--6">
+										<img class="box-connection__img-bg" alt="Image" src="./assets/img/tabs/tab6/bg.jpg">
+										<h4 class="box-connection-title">Бесплатный выезд замерщика в удобное для Вас время</h4>
+										<p class="box-connection__text">Заключение договора на месте либо в офисе</p>
+										<div class="box-connection__items">
+											<div class="box-connection__item">
+												<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/01.png">
+												<div class="box-connection__item-text">
+													<strong>Составление</strong>
+													замерного листа
+												</div>
+											</div>
+											<div class="box-connection__item">
+												<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/02.png">
+												<div class="box-connection__item-text">
+													<strong>Составление</strong>
+													замерного листа
+												</div>
+											</div>
+											<div class="box-connection__item">
+												<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/03.png">
+												<div class="box-connection__item-text">
+													<strong>Составление</strong>
+													замерного листа
+												</div>
+											</div>
+											<div class="box-connection__item box-connection__item--button">
+												<div class="box-connection__item-button-text">Абсолютно бесплатно</div>
+												<a data-fls-button="" href="#" class="button">
+													<img class="button__img" alt="Image" src="./assets/img/header/calc.png">
+													<div class="button__text">Узнать стоимость в 3-х вариантах</div>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="block-text">
+					<div class="block-text__container">
+						<h2 class="block-text__title">Оказываем услуги в сфере строительства заборов и монтажа ворот под ключ</h2>
+						<div data-fls-showmore="" class="block-text__body">
+							<div data-fls-showmore-content="" class="block-text__content">
+								Установка заборов для дачи и загородного дома в г. Санкт-Петербург и
+          области – основное направление деятельности нашей компании. Неизменно
+          высокое качество и оригинальный дизайн заборов, установленных нами на
+          участках частных застройщиков, превращают традиционные ограждения в
+          образцы современного ландшафтного декора. Строительство заборов, вне
+          зависимости от типа ограждения, ведется нашей компанией в сжатые
+          сроки. Требования заказчиков к ограждающим конструкциям предельно
+          просты: главным фактором считается доступная цена забора, который
+          хорошо справляется с функцией защиты территории от вторжения
+          посторонних, но при этом выглядит современно и стильно. Наша компания
+          готова предложить целый ряд различных образцов заборов, идеально
+          совмещающих лучшие потребительские характеристики: прочность,
+          экономичность и внешнюю эстетику. Требования заказчиков к ограждающим
+          конструкциям предельно просты: главным фактором считается доступная
+          цена забора, который хорошо справляется с функцией защиты территории
+          от вторжения посторонних, но при этом выглядит современно и стильно.
+          Наша компания готова предложить целый ряд различных образцов заборов,
+          идеально совмещающих лучшие потребительские характеристики: прочность,
+          экономичность и внешнюю эстетику.
+							</div>
+							<button hidden data-fls-showmore-button="" type="button" class="block-text__more">
+								<span>Показать ещё</span>
+								<span>Скрыть</span>
+							</button>
+						</div>
+					</div>
+				</section>
+				<section class="contacts">
+					<div class="contacts__container">
+						<div data-fls-blockheader="" class="blockheader">
+							<div class="blockheader__top">
+								<h2 class="blockheader__title">Контакты</h2>
+								<p class="blockheader__subtitle">Нашы Контакты</p>
+							</div>
+							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
+						</div>
+						<div class="contacts__body">
+							<div class="contacts__top">
+								<div class="contacts__item">
+									<img class="contacts__item-img" src="./assets/img/contacts/placeholder.svg" alt="Image">
+									<h3 class="contacts__item-title">Адрес :</h3>
+									<p class="contacts__text">д. Большое Стиклево ул. Молодежная, д. 1, корп.1, комната 2/7</p>
+								</div>
+								<div class="contacts__item">
+									<img class="contacts__item-img" src="./assets/img/contacts/phone.svg" alt="Image">
+									<h3 class="contacts__item-title">Телефон:</h3>
+									<a href="tel:375293505205" class="contacts__text">+375 (29) 350-52-05</a>
+								</div>
+								<div class="contacts__item">
+									<img class="contacts__item-img" alt="Image" src="./assets/img/contacts/wgatsup-c.png">
+									<h3 class="contacts__item-title">Viber:</h3>
+									<a href="tel:375293505205" class="contacts__text">+375 (29) 350-52-05</a>
+								</div>
+								<div class="contacts__item">
+									<img class="contacts__item-img" alt="Image" src="./assets/img/contacts/email.png">
+									<h3 class="contacts__item-title">E-Mail:</h3>
+									<a href="mail:minsk@prozabory.by" class="contacts__text">minsk@prozabory.by</a>
+								</div>
+							</div>
+							<div class="contacts__map">
+								<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A3b1f82549db84fe6b029b4f10d0aceba1af0650f8eacc25240c88f8902133e4d&amp;width=100%25&amp;height=340&amp;lang=ru_RU&amp;scroll=true"></script>
+							</div>
+						</div>
+					</div>
+				</section>
+				<div data-fls-phonebottom="" class="phone">
+					<div class="phone__icon">
+						<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewbox="0 0 48 48">
+							<path fill="#fff" d="M24,5C21.361,5,13.33,5,8.89,9.054C6.246,11.688,5,15.494,5,21v3c0,5.506,1.246,9.312,3.921,11.976 c1.332,1.215,3.148,2.186,5.368,2.857L15,39.047v5.328C15,45,15.181,45,15.241,45c0.123,0,0.32-0.039,0.694-0.371 c0.09-0.089,0.75-0.803,3.96-4.399l0.324-0.363l0.485,0.031C21.779,39.965,22.888,40,24,40c2.639,0,10.67,0,15.11-4.055 C41.753,33.311,43,29.505,43,24v-3c0-5.506-1.246-9.312-3.921-11.976C34.67,5,26.639,5,24,5z"></path>
+							<path fill="#7e57c2" d="M33.451 28.854c-1.111-.936-1.624-1.219-3.158-2.14C29.654 26.331 28.68 26 28.169 26c-.349 0-.767.267-1.023.523C26.49 27.179 26.275 28 25.125 28c-1.125 0-3.09-1.145-4.5-2.625C19.145 23.965 18 22 18 20.875c0-1.15.806-1.38 1.462-2.037C19.718 18.583 20 18.165 20 17.816c0-.511-.331-1.47-.714-2.109-.921-1.535-1.203-2.048-2.14-3.158-.317-.376-.678-.548-1.056-.549-.639-.001-1.478.316-2.046.739-.854.637-1.747 1.504-1.986 2.584-.032.147-.051.295-.057.443-.046 1.125.396 2.267.873 3.234 1.123 2.279 2.609 4.485 4.226 6.455.517.63 1.08 1.216 1.663 1.782.566.582 1.152 1.145 1.782 1.663 1.97 1.617 4.176 3.103 6.455 4.226.958.472 2.086.906 3.2.874.159-.005.318-.023.477-.058 1.08-.238 1.947-1.132 2.584-1.986.423-.568.74-1.406.739-2.046C33.999 29.532 33.827 29.171 33.451 28.854zM34 24c-.552 0-1-.448-1-1v-1c0-4.962-4.038-9-9-9-.552 0-1-.448-1-1s.448-1 1-1c6.065 0 11 4.935 11 11v1C35 23.552 34.552 24 34 24zM27.858 22c-.444 0-.85-.298-.967-.748-.274-1.051-1.094-1.872-2.141-2.142-.535-.139-.856-.684-.718-1.219.138-.534.682-.855 1.219-.718 1.748.453 3.118 1.822 3.575 3.574.139.535-.181 1.08-.715 1.22C28.026 21.989 27.941 22 27.858 22z"></path>
+							<path fill="#7e57c2" d="M31,23c-0.552,0-1-0.448-1-1c0-3.188-2.494-5.818-5.678-5.986c-0.552-0.029-0.975-0.5-0.946-1.051 c0.029-0.552,0.508-0.976,1.051-0.946C28.674,14.241,32,17.748,32,22C32,22.552,31.552,23,31,23z"></path>
+							<path fill="#7e57c2" d="M24,4C19.5,4,12.488,4.414,8.216,8.316C5.196,11.323,4,15.541,4,21c0,0.452-0.002,0.956,0.002,1.5 C3.998,23.043,4,23.547,4,23.999c0,5.459,1.196,9.677,4.216,12.684c1.626,1.485,3.654,2.462,5.784,3.106v4.586 C14,45.971,15.049,46,15.241,46h0.009c0.494-0.002,0.921-0.244,1.349-0.624c0.161-0.143,2.02-2.215,4.042-4.481 C21.845,40.972,22.989,41,23.999,41c0,0,0,0,0,0s0,0,0,0c4.5,0,11.511-0.415,15.784-4.317c3.019-3.006,4.216-7.225,4.216-12.684 c0-0.452,0.002-0.956-0.002-1.5c0.004-0.544,0.002-1.047,0.002-1.5c0-5.459-1.196-9.677-4.216-12.684C35.511,4.414,28.5,4,24,4z M41,23.651l0,0.348c0,4.906-1.045,8.249-3.286,10.512C33.832,38,26.437,38,23.999,38c-0.742,0-1.946-0.001-3.367-0.1 C20.237,38.344,16,43.083,16,43.083V37.22c-2.104-0.505-4.183-1.333-5.714-2.708C8.045,32.248,7,28.905,7,23.999l0-0.348 c0-0.351-0.001-0.73,0.002-1.173C6.999,22.078,6.999,21.7,7,21.348L7,21c0-4.906,1.045-8.249,3.286-10.512 C14.167,6.999,21.563,6.999,24,6.999c2.437,0,9.832,0,13.713,3.489c2.242,2.263,3.286,5.606,3.286,10.512l0,0.348 c0,0.351,0.001,0.73-0.002,1.173C41,22.922,41,23.3,41,23.651z"></path>
+						</svg>
+					</div>
+					<a class="phone__link" href="tel:+375296582077">+375 (29) 658-20-77</a>
+				</div>
+				<div data-fls-arrowup="" class="nav">
+					<a class="nav__button" href="#">
+						<svg version="1.1" id="icons_1_" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewbox="0 0 128 128" style="enable-background: new 0 0 128 128" xml:space="preserve">
+							<g id="row1_1_">
+								<g id="_x31__3_">
+									<path class="st2" d="M64 0C28.7 0 0 28.7 0 64s28.7 64 64 64 64-28.7 64-64S99.3 0 64 0zm0 121.6C32.2 121.6 6.4 95.8 6.4 64S32.2 6.4 64 6.4s57.6 25.8 57.6 57.6-25.8 57.6-57.6 57.6zM49.2 38.4 73.6 64 49.2 89.6h13.5L86.4 64 62.7 38.4H49.2z" id="_x32__2_"></path>
+								</g>
+							</g>
+						</svg>
+					</a>
+				</div>
+				<div data-fls-tools="" class="tools">
+					<a href="#" class="tools__item">
+						<img alt="Image" src="./assets/img/tools/message.png">
+					</a>
+					<a href="#" class="tools__item">
+						<img alt="Image" src="./assets/img/tools/calc.png">
+					</a>
+				</div>
 			</main>
 			<footer data-fls-footer="" class="footer">
 				<div class="footer__container">
@@ -1601,6 +2065,34 @@ alt="Image"
 					</ul>
 				</div>
 			</footer>
+		</div>
+		<div data-fls-popup="popup" aria-hidden="true" class="popup">
+			<div data-fls-popup-wrapper="" class="popup__wrapper">
+				<div data-fls-popup-body="" class="popup__body">
+					<button data-fls-popup-close="" type="button" class="popup__close">
+						<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
+							<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
+						</svg>
+					</button>
+					<div data-fls-popup-content="" class="popup__box">
+						<h2 class="popup__title">Обратный звонок</h2>
+						<form class="popup__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="">
+							<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Ваше имя" class="popup__input input">
+							<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="popup__input input">
+							<label data-fls-checkbox="" class="checkbox">
+								<input checked data-fls-form-errtext="Ознакомтесь с условия обработки персональных данных" class="checkbox__input" type="checkbox" value="согласен" name="check">
+								<span class="checkbox__text">Вы соглашаетесь на условия обработки персональных данных</span>
+							</label>
+							<button type="submit" class="popup__button button">Заказать звонок</button>
+							<div class="popup__bottom">
+								Отправляя заявку вы соглашаетесь с Политикой конфиденциальности и
+            даёте согласие на обработку ваших персональных данных.
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

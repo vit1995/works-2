@@ -5,8 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1766051077199"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1766051077199">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1766095238369"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1766095238369">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -97,45 +97,7 @@
 					</div>
 				</div>
 			</header>
-			<style>
-				#preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.5s, visibility 0.5s;
-  }
-
-  .preloader-hidden {
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  .spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid #3498db;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-			</style>
-			<div id="preloader">
+			<div data-fls-mypreloader="" id="preloader">
 				<div class="spinner"></div>
 			</div>
 			<main class="page page--home">
@@ -897,7 +859,7 @@
 											<span>314</span>
 											руб./п.м.
 										</div>
-										<a class="products__button" href="#">Обратная связь</a>
+										<a data-fls-popup-link="popup" class="products__button" href="#">Обратная связь</a>
 									</div>
 								</div>
 							</div>
@@ -915,7 +877,7 @@
 											<span>314</span>
 											руб./п.м.
 										</div>
-										<a class="products__button" href="#">Обратная связь</a>
+										<a data-fls-popup-link="popup" class="products__button" href="#">Обратная связь</a>
 									</div>
 								</div>
 							</div>
@@ -933,7 +895,7 @@
 											<span>314</span>
 											руб./п.м.
 										</div>
-										<a class="products__button" href="#">Обратная связь</a>
+										<a data-fls-popup-link="popup" class="products__button" href="#">Обратная связь</a>
 									</div>
 								</div>
 							</div>
@@ -951,7 +913,7 @@
 											<span>314</span>
 											руб./п.м.
 										</div>
-										<a class="products__button" href="#">Обратная связь</a>
+										<a data-fls-popup-link="popup" class="products__button" href="#">Обратная связь</a>
 									</div>
 								</div>
 							</div>
@@ -969,7 +931,7 @@
 											<span>314</span>
 											руб./п.м.
 										</div>
-										<a class="products__button" href="#">Обратная связь</a>
+										<a data-fls-popup-link="popup" class="products__button" href="#">Обратная связь</a>
 									</div>
 								</div>
 							</div>
@@ -987,7 +949,7 @@
 											<span>314</span>
 											руб./п.м.
 										</div>
-										<a class="products__button" href="#">Обратная связь</a>
+										<a data-fls-popup-link="popup" class="products__button" href="#">Обратная связь</a>
 									</div>
 								</div>
 							</div>
@@ -1121,14 +1083,22 @@ alt="Image"
 />
 -->
 									<div class="last-work__slide swiper-slide">
-										<div class="last-work__images">
-											<img class="last-work__img-bg" alt="Image" src="./assets/img/last-work/01.jpg">
+										<div data-fls-gallery="" class="last-work__images">
+											<a href="./assets/img/last-work/01.jpg">
+												<img class="last-work__img-bg" alt="Image" src="./assets/img/last-work/01.jpg">
+											</a>
 											<div class="last-work__images-bottom">
 												<p class="last-work-images-bottom-text"></p>
 												<div class="last-work__images-bottom-item">
-													<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/02.jpg">
-													<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/03.jpg">
-													<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/04.jpg">
+													<a href="./assets/img/last-work/02.jpg">
+														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/02.jpg">
+													</a>
+													<a href="./assets/img/last-work/03.jpg">
+														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/03.jpg">
+													</a>
+													<a href="./assets/img/last-work/04.jpg">
+														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/04.jpg">
+													</a>
 												</div>
 											</div>
 										</div>
@@ -1183,14 +1153,92 @@ alt="Image"
 										</div>
 									</div>
 									<div class="last-work__slide swiper-slide">
-										<div class="last-work__images">
-											<img class="last-work__img-bg" alt="Image" src="./assets/img/last-work/01.jpg">
+										<div data-fls-gallery="" class="last-work__images">
+											<a href="./assets/img/last-work/01.jpg">
+												<img class="last-work__img-bg" alt="Image" src="./assets/img/last-work/01.jpg">
+											</a>
 											<div class="last-work__images-bottom">
 												<p class="last-work-images-bottom-text"></p>
 												<div class="last-work__images-bottom-item">
-													<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/02.jpg">
-													<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/03.jpg">
-													<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/04.jpg">
+													<a href="./assets/img/last-work/02.jpg">
+														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/02.jpg">
+													</a>
+													<a href="./assets/img/last-work/03.jpg">
+														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/03.jpg">
+													</a>
+													<a href="./assets/img/last-work/04.jpg">
+														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/04.jpg">
+													</a>
+												</div>
+											</div>
+										</div>
+										<div class="last-work__content">
+											<h3 class="last-work__title">Деревянный забор ранчо</h3>
+											<div class="last-work__city">
+												<img alt="Image" src="./assets/img/last-work/local.png">
+												<p>Л.О. ВОЕЙКОВО</p>
+											</div>
+											<div class="last-work__sale-body">
+												<img alt="Image" src="./assets/img/last-work/tickets.png">
+												<div class="last-work__sale-text">
+													<strong>Экономия составила 20%</strong>
+													<p>по сравнению с работами конкурентов</p>
+												</div>
+											</div>
+											<div class="last-work__info">
+												<div class="last-work__info-item">
+													<h4 class="last-work__info-title">Длина</h4>
+													<div class="last-work__info-text">65 м</div>
+												</div>
+												<div class="last-work__info-item">
+													<h4 class="last-work__info-title">Высота</h4>
+													<div class="last-work__info-text">2,0 м</div>
+												</div>
+												<div class="last-work__info-item">
+													<h4 class="last-work__info-title">Номер краски</h4>
+													<div class="last-work__info-text">568Х</div>
+												</div>
+												<div class="last-work__info-item">
+													<h4 class="last-work__info-title">Обработка</h4>
+													<div class="last-work__info-text">Грунтовка Valti в 1 слой, Tikkurila Vinha в 2 слоя</div>
+												</div>
+											</div>
+											<div class="last-work__list-body">
+												<strong class="last-work__list-title">Было сделано:</strong>
+												<ul class="last-work__list">
+													<li>- Изготовление секций «Ранчо» на производстве</li>
+													<li>- Откатные Ворота Ролтэк 4 метра + Автоматика Came</li>
+													<li>- Установка столбов 60х60 методом бутования щебнем</li>
+													<li>- Покраска металлокаркаса - каркаса Tikkurila Metalista</li>
+													<li>- Изготовление 7 дней и установка 1 день.</li>
+												</ul>
+											</div>
+											<div class="last-work__bottom">
+												<a data-fls-button="" href="#" class="last-work__button button">
+													<img class="button__img" alt="Image" src="./assets/img/last-work/calc.png">
+													<div class="button__text">Рассчитать стоимость в калькуляторе</div>
+												</a>
+												<a class="last-work__link" href="#">Посмотреть полный прайс</a>
+											</div>
+										</div>
+									</div>
+									<div class="last-work__slide swiper-slide">
+										<div data-fls-gallery="" class="last-work__images">
+											<a href="./assets/img/last-work/01.jpg">
+												<img class="last-work__img-bg" alt="Image" src="./assets/img/last-work/01.jpg">
+											</a>
+											<div class="last-work__images-bottom">
+												<p class="last-work-images-bottom-text"></p>
+												<div class="last-work__images-bottom-item">
+													<a href="./assets/img/last-work/02.jpg">
+														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/02.jpg">
+													</a>
+													<a href="./assets/img/last-work/03.jpg">
+														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/03.jpg">
+													</a>
+													<a href="./assets/img/last-work/04.jpg">
+														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/04.jpg">
+													</a>
 												</div>
 											</div>
 										</div>

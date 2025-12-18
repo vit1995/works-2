@@ -1118,6 +1118,7 @@ button.swiper-pagination-bullet {
 .top-header__social-icon {
   width: 1.125rem;
   height: 1.125rem;
+  transition: all 0.3s ease 0s;
 }
 
 .menu__body {
@@ -1140,6 +1141,7 @@ button.swiper-pagination-bullet {
   position: relative;
   color: var(--black);
   font-weight: 500;
+  position: relative;
 }
 .menu__link {
   padding: 1.625rem 0rem;
@@ -3963,6 +3965,7 @@ textarea.input {
 }
 .products__price {
   color: white;
+  line-height: 1.2;
   font-weight: 600;
   text-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.8), 0 0.125rem 0.375rem rgba(0, 0, 0, 0.6);
 }
@@ -3976,6 +3979,7 @@ textarea.input {
   color: white;
   font-size: 0.875rem;
   padding: 0.625rem 0.9375rem;
+  transition: all 0.3s ease 0s;
 }
 .products__text {
   font-size: 0.875rem;
@@ -5176,6 +5180,9 @@ body::after {
   }
   .reviews__items {
     grid-template-columns: repeat(auto-fill, minmax(15.625rem, auto));
+  }
+  .products__button {
+    padding: 0.625rem;
   }
   .services__items {
     grid-template-columns: repeat(auto-fill, minmax(13.75rem, auto));
@@ -7550,8 +7557,15 @@ body::after {
   .top-header__info-phone:hover {
     text-decoration: underline;
   }
+  .top-header__info-button:hover {
+    text-decoration: underline;
+  }
+  .top-header__social-icon:hover {
+    transform: scale(1.05);
+    opacity: 0.6;
+  }
   .menu__list li:hover {
-    color: var(--orange);
+    color: var(--blue);
   }
   .footer__link:hover {
     text-decoration: none;
@@ -7580,6 +7594,9 @@ body::after {
   .slide-reviews__button:hover {
     background-color: var(--blue);
     color: white;
+  }
+  .products__button:hover {
+    background-color: #0a5d74;
   }
   .bottom-warranty__link:hover {
     text-decoration: none;

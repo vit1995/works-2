@@ -12380,6 +12380,7 @@ class ScrollWatcher {
 }
 document.querySelector("[data-fls-watcher]") ? window.addEventListener("load", () => new ScrollWatcher({})) : null;
 document.addEventListener("DOMContentLoaded", function() {
+  document.body.classList.remove("loaded");
   window.addEventListener("load", handlePageLoad);
   let fallbackTimer = setTimeout(() => {
     handlePageLoad(true);
@@ -12390,17 +12391,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 function handlePageLoad(isFallback = false) {
   const preloader = document.getElementById("preloader");
-  const content = document.getElementById("content");
-  if (isFallback) {
-    console.log("Fallback: показываем контент по таймауту");
-  }
-  if (content) {
-    content.style.display = "block";
-    content.style.opacity = "1";
-  } else {
-    document.body.style.opacity = "1";
-    document.body.style.visibility = "visible";
-  }
+  document.body.classList.add("loaded");
   if (preloader) {
     preloader.classList.add("preloader-hidden");
     setTimeout(() => {

@@ -4499,12 +4499,12 @@ textarea.input {
   height: 100%;
   top: 0;
   z-index: 0;
-  left: 0;
+  left: 1;
   object-fit: cover;
 }
 .connection__container {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 .connection__navigation {
   display: flex;
@@ -4557,6 +4557,9 @@ textarea.input {
   background-color: #fff;
   border-radius: 0.625rem;
 }
+.connection__body {
+  position: relative;
+}
 .box-connection {
   position: relative;
   display: flex;
@@ -4574,12 +4577,14 @@ textarea.input {
   top: 0;
   left: 0;
   object-fit: cover;
-  z-index: -1;
+  z-index: 0;
 }
 .box-connection__body {
   display: grid;
   grid-template-columns: 60% auto;
   align-items: flex-end;
+  position: relative;
+  z-index: 2;
 }
 .box-connection__body--4 {
   justify-items: flex-start;
@@ -4593,6 +4598,8 @@ textarea.input {
 .box-connection__items {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(13.75rem, auto));
+  position: relative;
+  z-index: 2;
 }
 .box-connection__items--4 {
   display: grid;
@@ -5969,11 +5976,11 @@ body::after {
   .connection__title {
     font-size: 0.75rem;
   }
-  .connection__body {
-    padding: 0.625rem;
-  }
   .box-connection {
     gap: 0.625rem;
+  }
+  .box-connection {
+    padding: 0.625rem;
   }
   .box-connection--1 {
     gap: 0.9375rem;
@@ -6721,11 +6728,11 @@ body::after {
   .connection__title {
     font-size: clamp( 0.75rem , 0.70454545454375rem  +  0.2272727273vw , 0.875rem );
   }
-  .connection__body {
-    padding: clamp( 0.625rem , -0.05681818181875rem  +  3.4090909091vw , 2.5rem );
-  }
   .box-connection {
     gap: clamp( 0.625rem , 0.397727272725rem  +  1.1363636364vw , 1.25rem );
+  }
+  .box-connection {
+    padding: clamp( 0.625rem , -0.05681818181875rem  +  3.4090909091vw , 2.5rem );
   }
   .box-connection--1 {
     gap: clamp( 0.9375rem , 0.59659090909375rem  +  1.7045454545vw , 1.875rem );
@@ -7619,11 +7626,11 @@ body::after {
   .connection__title {
     font-size: 0.875rem;
   }
-  .connection__body {
-    padding: 2.5rem;
-  }
   .box-connection {
     gap: 1.25rem;
+  }
+  .box-connection {
+    padding: 2.5rem;
   }
   .box-connection--1 {
     gap: 1.875rem;

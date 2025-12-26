@@ -5010,7 +5010,7 @@ function initSliders() {
       observer: true,
       observeParents: true,
       slidesPerView: 1,
-      spaceBetween: 0,
+      spaceBetween: 10,
       //autoHeight: true,
       speed: 800,
       //touchRatio: 0,
@@ -5045,14 +5045,10 @@ function initSliders() {
       },
       // Брейкпоинты
       breakpoints: {
-        540: {
+        560: {
           slidesPerView: 2,
-          spaceBetween: 0,
+          spaceBetween: 10,
           autoHeight: true
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 20
         },
         992: {
           slidesPerView: 3,

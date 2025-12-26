@@ -5,8 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1766175101232"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1766175101232">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1766760021532"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1766760021532">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -15,34 +15,24 @@
 					<!-- <include src="@components/layout/menu/menu.html" locals='{"active":"Home"}'></include> -->
 					<div class="header__top top-header">
 						<a href="#" class="top-header__logo">
-							<img src="./assets/img/header/logo.svg" alt="#">
+							<img alt="#" src="./assets/img/footer/logo.webp">
 						</a>
-						<p data-fls-dynamic=".menu__body, 992" class="top-header__text">
-							12 лет производим и устанавливаем заборы под ключ в г.Санкт-Петербург и
-        области
-						</p>
-						<a data-fls-dynamic=".menu__body, 768" data-fls-button="" href="#" class="button">
-							<img class="button__img" alt="Image" src="./assets/img/header/calc.png">
-							<div class="button__text">
-								<p>Узнайте стоимость забора</p>
-								<small>(прямо сейчас за 1 минуту)</small>
-							</div>
-						</a>
-						<div data-fls-dynamic=".menu__body, 1200" class="top-header__social">
-							<p class="top-header__social-text">Напишите нам напрямую</p>
-							<div class="top-header__social-icons">
-								<a href="#">
-									<img class="top-header__social-icon" alt="Image" src="./assets/img/header/tg.png">
-								</a>
-								<a href="#">
-									<img class="top-header__social-icon" alt="Image" src="./assets/img/header/vb.png">
-								</a>
-							</div>
+						<p data-fls-dynamic=".menu__body, 992" class="top-header__text">Отделка и остекление балконов от производителя в Москве и МО</p>
+						<div class="top-header__info">
+							<a class="top-header__phone" href="tel:84958775098">8 (495) 877-50-98</a>
+							<div class="top-header__clock">9:00 — 20:00 (без выходных)</div>
 						</div>
-						<div data-fls-dynamic=".menu__body, 430" class="top-header__info">
-							<p class="top-header__info-text">Звоните, мы сейчас работаем</p>
-							<a class="top-header__info-phone" href="tel:375291234567">+375(29)123-45-67</a>
-							<a data-fls-popup-link="popup" class="top-header__info-button" href="#">позвоните мне</a>
+						<div data-fls-dynamic=".menu__body, 1200" class="top-header__social">
+							<a href="#">
+								<img class="top-header__social-icon" alt="Image" src="./assets/img/icon/viber.png">
+							</a>
+							<a href="#">
+								<img class="top-header__social-icon" alt="Image" src="./assets/img/icon/viber.png">
+							</a>
+						</div>
+						<div class="top-header__buttons">
+							<a data-fls-button="" href="#" class="top-header__button button button--black-border">Заказать звонок</a>
+							<a data-fls-button="" href="#" class="top-header__button button">Калькулятор</a>
 						</div>
 						<button type="button" data-fls-menu="" class="menu__icon icon-menu">
 							<span></span>
@@ -52,10 +42,10 @@
 						<nav class="menu__body">
 							<ul class="menu__list">
 								<li class="menu__item">
-									<a href="home.html" class="menu__link">Главная</a>
+									<a href="home.html" class="menu__link">Цены</a>
 								</li>
 								<li data-spollers="1200,max" class="menu__item _has-submenu">
-									<button type="button" data-spoller="" class="menu__link">Каталог заборов</button>
+									<button type="button" data-spoller="" class="menu__link">Остекление балкона</button>
 									<ul class="sub-menu">
 										<li>
 											<a href="services.html">Вывоз строительного мусора</a>
@@ -78,16 +68,16 @@
 									</ul>
 								</li>
 								<li class="menu__item">
-									<a href="" class="menu__link">Калькулятор стоимости</a>
+									<a href="" class="menu__link">Отделка балкона под ключ</a>
 								</li>
 								<li class="menu__item">
-									<a href="" class="menu__link">Выполненные проекты (портфолио)</a>
+									<a href="" class="menu__link">Наши работы</a>
 								</li>
 								<li class="menu__item">
-									<a href="" class="menu__link">О компании</a>
+									<a href="" class="menu__link">Калькулятор</a>
 								</li>
 								<li class="menu__item">
-									<a href="" class="menu__link">Блог</a>
+									<a href="" class="menu__link">Отзывы</a>
 								</li>
 								<li class="menu__item">
 									<a href="" class="menu__link">Контакты</a>
@@ -97,1949 +87,1253 @@
 					</div>
 				</div>
 			</header>
-			<!-- <include src="@components/custom/mypreloader/mypreloader.html"></include> -->
-			<style>
-				#preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: opacity 0.5s, visibility 0.5s;
-  }
-
-  .preloader-hidden {
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  .spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid #3498db;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-			</style>
-			<div data-fls-mypreloader="" id="preloader">
-				<div class="spinner"></div>
-			</div>
 			<main class="page page--home">
 				<section class="hero">
-					<img class="hero__img-bg" alt="Image" src="./assets/img/hero/bg.jpg">
 					<div class="hero__container">
-						<div class="hero__content">
-							<h1 class="hero__title">
-								Продажа, производство и монтаж всех видов заборов
-								<span>"под ключ"</span>
-								на любых типах грунта в Санкт-Петербурге
+						<div class="hero__main main-hero">
+							<img class="main-hero__img-bg" alt="Image" src="./assets/img/hero/01.webp">
+							<h1 data-fls-title="" class="main-hero__title title">
+								Остекление и отделка балконов в Москве и МО
+								<span>под ключ за 3 дня</span>
 							</h1>
-							<div class="hero__text">
-								<p>От бюджета до премиум сегмента</p>
-								<img alt="Image" src="./assets/img/hero/monets.png">
-							</div>
-							<form class="hero__form form-hero" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
-								<h2 class="form-hero__title">
-									Получите прямо сейчас
-									<strong>актуальный прайс-каталог</strong>
-								</h2>
-								<p class="form-hero__text">
-									С примерами готовых работ, ценами и советами + закрепите скидку 19%
-            на материал
-								</p>
-								<div class="form-hero__body">
-									<div class="form-hero__content">
-										<div class="form-hero__loader">
-											<img class="form-hero__loader-img" alt="Image" src="./assets/img/hero/loader.png">
-											<div class="form-hero__loader-text">
-												<strong>Обновлен</strong>
-												<p>5 декабря</p>
-											</div>
-										</div>
-										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" placeholder="+375(__) ___-__-__" type="text" name="phone" class="form-hero__input input">
-										<button type="submit" class="form-hero__button button">
-											<img class="button__img" alt="Image" src="./assets/img/hero/down.png">
-											<div class="button__text">
-												<p>Получить прайс-каталог</p>
-												<small>+ получить скидку -19%</small>
-											</div>
-										</button>
-									</div>
-									<div class="form-hero__images">
-										<img alt="Image" src="./assets/img/hero/book.png">
-										<div class="form-hero__circle">
-											<p>Всего за</p>
-											<span>0 рублей</span>
-										</div>
-									</div>
-									<!--
-<div class="form-hero__circle">
-<p>Всего за</p>
-<span>0 рублей</span>
-</div>
--->
-								</div>
-								<label data-fls-checkbox="" class="checkbox">
-									<input checked data-fls-form-errtext="Ознакомтесь с условия обработки персональных данных" class="checkbox__input" type="checkbox" value="согласен" name="check">
-									<span class="checkbox__text">Вы соглашаетесь на условия обработки персональных данных</span>
-								</label>
-							</form>
-						</div>
-						<div class="hero__items">
-							<div class="hero__item">
-								<img alt="Image" src="./assets/img/hero/1.png">
-								<p>Гарантия 20 лет</p>
-							</div>
-							<div class="hero__item">
-								<img alt="Image" src="./assets/img/hero/2.png">
-								<p>Гарантия 20 лет</p>
-							</div>
-							<div class="hero__item">
-								<img alt="Image" src="./assets/img/hero/3.png">
-								<p>Гарантия 20 лет</p>
-							</div>
-							<div class="hero__item">
-								<img alt="Image" src="./assets/img/hero/4.png">
-								<p>Гарантия 20 лет</p>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section data-fls-calc="" class="page__calculator calculator">
-					<img class="calculator__img-bg" alt="Image" src="./assets/img/calculator/bg-sections.jpg">
-					<div class="calculator__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">
-								<h2 class="blockheader__title">Калькулятор забора</h2>
-								<p class="blockheader__subtitle">Калькулятор</p>
-							</div>
-							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
-						</div>
-						<div class="calculator__top top-calculator">
-							<div class="top-calculator__item">
-								<img alt="Image" src="./assets/img/calculator/1test.png">
-								<div class="top-calculator__block">
-									<strong>Расчет стоимости</strong>
-									<p>в 3 вариантах</p>
-								</div>
-							</div>
-							<div class="top-calculator__item">
-								<img alt="Image" src="./assets/img/calculator/2test.png">
-								<div class="top-calculator__block">
-									<strong>"Советы 2025 г</strong>
-									<p>по подбору забора" в PDF</p>
-								</div>
-							</div>
-							<div class="top-calculator__item">
-								<img alt="Image" src="./assets/img/calculator/3test.png">
-								<div class="top-calculator__block">
-									<strong>1 из 3 
-подарков</strong>
-									<p>на выбор</p>
-								</div>
-							</div>
-						</div>
-						<div class="calculator__body">
-							<!-- верх квиза -->
-							<div id="calc" class="calculator__top">
-								<h4 data-watch="" data-watch-once="" class="calculator__top-title title">
-									<!-- Подберите подходящие пластиковые окна с помощью нашей программы и узнайте -->
-								</h4>
-								<!--
-<div style="text-align: center" class="calculator__top-subtitle">
-и получите подарок
-</div>
--->
-							</div>
-							<!-- Оболонка слайдера -->
-							<div id="wrapper-content" class="calculator__wrapper-content">
-								<div class="calculator__slider swiper swiper-container">
-									<!-- Частина слайдера, що рухається -->
-									<form data-fls-form-popup="popup-message" data-fls-form="ajax" action="sendmail/sendmail.php" method="POST" data-fls-slider="" class="calculator__wrapper swiper-wrapper">
-										<!-- 1 Слайд -->
-										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-											<div class="slide-calculator__body">
-												<div class="slide-calculator__title">
-													<p>Вопрос 1</p>
-													<h4>Какой забор Вам необходим?</h4>
-												</div>
-												<div class="options">
-													<div class="options__item">
-														<input data-required="" id="o_1" class="options__input input" checked type="radio" value="Деревянный забор" name="step_1">
-														<label for="o_1" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/1-1.jpg">
-															</div>
-														</label>
-														<h3 class="options__title">Деревянный забор</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_2" class="options__input input" type="radio" value="Из профлиста" name="step_1">
-														<label for="o_2" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/2-1.jpg">
-															</div>
-														</label>
-														<h3 class="options__title">Из профлиста</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_3" class="options__input input" type="radio" value="Из 3D сетки Гиттер" name="step_1">
-														<label for="o_3" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/3-1.jpg">
-															</div>
-														</label>
-														<h3 class="options__title">Из 3D сетки Гиттер</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_4" class="options__input input" type="radio" value="Из евроштакетника" name="step_1">
-														<label for="o_4" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/4-1.jpg">
-															</div>
-														</label>
-														<h3 class="options__title">Из евроштакетника</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_5" class="options__input input" type="radio" value="Из сетки рабицы" name="step_1">
-														<label for="o_5" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/5-1.jpg">
-															</div>
-														</label>
-														<h3 class="options__title">Из сетки рабицы</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_6" class="options__input input" type="radio" value="Заборы жалюзи" name="step_1">
-														<label for="o_6" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/6-1.jpg">
-															</div>
-														</label>
-														<h3 class="options__title">Заборы жалюзи</h3>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- 2 слайд -->
-										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-											<div class="slide-calculator__body">
-												<div class="slide-calculator__title">
-													<p>Вопрос 1</p>
-													<h4>Какой забор Вам необходим?</h4>
-												</div>
-												<div class="slider-container">
-													<!-- Слайдер для метров -->
-													<div class="slider-section">
-														<div class="value-display">
-															<img class="value-display-img" alt="Image" src="./assets/img/calculator/metr.png">
-															<span class="unit">Укажите длину, м</span>
-															<input type="number" min="0" max="500" value="250" class="value-input" id="valueInputMeters" name="width_m">
-														</div>
-														<div class="slider-wrapper">
-															<div class="slider-track">
-																<div class="slider-fill" id="sliderFillMeters"></div>
-															</div>
-															<input type="range" min="0" max="500" value="250" class="slider-input" id="rangeSliderMeters">
-														</div>
-														<div class="slider-labels">
-															<span>0м</span>
-															<span>250м</span>
-															<span>500м</span>
-														</div>
-													</div>
-													<!-- Слайдер для сантиметров -->
-													<div class="slider-section">
-														<div class="value-display">
-															<img class="value-display-img" alt="Image" src="./assets/img/calculator/metr2.png">
-															<span class="unit">Укажите высоту, cм</span>
-															<input type="number" min="0" max="500" value="250" class="value-input" id="valueInputCm" name="height_cm">
-														</div>
-														<div class="slider-wrapper">
-															<div class="slider-track">
-																<div class="slider-fill" id="sliderFillCm"></div>
-															</div>
-															<input type="range" min="0" max="500" value="250" class="slider-input" id="rangeSliderCm">
-														</div>
-														<div class="slider-labels">
-															<span>0см</span>
-															<span>250см</span>
-															<span>500см</span>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- 3 слайд -->
-										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-											<div class="slide-calculator__body">
-												<div class="slide-calculator__title">
-													<p>Вопрос 3</p>
-													<h4>Выберите ворота</h4>
-												</div>
-												<div class="options">
-													<div class="options__item">
-														<input data-required="" id="o_7" class="options__input input" checked type="radio" value="Распашные ворота" name="step_3">
-														<label for="o_7" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/1-2.jpg">
-															</div>
-														</label>
-														<h3 class="options__title">Распашные ворота</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_8" class="options__input input" type="radio" value="Откатные ворота" name="step_3">
-														<label for="o_8" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/2-2.jpg">
-															</div>
-														</label>
-														<h3 class="options__title">Откатные ворота</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_9" class="options__input input" type="radio" value="Не нужны ворота" name="step_3">
-														<label for="o_9" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/no.jpg">
-															</div>
-														</label>
-														<h3 class="options__title">Не нужны ворота</h3>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- 4 слайд -->
-										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-											<div class="slide-calculator__body">
-												<div class="slide-calculator__title">
-													<p>Вопрос 4</p>
-													<h4>Выберите калитку</h4>
-												</div>
-												<div class="options">
-													<div class="options__item">
-														<input data-required="" id="o_10" class="options__input input" checked type="radio" value="Калитка без замка" name="step_4">
-														<label for="o_10" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/1-3.jpg">
-															</div>
-														</label>
-														<h3 class="options__title">Калитка без замка</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_11" class="options__input input" type="radio" value="Калитка с замком" name="step_4">
-														<label for="o_11" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/2-3.jpg">
-															</div>
-														</label>
-														<h3 class="options__title">Калитка с замком</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_12" class="options__input input" type="radio" value="Забор рабица" name="step_4">
-														<label for="o_12" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/no.jpg">
-															</div>
-														</label>
-														<h3 class="options__title">Не нужна калитка</h3>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- 5 слайд -->
-										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-											<div class="slide-calculator__body">
-												<div class="slide-calculator__title">
-													<p>Вопрос 5</p>
-													<h4>Нужен ли монтаж?</h4>
-												</div>
-												<div class="options">
-													<div class="options__item">
-														<input data-required="" id="o_13" class="options__input input" checked type="radio" value="Калитка без замка" name="step_5">
-														<label for="o_13" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/1-4.jpg">
-															</div>
-														</label>
-														<h3 class="options__title">Калитка без замка</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_14" class="options__input input" type="radio" value="Калитка с замком" name="step_5">
-														<label for="o_14" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/2-4.jpg">
-															</div>
-														</label>
-														<h3 class="options__title">Калитка с замком</h3>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- 6 слайд -->
-										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-											<div class="slide-calculator__body">
-												<div class="slide-calculator__title">
-													<p>Вопрос 6</p>
-													<h4>Когда планируете установку забора?</h4>
-												</div>
-												<div class="radio">
-													<div class="radio__item">
-														<input data-required="" id="o_15" class="radio__input" checked type="radio" value="Нужно сейчас" name="step_6">
-														<label for="o_15" class="radio__label">
-															<span class="radio__text">Нужно сейчас</span>
-														</label>
-													</div>
-													<div class="radio__item">
-														<input id="o_16" class="radio__input" type="radio" value="В течении 2-х недель" name="step_6">
-														<label for="o_16" class="radio__label">
-															<span class="radio__text">В течении 2-х недель</span>
-														</label>
-													</div>
-													<div class="radio__item">
-														<input id="o_17" class="radio__input" type="radio" value="В течении месяца" name="step_6">
-														<label for="o_17" class="radio__label">
-															<span class="radio__text">В течении месяца</span>
-														</label>
-													</div>
-													<div class="radio__item">
-														<input data-required="" id="o_18" class="radio__input" checked type="radio" value="Более месяца" name="step_6">
-														<label for="o_18" class="radio__label">
-															<span class="radio__text">Более месяца</span>
-														</label>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- 7 слайд -->
-										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-											<div class="slide-calculator__body">
-												<div class="slide-calculator__title">
-													<p>Вопрос 7</p>
-													<h4>Выберите подарок:</h4>
-												</div>
-												<div class="options">
-													<div class="options__item">
-														<input data-required="" id="o_19" class="options__input input" checked type="radio" value="Распашные ворота" name="step_7">
-														<label for="o_19" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/1-5.jpg">
-															</div>
-														</label>
-														<h3 class="options__title">Скидка 20% на материал</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_20" class="options__input input" type="radio" value="Откатные ворота" name="step_7">
-														<label for="o_20" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/2-5.png">
-															</div>
-														</label>
-														<h3 class="options__title">2 туи</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_21" class="options__input input" type="radio" value="Не нужны ворота" name="step_7">
-														<label for="o_21" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/3-5.png">
-															</div>
-														</label>
-														<h3 class="options__title">Калитка в подарок</h3>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- Конечная страница !форма! -->
-										<div class="calculator__slide swiper-slide slide-calculator slide-calculator-block slide-main-block">
-											<div class="slide-calculator-block__content">
-												<p class="slide-calculator-block__subtitle">Последний шаг!</p>
-												<div class="slide-calculator__title slide-calculator__title--last">
-													<p>Вопрос 8</p>
-													<h4>Куда Вам удобней получить расчет?</h4>
-												</div>
-												<div class="slide-calculator-block__body">
-													<div class="slide-calculator-block__form">
-														<select data-fls-select="" name="select" data-fls-select-modif="calculator">
-															<option data-fls-select-asset="assets/img/contacts/whats-app.png" value="WhatsApp" selected>WhatsApp</option>
-															<option data-fls-select-asset="assets/img/contacts/viber.png" value="Telegram">Telegram</option>
-															<option data-fls-select-asset="assets/img/contacts/telegram.png" value="Email">Email</option>
-															<option data-fls-select-asset="assets/img/contacts/email.png" value="Email">Email</option>
-														</select>
-														<input data-fls-form-errtext="Заполните поле" required type="text" name="name" data-error="заполните поле" placeholder="Ваше имя" class="slide-calculator-block__input input">
-														<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" placeholder="+375(__) ___-__-__" id="phone" type="text" name="phone" data-error="заполните поле" class="slide-calculator-block__input input input input-form">
-														<button class="slide-calculator-block__button button" type="submit">Получить расчет 
-												+ закрепить подарок</button>
-													</div>
-													<div class="slide-calculator-block__image">
-														<img alt="Image" src="./assets/img/calculator/phone.png">
-													</div>
-												</div>
-											</div>
-											<div class="banner-calculator__body">
-												<div class="banner-calculator__top">
-													<img class="banner-calculator__img-bg" alt="Image" src="./assets/img/calculator/banner/bannert-bg.jpg">
-													<div class="banner-calculator__worker">
-														<div class="banner-calculator__avatar">
-															<img alt="Image" src="./assets/img/calculator/banner/man.png">
-														</div>
-														<a class="banner-calculator__name" href="#">Михаил</a>
-													</div>
-													<div class="banner-calculator__information">
-														<div class="banner-calculator__online">Мы онлайн</div>
-														<div class="banner-calculator__position">Старший менеджер</div>
-														<div class="banner-calculator__test banner-calculator__test--last">Отлично! Я приступаю
-к расчет стоимости!</div>
-													</div>
-												</div>
-												<div class="banner-calculator__bottom">
-													<p class="banner-calculator__subtitle">Теперь</p>
-													<div class="banner-calculator__items">
-														<div class="banner-calculator__item">
-															<img class="banner-calculator__item-img-left" alt="Image" src="./assets/img/calculator/banner/01.png">
-															<p class="banner-calculator__item-text banner-calculator__item-text--last">
-																<strong>Расчет</strong>
-																известен
-															</p>
-															<img class="banner-calculator__item-img-rigth" alt="Image" src="./assets/img/calculator/banner/qv.png">
-														</div>
-														<div class="banner-calculator__item">
-															<img class="banner-calculator__item-img-left" alt="Image" src="./assets/img/calculator/banner/02.png">
-															<p class="banner-calculator__item-text banner-calculator__item-text--last">
-																<strong>PDF</strong>
-																открыт
-															</p>
-															<img class="banner-calculator__item-img-rigth" alt="Image" src="./assets/img/calculator/banner/def.png">
-														</div>
-														<div class="banner-calculator__item">
-															<img class="banner-calculator__item-img-left" alt="Image" src="./assets/img/calculator/banner/03.png">
-															<p class="banner-calculator__item-text banner-calculator__item-text--last">
-																<strong>Подарок</strong>
-																доступен
-															</p>
-															<img class="banner-calculator__item-img-rigth" alt="Image" src="./assets/img/calculator/banner/qv.png">
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</form>
-									<div id="progress" class="calculator__progress">
-										<div class="calculator__progress-body">
-											<div class="calculator__pagination swiper-pagination"></div>
-											<div class="fraction-controll">
-												<span class="fraction-controll__current">01</span>
-												<span class="fraction-controll__all">10</span>
-												<div class="fraction-controll__progress">
-													<span>Готово:</span>
-													0%
-												</div>
-											</div>
-										</div>
-										<div class="calculator__button-body">
-											<div data-ripple="" class="calculator__button-next">
-												Далее
-												<svg class="mdi-icon mdi-24px" viewbox="0 0 24 24">
-													<path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" stroke-width="0" fill-rule="nonzero"></path>
-												</svg>
-											</div>
-											<div data-ripple="" class="calculator__button-prev">
-												<svg class="mdi-icon mdi-24px" viewbox="0 0 24 24">
-													<path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" stroke-width="0" fill-rule="nonzero"></path>
-												</svg>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div id="banner" class="calculator__banner banner-calculator">
-									<div class="banner-calculator__body">
-										<div class="banner-calculator__top">
-											<img class="banner-calculator__img-bg" alt="Image" src="./assets/img/calculator/banner/bannert-bg.jpg">
-											<div class="banner-calculator__worker">
-												<div class="banner-calculator__avatar">
-													<img alt="Image" src="./assets/img/calculator/banner/man.png">
-												</div>
-												<a class="banner-calculator__name" href="#">Михаил</a>
-											</div>
-											<div class="banner-calculator__information">
-												<div class="banner-calculator__online">Мы онлайн</div>
-												<div class="banner-calculator__position">Старший менеджер</div>
-												<div class="banner-calculator__test">Пройдите этот тест и 
-Я лично для Вас рассчитаю 
-стоимость в 3-х вариантах</div>
-											</div>
-										</div>
-										<div class="banner-calculator__bottom">
-											<p class="banner-calculator__subtitle">Пока что:</p>
-											<div class="banner-calculator__items">
-												<div class="banner-calculator__item">
-													<img class="banner-calculator__item-img-left" alt="Image" src="./assets/img/calculator/banner/01.png">
-													<p class="banner-calculator__item-text">
-														<strong>Расчет</strong>
-														не известен
-													</p>
-													<img class="banner-calculator__item-img-rigth" alt="Image" src="./assets/img/calculator/banner/qv.png">
-												</div>
-												<div class="banner-calculator__item">
-													<img class="banner-calculator__item-img-left" alt="Image" src="./assets/img/calculator/banner/02.png">
-													<p class="banner-calculator__item-text">
-														<strong>Расчет</strong>
-														не известен
-													</p>
-													<img class="banner-calculator__item-img-rigth" alt="Image" src="./assets/img/calculator/banner/def.png">
-												</div>
-												<div class="banner-calculator__item">
-													<img class="banner-calculator__item-img-left" alt="Image" src="./assets/img/calculator/banner/03.png">
-													<p class="banner-calculator__item-text">
-														<strong>Расчет</strong>
-														не известен
-													</p>
-													<img class="banner-calculator__item-img-rigth" alt="Image" src="./assets/img/calculator/banner/qv.png">
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="mistake">
-					<img class="mistake__img-bg" alt="Image" src="./assets/img/mistake/bg.jpg">
-					<div class="mistake__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">
-								<h2 class="blockheader__title">4 грубых ошибки</h2>
-								<p class="blockheader__subtitle">4 грубых ошибки</p>
-							</div>
-							<p class="blockheader__text">
-								Для устранения последствий таких ошибок придется потратить большое
-          кол-во времени, сил и значительную сумму
-							</p>
-						</div>
-						<div class="mistake__items">
-							<div class="mistake__item">
-								<span class="mistake__number">01</span>
-								<h3 class="mistake__title">НЕ ПРОИЗВЕДЕНО ОБСЛЕДОВАНИЕ ГРУНТА</h3>
-								<p class="mistake__text">
-									Для разных типов грунта нужно использовать разные методы установки
-            забора
-								</p>
-								<div class="mistake__subtitle">Последствие:</div>
-								<ul class="mistake__list">
-									<li>
-										<strong>- 18 000 руб</strong>
-										из Вашего кошелька;
-									</li>
-									<li>
-										<strong>- 5 дней</strong>
-										на исправление;
-									</li>
-								</ul>
-								<img class="mistake__img-item-bg" alt="Image" src="./assets/img/mistake/card-bg.png">
-							</div>
-							<div class="mistake__item">
-								<span class="mistake__number">02</span>
-								<h3 class="mistake__title">НЕПРАВИЛЬНОЕ ЗАГЛУБЛЕНИЕ ФУНДАМЕНТА</h3>
-								<p class="mistake__text">Начнет со временем клониться упадёт</p>
-								<div class="mistake__subtitle">Последствие:</div>
-								<ul class="mistake__list">
-									<li>
-										<strong>- 18 000 руб</strong>
-										из Вашего кошелька;
-									</li>
-									<li>
-										<strong>- 5 дней</strong>
-										на исправление;
-									</li>
-								</ul>
-								<img class="mistake__img-item-bg" alt="Image" src="./assets/img/mistake/card-bg.png">
-							</div>
-							<div class="mistake__item">
-								<span class="mistake__number">03</span>
-								<h3 class="mistake__title">НЕ ПРОИЗВЕДЕНО ОБСЛЕДОВАНИЕ ГРУНТА</h3>
-								<p class="mistake__text">
-									Для разных типов грунта нужно использовать разные методы установки
-            забора
-								</p>
-								<div class="mistake__subtitle">Последствие:</div>
-								<ul class="mistake__list">
-									<li>
-										<strong>- 18 000 руб</strong>
-										из Вашего кошелька;
-									</li>
-									<li>
-										<strong>- 5 дней</strong>
-										на исправление;
-									</li>
-								</ul>
-								<img class="mistake__img-item-bg" alt="Image" src="./assets/img/mistake/card-bg.png">
-							</div>
-							<div class="mistake__item">
-								<span class="mistake__number">04</span>
-								<h3 class="mistake__title">НЕ ПРОИЗВЕДЕНО ОБСЛЕДОВАНИЕ ГРУНТА</h3>
-								<p class="mistake__text">
-									Для разных типов грунта нужно использовать разные методы установки
-            забора
-								</p>
-								<div class="mistake__subtitle">Последствие:</div>
-								<ul class="mistake__list">
-									<li>
-										<strong>- 18 000 руб</strong>
-										из Вашего кошелька;
-									</li>
-									<li>
-										<strong>- 5 дней</strong>
-										на исправление;
-									</li>
-								</ul>
-								<img class="mistake__img-item-bg" alt="Image" src="./assets/img/mistake/card-bg.png">
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="advantages">
-					<div class="advantages__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">
-								<h2 class="blockheader__title">Калькулятор забора</h2>
-								<p class="blockheader__subtitle">Калькулятор</p>
-							</div>
-							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
-						</div>
-						<div class="advantages__items">
-							<div class="advantages__item">
-								<img class="advantages__img" src="./assets/img/advantages/01.svg" alt="Image">
-								<h3 class="advantages__title">Производство</h3>
-								<p class="advantages__text">Собственное производство профнастила, штакетника и сетки рабицы</p>
-							</div>
-							<div class="advantages__item">
-								<img class="advantages__img" src="./assets/img/advantages/02.svg" alt="Image">
-								<h3 class="advantages__title">Цены</h3>
-								<p class="advantages__text">Только реальные цены без скрытых надбавок</p>
-							</div>
-							<div class="advantages__item">
-								<img class="advantages__img" src="./assets/img/advantages/02.svg" alt="Image">
-								<h3 class="advantages__title">Без предоплат</h3>
-								<p class="advantages__text">Работаем без предоплаты, вы платите по факту выполнения работ</p>
-							</div>
-							<div class="advantages__item">
-								<img class="advantages__img" src="./assets/img/advantages/04.svg" alt="Image">
-								<h3 class="advantages__title">Профессионализм</h3>
-								<p class="advantages__text">Профессиональные бригады выполнят все виды работ точно в срок</p>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="products">
-					<div class="products__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">
-								<h2 class="blockheader__title">Наша продукция</h2>
-								<p class="blockheader__subtitle">Калькулятор</p>
-							</div>
-							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
-						</div>
-						<div class="products__items">
-							<div class="products__item">
-								<img class="products__img" alt="Image" src="./assets/img/products/01.webp">
-								<div class="products__info">
-									<p class="products__name">Заборы из профнастила</p>
-									<p class="products__text">
-										Самые распространенные ограждения для дачи и приусадебных участков
-              благодаря своей эстетичности и надежности. Самые распространенные
-              ограждения для дачи и приусадебных участков благодаря своей
-              эстетичности и надежности. Самые распространенные ограждения для
-              дачи и приусадебных участков благодаря своей эстетичности и
-              надежности. Самые распространенные ограждения для дачи и
-              приусадебных участков благодаря своей эстетичности и надежности.
-              Самые распространенные ограждения для дачи и приусадебных участков
-              благодаря своей эстетичности и надежности. Самые распространенные
-              ограждения для дачи и приусадебных участков благодаря своей
-              эстетичности и надежности. Самые распространенные ограждения для
-              дачи и приусадебных участков благодаря своей эстетичности и
-              надежности. Самые распространенные ограждения для дачи и
-              приусадебных участков благодаря своей эстетичности и надежности.
-              Самые распространенные ограждения для дачи и приусадебных участков
-              благодаря своей эстетичности и надежности. Самые распространенные
-              ограждения для дачи и приусадебных участков благодаря своей
-              эстетичности и надежности. Самые распространенные ограждения для
-              дачи и приусадебных участков благодаря своей эстетичности и
-              надежности. Самые распространенные ограждения для дачи и
-              приусадебных участков благодаря своей эстетичности и надежности.
-              Самые распространенные ограждения для дачи и приусадебных участков
-              благодаря своей эстетичности и надежности. Самые распространенные
-              ограждения для дачи и приусадебных участков благодаря своей
-              эстетичности и надежности. Самые распространенные ограждения для
-              дачи и приусадебных участков благодаря своей эстетичности и
-              надежности. Самые распространенные ограждения для дачи и
-              приусадебных участков благодаря своей эстетичности и надежности.
-              Самые распространенные ограждения для дачи и приусадебных участков
-              благодаря своей эстетичности и надежности. Самые распространенные
-              ограждения для дачи и приусадебных участков благодаря своей
-              эстетичности и надежности.
-									</p>
-									<div class="products__bottom">
-										<div class="products__price">
-											Цена: от
-											<span>314</span>
-											руб./п.м.
-										</div>
-										<a data-fls-popup-link="popup" class="products__button" href="#">Обратная связь</a>
-									</div>
-								</div>
-							</div>
-							<div class="products__item">
-								<img class="products__img" alt="Image" src="./assets/img/products/02.webp">
-								<div class="products__info">
-									<p class="products__name">Заборы из профнастила</p>
-									<p class="products__text">
-										Самые распространенные ограждения для дачи и приусадебных участков
-              благодаря своей эстетичности и надежности.
-									</p>
-									<div class="products__bottom">
-										<div class="products__price">
-											Цена: от
-											<span>314</span>
-											руб./п.м.
-										</div>
-										<a data-fls-popup-link="popup" class="products__button" href="#">Обратная связь</a>
-									</div>
-								</div>
-							</div>
-							<div class="products__item">
-								<img class="products__img" alt="Image" src="./assets/img/products/03.webp">
-								<div class="products__info">
-									<p class="products__name">Заборы из профнастила</p>
-									<p class="products__text">
-										Самые распространенные ограждения для дачи и приусадебных участков
-              благодаря своей эстетичности и надежности.
-									</p>
-									<div class="products__bottom">
-										<div class="products__price">
-											Цена: от
-											<span>314</span>
-											руб./п.м.
-										</div>
-										<a data-fls-popup-link="popup" class="products__button" href="#">Обратная связь</a>
-									</div>
-								</div>
-							</div>
-							<div class="products__item">
-								<img class="products__img" alt="Image" src="./assets/img/products/01.webp">
-								<div class="products__info">
-									<p class="products__name">Заборы из профнастила</p>
-									<p class="products__text">
-										Самые распространенные ограждения для дачи и приусадебных участков
-              благодаря своей эстетичности и надежности.
-									</p>
-									<div class="products__bottom">
-										<div class="products__price">
-											Цена: от
-											<span>314</span>
-											руб./п.м.
-										</div>
-										<a data-fls-popup-link="popup" class="products__button" href="#">Обратная связь</a>
-									</div>
-								</div>
-							</div>
-							<div class="products__item">
-								<img class="products__img" alt="Image" src="./assets/img/products/02.webp">
-								<div class="products__info">
-									<p class="products__name">Заборы из профнастила</p>
-									<p class="products__text">
-										Самые распространенные ограждения для дачи и приусадебных участков
-              благодаря своей эстетичности и надежности.
-									</p>
-									<div class="products__bottom">
-										<div class="products__price">
-											Цена: от
-											<span>314</span>
-											руб./п.м.
-										</div>
-										<a data-fls-popup-link="popup" class="products__button" href="#">Обратная связь</a>
-									</div>
-								</div>
-							</div>
-							<div class="products__item">
-								<img class="products__img" alt="Image" src="./assets/img/products/03.webp">
-								<div class="products__info">
-									<p class="products__name">Заборы из профнастила</p>
-									<p class="products__text">
-										Самые распространенные ограждения для дачи и приусадебных участков
-              благодаря своей эстетичности и надежности.
-									</p>
-									<div class="products__bottom">
-										<div class="products__price">
-											Цена: от
-											<span>314</span>
-											руб./п.м.
-										</div>
-										<a data-fls-popup-link="popup" class="products__button" href="#">Обратная связь</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="quality">
-					<div class="quality__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">
-								<h2 class="blockheader__title">По нашим данным</h2>
-								<p class="blockheader__subtitle">данным</p>
-							</div>
-							<p class="blockheader__text">
-								5-ти степенчатая система контроля качества, которая не допустит таких
-          рисков
-							</p>
-						</div>
-						<div class="quality__body">
-							<div class="quality__items">
-								<div class="quality__item">
-									<img class="quality__item-img" alt="Image" src="./assets/img/quality/1.png">
-									<div class="quality__block">
-										<h3 class="quality__title">Во-первых, еще до монтажа</h3>
-										<p class="quality__text">
-											Обработаем поверхность материала ультрастойкими грунтами и
-                антисептиками в производственных условиях
-										</p>
-									</div>
-								</div>
-								<div class="quality__item">
-									<img class="quality__item-img" alt="Image" src="./assets/img/quality/2.png">
-									<div class="quality__block">
-										<h3 class="quality__title">Во-первых, еще до монтажа</h3>
-										<p class="quality__text">
-											Обработаем поверхность материала ультрастойкими грунтами и
-                антисептиками в производственных условиях
-										</p>
-									</div>
-								</div>
-								<div class="quality__item">
-									<img class="quality__item-img" alt="Image" src="./assets/img/quality/3.png">
-									<div class="quality__block">
-										<h3 class="quality__title">Во-первых, еще до монтажа</h3>
-										<p class="quality__text">
-											Обработаем поверхность материала ультрастойкими грунтами и
-                антисептиками в производственных условиях
-										</p>
-									</div>
-								</div>
-								<div class="quality__item">
-									<img class="quality__item-img" alt="Image" src="./assets/img/quality/1.png">
-									<div class="quality__block">
-										<h3 class="quality__title">Во-первых, еще до монтажа</h3>
-										<p class="quality__text">
-											Обработаем поверхность материала ультрастойкими грунтами и
-                антисептиками в производственных условиях
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="quality__image">
-								<img alt="Image" src="./assets/img/quality/man.png">
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="discount">
-					<img class="discount__img-bg" alt="Image" src="./assets/img/discount/01.png">
-					<div class="discount__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">
-								<h2 class="blockheader__title">Форма</h2>
-								<p class="blockheader__subtitle">Форма</p>
-							</div>
-							<p class="blockheader__text">112 видов заборов под Ваш бюджет</p>
-						</div>
-						<div class="discount__body">
-							<div class="discount__content">
-								<h3 class="discount__form-title">
-									<strong>Скачайте прямо сейчас</strong>
-									прайс-каталог и получите
-            скиду 19% на материал.
-								</h3>
-								<div class="discount__subtitle">
-									<img alt="Image" src="./assets/img/discount/i.png">
-									<p>Скидка закрепится за номером телефона</p>
-								</div>
-								<form class="discount__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
-									<div class="discount__item">
-										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="discount__input input">
-										<button type="submit" class="discount__button button">
-											<img class="button__img" alt="Image" src="./assets/img/hero/down.png">
-											<div class="button__text">
-												<p>Получить прайс-каталог</p>
-												<small>+ получить скидку -19%</small>
-											</div>
-										</button>
-									</div>
-									<label data-fls-checkbox="" class="checkbox">
-										<input checked data-fls-form-errtext="Ознакомтесь с условия обработки персональных данных" class="checkbox__input" type="checkbox" value="согласен" name="check">
-										<span class="checkbox__text">Вы соглашаетесь на условия обработки персональных данных</span>
-									</label>
+							<a data-fls-button="" class="main-hero__phone button button--black-border" href="tel:84958775098">8 (495) 877-50-98</a>
+							<div class="main-hero__bottom">
+								<form class="main-hero__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
+									<p class="main-hero__text">Введите ваш номер, мы перезвоним в течение 5 мин.</p>
+									<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="main-hero__input input">
+									<button type="submit" class="main-hero__button button">Оставить заявку</button>
 								</form>
-								<div class="discount__circle-body">
-									<img alt="Image" src="./assets/img/discount/pdf.png">
-									<p class="discount__circle-pdf">Так же внутри Вы получите инструкцию в PDF</p>
-									<p class="discount__circle-text">"Советы 2022 года по подбору забора"</p>
+								<div class="main-hero__sale">
+									<img class="main-hero__sale-img-bg" alt="Image" src="./assets/img/hero/item-bg.webp">
+									<span>-30%</span>
+									<p>на комплексную отделку балкона до 31.12.2025</p>
 								</div>
+							</div>
+						</div>
+						<div class="hero__item item-hero">
+							<img class="item-hero__img-bg" alt="Image" src="./assets/img/hero/02.webp">
+							<p class="item-hero__text">
+								<span>50% заказчиков</span>
+								приходят к нам от недобросовестных
+          подрядчиков, сорвавших сроки или раздувших смету
+							</p>
+							<div class="item-hero__bottom">
+								<img class="item-hero__bottom-img-bg" alt="Image" src="./assets/img/hero/item-bg.webp">
+								<p>Доверьте ваш балкон профессионалам</p>
+								<a class="item-hero__button" data-fls-popup-link="popup" href="#">
+									Вызвать замерщика
+									<img src="./assets/img/icon/phone.svg" alt="Image">
+								</a>
 							</div>
 						</div>
 					</div>
 				</section>
-				<section class="last-work">
-					<div class="last-work__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">
-								<h2 class="blockheader__title">Калькулятор забора</h2>
-								<p class="blockheader__subtitle">Калькулятор</p>
-							</div>
-							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
-						</div>
-						<div class="last-work__slider-container">
-							<div data-fls-slider="" class="last-work__slider swiper">
-								<div class="last-work__wrapper swiper-wrapper">
-									<!--
-<img
-class="last-work__wrapper-bg"
-src="@img/last-work/bg.jpg"
-alt="Image"
-/>
--->
-									<div class="last-work__slide swiper-slide">
-										<div data-fls-gallery="" class="last-work__images">
-											<a href="./assets/img/last-work/01.jpg">
-												<img class="last-work__img-bg" alt="Image" src="./assets/img/last-work/01.jpg">
-											</a>
-											<div class="last-work__images-bottom">
-												<p class="last-work-images-bottom-text"></p>
-												<div class="last-work__images-bottom-item">
-													<a href="./assets/img/last-work/02.jpg">
-														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/02.jpg">
-													</a>
-													<a href="./assets/img/last-work/03.jpg">
-														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/03.jpg">
-													</a>
-													<a href="./assets/img/last-work/04.jpg">
-														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/04.jpg">
-													</a>
-												</div>
-											</div>
-										</div>
-										<div class="last-work__content">
-											<h3 class="last-work__title">Деревянный забор ранчо</h3>
-											<div class="last-work__city">
-												<img alt="Image" src="./assets/img/last-work/local.png">
-												<p>Л.О. ВОЕЙКОВО</p>
-											</div>
-											<div class="last-work__sale-body">
-												<img alt="Image" src="./assets/img/last-work/tickets.png">
-												<div class="last-work__sale-text">
-													<strong>Экономия составила 20%</strong>
-													<p>по сравнению с работами конкурентов</p>
-												</div>
-											</div>
-											<div class="last-work__info">
-												<div class="last-work__info-item">
-													<h4 class="last-work__info-title">Длина</h4>
-													<div class="last-work__info-text">65 м</div>
-												</div>
-												<div class="last-work__info-item">
-													<h4 class="last-work__info-title">Высота</h4>
-													<div class="last-work__info-text">2,0 м</div>
-												</div>
-												<div class="last-work__info-item">
-													<h4 class="last-work__info-title">Номер краски</h4>
-													<div class="last-work__info-text">568Х</div>
-												</div>
-												<div class="last-work__info-item">
-													<h4 class="last-work__info-title">Обработка</h4>
-													<div class="last-work__info-text">Грунтовка Valti в 1 слой, Tikkurila Vinha в 2 слоя</div>
-												</div>
-											</div>
-											<div class="last-work__list-body">
-												<strong class="last-work__list-title">Было сделано:</strong>
-												<ul class="last-work__list">
-													<li>- Изготовление секций «Ранчо» на производстве</li>
-													<li>- Откатные Ворота Ролтэк 4 метра + Автоматика Came</li>
-													<li>- Установка столбов 60х60 методом бутования щебнем</li>
-													<li>- Покраска металлокаркаса - каркаса Tikkurila Metalista</li>
-													<li>- Изготовление 7 дней и установка 1 день.</li>
-												</ul>
-											</div>
-											<div class="last-work__bottom">
-												<a data-fls-button="" href="#" class="last-work__button button">
-													<img class="button__img" alt="Image" src="./assets/img/last-work/calc.png">
-													<div class="button__text">Рассчитать стоимость в калькуляторе</div>
-												</a>
-												<a class="last-work__link" href="#">Посмотреть полный прайс</a>
-											</div>
-										</div>
-									</div>
-									<div class="last-work__slide swiper-slide">
-										<div data-fls-gallery="" class="last-work__images">
-											<a href="./assets/img/last-work/01.jpg">
-												<img class="last-work__img-bg" alt="Image" src="./assets/img/last-work/01.jpg">
-											</a>
-											<div class="last-work__images-bottom">
-												<p class="last-work-images-bottom-text"></p>
-												<div class="last-work__images-bottom-item">
-													<a href="./assets/img/last-work/02.jpg">
-														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/02.jpg">
-													</a>
-													<a href="./assets/img/last-work/03.jpg">
-														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/03.jpg">
-													</a>
-													<a href="./assets/img/last-work/04.jpg">
-														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/04.jpg">
-													</a>
-												</div>
-											</div>
-										</div>
-										<div class="last-work__content">
-											<h3 class="last-work__title">Деревянный забор ранчо</h3>
-											<div class="last-work__city">
-												<img alt="Image" src="./assets/img/last-work/local.png">
-												<p>Л.О. ВОЕЙКОВО</p>
-											</div>
-											<div class="last-work__sale-body">
-												<img alt="Image" src="./assets/img/last-work/tickets.png">
-												<div class="last-work__sale-text">
-													<strong>Экономия составила 20%</strong>
-													<p>по сравнению с работами конкурентов</p>
-												</div>
-											</div>
-											<div class="last-work__info">
-												<div class="last-work__info-item">
-													<h4 class="last-work__info-title">Длина</h4>
-													<div class="last-work__info-text">65 м</div>
-												</div>
-												<div class="last-work__info-item">
-													<h4 class="last-work__info-title">Высота</h4>
-													<div class="last-work__info-text">2,0 м</div>
-												</div>
-												<div class="last-work__info-item">
-													<h4 class="last-work__info-title">Номер краски</h4>
-													<div class="last-work__info-text">568Х</div>
-												</div>
-												<div class="last-work__info-item">
-													<h4 class="last-work__info-title">Обработка</h4>
-													<div class="last-work__info-text">Грунтовка Valti в 1 слой, Tikkurila Vinha в 2 слоя</div>
-												</div>
-											</div>
-											<div class="last-work__list-body">
-												<strong class="last-work__list-title">Было сделано:</strong>
-												<ul class="last-work__list">
-													<li>- Изготовление секций «Ранчо» на производстве</li>
-													<li>- Откатные Ворота Ролтэк 4 метра + Автоматика Came</li>
-													<li>- Установка столбов 60х60 методом бутования щебнем</li>
-													<li>- Покраска металлокаркаса - каркаса Tikkurila Metalista</li>
-													<li>- Изготовление 7 дней и установка 1 день.</li>
-												</ul>
-											</div>
-											<div class="last-work__bottom">
-												<a data-fls-button="" href="#" class="last-work__button button">
-													<img class="button__img" alt="Image" src="./assets/img/last-work/calc.png">
-													<div class="button__text">Рассчитать стоимость в калькуляторе</div>
-												</a>
-												<a class="last-work__link" href="#">Посмотреть полный прайс</a>
-											</div>
-										</div>
-									</div>
-									<div class="last-work__slide swiper-slide">
-										<div data-fls-gallery="" class="last-work__images">
-											<a href="./assets/img/last-work/01.jpg">
-												<img class="last-work__img-bg" alt="Image" src="./assets/img/last-work/01.jpg">
-											</a>
-											<div class="last-work__images-bottom">
-												<p class="last-work-images-bottom-text"></p>
-												<div class="last-work__images-bottom-item">
-													<a href="./assets/img/last-work/02.jpg">
-														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/02.jpg">
-													</a>
-													<a href="./assets/img/last-work/03.jpg">
-														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/03.jpg">
-													</a>
-													<a href="./assets/img/last-work/04.jpg">
-														<img class="last-work__img-bottom" alt="Image" src="./assets/img/last-work/04.jpg">
-													</a>
-												</div>
-											</div>
-										</div>
-										<div class="last-work__content">
-											<h3 class="last-work__title">Деревянный забор ранчо</h3>
-											<div class="last-work__city">
-												<img alt="Image" src="./assets/img/last-work/local.png">
-												<p>Л.О. ВОЕЙКОВО</p>
-											</div>
-											<div class="last-work__sale-body">
-												<img alt="Image" src="./assets/img/last-work/tickets.png">
-												<div class="last-work__sale-text">
-													<strong>Экономия составила 20%</strong>
-													<p>по сравнению с работами конкурентов</p>
-												</div>
-											</div>
-											<div class="last-work__info">
-												<div class="last-work__info-item">
-													<h4 class="last-work__info-title">Длина</h4>
-													<div class="last-work__info-text">65 м</div>
-												</div>
-												<div class="last-work__info-item">
-													<h4 class="last-work__info-title">Высота</h4>
-													<div class="last-work__info-text">2,0 м</div>
-												</div>
-												<div class="last-work__info-item">
-													<h4 class="last-work__info-title">Номер краски</h4>
-													<div class="last-work__info-text">568Х</div>
-												</div>
-												<div class="last-work__info-item">
-													<h4 class="last-work__info-title">Обработка</h4>
-													<div class="last-work__info-text">Грунтовка Valti в 1 слой, Tikkurila Vinha в 2 слоя</div>
-												</div>
-											</div>
-											<div class="last-work__list-body">
-												<strong class="last-work__list-title">Было сделано:</strong>
-												<ul class="last-work__list">
-													<li>- Изготовление секций «Ранчо» на производстве</li>
-													<li>- Откатные Ворота Ролтэк 4 метра + Автоматика Came</li>
-													<li>- Установка столбов 60х60 методом бутования щебнем</li>
-													<li>- Покраска металлокаркаса - каркаса Tikkurila Metalista</li>
-													<li>- Изготовление 7 дней и установка 1 день.</li>
-												</ul>
-											</div>
-											<div class="last-work__bottom">
-												<a data-fls-button="" href="#" class="last-work__button button">
-													<img class="button__img" alt="Image" src="./assets/img/last-work/calc.png">
-													<div class="button__text">Рассчитать стоимость в калькуляторе</div>
-												</a>
-												<a class="last-work__link" href="#">Посмотреть полный прайс</a>
-											</div>
-										</div>
-									</div>
+				<div class="advantages">
+					<div class="advantages__container">
+						<div class="advantages__items">
+							<div class="advantages__item advantages__item--left">
+								<div class="advantages__top advantages__top--left">
+									<h3 class="advantages__title advantages__title--white">Комплексная отделка балкона под ключ</h3>
+									<div class="advantages__price">от 50 000 руб.</div>
 								</div>
-								<div class="swiper-pagination"></div>
+								<a class="advantages__button" href="#">
+									Рассчитать цену своего балкона
+									<img src="./assets/img/icon/calc.svg" alt="Image">
+								</a>
 							</div>
-							<button type="button" class="last-work-button-prev swiper-button-prev"></button>
-							<button type="button" class="last-work-button-next swiper-button-next"></button>
+							<div class="advantages__item">
+								<h3 class="advantages__title">
+									Рассрочка до 24 месяцев
+									<img alt="Image" src="./assets/img/advantages/01.webp">
+								</h3>
+								<p class="advantages__text">Без первоначального взноса!Мы доверяем нашим клиентам</p>
+							</div>
+							<div class="advantages__item">
+								<h3 class="advantages__title">
+									Честная цена
+									<img alt="Image" src="./assets/img/advantages/02.webp">
+								</h3>
+								<p class="advantages__text">Без первоначального взноса!Мы доверяем нашим клиентам</p>
+							</div>
+							<div class="advantages__item">
+								<h3 class="advantages__title">
+									Проверенное качество
+									<img alt="Image" src="./assets/img/advantages/03.webp">
+								</h3>
+								<ul class="advantages__list">
+									<li>+11 лет опыта в отделке балконов</li>
+									<li>+13 штатных бригад</li>
+									<li>+3500 выполненных проектов</li>
+								</ul>
+							</div>
 						</div>
-					</div>
-				</section>
-				<div class="number">
-					<div data-fls-watcher="" class="number__container">
-						и еще
-						<span data-fls-digcounter="" class="image-number">237</span>
-						за 2024 год
 					</div>
 				</div>
+				<section class="gift">
+					<div class="gift__container">
+						<div class="gift__body">
+							<h2 dta-fls-title="" class="title title--bacr">
+								Остекление и отделка балконов в Москве и МО
+								<span>под ключ за 3 дня</span>
+							</h2>
+							<div class="gift__items">
+								<div class="gift__item">
+									<img class="gift__img gift__img--contain" alt="Image" src="./assets/img/gift/01.webp">
+									<div class="gift__button button">Конвектор</div>
+								</div>
+								<div class="gift__item">
+									<img class="gift__img" alt="Image" src="./assets/img/gift/02.webp">
+									<div class="gift__button button">Конвектор</div>
+								</div>
+								<div class="gift__item">
+									<img class="gift__img" alt="Image" src="./assets/img/gift/03.webp">
+									<div class="gift__button button">Конвектор</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
 				<section class="services">
 					<div class="services__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">
-								<h2 class="blockheader__title">О компании</h2>
-								<p class="blockheader__subtitle">Услуги</p>
-							</div>
-							<p class="blockheader__text">Сделаем качественно</p>
-						</div>
 						<div class="services__items">
 							<div class="services__item">
-								<img class="services__item-img" alt="Image" src="./assets/img/services/1.jpg">
-								<div class="services__block">
-									<h3 class="services__item-title">Производим полный цикл работ, от выбора - до монтажа</h3>
-									<p class="services__item-text">Подбор, доставка, монтаж и обслуживание</p>
+								<img class="services__item-img" alt="Image" src="./assets/img/services/01.webp">
+								<h3 class="services__title">
+									Рассчитать стоимость вашего балкона со скидкой
+									<span>35 000 рублей</span>
+								</h3>
+								<a class="services__button button" href="#">Рассчитать стоимость балкона</a>
+							</div>
+							<div class="services__item">
+								<img class="services__item-img" alt="Image" src="./assets/img/services/03.webp">
+								<h3 class="services__title">
+									Скидка 15%
+									<span>35 000 рублей</span>
+								</h3>
+								<p class="services__text">новоселам и пенсионерам на отделку 2-х балконов</p>
+								<div class="services__buttons">
+									<a class="services__button button" href="#">Оставить заявку</a>
+									<a class="services__button button button--black-border" href="#">8 (495) 877-50-98</a>
 								</div>
 							</div>
 							<div class="services__item">
-								<img class="services__item-img" alt="Image" src="./assets/img/services/2.jpg">
-								<div class="services__block">
-									<h3 class="services__item-title">Производим полный цикл работ, от выбора - до монтажа</h3>
-									<p class="services__item-text">Подбор, доставка, монтаж и обслуживание</p>
+								<img class="services__item-img" alt="Image" src="./assets/img/services/05.webp">
+								<h3 class="services__title">
+									Рассрочка
+									<span>до 24 месяцев</span>
+								</h3>
+								<p class="services__text">без первоначального взноса Оформление за 10 минут</p>
+								<div class="services__buttons">
+									<a class="services__button button" href="#">Оставить заявку</a>
+									<a class="services__button button button--black-border" href="#">8 (495) 877-50-98</a>
 								</div>
 							</div>
-							<div class="services__item">
-								<img class="services__item-img" alt="Image" src="./assets/img/services/3.jpg">
-								<div class="services__block">
-									<h3 class="services__item-title">Производим полный цикл работ, от выбора - до монтажа</h3>
-									<p class="services__item-text">Подбор, доставка, монтаж и обслуживание</p>
+							<!--
+<div class="services__item">
+<h3 class="services__title">Рассрочка <span>до 24 месяцев</span></h3>
+<p class="services__text">
+без первоначального взноса Оформление за 10 минут
+</p>
+<div class="services__buttons">
+<a class="services__button button" href="#">Оставить заявку</a>
+<a class="services__button button button--black-border" href="#"
+>8 (495) 877-50-98</a
+>
+</div>
+</div>
+-->
+						</div>
+					</div>
+				</section>
+				<section class="finishing-price">
+					<div class="finishing-price__container">
+						<div class="finishing-price__body">
+							<h2 data-fls-title="" class="title">Цены на отделку балкона</h2>
+							<div class="finishing-price__items">
+								<div class="finishing-price__item">
+									<div class="finishing-price__content">
+										<h3 class="finishing-price__title">Комплексная отделка балкона под ключ</h3>
+										<div class="finishing-price__bottom">
+											<p class="finishing-price__text">
+												•отделка пола, стен, потолка • утепление пола и стен •
+                  электрика
+											</p>
+											<span class="finishing-price__number">от 50 000 руб.</span>
+										</div>
+									</div>
+									<img class="finishing-price__img" alt="Image" src="./assets/img/finishing-price/01.webp">
+								</div>
+								<div class="finishing-price__item">
+									<h3 class="finishing-price__title">Внешняя отделка</h3>
+									<img class="finishing-price__img" alt="Image" src="./assets/img/finishing-price/02.webp">
+									<span class="finishing-price__number">от 1 100 руб./м2</span>
+								</div>
+								<div class="finishing-price__item">
+									<h3 class="finishing-price__title">Внешняя отделка</h3>
+									<ul class="finishing-price__list">
+										<li>линолеум</li>
+										<li>ламинат</li>
+										<li>доска</li>
+										<li>плитка</li>
+										<li>OSB</li>
+										<li>кварц-винил</li>
+									</ul>
+									<span class="finishing-price__number">от 800 руб./м2</span>
+									<img class="finishing-price__img" alt="Image" src="./assets/img/finishing-price/03.webp">
+								</div>
+								<div class="finishing-price__item">
+									<h3 class="finishing-price__title">Внешняя отделка</h3>
+									<ul class="finishing-price__list">
+										<li>линолеум</li>
+										<li>ламинат</li>
+										<li>доска</li>
+										<li>плитка</li>
+										<li>OSB</li>
+										<li>кварц-винил</li>
+									</ul>
+									<span class="finishing-price__number">от 800 руб./м2</span>
+									<img class="finishing-price__img" alt="Image" src="./assets/img/finishing-price/04.webp">
+								</div>
+								<div class="finishing-price__item">
+									<h3 class="finishing-price__title">Внешняя отделка</h3>
+									<ul class="finishing-price__list">
+										<li>линолеум</li>
+										<li>ламинат</li>
+										<li>доска</li>
+										<li>плитка</li>
+										<li>OSB</li>
+										<li>кварц-винил</li>
+									</ul>
+									<span class="finishing-price__number">от 800 руб./м2</span>
+									<img class="finishing-price__img" alt="Image" src="./assets/img/finishing-price/05.webp">
+								</div>
+								<div class="finishing-price__item">
+									<h3 class="finishing-price__title">Внешняя отделка</h3>
+									<img class="finishing-price__img" alt="Image" src="./assets/img/finishing-price/06.webp">
+									<span class="finishing-price__number">от 800 руб./м2</span>
+								</div>
+								<div class="finishing-price__item">
+									<h3 class="finishing-price__title">Внешняя отделка</h3>
+									<div class="finishing-price__bottom">
+										<img class="finishing-price__img" alt="Image" src="./assets/img/finishing-price/07.webp">
+										<span class="finishing-price__number">от 800 руб./м2</span>
+									</div>
+								</div>
+								<div class="finishing-price__item">
+									<div class="finishing-price__content">
+										<h3 class="finishing-price__title">Внешняя отделка</h3>
+										<ul class="finishing-price__list">
+											<li>линолеум</li>
+											<li>ламинат</li>
+										</ul>
+										<div class="finishing-price__company">
+											<img src="./assets/img/finishing-price/company/01.svg" alt="Image">
+											<img src="./assets/img/finishing-price/company/02.svg" alt="Image">
+											<img src="./assets/img/finishing-price/company/03.svg" alt="Image">
+											<img src="assets/img/finishing-price/company/41.svg" alt="Image">
+											<img src="./assets/img/finishing-price/company/05.svg" alt="Image">
+										</div>
+									</div>
+									<div class="finishing-price__block">
+										<img class="finishing-price__img" alt="Image" src="./assets/img/finishing-price/08.webp">
+										<span class="finishing-price__number">от 800 руб./м2</span>
+									</div>
+								</div>
+								<div class="finishing-price__item">
+									<div class="finishing-price__content">
+										<h3 class="finishing-price__title">Внешняя отделка</h3>
+										<ul class="finishing-price__list">
+											<li>замена</li>
+											<li>демонтаж (соединение комнаты и балкона)</li>
+										</ul>
+									</div>
+									<div class="finishing-price__block">
+										<img class="finishing-price__img" alt="Image" src="./assets/img/finishing-price/09.webp">
+										<span class="finishing-price__number">от 30 000 руб.</span>
+									</div>
+								</div>
+								<div class="finishing-price__item">
+									<h3 class="finishing-price__title">Внешняя отделка</h3>
+									<p class="finishing-price__text">электрический теплый пол</p>
+									<img class="finishing-price__img" alt="Image" src="./assets/img/finishing-price/10.webp">
+									<span class="finishing-price__number">в подарок!!!</span>
+								</div>
+								<div class="finishing-price__item">
+									<h3 class="finishing-price__title">Внешняя отделка</h3>
+									<div class="finishing-price__bottom">
+										<img class="finishing-price__img" alt="Image" src="./assets/img/finishing-price/11.webp">
+										<span class="finishing-price__number">от 5 000 руб.</span>
+									</div>
 								</div>
 							</div>
-							<div class="services__item">
-								<img class="services__item-img" alt="Image" src="./assets/img/services/1.jpg">
-								<div class="services__block">
-									<h3 class="services__item-title">Производим полный цикл работ, от выбора - до монтажа</h3>
-									<p class="services__item-text">Подбор, доставка, монтаж и обслуживание</p>
+							<div class="finishing-price__buttons">
+								<a class="finishing-price__button button" href="#">Оставить заявку</a>
+								<a class="finishing-price__button button button--black-border" href="tel:84958775098">8 (495) 877-50-98</a>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="glazing-price">
+					<div class="glazing-price__container">
+						<div class="glazing-price__body">
+							<h2 data-fls-title="" class="title">
+								Остекление и отделка балконов в Москве и МО
+								<span>под ключ за 3 дня</span>
+							</h2>
+							<div class="glazing-price__wrapper">
+								<div class="glazing-price__items">
+									<div class="glazing-price__item">
+										<h3 class="glazing-price__title">Прямая балконная рама ПВХ (теплая)</h3>
+										<div class="glazing-price__content">
+											<img class="glazing-price__img" alt="Image" src="./assets/img/glazing-price/01.webp">
+											<div class="glazing-price__column">
+												<div class="glazing-price__compamy">
+													<img src="./assets/img/finishing-price/company/01.svg" alt="Image">
+													<img src="./assets/img/finishing-price/company/02.svg" alt="Image">
+													<img src="./assets/img/finishing-price/company/03.svg" alt="Image">
+												</div>
+												<span class="glazing-price__price">от 40 000 руб.</span>
+											</div>
+										</div>
+									</div>
+									<div class="glazing-price__item">
+										<h3 class="glazing-price__title">Прямая балконная рама ПВХ (теплая)</h3>
+										<div class="glazing-price__content">
+											<img class="glazing-price__img" alt="Image" src="./assets/img/glazing-price/02.png">
+											<div class="glazing-price__column">
+												<div class="glazing-price__compamy">
+													<img src="./assets/img/finishing-price/company/01.svg" alt="Image">
+													<img src="./assets/img/finishing-price/company/02.svg" alt="Image">
+													<img src="./assets/img/finishing-price/company/03.svg" alt="Image">
+												</div>
+												<span class="glazing-price__price">от 40 000 руб.</span>
+											</div>
+										</div>
+									</div>
+									<div class="glazing-price__item">
+										<h3 class="glazing-price__title">Прямая балконная рама ПВХ (теплая)</h3>
+										<div class="glazing-price__content">
+											<img class="glazing-price__img" alt="Image" src="./assets/img/glazing-price/03.webp">
+											<div class="glazing-price__column">
+												<div class="glazing-price__compamy">
+													<img src="./assets/img/finishing-price/company/01.svg" alt="Image">
+													<img src="./assets/img/finishing-price/company/02.svg" alt="Image">
+													<img src="./assets/img/finishing-price/company/03.svg" alt="Image">
+												</div>
+												<span class="glazing-price__price">от 40 000 руб.</span>
+											</div>
+										</div>
+									</div>
+									<div class="glazing-price__item">
+										<h3 class="glazing-price__title">Прямая балконная рама ПВХ (теплая)</h3>
+										<img class="glazing-price__img" alt="Image" src="./assets/img/glazing-price/04.webp">
+										<span class="glazing-price__price">от 40 000 руб.</span>
+									</div>
+								</div>
+								<div class="glazing-price__items glazing-price__items--reverse">
+									<div class="glazing-price__item">
+										<h3 class="glazing-price__title">Прямая балконная рама ПВХ (теплая)</h3>
+										<div class="glazing-price__content">
+											<img class="glazing-price__img" alt="Image" src="./assets/img/glazing-price/01.webp">
+											<div class="glazing-price__column">
+												<div class="glazing-price__compamy">
+													<img src="./assets/img/finishing-price/company/01.svg" alt="Image">
+													<img src="./assets/img/finishing-price/company/02.svg" alt="Image">
+													<img src="./assets/img/finishing-price/company/03.svg" alt="Image">
+												</div>
+												<span class="glazing-price__price">от 40 000 руб.</span>
+											</div>
+										</div>
+									</div>
+									<div class="glazing-price__item">
+										<h3 class="glazing-price__title">Прямая балконная рама ПВХ (теплая)</h3>
+										<div class="glazing-price__content">
+											<img class="glazing-price__img" alt="Image" src="./assets/img/glazing-price/02.png">
+											<div class="glazing-price__column">
+												<div class="glazing-price__compamy">
+													<img src="./assets/img/finishing-price/company/01.svg" alt="Image">
+													<img src="./assets/img/finishing-price/company/02.svg" alt="Image">
+													<img src="./assets/img/finishing-price/company/03.svg" alt="Image">
+												</div>
+												<span class="glazing-price__price">от 40 000 руб.</span>
+											</div>
+										</div>
+									</div>
+									<div class="glazing-price__item">
+										<h3 class="glazing-price__title">Прямая балконная рама ПВХ (теплая)</h3>
+										<div class="glazing-price__content">
+											<img class="glazing-price__img" alt="Image" src="./assets/img/glazing-price/03.webp">
+											<div class="glazing-price__column">
+												<div class="glazing-price__compamy">
+													<img src="./assets/img/finishing-price/company/01.svg" alt="Image">
+													<img src="./assets/img/finishing-price/company/02.svg" alt="Image">
+													<img src="./assets/img/finishing-price/company/03.svg" alt="Image">
+												</div>
+												<span class="glazing-price__price">от 40 000 руб.</span>
+											</div>
+										</div>
+									</div>
+									<div class="glazing-price__item">
+										<h3 class="glazing-price__title">Прямая балконная рама ПВХ (теплая)</h3>
+										<img class="glazing-price__img" alt="Image" src="./assets/img/glazing-price/04.webp">
+										<span class="glazing-price__price">от 40 000 руб.</span>
+									</div>
 								</div>
 							</div>
-							<div class="services__item">
-								<img class="services__item-img" alt="Image" src="./assets/img/services/1.jpg">
-								<div class="services__block">
-									<h3 class="services__item-title">Производим полный цикл работ, от выбора - до монтажа</h3>
-									<p class="services__item-text">Подбор, доставка, монтаж и обслуживание</p>
+							<div class="glazing-price__buttons">
+								<a data-fls-popup-link="popup" class="glazing-price__button button" href="#">Оставить заявку</a>
+								<a class="glazing-price__button button button--black-border" href="tel:84958775098">8 (495) 877-50-98</a>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="turnkey">
+					<div class="turnkey__container">
+						<div class="turnkey__body">
+							<h2 data-fls-title="" class="title">Цены на отделку балкона под ключ</h2>
+							<div class="turnkey__items">
+								<div class="turnkey__item">
+									<div data-fls-gallery="" class="turnkey__gallery">
+										<a href="./assets/img/turnkey/01.webp">
+											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+									</div>
+									<div class="turnkey__info">
+										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
+										<ul class="turnkey__list">
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+										</ul>
+										<div class="turnkey__prices">
+											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
+											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
+										</div>
+									</div>
+								</div>
+								<div class="turnkey__item">
+									<div data-fls-gallery="" class="turnkey__gallery">
+										<a href="./assets/img/turnkey/01.webp">
+											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+									</div>
+									<div class="turnkey__info">
+										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
+										<ul class="turnkey__list">
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+										</ul>
+										<div class="turnkey__prices">
+											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
+											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
+										</div>
+									</div>
+								</div>
+								<div class="turnkey__item">
+									<div data-fls-gallery="" class="turnkey__gallery">
+										<a href="./assets/img/turnkey/01.webp">
+											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+									</div>
+									<div class="turnkey__info">
+										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
+										<ul class="turnkey__list">
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+										</ul>
+										<div class="turnkey__prices">
+											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
+											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
+										</div>
+									</div>
+								</div>
+								<div class="turnkey__item">
+									<div data-fls-gallery="" class="turnkey__gallery">
+										<a href="./assets/img/turnkey/01.webp">
+											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+									</div>
+									<div class="turnkey__info">
+										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
+										<ul class="turnkey__list">
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+										</ul>
+										<div class="turnkey__prices">
+											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
+											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
+										</div>
+									</div>
+								</div>
+								<div class="turnkey__item">
+									<div data-fls-gallery="" class="turnkey__gallery">
+										<a href="./assets/img/turnkey/01.webp">
+											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+									</div>
+									<div class="turnkey__info">
+										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
+										<ul class="turnkey__list">
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+										</ul>
+										<div class="turnkey__prices">
+											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
+											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
+										</div>
+									</div>
+								</div>
+								<div class="turnkey__item">
+									<div data-fls-gallery="" class="turnkey__gallery">
+										<a href="./assets/img/turnkey/01.webp">
+											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+									</div>
+									<div class="turnkey__info">
+										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
+										<ul class="turnkey__list">
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+										</ul>
+										<div class="turnkey__prices">
+											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
+											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="services__item">
-								<img class="services__item-img" alt="Image" src="./assets/img/services/1.jpg">
-								<div class="services__block">
-									<h3 class="services__item-title">Производим полный цикл работ, от выбора - до монтажа</h3>
-									<p class="services__item-text">Подбор, доставка, монтаж и обслуживание</p>
-								</div>
-							</div>
-							<div class="services__item">
-								<img class="services__item-img" alt="Image" src="./assets/img/services/1.jpg">
-								<div class="services__block">
-									<h3 class="services__item-title">Производим полный цикл работ, от выбора - до монтажа</h3>
-									<p class="services__item-text">Подбор, доставка, монтаж и обслуживание</p>
-								</div>
+							<div class="glazing-price__buttons">
+								<a data-fls-popup-link="popup" class="glazing-price__button button" href="#">Оставить заявку</a>
+								<a class="glazing-price__button button button--black-border" href="tel:84958775098">8 (495) 877-50-98</a>
 							</div>
 						</div>
 					</div>
 				</section>
 				<section class="gallery">
 					<div class="gallery__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">
-								<h2 class="blockheader__title">Калькулятор забора</h2>
-								<p class="blockheader__subtitle">Калькулятор</p>
+						<div class="gallery__body">
+							<h2 data-fls-title="" class="title">Наши работы</h2>
+							<div data-fls-gallery="" class="gallery__items">
+								<a href="./assets/img/gallery/01.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/01.webp">
+								</a>
+								<a href="./assets/img/gallery/02.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/02.webp">
+								</a>
+								<a href="./assets/img/gallery/03.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/03.webp">
+								</a>
+								<a href="./assets/img/gallery/04.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/04.webp">
+								</a>
+								<a href="./assets/img/gallery/05.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/05.webp">
+								</a>
+								<a href="./assets/img/gallery/06.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/06.webp">
+								</a>
+								<a href="./assets/img/gallery/07.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/07.webp">
+								</a>
+								<a href="./assets/img/gallery/08.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/08.webp">
+								</a>
+								<a href="./assets/img/gallery/09.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/08.webp">
+								</a>
+								<a href="./assets/img/gallery/01.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/01.webp">
+								</a>
 							</div>
-							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
+							<div class="gallery__buttons">
+								<a data-fls-popup-link="popup" class="gallery__button button" href="#">Оставить заявку</a>
+								<a class="gallery__button button button--black-border" href="tel:84958775098">8 (495) 877-50-98</a>
+							</div>
 						</div>
-						<div data-fls-gallery="" class="gallery__body">
-							<a href="./assets/img/gallery/01.jpg" class="gallery__item">
-								<img alt="#" src="./assets/img/gallery/01.jpg">
-							</a>
-							<a href="./assets/img/gallery/02.jpg" class="gallery__item">
-								<img alt="#" src="./assets/img/gallery/02.jpg">
-							</a>
-							<a href="./assets/img/gallery/03.jpg" class="gallery__item">
-								<img alt="#" src="./assets/img/gallery/03.jpg">
-							</a>
-							<a href="./assets/img/gallery/04.jpg" class="gallery__item">
-								<img alt="#" src="./assets/img/gallery/04.jpg">
-							</a>
-							<a href="./assets/img/gallery/05.jpg" class="gallery__item">
-								<img alt="#" src="./assets/img/gallery/05.jpg">
-							</a>
-							<a href="./assets/img/gallery/06.jpg" class="gallery__item">
-								<img alt="#" src="./assets/img/gallery/06.jpg">
-							</a>
-							<a href="./assets/img/gallery/07.jpg" class="gallery__item">
-								<img alt="#" src="./assets/img/gallery/07.jpg">
-							</a>
-							<a href="./assets/img/gallery/08.jpg" class="gallery__item">
-								<img alt="#" src="./assets/img/gallery/08.jpg">
-							</a>
-							<a href="./assets/img/gallery/09.jpg" class="gallery__item">
-								<img alt="#" src="./assets/img/gallery/09.jpg">
-							</a>
-							<a href="./assets/img/gallery/10.jpg" class="gallery__item">
-								<img alt="#" src="./assets/img/gallery/10.jpg">
-							</a>
+					</div>
+				</section>
+				<section class="form">
+					<div class="form__container">
+						<div class="form__body">
+							<div class="form__content">
+								<h2 data-fls-title="" class="form__title title">
+									Записаться на бесплатный замер со скидкой
+									<span>35 000 руб.</span>
+								</h2>
+								<div class="form__item">
+									<p class="form__text">Оставьте ваши контактные данные, мы свяжемся с вами в течение 5 минут</p>
+									<form class="form__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
+										<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" required placeholder="Ваше имя" class="form__input input">
+										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="form__input input">
+										<button type="submit" class="form__button button">Оставить заявку</button>
+									</form>
+								</div>
+							</div>
+							<div class="form__image">
+								<img alt="Image" src="./assets/img/form/01.webp">
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="consultation">
+					<div class="consultation__container">
+						<div class="consultation__body">
+							<div class="consultation__content">
+								<h2 data-fls-title="" class="title">Сомневаетесь в выборе?</h2>
+								<p class="consultation__text">Проконсультируем вас по любым вопросам</p>
+								<div class="consultation__buttons">
+									<a class="consultation__button button" href="#">Получить консультацию</a>
+									<a class="consultation__button button button--black-border" href="#">8 (495) 877-50-98</a>
+								</div>
+							</div>
+							<div class="consultation__image">
+								<img alt="Image" src="./assets/img/consultation/01.webp">
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="variants">
+					<div class="variants__container">
+						<div class="variants__body">
+							<h2 data-fls-title="" class="title">
+								Остекление и отделка балконов в Москве и МО
+								<span>под ключ за 3 дня</span>
+							</h2>
+							<p class="variants__text">
+								Балкон — это возможность расширить пространство вашего жилья.Мы поможем превратить ваш балкон или лоджию в уютную комнату, кабинет, оранжерею или удобное место для хранения вещей.
+							</p>
+							<!-- Оболочка слайдера -->
+							<div class="variants__slider-container">
+								<div data-fls-slider="" class="variants__slider swiper">
+									<!-- Часть слайдера, которая двигается -->
+									<div class="variants__wrapper swiper-wrapper">
+										<!-- Слайд -->
+										<div class="variants__slide swiper-slide">
+											<div data-fls-gallery="" class="variants__images">
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img-bg" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+											</div>
+											<a class="variants__button button" href="#">Хочу балкон для отдыха</a>
+											<div class="variants__info">
+												<ul class="variants__list">
+													<li>Отделка пола — доска</li>
+													<li>Отделка стен — вагонка</li>
+													<li>Алюминиевое остекление</li>
+													<li>Натяжной потолок</li>
+													<li>Подводка электрики</li>
+													<li>Балконная мебель</li>
+												</ul>
+												<span class="variants__price">от 80 000 руб.</span>
+											</div>
+										</div>
+										<div class="variants__slide swiper-slide">
+											<div data-fls-gallery="" class="variants__images">
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img-bg" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+											</div>
+											<a class="variants__button button" href="#">Хочу балкон для отдыха</a>
+											<div class="variants__info">
+												<ul class="variants__list">
+													<li>Отделка пола — доска</li>
+													<li>Отделка стен — вагонка</li>
+													<li>Алюминиевое остекление</li>
+													<li>Натяжной потолок</li>
+													<li>Подводка электрики</li>
+													<li>Балконная мебель</li>
+												</ul>
+												<span class="variants__price">от 80 000 руб.</span>
+											</div>
+										</div>
+										<div class="variants__slide swiper-slide">
+											<div data-fls-gallery="" class="variants__images">
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img-bg" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+											</div>
+											<a class="variants__button button" href="#">Хочу балкон для отдыха</a>
+											<div class="variants__info">
+												<ul class="variants__list">
+													<li>Отделка пола — доска</li>
+													<li>Отделка стен — вагонка</li>
+													<li>Алюминиевое остекление</li>
+													<li>Натяжной потолок</li>
+													<li>Подводка электрики</li>
+													<li>Балконная мебель</li>
+												</ul>
+												<span class="variants__price">от 80 000 руб.</span>
+											</div>
+										</div>
+										<div class="variants__slide swiper-slide">
+											<div data-fls-gallery="" class="variants__images">
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img-bg" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+											</div>
+											<a class="variants__button button" href="#">Хочу балкон для отдыха</a>
+											<div class="variants__info">
+												<ul class="variants__list">
+													<li>Отделка пола — доска</li>
+													<li>Отделка стен — вагонка</li>
+													<li>Алюминиевое остекление</li>
+													<li>Натяжной потолок</li>
+													<li>Подводка электрики</li>
+													<li>Балконная мебель</li>
+												</ul>
+												<span class="variants__price">от 80 000 руб.</span>
+											</div>
+										</div>
+									</div>
+									<div class="swiper-pagination"></div>
+								</div>
+								<button type="button" class="variants-button-prev swiper-button-prev"></button>
+								<button type="button" class="variants-button-next swiper-button-next"></button>
+							</div>
 						</div>
 					</div>
 				</section>
 				<section class="warranty">
-					<img class="warranty__img-bg" alt="Image" src="./assets/img/warranty/bg.jpg">
-					<img class="warranty__decor-l" alt="Image" src="./assets/img/warranty/green-l.png">
-					<img class="warranty__decor-r" alt="Image" src="./assets/img/warranty/green-r.png">
 					<div class="warranty__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">
-								<h2 class="blockheader__title">Гарантия</h2>
-								<p class="blockheader__subtitle">Гарантия</p>
-							</div>
-							<p class="blockheader__text">Все аспекты учитываются в договоре</p>
-						</div>
 						<div class="warranty__body">
 							<div class="warranty__content">
-								<div class="warranty__top top-warranty">
-									<div class="top-warranty__item">
-										<img class="top-warranty__img" alt="Image" src="./assets/img/warranty/01.png">
-										<div class="top-warranty__block">
-											<h3 class="top-warranty__title">Берем на себя материальную ответственность за сроки</h3>
-											<p class="top-warranty__text">Либо платим неустойку 1% от суммы в договоре за день</p>
-										</div>
-									</div>
-									<div class="top-warranty__item">
-										<img class="top-warranty__img" alt="Image" src="./assets/img/warranty/02.png">
-										<div class="top-warranty__block">
-											<h3 class="top-warranty__title">Берем на себя материальную ответственность за сроки</h3>
-											<p class="top-warranty__text">Либо платим неустойку 1% от суммы в договоре за день</p>
-										</div>
-									</div>
-									<div class="top-warranty__item">
-										<img class="top-warranty__img" alt="Image" src="./assets/img/warranty/03.png">
-										<div class="top-warranty__block">
-											<h3 class="top-warranty__title">Берем на себя материальную ответственность за сроки</h3>
-											<p class="top-warranty__text">Либо платим неустойку 1% от суммы в договоре за день</p>
-										</div>
-									</div>
-								</div>
-								<div class="warranty__bottom bottom-warranty">
-									<div class="bottom-warranty__item">
-										<p class="bottom-warranty__text">Сертификаты</p>
-										<div class="bottom-warranty__image">
-											<img alt="Image" src="./assets/img/warranty/doc1.jpg">
-										</div>
-										<a href="#" class="bottom-warranty__link">Посмотреть сертификаты</a>
-									</div>
-									<div class="bottom-warranty__item">
-										<p class="bottom-warranty__text">Сертификаты</p>
-										<div class="bottom-warranty__image">
-											<img alt="Image" src="./assets/img/warranty/doc1.jpg">
-										</div>
-										<a href="#" class="bottom-warranty__link">Посмотреть сертификаты</a>
-									</div>
-									<div class="bottom-warranty__item">
-										<p class="bottom-warranty__text">Сертификаты</p>
-										<div class="bottom-warranty__image">
-											<img alt="Image" src="./assets/img/warranty/doc1.jpg">
-										</div>
-										<a href="#" class="bottom-warranty__link">Посмотреть сертификаты</a>
-									</div>
-									<div class="bottom-warranty__card">
-										<img class="bottom-warranty__card-img-bg" alt="Image" src="./assets/img/warranty/card-bg.png">
-										<div class="bottom-warranty__card-top">
-											<span class="bottom-warranty__card-number">2</span>
-											<div class="bottom-warranty__card-text">
-												года гарантии на
-												<strong>работы</strong>
-											</div>
-										</div>
-										<div class="bottom-warranty__card-bottom">
-											<span class="bottom-warranty__card-number">20</span>
-											<div class="bottom-warranty__card-text">
-												лет гарантии на
-												<strong>материал</strong>
-											</div>
-										</div>
-									</div>
+								<h2 data-fls-title="" class="title">Гарантия 7 лет</h2>
+								<p class="warranty__text">
+									Мы уверены в качестве оказываемых нами услуг и даем гарантию на выполненные работы, а также на остекление балконных блоков и рам
+								</p>
+								<div class="warranty__buttons">
+									<a class="warranty__button button" href="#">Получить консультацию</a>
+									<a class="warranty__button button button--black-border" href="tel:84958775098">8 (495) 877-50-98</a>
 								</div>
 							</div>
 							<div class="warranty__image">
-								<img alt="Image" src="./assets/img/warranty/man.png">
+								<img alt="Image" src="./assets/img/warranty/01.webp">
 							</div>
 						</div>
 					</div>
 				</section>
-				<div class="reviews">
+				<section class="reviews">
 					<div class="reviews__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">
-								<h2 class="blockheader__title">Отзывы</h2>
-								<p class="blockheader__subtitle">Отзывы</p>
+						<div class="reviews__body">
+							<div class="reviews__top">
+								<h2 data-fls-title="" class="title">Отзывы наших клиентов</h2>
+								<div class="reviews__yandex">
+									<img class="reviews__img-local" src="./assets/img/reviews/local.svg" alt="Image">
+									<img class="reviews__img-yandex" src="./assets/img/reviews/yandex.svg" alt="Image">
+								</div>
+								<div class="reviews__estimation">
+									<img src="./assets/img/reviews/Star_1.svg" alt="Image">
+									<span>5.0</span>
+									<p>197 оценок</p>
+								</div>
+								<div class="reviews__navigations">
+									<button type="button" class="reviews-button-prev swiper-button-prev"></button>
+									<button type="button" class="reviews-button-next swiper-button-next"></button>
+								</div>
 							</div>
-							<p class="blockheader__text">Главный показатель качества нашей работ — это ваши благодарные отзывы!</p>
-						</div>
-						<div class="reviews__top">
-							<p>Больше отзывов на</p>
-							<div class="reviews__top-item">
-								<div class="reviews__top-rating">
-									<span>4.8</span>
-									<img src="./assets/img/reviews/arrow-red.svg" alt="Image">
-								</div>
-								<a href="#" class="reviews__top-yandex">
-									<img src="./assets/img/reviews/yandex.svg" alt="Image">
-								</a>
-							</div>
-						</div>
-						<div class="reviews__items">
-							<div class="reviews__item item-reviews">
-								<div class="item-reviews__top">
-									<img class="item-reviews__avatar" alt="Image" src="./assets/img/reviews/avatar.png">
-									<div class="item-reviews__name">Петр Малакхов</div>
-									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
-								</div>
-								<div class="item-reviews__text">
-									<p>
-										Переделывали старое утепление на ППУ. Дом стал значительно теплее
-              и комфортнее. Ещё хотел бы отметить внимательное отношение
-              менеджера к деталям и моим просьбам. Чувствовалось участие и
-              искренне желание найти оптимальное решение для улучшения изоляции.
-              Это особенно приятно. Спасибо!
-									</p>
-								</div>
-								<div class="item-reviews__bottom">
-									<div class="item-reviews__arrows">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+							<!-- Оболочка слайдера -->
+							<div data-fls-slider="" class="reviews__slider swiper">
+								<!-- Часть слайдера, которая двигается -->
+								<div class="reviews__wrapper swiper-wrapper">
+									<!-- Слайд -->
+									<div class="reviews__slide swiper-slide">
+										<div class="reviews__slide-top">
+											<div class="reviews__name">Анна Курдюкова</div>
+											<div class="reviews__stars">
+												<img src="./assets/img/reviews/stars.svg" alt="Image">
+											</div>
+										</div>
+										<p class="reviews__text">
+											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
+										</p>
+										<a class="reviews__link" href="#">Смотреть отзыв</a>
 									</div>
-									<a class="item-reviews__yandex" href="#">
-										<img src="./assets/img/reviews/yandex.svg" alt="Image">
-									</a>
-								</div>
-							</div>
-							<div class="reviews__item item-reviews">
-								<div class="item-reviews__top">
-									<img class="item-reviews__avatar" alt="Image" src="./assets/img/reviews/avatar.png">
-									<div class="item-reviews__name">Петр Малакхов</div>
-									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
-								</div>
-								<div class="item-reviews__text">
-									<p>
-										Переделывали старое утепление на ППУ. Дом стал значительно теплее
-              и комфортнее. Ещё хотел бы отметить внимательное отношение
-              менеджера к деталям и моим просьбам. Чувствовалось участие и
-              искренне желание найти оптимальное решение для улучшения изоляции.
-              Это особенно приятно. Спасибо!
-									</p>
-								</div>
-								<div class="item-reviews__bottom">
-									<div class="item-reviews__arrows">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+									<div class="reviews__slide swiper-slide">
+										<div class="reviews__slide-top">
+											<div class="reviews__name">Анна Курдюкова</div>
+											<div class="reviews__stars">
+												<img src="./assets/img/reviews/stars.svg" alt="Image">
+											</div>
+										</div>
+										<p class="reviews__text">
+											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
+										</p>
+										<a class="reviews__link" href="#">Смотреть отзыв</a>
 									</div>
-									<a class="item-reviews__yandex" href="#">
-										<img src="./assets/img/reviews/yandex.svg" alt="Image">
-									</a>
-								</div>
-							</div>
-							<div class="reviews__item item-reviews">
-								<div class="item-reviews__top">
-									<img class="item-reviews__avatar" alt="Image" src="./assets/img/reviews/avatar.png">
-									<div class="item-reviews__name">Петр Малакхов</div>
-									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
-								</div>
-								<div class="item-reviews__text">
-									<p>
-										Переделывали старое утепление на ППУ. Дом стал значительно теплее
-              и комфортнее. Ещё хотел бы отметить внимательное отношение
-              менеджера к деталям и моим просьбам. Чувствовалось участие и
-              искренне желание найти оптимальное решение для улучшения изоляции.
-              Это особенно приятно. Спасибо!
-									</p>
-								</div>
-								<div class="item-reviews__bottom">
-									<div class="item-reviews__arrows">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+									<div class="reviews__slide swiper-slide">
+										<div class="reviews__slide-top">
+											<div class="reviews__name">Анна Курдюкова</div>
+											<div class="reviews__stars">
+												<img src="./assets/img/reviews/stars.svg" alt="Image">
+											</div>
+										</div>
+										<p class="reviews__text">
+											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
+										</p>
+										<a class="reviews__link" href="#">Смотреть отзыв</a>
 									</div>
-									<a class="item-reviews__yandex" href="#">
-										<img src="./assets/img/reviews/yandex.svg" alt="Image">
-									</a>
-								</div>
-							</div>
-							<div class="reviews__item item-reviews">
-								<div class="item-reviews__top">
-									<img class="item-reviews__avatar" alt="Image" src="./assets/img/reviews/avatar.png">
-									<div class="item-reviews__name">Петр Малакхов</div>
-									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
-								</div>
-								<div class="item-reviews__text">
-									<p>
-										Переделывали старое утепление на ППУ. Дом стал значительно теплее
-              и комфортнее. Ещё хотел бы отметить внимательное отношение
-              менеджера к деталям и моим просьбам. Чувствовалось участие и
-              искренне желание найти оптимальное решение для улучшения изоляции.
-              Это особенно приятно. Спасибо!
-									</p>
-								</div>
-								<div class="item-reviews__bottom">
-									<div class="item-reviews__arrows">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+									<div class="reviews__slide swiper-slide">
+										<div class="reviews__slide-top">
+											<div class="reviews__name">Анна Курдюкова</div>
+											<div class="reviews__stars">
+												<img src="./assets/img/reviews/stars.svg" alt="Image">
+											</div>
+										</div>
+										<p class="reviews__text">
+											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
+										</p>
+										<a class="reviews__link" href="#">Смотреть отзыв</a>
 									</div>
-									<a class="item-reviews__yandex" href="#">
-										<img src="./assets/img/reviews/yandex.svg" alt="Image">
-									</a>
-								</div>
-							</div>
-							<div class="reviews__item item-reviews">
-								<div class="item-reviews__top">
-									<img class="item-reviews__avatar" alt="Image" src="./assets/img/reviews/avatar.png">
-									<div class="item-reviews__name">Петр Малакхов</div>
-									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
-								</div>
-								<div class="item-reviews__text">
-									<p>
-										Переделывали старое утепление на ППУ. Дом стал значительно теплее
-              и комфортнее. Ещё хотел бы отметить внимательное отношение
-              менеджера к деталям и моим просьбам. Чувствовалось участие и
-              искренне желание найти оптимальное решение для улучшения изоляции.
-              Это особенно приятно. Спасибо!
-									</p>
-								</div>
-								<div class="item-reviews__bottom">
-									<div class="item-reviews__arrows">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
+									<div class="reviews__slide swiper-slide">
+										<div class="reviews__slide-top">
+											<div class="reviews__name">Анна Курдюкова</div>
+											<div class="reviews__stars">
+												<img src="./assets/img/reviews/stars.svg" alt="Image">
+											</div>
+										</div>
+										<p class="reviews__text">
+											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
+										</p>
+										<a class="reviews__link" href="#">Смотреть отзыв</a>
 									</div>
-									<a class="item-reviews__yandex" href="#">
-										<img src="./assets/img/reviews/yandex.svg" alt="Image">
-									</a>
 								</div>
-							</div>
-							<div class="reviews__item item-reviews">
-								<div class="item-reviews__top">
-									<img class="item-reviews__avatar" alt="Image" src="./assets/img/reviews/avatar.png">
-									<div class="item-reviews__name">Петр Малакхов</div>
-									<time class="item-reviews__tame" datetime="17.06.2025.">17.06.2025 г.</time>
-								</div>
-								<div class="item-reviews__text">
-									<p>
-										Переделывали старое утепление на ППУ. Дом стал значительно теплее
-              и комфортнее. Ещё хотел бы отметить внимательное отношение
-              менеджера к деталям и моим просьбам. Чувствовалось участие и
-              искренне желание найти оптимальное решение для улучшения изоляции.
-              Это особенно приятно. Спасибо!
-									</p>
-								</div>
-								<div class="item-reviews__bottom">
-									<div class="item-reviews__arrows">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-										<img src="./assets/img/reviews/arrow.svg" alt="Image">
-									</div>
-									<a class="item-reviews__yandex" href="#">
-										<img src="./assets/img/reviews/yandex.svg" alt="Image">
-									</a>
-								</div>
+								<!-- Если нужна пагинация -->
+								<div class="swiper-pagination"></div>
+								<!-- Если нужна навигация (влево/вправо) -->
 							</div>
 						</div>
 					</div>
-				</div>
+				</section>
 				<section class="company">
 					<div class="company__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">
-								<h2 class="blockheader__title">Наша компания</h2>
-								<p class="blockheader__subtitle">Наша компания</p>
+						<div class="company__body">
+							<div class="company__content">
+								<h2 data-fls-title="" class="title">О компании Первый Балкон</h2>
+								<div class="company__text">
+									<p>
+										Компания Первый Балкон уже более 10 лет успешно работает на рынке остекления и отделки балконов в Москве и Московской области.Мы предлагаем полный спектр услуг по ремонту балконов: остекление балконов (теплое и холодное), утепление, отделка балконов под ключ, монтаж теплого пола, внешняя и внутренняя отделка, подводка электрики, изготовление мебели для балконов на заказ.
+									</p>
+									<p>
+										Наша команда гарантирует высокое качество работ, оперативность и индивидуальный подход к каждому клиенту.Если вы хотите сделать свой балкон комфортным местом для отдыха, работы или хранения, Первый Балкон — это ваш надежный выбор для остекления и отделки балконов в в Москве и Московской области.
+									</p>
+								</div>
+								<div class="company__buttons">
+									<a class="company__button button" href="#">Оставить заявку</a>
+									<a class="company__button button button button--black-border" href="tel:">8 (495) 877-50-98</a>
+								</div>
 							</div>
-							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
-						</div>
-						<div data-fls-watcher="" class="company__items">
-							<div class="company__item">
-								<img class="company__img" src="./assets/img/company/01.svg" alt="Image">
-								<span data-fls-digcounter="" class="company__number">24</span>
-								<p class="company__text">месяца гарантия на все виды работ</p>
-							</div>
-							<div class="company__item">
-								<img class="company__img" src="./assets/img/company/02.svg" alt="Image">
-								<span data-fls-digcounter="" class="company__number">200</span>
-								<p class="company__text">месяца гарантия на все виды работ</p>
-							</div>
-							<div class="company__item">
-								<img class="company__img" src="./assets/img/company/03.svg" alt="Image">
-								<span data-fls-digcounter="" class="company__number">2007</span>
-								<p class="company__text">месяца гарантия на все виды работ</p>
-							</div>
-							<div class="company__item">
-								<img class="company__img" src="./assets/img/company/04.svg" alt="Image">
-								<span data-fls-digcounter="" class="company__number">25000</span>
-								<p class="company__text">месяца гарантия на все виды работ</p>
+							<div class="company__image">
+								<img alt="Image" src="./assets/img/company/01.jpg">
 							</div>
 						</div>
 					</div>
 				</section>
-				<section class="connection">
-					<img class="connection__img-bg-section" alt="Image" src="./assets/img/tabs/bg-sections.jpg">
-					<div class="connection__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">
-								<h2 class="blockheader__title">Связь</h2>
-								<p class="blockheader__subtitle">Связь</p>
+				<section class="installment">
+					<div class="installment__container">
+						<div class="installment__body">
+							<div class="installment__content">
+								<img class="installment__logo-bank" alt="Image" src="./assets/img/insta/logo-bank.png">
+								<h2 data-fls-title="" class="title">Рассрочка от Т-Банка</h2>
+								<ul class="installment__list">
+									<li>За 2 минуты</li>
+									<li>От 3 до 24 месяцев</li>
+									<li>Сумма покупки от 50 000 до 500 000 руб.</li>
+									<li>Достаточно только паспорта</li>
+									<li>Подписание с помощью СМС</li>
+								</ul>
+								<img class="installment__banner" alt="Image" src="./assets/img/insta/banner.webp">
 							</div>
-							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
+							<div class="installment__image">
+								<img alt="Image" src="./assets/img/insta/01.webp">
+							</div>
 						</div>
-						<div data-fls-tabs="" class="connection__wrapper">
-							<nav data-fls-tabs-titles="" class="connection__navigation">
-								<button type="button" class="connection__title --tab-active">1. Проконсультируем</button>
-								<button type="button" class="connection__title">2. Бесплатный замер</button>
-								<button type="button" class="connection__title">3. Подписание договора</button>
-								<button type="button" class="connection__title">4. Изготовление и доставка</button>
-								<button type="button" class="connection__title">5. Быстрый монтаж</button>
-								<button type="button" class="connection__title">6. Принятие работы</button>
-							</nav>
-							<div data-fls-tabs-body="" class="connection__content">
-								<div class="connection__body">
-									<div class="connection__box box-connection box-connection--1">
-										<div class="connection__form form-connection">
-											<h4 class="form-connection__title">
-												<strong>Заполните форму</strong>
-												- мы перезвоним в течении 5
-                  минут и проконсультируем Вас по всем вопросам
-											</h4>
-											<div class="form-connection__clock">
-												<img alt="Image" src="./assets/img/tabs/tab1/clock.png">
-												<p>Пн-Пт с 9.00 до 21.00</p>
-											</div>
-											<form class="form-connection__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
-												<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="form-connection__input input">
-												<button type="submit" class="form-connection__button button">
-													<img class="button__img" alt="Image" src="./assets/img/hero/down.png">
-													<div class="button__text">
-														<p>Получить прайс-каталог</p>
-														<small>+ получить скидку -19%</small>
-													</div>
-												</button>
-												<label data-fls-checkbox="" class="checkbox">
-													<input checked data-fls-form-errtext="Ознакомтесь с условия обработки персональных данных" class="checkbox__input" type="checkbox" value="согласен" name="check">
-													<span class="checkbox__text">Вы соглашаетесь на условия обработки персональных данных</span>
-												</label>
-											</form>
-											<img class="form-connection__img-timer" alt="Image" src="./assets/img/tabs/tab1/timer.png">
-										</div>
-										<div class="connection__social social-connection">
-											<div class="social-connection__item">
-												<h4 class="social-connection__title">Либо позвоните нам напрямую прямо сейчас</h4>
-												<img class="social-connection__img-phone" alt="Image" src="./assets/img/tabs/tab1/phone.png">
-												<div class="social-connection__online">Мы работаем</div>
-												<a class="social-connection__phone-link" href="tel:+8129241115">+7 (812) 924-11-15</a>
-											</div>
-											<div class="social-connection__item">
-												<h4 class="social-connection__title">А так же пишите</h4>
-												<div class="social-connection__online">Мы онлайн</div>
-												<div class="social-connection__socials-body">
-													<a class="social-connection__social-link" href="#">
-														<img alt="Image" src="./assets/img/tabs/tab1/viber.png">
-														<p>Viber</p>
-													</a>
-													<a class="social-connection__social-link" href="#">
-														<img alt="Image" src="./assets/img/header/tg.png">
-														<p>Telegram</p>
-													</a>
+					</div>
+				</section>
+				<section class="page__calculator calculator">
+					<div class="calculator__container">
+						<h4 data-fls-title="" class="title title--center">
+							Рассчитать стоимость вашего балкона со скидкой
+							<span>35 000 рублей</span>
+						</h4>
+						<div class="calculator__body">
+							<!-- вверх квиза -->
+							<div id="calc" class="slide-calculator__slide-calculator slide-calculator-block">
+								<h4 data-fls-title="" class="slide-calculator-block__title title">
+									<!-- Рассчитать стоимость вашего балкона со скидкой <span> 35 000 рублей</span> -->
+								</h4>
+							</div>
+							<div id="calc-last" class="slide-calculator__slide-calculator slide-calculator-block calc-last">
+								<!-- Заключительный шаг. Оставьте свои контакты для получения расчета и скидки 35 000 рублей -->
+							</div>
+							<!-- Оболонка слайдера -->
+							<div class="calculator__slider swiper swiper-container">
+								<!-- Частина слайдера, що рухається -->
+								<form data-popup-message="#popup-message" action="quiz.php" class="calculator__wrapper swiper-wrapper">
+									<!-- 1 Слайд -->
+									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
+										<div class="slide-calculator__body">
+											<h5 class="slide-calculator__title">Выберите тип балкона</h5>
+											<div class="options">
+												<div class="options__item">
+													<input data-required="" id="o_1" class="options__input input" type="radio" value="1" name="step_1">
+													<label for="o_1" class="options__label">
+														<div class="options__text">
+															<img alt="#" src="./assets/img/qwiz/01.jpg">
+														</div>
+													</label>
+													<h3 class="options__title">3 метра</h3>
 												</div>
-											</div>
-										</div>
-										<div class="connection__boss boss-connection">
-											<img class="boss-connection__img-bg" alt="Image" src="./assets/img/tabs/tab1/bg.png">
-											<img class="boss-connection__img-man" alt="Image" src="./assets/img/tabs/tab1/man.png">
-											<div class="boss-connection__block">
-												<div class="boss-connection__name">Дмитрий Сергеевич</div>
-												<div class="boss-connection__works">Руководитель проектов</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="connection__body">
-									<img class="box-connection__img-bg" alt="Image" src="./assets/img/tabs/tab2/bg.jpg">
-									<div class="connection__box box-connection box-connection--2">
-										<h4 class="box-connection__title">Бесплатный выезд замерщика в удобное для Вас время</h4>
-										<div class="box-connection__body">
-											<div class="box-connection__items">
-												<div class="box-connection__item">
-													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/01.png">
-													<div class="box-connection__item-text">
-														<strong>Составление</strong>
-														замерного листа
-													</div>
+												<div class="options__item">
+													<input data-required="" id="o_2" class="options__input input" type="radio" value="2" name="step_1">
+													<label for="o_2" class="options__label">
+														<div class="options__text">
+															<img alt="#" src="./assets/img/qwiz/01.jpg">
+														</div>
+													</label>
+													<h3 class="options__title">6 метров</h3>
 												</div>
-												<div class="box-connection__item">
-													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/02.png">
-													<div class="box-connection__item-text">
-														<strong>Составление</strong>
-														замерного листа
-													</div>
+												<div class="options__item">
+													<input data-required="" id="o_3" class="options__input input" type="radio" value="1" name="step_1">
+													<label for="o_3" class="options__label">
+														<div class="options__text">
+															<img alt="#" src="./assets/img/qwiz/01.jpg">
+														</div>
+													</label>
+													<h3 class="options__title">Хрущевка</h3>
 												</div>
-												<div class="box-connection__item">
-													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/03.png">
-													<div class="box-connection__item-text">
-														<strong>Составление</strong>
-														замерного листа
-													</div>
-												</div>
-												<div class="box-connection__item">
-													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/04.png">
-													<div class="box-connection__item-text">
-														<strong>Составление</strong>
-														замерного листа
-													</div>
-												</div>
-												<div class="box-connection__item">
-													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/05.png">
-													<div class="box-connection__item-text">
-														<strong>Составление</strong>
-														замерного листа
-													</div>
-												</div>
-												<div class="box-connection__item">
-													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/06.png">
-													<div class="box-connection__item-text">
-														<strong>Составление</strong>
-														замерного листа
-													</div>
-												</div>
-											</div>
-											<a data-fls-button="" href="#" class="button">
-												<img class="button__img" alt="Image" src="./assets/img/header/calc.png">
-												<div class="button__text">Узнать стоимость в 3-х вариантах</div>
-											</a>
-										</div>
-									</div>
-								</div>
-								<div class="connection__body">
-									<img class="box-connection__img-bg" alt="Image" src="./assets/img/tabs/tab3/bg.jpg">
-									<div class="connection__box box-connection box-connection--3">
-										<h4 class="box-connection__title">Бесплатный выезд замерщика в удобное для Вас время</h4>
-										<p class="box-connection__text">Этапы перед подписанием:</p>
-										<div class="box-connection__body">
-											<div class="box-connection__items">
-												<div class="box-connection__item">
-													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/01.png">
-													<div class="box-connection__item-text">
-														<strong>Составление</strong>
-														замерного листа
-													</div>
-												</div>
-												<div class="box-connection__item">
-													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/02.png">
-													<div class="box-connection__item-text">
-														<strong>Составление</strong>
-														замерного листа
-													</div>
-												</div>
-												<div class="box-connection__item">
-													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/03.png">
-													<div class="box-connection__item-text">
-														<strong>Составление</strong>
-														замерного листа
-													</div>
-												</div>
-												<div class="box-connection__item">
-													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/04.png">
-													<div class="box-connection__item-text">
-														<strong>Составление</strong>
-														замерного листа
-													</div>
-												</div>
-											</div>
-											<a data-fls-button="" href="#" class="button">
-												<img class="button__img" alt="Image" src="./assets/img/header/calc.png">
-												<div class="button__text">Узнать стоимость в 3-х вариантах</div>
-											</a>
-										</div>
-									</div>
-								</div>
-								<div class="connection__body">
-									<div class="connection__box box-connection box-connection--4">
-										<img class="box-connection__img-bg" alt="Image" src="./assets/img/tabs/tab4/bg.jpg">
-										<div class="box-connection__body box-connection__body--4">
-											<div class="box-connection__column">
-												<h4 class="box-connection__title">Изготовление и быстрая доставка</h4>
-												<p class="box-connection__text">В любую точку г. Санкт-Петербурга и Ленинградской области</p>
-												<a data-fls-button="" href="#" class="button">
-													<img class="button__img" alt="Image" src="./assets/img/header/calc.png">
-													<div class="button__text">Узнать стоимость в 3-х вариантах</div>
-												</a>
-											</div>
-											<div class="box-connection__items box-connection__items--4">
-												<div class="box-connection__item">
-													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/01.png">
-													<div class="box-connection__item-text">
-														<strong>Полное информирование</strong>
-														о этапах доставки,
-                      от выезда до прибытия
-													</div>
-												</div>
-												<div class="box-connection__item">
-													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/02.png">
-													<div class="box-connection__item-text">
-														<strong>Составление</strong>
-														замерного листа
-													</div>
+												<div class="options__item">
+													<input data-required="" id="o_4" class="options__input input" type="radio" value="2" name="step_1">
+													<label for="o_4" class="options__label">
+														<div class="options__text">
+															<img alt="#" src="./assets/img/qwiz/01.jpg">
+														</div>
+													</label>
+													<h3 class="options__title">Не знаю размер</h3>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="connection__body">
-									<img class="box-connection__img-bg" alt="Image" src="./assets/img/tabs/tab5/bg.jpg">
-									<div class="connection__box box-connection box-connection--5">
-										<div class="box-connection__body box-connection__body--4">
-											<div class="box-connection__column">
-												<h4 class="box-connection__title">Изготовление и быстрая доставка</h4>
-												<p class="box-connection__text">В любую точку г. Санкт-Петербурга и Ленинградской области</p>
-												<a data-fls-button="" href="#" class="button">
-													<img class="button__img" alt="Image" src="./assets/img/header/calc.png">
-													<div class="button__text">Узнать стоимость в 3-х вариантах</div>
-												</a>
-											</div>
-											<div class="box-connection__items box-connection__items--4">
-												<div class="box-connection__item">
-													<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/01.png">
-													<div class="box-connection__item-text">
-														<strong>Полное информирование</strong>
-														о этапах доставки,
-                      от выезда до прибытия
-													</div>
+									<!-- 2 слайд -->
+									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
+										<div class="slide-calculator__body">
+											<h5 class="slide-calculator__title">Выберите вариант обшивки балкона</h5>
+											<div class="options">
+												<div class="options__item">
+													<input data-required="" id="o_1" class="options__input input" type="radio" value="1" name="step_1">
+													<label for="o_1" class="options__label">
+														<div class="options__text">
+															<img alt="#" src="./assets/img/qwiz/01.jpg">
+														</div>
+													</label>
+													<h3 class="options__title">3 метра</h3>
 												</div>
-												<div class="box-connection__item box-connection__item--list">
-													<p>Мы делаем:</p>
-													<ul class="box-connection__list">
-														<li>Монтаж забора</li>
-														<li>Монтаж ворот</li>
-														<li>Монтаж калиток</li>
-														<li>Уборка и вывоз мусора</li>
-													</ul>
+												<div class="options__item">
+													<input data-required="" id="o_2" class="options__input input" type="radio" value="2" name="step_1">
+													<label for="o_2" class="options__label">
+														<div class="options__text">
+															<img alt="#" src="./assets/img/qwiz/01.jpg">
+														</div>
+													</label>
+													<h3 class="options__title">6 метров</h3>
+												</div>
+												<div class="options__item">
+													<input data-required="" id="o_3" class="options__input input" type="radio" value="1" name="step_1">
+													<label for="o_3" class="options__label">
+														<div class="options__text">
+															<img alt="#" src="./assets/img/qwiz/01.jpg">
+														</div>
+													</label>
+													<h3 class="options__title">Хрущевка</h3>
+												</div>
+												<div class="options__item">
+													<input data-required="" id="o_4" class="options__input input" type="radio" value="2" name="step_1">
+													<label for="o_4" class="options__label">
+														<div class="options__text">
+															<img alt="#" src="./assets/img/qwiz/01.jpg">
+														</div>
+													</label>
+													<h3 class="options__title">Не знаю размер</h3>
+												</div>
+												<div class="options__item">
+													<input data-required="" id="o_4" class="options__input input" type="radio" value="2" name="step_1">
+													<label for="o_4" class="options__label">
+														<div class="options__text">
+															<img alt="#" src="./assets/img/qwiz/01.jpg">
+														</div>
+													</label>
+													<h3 class="options__title">Не знаю размер</h3>
 												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="connection__body">
-									<img class="box-connection__img-bg" alt="Image" src="./assets/img/tabs/tab6/bg.jpg">
-									<div class="connection__box box-connection box-connection--6">
-										<h4 class="box-connection__title">Бесплатный выезд замерщика в удобное для Вас время</h4>
-										<p class="box-connection__text">Заключение договора на месте либо в офисе</p>
-										<div class="box-connection__items box-connection__items--6">
-											<div class="box-connection__item">
-												<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/01.png">
-												<div class="box-connection__item-text">
-													<strong>Составление</strong>
-													замерного листа
+									<!-- 3слайд -->
+									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
+										<div class="slide-calculator__body">
+											<h5 class="slide-calculator__title">Выберите ваш подарок</h5>
+											<div class="options">
+												<div class="options__item">
+													<input data-required="" id="o_1" class="options__input input" type="radio" value="1" name="step_1">
+													<label for="o_1" class="options__label">
+														<div class="options__text">
+															<img alt="#" src="./assets/img/qwiz/01.jpg">
+														</div>
+													</label>
+													<h3 class="options__title">3 метра</h3>
+												</div>
+												<div class="options__item">
+													<input data-required="" id="o_2" class="options__input input" type="radio" value="2" name="step_1">
+													<label for="o_2" class="options__label">
+														<div class="options__text">
+															<img alt="#" src="./assets/img/qwiz/01.jpg">
+														</div>
+													</label>
+													<h3 class="options__title">6 метров</h3>
+												</div>
+												<div class="options__item">
+													<input data-required="" id="o_3" class="options__input input" type="radio" value="1" name="step_1">
+													<label for="o_3" class="options__label">
+														<div class="options__text">
+															<img alt="#" src="./assets/img/qwiz/01.jpg">
+														</div>
+													</label>
+													<h3 class="options__title">Хрущевка</h3>
+												</div>
+												<div class="options__item">
+													<input data-required="" id="o_4" class="options__input input" type="radio" value="2" name="step_1">
+													<label for="o_4" class="options__label">
+														<div class="options__text">
+															<img alt="#" src="./assets/img/qwiz/01.jpg">
+														</div>
+													</label>
+													<h3 class="options__title">Не знаю размер</h3>
+												</div>
+												<div class="options__item">
+													<input data-required="" id="o_4" class="options__input input" type="radio" value="2" name="step_1">
+													<label for="o_4" class="options__label">
+														<div class="options__text">
+															<img alt="#" src="./assets/img/qwiz/01.jpg">
+														</div>
+													</label>
+													<h3 class="options__title">Не знаю размер</h3>
 												</div>
 											</div>
-											<div class="box-connection__item">
-												<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/02.png">
-												<div class="box-connection__item-text">
-													<strong>Составление</strong>
-													замерного листа
-												</div>
+										</div>
+									</div>
+									<!-- Конечная страница !форма! -->
+									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
+										<div class="slide-calculator-block__form" action="files/sendmail/sendmail.php" method="POST">
+											<h5 class="slide-calculator__title">
+												Заключительный шаг. Оставьте свои контакты для получения расчета и скидки 35 000 рублей
+											</h5>
+											<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" required placeholder="Ваше имя" class="form__input input">
+											<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="form__input input">
+											<label data-fls-checkbox="" class="checkbox">
+												<input data-error="Ошибка" class="checkbox__input" type="checkbox" value="1" name="form[]">
+												<span class="checkbox__text">
+													Нажимая на кнопку «Рассчитать стоимость», вы даете Согласие на обработку персональных данных  и соглашаетесь с Политикой в отношении обработки персональных данных
+												</span>
+											</label>
+											<button type="submit" class="slide-calculator-block__button button">Рассчитать стоимость</button>
+										</div>
+									</div>
+								</form>
+								<!-- 'элементы навигации' -->
+								<div id="progress" class="calculator__progress">
+									<div class="calculator__progress-body">
+										<div class="calculator__pagination swiper-pagination"></div>
+										<div class="fraction-controll">
+											<span class="fraction-controll__current">01</span>
+											<span class="fraction-controll__all">10</span>
+											<div class="fraction-controll__progress">
+												<span>Готово:</span>
+												0%
 											</div>
-											<div class="box-connection__item">
-												<img class="box-connection__item-img" alt="Image" src="./assets/img/tabs/tab2/03.png">
-												<div class="box-connection__item-text">
-													<strong>Составление</strong>
-													замерного листа
-												</div>
-											</div>
-											<div class="box-connection__item box-connection__item--button">
-												<div class="box-connection__item-button-text">Абсолютно бесплатно</div>
-												<a data-fls-button="" href="#" class="button">
-													<img class="button__img" alt="Image" src="./assets/img/header/calc.png">
-													<div class="button__text">Узнать стоимость в 3-х вариантах</div>
-												</a>
-											</div>
+										</div>
+									</div>
+									<div class="calculator__button-body">
+										<div type="button" class="calculator__button-next swiper-button-next">
+											Далее
+											<svg class="mdi-icon mdi-24px" viewbox="0 0 24 24">
+												<path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" stroke-width="0" fill-rule="nonzero"></path>
+											</svg>
+										</div>
+										<div type="button" class="calculator__button-prev swiper-button-prev">
+											<svg class="mdi-icon mdi-24px" viewbox="0 0 24 24">
+												<path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" stroke-width="0" fill-rule="nonzero"></path>
+											</svg>
 										</div>
 									</div>
 								</div>
@@ -2047,257 +1341,53 @@ alt="Image"
 						</div>
 					</div>
 				</section>
-				<section class="block-text">
-					<div class="block-text__container">
-						<h2 class="block-text__title">Оказываем услуги в сфере строительства заборов и монтажа ворот под ключ</h2>
-						<div data-fls-showmore="" class="block-text__body">
-							<div data-fls-showmore-content="" class="block-text__content">
-								Установка заборов для дачи и загородного дома в г. Санкт-Петербург и
-          области – основное направление деятельности нашей компании. Неизменно
-          высокое качество и оригинальный дизайн заборов, установленных нами на
-          участках частных застройщиков, превращают традиционные ограждения в
-          образцы современного ландшафтного декора. Строительство заборов, вне
-          зависимости от типа ограждения, ведется нашей компанией в сжатые
-          сроки. Требования заказчиков к ограждающим конструкциям предельно
-          просты: главным фактором считается доступная цена забора, который
-          хорошо справляется с функцией защиты территории от вторжения
-          посторонних, но при этом выглядит современно и стильно. Наша компания
-          готова предложить целый ряд различных образцов заборов, идеально
-          совмещающих лучшие потребительские характеристики: прочность,
-          экономичность и внешнюю эстетику. Требования заказчиков к ограждающим
-          конструкциям предельно просты: главным фактором считается доступная
-          цена забора, который хорошо справляется с функцией защиты территории
-          от вторжения посторонних, но при этом выглядит современно и стильно.
-          Наша компания готова предложить целый ряд различных образцов заборов,
-          идеально совмещающих лучшие потребительские характеристики: прочность,
-          экономичность и внешнюю эстетику.
-							</div>
-							<button hidden data-fls-showmore-button="" type="button" class="block-text__more">
-								<span>Показать ещё</span>
-								<span>Скрыть</span>
-							</button>
-						</div>
-					</div>
-				</section>
-				<section class="contacts">
-					<div class="contacts__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<div class="blockheader__top">
-								<h2 class="blockheader__title">Контакты</h2>
-								<p class="blockheader__subtitle">Нашы Контакты</p>
-							</div>
-							<p class="blockheader__text">Поможем с выбором лучшего ограждения</p>
-						</div>
-						<div class="contacts__body">
-							<div class="contacts__top">
-								<div class="contacts__item">
-									<img class="contacts__item-img" src="./assets/img/contacts/placeholder.svg" alt="Image">
-									<h3 class="contacts__item-title">Адрес :</h3>
-									<p class="contacts__text">д. Большое Стиклево ул. Молодежная, д. 1, корп.1, комната 2/7</p>
-								</div>
-								<div class="contacts__item">
-									<img class="contacts__item-img" src="./assets/img/contacts/phone.svg" alt="Image">
-									<h3 class="contacts__item-title">Телефон:</h3>
-									<a href="tel:375293505205" class="contacts__text">+375 (29) 350-52-05</a>
-								</div>
-								<div class="contacts__item">
-									<img class="contacts__item-img" alt="Image" src="./assets/img/contacts/wgatsup-c.png">
-									<h3 class="contacts__item-title">Viber:</h3>
-									<a href="tel:375293505205" class="contacts__text">+375 (29) 350-52-05</a>
-								</div>
-								<div class="contacts__item">
-									<img class="contacts__item-img" alt="Image" src="./assets/img/contacts/email.png">
-									<h3 class="contacts__item-title">E-Mail:</h3>
-									<a href="mail:minsk@prozabory.by" class="contacts__text">minsk@prozabory.by</a>
+				<section class="form">
+					<div class="form__container">
+						<div class="form__body">
+							<div class="form__content">
+								<h2 data-fls-title="" class="form__title title">
+									Записаться на бесплатный замер со скидкой
+									<span>35 000 руб.</span>
+								</h2>
+								<div class="form__item">
+									<p class="form__text">Оставьте ваши контактные данные, мы свяжемся с вами в течение 5 минут</p>
+									<form class="form__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
+										<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" required placeholder="Ваше имя" class="form__input input">
+										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="form__input input">
+										<button type="submit" class="form__button button">Оставить заявку</button>
+									</form>
 								</div>
 							</div>
-							<div class="contacts__map">
-								<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A3b1f82549db84fe6b029b4f10d0aceba1af0650f8eacc25240c88f8902133e4d&amp;width=100%25&amp;height=340&amp;lang=ru_RU&amp;scroll=true"></script>
+							<div class="form__image">
+								<img alt="Image" src="./assets/img/form/01.webp">
 							</div>
 						</div>
 					</div>
 				</section>
-				<div data-fls-phonebottom="" class="phone">
-					<div class="phone__icon">
-						<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewbox="0 0 48 48">
-							<path fill="#fff" d="M24,5C21.361,5,13.33,5,8.89,9.054C6.246,11.688,5,15.494,5,21v3c0,5.506,1.246,9.312,3.921,11.976 c1.332,1.215,3.148,2.186,5.368,2.857L15,39.047v5.328C15,45,15.181,45,15.241,45c0.123,0,0.32-0.039,0.694-0.371 c0.09-0.089,0.75-0.803,3.96-4.399l0.324-0.363l0.485,0.031C21.779,39.965,22.888,40,24,40c2.639,0,10.67,0,15.11-4.055 C41.753,33.311,43,29.505,43,24v-3c0-5.506-1.246-9.312-3.921-11.976C34.67,5,26.639,5,24,5z"></path>
-							<path fill="#7e57c2" d="M33.451 28.854c-1.111-.936-1.624-1.219-3.158-2.14C29.654 26.331 28.68 26 28.169 26c-.349 0-.767.267-1.023.523C26.49 27.179 26.275 28 25.125 28c-1.125 0-3.09-1.145-4.5-2.625C19.145 23.965 18 22 18 20.875c0-1.15.806-1.38 1.462-2.037C19.718 18.583 20 18.165 20 17.816c0-.511-.331-1.47-.714-2.109-.921-1.535-1.203-2.048-2.14-3.158-.317-.376-.678-.548-1.056-.549-.639-.001-1.478.316-2.046.739-.854.637-1.747 1.504-1.986 2.584-.032.147-.051.295-.057.443-.046 1.125.396 2.267.873 3.234 1.123 2.279 2.609 4.485 4.226 6.455.517.63 1.08 1.216 1.663 1.782.566.582 1.152 1.145 1.782 1.663 1.97 1.617 4.176 3.103 6.455 4.226.958.472 2.086.906 3.2.874.159-.005.318-.023.477-.058 1.08-.238 1.947-1.132 2.584-1.986.423-.568.74-1.406.739-2.046C33.999 29.532 33.827 29.171 33.451 28.854zM34 24c-.552 0-1-.448-1-1v-1c0-4.962-4.038-9-9-9-.552 0-1-.448-1-1s.448-1 1-1c6.065 0 11 4.935 11 11v1C35 23.552 34.552 24 34 24zM27.858 22c-.444 0-.85-.298-.967-.748-.274-1.051-1.094-1.872-2.141-2.142-.535-.139-.856-.684-.718-1.219.138-.534.682-.855 1.219-.718 1.748.453 3.118 1.822 3.575 3.574.139.535-.181 1.08-.715 1.22C28.026 21.989 27.941 22 27.858 22z"></path>
-							<path fill="#7e57c2" d="M31,23c-0.552,0-1-0.448-1-1c0-3.188-2.494-5.818-5.678-5.986c-0.552-0.029-0.975-0.5-0.946-1.051 c0.029-0.552,0.508-0.976,1.051-0.946C28.674,14.241,32,17.748,32,22C32,22.552,31.552,23,31,23z"></path>
-							<path fill="#7e57c2" d="M24,4C19.5,4,12.488,4.414,8.216,8.316C5.196,11.323,4,15.541,4,21c0,0.452-0.002,0.956,0.002,1.5 C3.998,23.043,4,23.547,4,23.999c0,5.459,1.196,9.677,4.216,12.684c1.626,1.485,3.654,2.462,5.784,3.106v4.586 C14,45.971,15.049,46,15.241,46h0.009c0.494-0.002,0.921-0.244,1.349-0.624c0.161-0.143,2.02-2.215,4.042-4.481 C21.845,40.972,22.989,41,23.999,41c0,0,0,0,0,0s0,0,0,0c4.5,0,11.511-0.415,15.784-4.317c3.019-3.006,4.216-7.225,4.216-12.684 c0-0.452,0.002-0.956-0.002-1.5c0.004-0.544,0.002-1.047,0.002-1.5c0-5.459-1.196-9.677-4.216-12.684C35.511,4.414,28.5,4,24,4z M41,23.651l0,0.348c0,4.906-1.045,8.249-3.286,10.512C33.832,38,26.437,38,23.999,38c-0.742,0-1.946-0.001-3.367-0.1 C20.237,38.344,16,43.083,16,43.083V37.22c-2.104-0.505-4.183-1.333-5.714-2.708C8.045,32.248,7,28.905,7,23.999l0-0.348 c0-0.351-0.001-0.73,0.002-1.173C6.999,22.078,6.999,21.7,7,21.348L7,21c0-4.906,1.045-8.249,3.286-10.512 C14.167,6.999,21.563,6.999,24,6.999c2.437,0,9.832,0,13.713,3.489c2.242,2.263,3.286,5.606,3.286,10.512l0,0.348 c0,0.351,0.001,0.73-0.002,1.173C41,22.922,41,23.3,41,23.651z"></path>
-						</svg>
-					</div>
-					<a class="phone__link" href="tel:+375296582077">+375 (29) 658-20-77</a>
-				</div>
-				<div data-fls-arrowup="" class="nav">
-					<a class="nav__button" href="#">
-						<svg version="1.1" id="icons_1_" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewbox="0 0 128 128" style="enable-background: new 0 0 128 128" xml:space="preserve">
-							<g id="row1_1_">
-								<g id="_x31__3_">
-									<path class="st2" d="M64 0C28.7 0 0 28.7 0 64s28.7 64 64 64 64-28.7 64-64S99.3 0 64 0zm0 121.6C32.2 121.6 6.4 95.8 6.4 64S32.2 6.4 64 6.4s57.6 25.8 57.6 57.6-25.8 57.6-57.6 57.6zM49.2 38.4 73.6 64 49.2 89.6h13.5L86.4 64 62.7 38.4H49.2z" id="_x32__2_"></path>
-								</g>
-							</g>
-						</svg>
-					</a>
-				</div>
-				<div data-fls-tools="" class="tools">
-					<a href="#" class="tools__item">
-						<img alt="Image" src="./assets/img/tools/message.png">
-					</a>
-					<a href="#" class="tools__item">
-						<img alt="Image" src="./assets/img/tools/calc.png">
-					</a>
-				</div>
 			</main>
-			<script>
-        document.addEventListener("DOMContentLoaded", function () {
-          // Инициализация после полной загрузки
-          window.addEventListener("load", handlePageLoad);
-
-          // Fallback таймер
-          let fallbackTimer = setTimeout(() => {
-            handlePageLoad(true); // true - означает fallback вызов
-          }, 3000);
-
-          // Отменяем fallback если страница загрузилась
-          window.addEventListener("load", () => {
-            clearTimeout(fallbackTimer);
-          });
-        });
-
-        // Функция обработки загрузки страницы
-        function handlePageLoad(isFallback = false) {
-          const preloader = document.getElementById("preloader");
-          const content = document.getElementById("content");
-
-          // Для отладки
-          if (isFallback) {
-            console.log("Fallback: показываем контент по таймауту");
-          }
-
-          // Проверяем и показываем контент
-          if (content) {
-            content.style.display = "block";
-            content.style.opacity = "1";
-          } else {
-            // Если элемента content нет, показываем body
-            document.body.style.opacity = "1";
-            document.body.style.visibility = "visible";
-          }
-
-          // Обрабатываем прелоадер если он есть
-          if (preloader) {
-            preloader.classList.add("preloader-hidden");
-            setTimeout(() => {
-              if (preloader.parentNode) {
-                preloader.remove();
-              }
-            }, 500);
-          }
-        }
-			</script>
 			<footer data-fls-footer="" class="footer">
 				<div class="footer__container">
-					<div class="footer__item">
+					<div class="footer__top">
 						<a class="footer__logo" href="#">
-							<img src="./assets/img/header/logo.svg" alt="Image">
+							<img alt="Image" src="./assets/img/footer/logo.webp">
 						</a>
-						<p class="footer__text">
-							12 лет производим и устанавливаем заборы под ключ в г.Санкт-Петербург и
-        области
-						</p>
-						<p class="footer__copyright">© Copyright 2021. Все права защищены.</p>
-						<a class="footer__link" href="#">Политика приватности</a>
-						<a class="footer__link" href="#">Карта сайта</a>
+						<p class="footer__text">Отделка и остекление балконов от производителя в Москве и МО</p>
+						<div class="footer__contact">
+							<a class="footer__phone" href="tel:84958775098">8 (495) 877-50-98</a>
+							<div class="footer__clock">9:00 — 20:00 (без выходных)</div>
+							<a href="mail:balkon1-msk@yandex.ru" class="footer__mail">balkon1-msk@yandex.ru</a>
+						</div>
+						<div class="footer__info">
+							<div class="footer__address">г. Москва, Можайское шоссе 40, корпус 2</div>
+							<div class="footer__code">ОГРНИП 32477 46008 30118</div>
+						</div>
 					</div>
-					<ul class="footer__nav">
-						<h3 class="footer__title">Главная</h3>
-						<ul class="footer__list">
-							<li>Калькулятор стоимости</li>
-							<li>Выполненные проекты (портфолио)</li>
-							<li>Контакты</li>
-							<li>Блог</li>
-							<li>О компании</li>
-						</ul>
-					</ul>
-					<ul class="footer__nav">
-						<h3 class="footer__title">Каталог</h3>
-						<ul class="footer__list">
-							<li>Деревянный штакетник</li>
-							<li>Забор из сетки Рабицы</li>
-							<li>Заборы из евроштакетника</li>
-							<li>Забор жалюзи</li>
-							<li>Забор из профнастила</li>
-							<li>Деревянные секции</li>
-							<li>Деревянные заборы</li>
-						</ul>
-					</ul>
-					<ul class="footer__nav">
-						<h3 class="footer__title">Полезные ссылки</h3>
-						<ul class="footer__list">
-							<li>Посмотреть договор</li>
-							<li>Посмотреть сертификаты</li>
-							<li>Заказать звонок</li>
-							<li>Рассчитать стоимость</li>
-							<li>Задать вопрос</li>
-						</ul>
-					</ul>
+					<div class="footer__bottom">
+						<a href="#">Согласие на обработку персональных данных</a>
+						<a href="#">Политика в отношении обработки персональных данных</a>
+					</div>
 				</div>
 			</footer>
-		</div>
-		<div data-fls-popup="popup" aria-hidden="true" class="popup">
-			<div data-fls-popup-wrapper="" class="popup__wrapper">
-				<div data-fls-popup-body="" class="popup__body">
-					<button data-fls-popup-close="" type="button" class="popup__close">
-						<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
-							<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
-						</svg>
-					</button>
-					<div data-fls-popup-content="" class="popup__box">
-						<h2 class="popup__title">Обратный звонок</h2>
-						<form class="popup__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
-							<input data-fls-input="" autocomplete="off" type="text" name="name" required data-fls-form-errtext="Заполните поле" placeholder="Ваше имя" class="popup__input input">
-							<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="popup__input input">
-							<label data-fls-checkbox="" class="checkbox">
-								<input checked data-fls-form-errtext="Ознакомтесь с условия обработки персональных данных" class="checkbox__input" type="checkbox" value="согласен" name="check">
-								<span class="checkbox__text">Вы соглашаетесь на условия обработки персональных данных</span>
-							</label>
-							<button type="submit" class="popup__button button">Заказать звонок</button>
-							<div class="popup__bottom">
-								Отправляя заявку вы соглашаетесь с Политикой конфиденциальности и
-            даёте согласие на обработку ваших персональных данных.
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div data-fls-popup="popup-message" aria-hidden="true" class="popup popup--success">
-			<div data-fls-popup-wrapper="" class="popup__wrapper">
-				<div data-fls-popup-body="" class="popup__body">
-					<button data-fls-popup-close="" type="button" class="popup__close">
-						<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
-							<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
-						</svg>
-					</button>
-					<div data-fls-popup-content="" class="popup__box popup__box--success">
-						<!-- Иконка успеха -->
-						<div class="popup__icon">
-							<svg width="80" height="80" viewbox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<circle cx="40" cy="40" r="40" fill="#4CAF50"></circle>
-								<path d="M25 40L35 50L55 30" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
-							</svg>
-						</div>
-						<h2 class="popup__title popup__title--success">Заявка отправлена!</h2>
-						<div class="popup__message">
-							<p class="popup__text">Спасибо за обращение! Мы свяжемся с вами в ближайшее время.</p>
-							<p class="popup__hint">Обычно перезваниваем в течение 15 минут</p>
-						</div>
-						<button data-fls-popup-close="" type="button" class="popup__button button">Понятно, спасибо</button>
-					</div>
-				</div>
-			</div>
 		</div>
 	</body>
 </html>

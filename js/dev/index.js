@@ -27,872 +27,6 @@
     fetch(link.href, fetchOpts);
   }
 })();
-function getHash() {
-  if (location.hash) {
-    return location.hash.replace("#", "");
-  }
-}
-function setHash(hash) {
-  hash = hash ? `#${hash}` : window.location.href.split("#")[0];
-  history.pushState("", "", hash);
-}
-let slideUp = (target, duration = 500, showmore = 0) => {
-  if (!target.classList.contains("--slide")) {
-    target.classList.add("--slide");
-    target.style.transitionProperty = "height, margin, padding";
-    target.style.transitionDuration = duration + "ms";
-    target.style.height = `${target.offsetHeight}px`;
-    target.offsetHeight;
-    target.style.overflow = "hidden";
-    target.style.height = showmore ? `${showmore}px` : `0px`;
-    target.style.paddingTop = 0;
-    target.style.paddingBottom = 0;
-    target.style.marginTop = 0;
-    target.style.marginBottom = 0;
-    window.setTimeout(() => {
-      target.hidden = !showmore ? true : false;
-      !showmore ? target.style.removeProperty("height") : null;
-      target.style.removeProperty("padding-top");
-      target.style.removeProperty("padding-bottom");
-      target.style.removeProperty("margin-top");
-      target.style.removeProperty("margin-bottom");
-      !showmore ? target.style.removeProperty("overflow") : null;
-      target.style.removeProperty("transition-duration");
-      target.style.removeProperty("transition-property");
-      target.classList.remove("--slide");
-      document.dispatchEvent(new CustomEvent("slideUpDone", {
-        detail: {
-          target
-        }
-      }));
-    }, duration);
-  }
-};
-let slideDown = (target, duration = 500, showmore = 0) => {
-  if (!target.classList.contains("--slide")) {
-    target.classList.add("--slide");
-    target.hidden = target.hidden ? false : null;
-    showmore ? target.style.removeProperty("height") : null;
-    let height = target.offsetHeight;
-    target.style.overflow = "hidden";
-    target.style.height = showmore ? `${showmore}px` : `0px`;
-    target.style.paddingTop = 0;
-    target.style.paddingBottom = 0;
-    target.style.marginTop = 0;
-    target.style.marginBottom = 0;
-    target.offsetHeight;
-    target.style.transitionProperty = "height, margin, padding";
-    target.style.transitionDuration = duration + "ms";
-    target.style.height = height + "px";
-    target.style.removeProperty("padding-top");
-    target.style.removeProperty("padding-bottom");
-    target.style.removeProperty("margin-top");
-    target.style.removeProperty("margin-bottom");
-    window.setTimeout(() => {
-      target.style.removeProperty("height");
-      target.style.removeProperty("overflow");
-      target.style.removeProperty("transition-duration");
-      target.style.removeProperty("transition-property");
-      target.classList.remove("--slide");
-      document.dispatchEvent(new CustomEvent("slideDownDone", {
-        detail: {
-          target
-        }
-      }));
-    }, duration);
-  }
-};
-let slideToggle = (target, duration = 500) => {
-  if (target.hidden) {
-    return slideDown(target, duration);
-  } else {
-    return slideUp(target, duration);
-  }
-};
-let bodyLockStatus = true;
-let bodyLockToggle = (delay = 500) => {
-  if (document.documentElement.hasAttribute("data-fls-scrolllock")) {
-    bodyUnlock(delay);
-  } else {
-    bodyLock(delay);
-  }
-};
-let bodyUnlock = (delay = 500) => {
-  if (bodyLockStatus) {
-    const lockPaddingElements = document.querySelectorAll("[data-fls-lp]");
-    setTimeout(() => {
-      lockPaddingElements.forEach((lockPaddingElement) => {
-        lockPaddingElement.style.paddingRight = "";
-      });
-      document.body.style.paddingRight = "";
-      document.documentElement.removeAttribute("data-fls-scrolllock");
-    }, delay);
-    bodyLockStatus = false;
-    setTimeout(function() {
-      bodyLockStatus = true;
-    }, delay);
-  }
-};
-let bodyLock = (delay = 500) => {
-  if (bodyLockStatus) {
-    const lockPaddingElements = document.querySelectorAll("[data-fls-lp]");
-    const lockPaddingValue = window.innerWidth - document.body.offsetWidth + "px";
-    lockPaddingElements.forEach((lockPaddingElement) => {
-      lockPaddingElement.style.paddingRight = lockPaddingValue;
-    });
-    document.body.style.paddingRight = lockPaddingValue;
-    document.documentElement.setAttribute("data-fls-scrolllock", "");
-    bodyLockStatus = false;
-    setTimeout(function() {
-      bodyLockStatus = true;
-    }, delay);
-  }
-};
-function getDigFormat(item, sepp = " ") {
-  return item.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, `$1${sepp}`);
-}
-function uniqArray(array) {
-  return array.filter((item, index, self2) => self2.indexOf(item) === index);
-}
-function dataMediaQueries(array, dataSetValue) {
-  const media = Array.from(array).filter((item) => item.dataset[dataSetValue]).map((item) => {
-    const [value, type = "max"] = item.dataset[dataSetValue].split(",");
-    return { value, type, item };
-  });
-  if (media.length === 0) return [];
-  const breakpointsArray = media.map(({ value, type }) => `(${type}-width: ${value}px),${value},${type}`);
-  const uniqueQueries = [...new Set(breakpointsArray)];
-  return uniqueQueries.map((query) => {
-    const [mediaQuery, mediaBreakpoint, mediaType] = query.split(",");
-    const matchMedia = window.matchMedia(mediaQuery);
-    const itemsArray = media.filter((item) => item.value === mediaBreakpoint && item.type === mediaType);
-    return { itemsArray, matchMedia };
-  });
-}
-const gotoBlock = (targetBlock, noHeader = false, speed = 500, offsetTop = 0) => {
-  const targetBlockElement = document.querySelector(targetBlock);
-  if (targetBlockElement) {
-    let headerItem = "";
-    let headerItemHeight = 0;
-    if (noHeader) {
-      headerItem = "header.header";
-      const headerElement = document.querySelector(headerItem);
-      if (!headerElement.classList.contains("--header-scroll")) {
-        headerElement.style.cssText = `transition-duration: 0s;`;
-        headerElement.classList.add("--header-scroll");
-        headerItemHeight = headerElement.offsetHeight;
-        headerElement.classList.remove("--header-scroll");
-        setTimeout(() => {
-          headerElement.style.cssText = ``;
-        }, 0);
-      } else {
-        headerItemHeight = headerElement.offsetHeight;
-      }
-    }
-    if (document.documentElement.hasAttribute("data-fls-menu-open")) {
-      bodyUnlock();
-      document.documentElement.removeAttribute("data-fls-menu-open");
-    }
-    let targetBlockElementPosition = targetBlockElement.getBoundingClientRect().top + scrollY;
-    targetBlockElementPosition = headerItemHeight ? targetBlockElementPosition - headerItemHeight : targetBlockElementPosition;
-    targetBlockElementPosition = offsetTop ? targetBlockElementPosition - offsetTop : targetBlockElementPosition;
-    window.scrollTo({
-      top: targetBlockElementPosition,
-      behavior: "smooth"
-    });
-  }
-};
-function tabs() {
-  const tabs2 = document.querySelectorAll("[data-fls-tabs]");
-  let tabsActiveHash = [];
-  if (tabs2.length > 0) {
-    const hash = getHash();
-    if (hash && hash.startsWith("tab-")) {
-      tabsActiveHash = hash.replace("tab-", "").split("-");
-    }
-    tabs2.forEach((tabsBlock, index) => {
-      tabsBlock.classList.add("--tab-init");
-      tabsBlock.setAttribute("data-fls-tabs-index", index);
-      tabsBlock.addEventListener("click", setTabsAction);
-      initTabs(tabsBlock);
-    });
-    let mdQueriesArray = dataMediaQueries(tabs2, "flsTabs");
-    if (mdQueriesArray && mdQueriesArray.length) {
-      mdQueriesArray.forEach((mdQueriesItem) => {
-        mdQueriesItem.matchMedia.addEventListener("change", function() {
-          setTitlePosition(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-        });
-        setTitlePosition(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-      });
-    }
-  }
-  function setTitlePosition(tabsMediaArray, matchMedia) {
-    tabsMediaArray.forEach((tabsMediaItem) => {
-      tabsMediaItem = tabsMediaItem.item;
-      let tabsTitles = tabsMediaItem.querySelector("[data-fls-tabs-titles]");
-      let tabsTitleItems = tabsMediaItem.querySelectorAll("[data-fls-tabs-title]");
-      let tabsContent = tabsMediaItem.querySelector("[data-fls-tabs-body]");
-      let tabsContentItems = tabsMediaItem.querySelectorAll("[data-fls-tabs-item]");
-      tabsTitleItems = Array.from(tabsTitleItems).filter((item) => item.closest("[data-fls-tabs]") === tabsMediaItem);
-      tabsContentItems = Array.from(tabsContentItems).filter((item) => item.closest("[data-fls-tabs]") === tabsMediaItem);
-      tabsContentItems.forEach((tabsContentItem, index) => {
-        if (matchMedia.matches) {
-          tabsContent.append(tabsTitleItems[index]);
-          tabsContent.append(tabsContentItem);
-          tabsMediaItem.classList.add("--tab-spoller");
-        } else {
-          tabsTitles.append(tabsTitleItems[index]);
-          tabsMediaItem.classList.remove("--tab-spoller");
-        }
-      });
-    });
-  }
-  function initTabs(tabsBlock) {
-    let tabsTitles = tabsBlock.querySelectorAll("[data-fls-tabs-titles]>*");
-    let tabsContent = tabsBlock.querySelectorAll("[data-fls-tabs-body]>*");
-    const tabsBlockIndex = tabsBlock.dataset.flsTabsIndex;
-    const tabsActiveHashBlock = tabsActiveHash[0] == tabsBlockIndex;
-    if (tabsActiveHashBlock) {
-      const tabsActiveTitle = tabsBlock.querySelector("[data-fls-tabs-titles]>.--tab-active");
-      tabsActiveTitle ? tabsActiveTitle.classList.remove("--tab-active") : null;
-    }
-    if (tabsContent.length) {
-      tabsContent.forEach((tabsContentItem, index) => {
-        tabsTitles[index].setAttribute("data-fls-tabs-title", "");
-        tabsContentItem.setAttribute("data-fls-tabs-item", "");
-        if (tabsActiveHashBlock && index == tabsActiveHash[1]) {
-          tabsTitles[index].classList.add("--tab-active");
-        }
-        tabsContentItem.hidden = !tabsTitles[index].classList.contains("--tab-active");
-      });
-    }
-  }
-  function setTabsStatus(tabsBlock) {
-    let tabsTitles = tabsBlock.querySelectorAll("[data-fls-tabs-title]");
-    let tabsContent = tabsBlock.querySelectorAll("[data-fls-tabs-item]");
-    const tabsBlockIndex = tabsBlock.dataset.flsTabsIndex;
-    function isTabsAnamate(tabsBlock2) {
-      if (tabsBlock2.hasAttribute("data-fls-tabs-animate")) {
-        return tabsBlock2.dataset.flsTabsAnimate > 0 ? Number(tabsBlock2.dataset.flsTabsAnimate) : 500;
-      }
-    }
-    const tabsBlockAnimate = isTabsAnamate(tabsBlock);
-    if (tabsContent.length > 0) {
-      const isHash = tabsBlock.hasAttribute("data-fls-tabs-hash");
-      tabsContent = Array.from(tabsContent).filter((item) => item.closest("[data-fls-tabs]") === tabsBlock);
-      tabsTitles = Array.from(tabsTitles).filter((item) => item.closest("[data-fls-tabs]") === tabsBlock);
-      tabsContent.forEach((tabsContentItem, index) => {
-        if (tabsTitles[index].classList.contains("--tab-active")) {
-          if (tabsBlockAnimate) {
-            slideDown(tabsContentItem, tabsBlockAnimate);
-          } else {
-            tabsContentItem.hidden = false;
-          }
-          if (isHash && !tabsContentItem.closest(".popup")) {
-            setHash(`tab-${tabsBlockIndex}-${index}`);
-          }
-        } else {
-          if (tabsBlockAnimate) {
-            slideUp(tabsContentItem, tabsBlockAnimate);
-          } else {
-            tabsContentItem.hidden = true;
-          }
-        }
-      });
-    }
-  }
-  function setTabsAction(e) {
-    const el = e.target;
-    if (el.closest("[data-fls-tabs-title]")) {
-      const tabTitle = el.closest("[data-fls-tabs-title]");
-      const tabsBlock = tabTitle.closest("[data-fls-tabs]");
-      if (!tabTitle.classList.contains("--tab-active") && !tabsBlock.querySelector(".--slide")) {
-        let tabActiveTitle = tabsBlock.querySelectorAll("[data-fls-tabs-title].--tab-active");
-        tabActiveTitle.length ? tabActiveTitle = Array.from(tabActiveTitle).filter((item) => item.closest("[data-fls-tabs]") === tabsBlock) : null;
-        tabActiveTitle.length ? tabActiveTitle[0].classList.remove("--tab-active") : null;
-        tabTitle.classList.add("--tab-active");
-        setTabsStatus(tabsBlock);
-      }
-      e.preventDefault();
-    }
-  }
-}
-window.addEventListener("load", tabs);
-let formValidate = {
-  getErrors(form) {
-    let error = 0;
-    let formRequiredItems = form.querySelectorAll("[required]");
-    if (formRequiredItems.length) {
-      formRequiredItems.forEach((formRequiredItem) => {
-        if ((formRequiredItem.offsetParent !== null || formRequiredItem.tagName === "SELECT") && !formRequiredItem.disabled) {
-          error += this.validateInput(formRequiredItem);
-        }
-      });
-    }
-    return error;
-  },
-  validateInput(formRequiredItem) {
-    let error = 0;
-    if (formRequiredItem.type === "email") {
-      formRequiredItem.value = formRequiredItem.value.replace(" ", "");
-      if (this.emailTest(formRequiredItem)) {
-        this.addError(formRequiredItem);
-        this.removeSuccess(formRequiredItem);
-        error++;
-      } else {
-        this.removeError(formRequiredItem);
-        this.addSuccess(formRequiredItem);
-      }
-    } else if (formRequiredItem.type === "checkbox" && !formRequiredItem.checked) {
-      this.addError(formRequiredItem);
-      this.removeSuccess(formRequiredItem);
-      error++;
-    } else {
-      if (!formRequiredItem.value.trim()) {
-        this.addError(formRequiredItem);
-        this.removeSuccess(formRequiredItem);
-        error++;
-      } else {
-        this.removeError(formRequiredItem);
-        this.addSuccess(formRequiredItem);
-      }
-    }
-    return error;
-  },
-  addError(formRequiredItem) {
-    formRequiredItem.classList.add("--form-error");
-    formRequiredItem.parentElement.classList.add("--form-error");
-    let inputError = formRequiredItem.parentElement.querySelector("[data-fls-form-error]");
-    if (inputError) formRequiredItem.parentElement.removeChild(inputError);
-    if (formRequiredItem.dataset.flsFormErrtext) {
-      formRequiredItem.parentElement.insertAdjacentHTML("beforeend", `<div data-fls-form-error>${formRequiredItem.dataset.flsFormErrtext}</div>`);
-    }
-  },
-  removeError(formRequiredItem) {
-    formRequiredItem.classList.remove("--form-error");
-    formRequiredItem.parentElement.classList.remove("--form-error");
-    if (formRequiredItem.parentElement.querySelector("[data-fls-form-error]")) {
-      formRequiredItem.parentElement.removeChild(formRequiredItem.parentElement.querySelector("[data-fls-form-error]"));
-    }
-  },
-  addSuccess(formRequiredItem) {
-    formRequiredItem.classList.add("--form-success");
-    formRequiredItem.parentElement.classList.add("--form-success");
-  },
-  removeSuccess(formRequiredItem) {
-    formRequiredItem.classList.remove("--form-success");
-    formRequiredItem.parentElement.classList.remove("--form-success");
-  },
-  formClean(form) {
-    form.reset();
-    setTimeout(() => {
-      let inputs = form.querySelectorAll("input,textarea");
-      for (let index = 0; index < inputs.length; index++) {
-        const el = inputs[index];
-        el.parentElement.classList.remove("--form-focus");
-        el.classList.remove("--form-focus");
-        formValidate.removeError(el);
-      }
-      let checkboxes = form.querySelectorAll('input[type="checkbox"]');
-      if (checkboxes.length) {
-        checkboxes.forEach((checkbox) => {
-          checkbox.checked = false;
-        });
-      }
-      if (window["flsSelect"]) {
-        let selects = form.querySelectorAll("select[data-fls-select]");
-        if (selects.length) {
-          selects.forEach((select) => {
-            window["flsSelect"].selectBuild(select);
-          });
-        }
-      }
-    }, 0);
-  },
-  emailTest(formRequiredItem) {
-    return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
-  }
-};
-class SelectConstructor {
-  constructor(props, data = null) {
-    let defaultConfig = {
-      init: true,
-      speed: 150
-    };
-    this.config = Object.assign(defaultConfig, props);
-    this.selectClasses = {
-      classSelect: "select",
-      // Основной блок
-      classSelectBody: "select__body",
-      // Тело селекта
-      classSelectTitle: "select__title",
-      // Заголовок
-      classSelectValue: "select__value",
-      // Значения у заголовка
-      classSelectLabel: "select__label",
-      // Лабел
-      classSelectInput: "select__input",
-      // Поле ввода
-      classSelectText: "select__text",
-      // Оболочка текстовых данных
-      classSelectLink: "select__link",
-      // Ссылка в элементе
-      classSelectOptions: "select__options",
-      // Выпадающий список
-      classSelectOptionsScroll: "select__scroll",
-      // Оболочка при скролле
-      classSelectOption: "select__option",
-      // Пункт
-      classSelectContent: "select__content",
-      // Оболочка контента в заголовке
-      classSelectRow: "select__row",
-      // Ряд
-      classSelectData: "select__asset",
-      // Дополнительные данные
-      classSelectDisabled: "--select-disabled",
-      // Запрещено
-      classSelectTag: "--select-tag",
-      // Класс тега
-      classSelectOpen: "--select-open",
-      // Список открыт
-      classSelectActive: "--select-active",
-      // Список выбран
-      classSelectFocus: "--select-focus",
-      // Список в фокусе
-      classSelectMultiple: "--select-multiple",
-      // Мультивыбор
-      classSelectCheckBox: "--select-checkbox",
-      // Стиль чекбокса
-      classSelectOptionSelected: "--select-selected",
-      // Вибраный пункт
-      classSelectPseudoLabel: "--select-pseudo-label"
-      // Псевдолейбл
-    };
-    this._this = this;
-    if (this.config.init) {
-      const selectItems = data ? document.querySelectorAll(data) : document.querySelectorAll("select[data-fls-select]");
-      if (selectItems.length) {
-        this.selectsInit(selectItems);
-      }
-    }
-  }
-  // Конструктор CSS класcа
-  getSelectClass(className) {
-    return `.${className}`;
-  }
-  // Геттер элементов псевдоселекта
-  getSelectElement(selectItem, className) {
-    return {
-      originalSelect: selectItem.querySelector("select"),
-      selectElement: selectItem.querySelector(this.getSelectClass(className))
-    };
-  }
-  // Функция инициализации всех селектов
-  selectsInit(selectItems) {
-    selectItems.forEach((originalSelect, index) => {
-      this.selectInit(originalSelect, index + 1);
-    });
-    document.addEventListener("click", (function(e) {
-      this.selectsActions(e);
-    }).bind(this));
-    document.addEventListener("keydown", (function(e) {
-      this.selectsActions(e);
-    }).bind(this));
-    document.addEventListener("focusin", (function(e) {
-      this.selectsActions(e);
-    }).bind(this));
-    document.addEventListener("focusout", (function(e) {
-      this.selectsActions(e);
-    }).bind(this));
-  }
-  // Функция инициализации конкретного селекта
-  selectInit(originalSelect, index) {
-    index ? originalSelect.dataset.flsSelectId = index : null;
-    if (originalSelect.options.length) {
-      const _this = this;
-      let selectItem = document.createElement("div");
-      selectItem.classList.add(this.selectClasses.classSelect);
-      originalSelect.parentNode.insertBefore(selectItem, originalSelect);
-      selectItem.appendChild(originalSelect);
-      originalSelect.hidden = true;
-      if (this.getSelectPlaceholder(originalSelect)) {
-        originalSelect.dataset.placeholder = this.getSelectPlaceholder(originalSelect).value;
-        if (this.getSelectPlaceholder(originalSelect).label.show) {
-          const selectItemTitle = this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement;
-          selectItemTitle.insertAdjacentHTML("afterbegin", `<span class="${this.selectClasses.classSelectLabel}">${this.getSelectPlaceholder(originalSelect).label.text ? this.getSelectPlaceholder(originalSelect).label.text : this.getSelectPlaceholder(originalSelect).value}</span>`);
-        }
-      }
-      selectItem.insertAdjacentHTML("beforeend", `<div class="${this.selectClasses.classSelectBody}"><div hidden class="${this.selectClasses.classSelectOptions}"></div></div>`);
-      this.selectBuild(originalSelect);
-      originalSelect.dataset.flsSelectSpeed = originalSelect.dataset.flsSelectSpeed ? originalSelect.dataset.flsSelectSpeed : this.config.speed;
-      this.config.speed = +originalSelect.dataset.flsSelectSpeed;
-      originalSelect.addEventListener("change", function(e) {
-        _this.selectChange(e);
-      });
-    }
-  }
-  // Конструктор псевдоселекта
-  selectBuild(originalSelect) {
-    const selectItem = originalSelect.parentElement;
-    if (originalSelect.id) {
-      selectItem.id = originalSelect.id;
-      originalSelect.removeAttribute("id");
-    }
-    selectItem.dataset.flsSelectId = originalSelect.dataset.flsSelectId;
-    originalSelect.dataset.flsSelectModif ? selectItem.classList.add(`select--${originalSelect.dataset.flsSelectModif}`) : null;
-    originalSelect.multiple ? selectItem.classList.add(this.selectClasses.classSelectMultiple) : selectItem.classList.remove(this.selectClasses.classSelectMultiple);
-    originalSelect.hasAttribute("data-fls-select-checkbox") && originalSelect.multiple ? selectItem.classList.add(this.selectClasses.classSelectCheckBox) : selectItem.classList.remove(this.selectClasses.classSelectCheckBox);
-    this.setSelectTitleValue(selectItem, originalSelect);
-    this.setOptions(selectItem, originalSelect);
-    originalSelect.hasAttribute("data-fls-select-search") ? this.searchActions(selectItem) : null;
-    originalSelect.hasAttribute("data-fls-select-open") ? this.selectAction(selectItem) : null;
-    this.selectDisabled(selectItem, originalSelect);
-  }
-  // Функция реакций на события
-  selectsActions(e) {
-    const t = e.target, type = e.type;
-    const isSelect = t.closest(this.getSelectClass(this.selectClasses.classSelect));
-    const isTag = t.closest(this.getSelectClass(this.selectClasses.classSelectTag));
-    if (!isSelect && !isTag) return this.selectsСlose();
-    const selectItem = isSelect || document.querySelector(`.${this.selectClasses.classSelect}[data-fls-select-id="${isTag.dataset.flsSelectId}"]`);
-    const originalSelect = this.getSelectElement(selectItem).originalSelect;
-    if (originalSelect.disabled) return;
-    if (type === "click") {
-      const tag = t.closest(this.getSelectClass(this.selectClasses.classSelectTag));
-      const title = t.closest(this.getSelectClass(this.selectClasses.classSelectTitle));
-      const option = t.closest(this.getSelectClass(this.selectClasses.classSelectOption));
-      if (tag) {
-        const optionItem = document.querySelector(`.${this.selectClasses.classSelect}[data-fls-select-id="${tag.dataset.flsSelectId}"] .select__option[data-fls-select-value="${tag.dataset.flsSelectValue}"]`);
-        this.optionAction(selectItem, originalSelect, optionItem);
-      } else if (title) {
-        this.selectAction(selectItem);
-      } else if (option) {
-        this.optionAction(selectItem, originalSelect, option);
-      }
-    } else if (type === "focusin" || type === "focusout") {
-      if (isSelect) selectItem.classList.toggle(this.selectClasses.classSelectFocus, type === "focusin");
-    } else if (type === "keydown" && e.code === "Escape") {
-      this.selectsСlose();
-    }
-  }
-  // Функция закрытия всех селектов
-  selectsСlose(selectOneGroup) {
-    const selectsGroup = selectOneGroup ? selectOneGroup : document;
-    const selectActiveItems = selectsGroup.querySelectorAll(`${this.getSelectClass(this.selectClasses.classSelect)}${this.getSelectClass(this.selectClasses.classSelectOpen)}`);
-    if (selectActiveItems.length) {
-      selectActiveItems.forEach((selectActiveItem) => {
-        this.selectСlose(selectActiveItem);
-      });
-    }
-  }
-  // Функция закрытия конкретного селекта
-  selectСlose(selectItem) {
-    const originalSelect = this.getSelectElement(selectItem).originalSelect;
-    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
-    if (!selectOptions.classList.contains("_slide")) {
-      selectItem.classList.remove(this.selectClasses.classSelectOpen);
-      slideUp(selectOptions, originalSelect.dataset.flsSelectSpeed);
-      setTimeout(() => {
-        selectItem.style.zIndex = "";
-      }, originalSelect.dataset.flsSelectSpeed);
-    }
-  }
-  // Функция открытия / закрытия конкретного селекта
-  selectAction(selectItem) {
-    const originalSelect = this.getSelectElement(selectItem).originalSelect;
-    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
-    selectOptions.querySelectorAll(`.${this.selectClasses.classSelectOption}`);
-    const selectOpenzIndex = originalSelect.dataset.flsSelectZIndex ? originalSelect.dataset.flsSelectZIndex : 3;
-    this.setOptionsPosition(selectItem);
-    if (originalSelect.closest("[data-fls-select-one]")) {
-      const selectOneGroup = originalSelect.closest("[data-fls-select-one]");
-      this.selectsСlose(selectOneGroup);
-    }
-    setTimeout(() => {
-      if (!selectOptions.classList.contains("--slide")) {
-        selectItem.classList.toggle(this.selectClasses.classSelectOpen);
-        slideToggle(selectOptions, originalSelect.dataset.flsSelectSpeed);
-        if (selectItem.classList.contains(this.selectClasses.classSelectOpen)) {
-          selectItem.style.zIndex = selectOpenzIndex;
-        } else {
-          setTimeout(() => {
-            selectItem.style.zIndex = "";
-          }, originalSelect.dataset.flsSelectSpeed);
-        }
-      }
-    }, 0);
-  }
-  // Сеттер значение заголовка селекта
-  setSelectTitleValue(selectItem, originalSelect) {
-    const selectItemBody = this.getSelectElement(selectItem, this.selectClasses.classSelectBody).selectElement;
-    const selectItemTitle = this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement;
-    if (selectItemTitle) selectItemTitle.remove();
-    selectItemBody.insertAdjacentHTML("afterbegin", this.getSelectTitleValue(selectItem, originalSelect));
-    originalSelect.hasAttribute("data-fls-select-search") ? this.searchActions(selectItem) : null;
-  }
-  // Конструктор значения заголовка
-  // getSelectTitleValue(selectItem, originalSelect) {
-  // 	// Получаем выбранные текстовые значения
-  // 	let selectTitleValue = this.getSelectedOptionsData(originalSelect, 2).html;
-  // 	// Обработка значений мультивыбора
-  // 	// Если включен режим тегов (указаны настройки data-fls-select-tags)
-  // 	if (originalSelect.multiple && originalSelect.hasAttribute('data-fls-select-tags')) {
-  // 		selectTitleValue = this.getSelectedOptionsData(originalSelect).elements.map(option => `<span role="button" data-fls-select-id="${selectItem.dataset.flsSelectId}" data-fls-select-value="${option.value}" class="--select-tag">${this.getSelectElementContent(option)}</span>`).join('');
-  // 		// Если вывод тегов во внешний блок
-  // 		if (originalSelect.dataset.flsSelectTags && document.querySelector(originalSelect.dataset.flsSelectTags)) {
-  // 			document.querySelector(originalSelect.dataset.flsSelectTags).innerHTML = selectTitleValue;
-  // 			if (originalSelect.hasAttribute('data-fls-select-search')) selectTitleValue = false;
-  // 		}
-  // 	}
-  // 	// Значение или плейсхолдер
-  // 	selectTitleValue = selectTitleValue.length ? selectTitleValue : (originalSelect.dataset.flsSelectPlaceholder || '')
-  // 	if (!originalSelect.hasAttribute('data-fls-select-tags')) {
-  // 		selectTitleValue = selectTitleValue ? selectTitleValue.map(item => item.replace(/"/g, '&quot;')) : ''
-  // 	}
-  // 	// Если включен режим pseudo
-  // 	let pseudoAttribute = '';
-  // 	let pseudoAttributeClass = '';
-  // 	if (originalSelect.hasAttribute('data-fls-select-pseudo-label')) {
-  // 		pseudoAttribute = originalSelect.dataset.flsSelectPseudoLabel ? ` data-fls-select-pseudo-label="${originalSelect.dataset.flsSelectPseudoLabel}"` : ` data-fls-select-pseudo-label="Заповніть атрибут"`;
-  // 		pseudoAttributeClass = ` ${this.selectClasses.classSelectPseudoLabel}`;
-  // 	}
-  // 	// Если есть значение, добавляем класс
-  // 	this.getSelectedOptionsData(originalSelect).values.length ? selectItem.classList.add(this.selectClasses.classSelectActive) : selectItem.classList.remove(this.selectClasses.classSelectActive);
-  // 	// Возвращаем поле ввода для поиска или текст
-  // 	if (originalSelect.hasAttribute('data-fls-select-search')) {
-  // 		// Выводим поле ввода для поиска
-  // 		return `<div class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}"><input autocomplete="off" type="text" placeholder="${selectTitleValue}" data-fls-select-placeholder="${selectTitleValue}" class="${this.selectClasses.classSelectInput}"></span></div>`;
-  // 	} else {
-  // 		// Если выбран элемент со своим классом
-  // 		const customClass = this.getSelectedOptionsData(originalSelect).elements.length && this.getSelectedOptionsData(originalSelect).elements[0].dataset.flsSelectClass ? ` ${this.getSelectedOptionsData(originalSelect).elements[0].dataset.flsSelectClass}` : '';
-  // 		// Выводим текстовое значение
-  // 		return `<button type="button" class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}${pseudoAttributeClass}"><span class="${this.selectClasses.classSelectContent}${customClass}">${selectTitleValue}</span></span></button>`;
-  // 	}
-  // }
-  // Конструктор значения заголовка
-  // Конструктор значения заголовка
-  getSelectTitleValue(selectItem, originalSelect) {
-    const selectedOption = originalSelect.options[originalSelect.selectedIndex];
-    const selectedAsset = selectedOption.getAttribute("data-fls-select-asset");
-    let assetHTML = "";
-    if (selectedAsset) {
-      assetHTML = `<span class="${this.selectClasses.classSelectData}">${selectedAsset.indexOf("img") >= 0 ? `<img src="${selectedAsset}" alt="">` : selectedAsset}</span>`;
-    }
-    const selectedText = selectedOption.textContent;
-    let pseudoAttribute = "";
-    let pseudoAttributeClass = "";
-    if (originalSelect.hasAttribute("data-fls-select-pseudo-label")) {
-      pseudoAttribute = originalSelect.dataset.flsSelectPseudoLabel ? ` data-fls-select-pseudo-label="${originalSelect.dataset.flsSelectPseudoLabel}"` : ` data-fls-select-pseudo-label="Заповніть атрибут"`;
-      pseudoAttributeClass = ` ${this.selectClasses.classSelectPseudoLabel}`;
-    }
-    this.getSelectedOptionsData(originalSelect).values.length ? selectItem.classList.add(this.selectClasses.classSelectActive) : selectItem.classList.remove(this.selectClasses.classSelectActive);
-    if (originalSelect.hasAttribute("data-fls-select-search")) {
-      return `<div class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}"><input autocomplete="off" type="text" placeholder="${selectedText}" data-fls-select-placeholder="${selectedText}" class="${this.selectClasses.classSelectInput}"></span></div>`;
-    } else {
-      const customClass = selectedOption.dataset.flsSelectClass ? ` ${selectedOption.dataset.flsSelectClass}` : "";
-      return `<button type="button" class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}${pseudoAttributeClass}"><span class="${this.selectClasses.classSelectContent}${customClass}">${assetHTML}<span class="${this.selectClasses.classSelectText}">${selectedText}</span></span></span></button>`;
-    }
-  }
-  // Конструктор данных для значения заголовка
-  getSelectElementContent(selectOption) {
-    const selectOptionData = selectOption.dataset.flsSelectAsset ? `${selectOption.dataset.flsSelectAsset}` : "";
-    const selectOptionDataHTML = selectOptionData.indexOf("img") >= 0 ? `<img src="${selectOptionData}" alt="">` : selectOptionData;
-    let selectOptionContentHTML = ``;
-    selectOptionContentHTML += selectOptionData ? `<span class="${this.selectClasses.classSelectRow}">` : "";
-    selectOptionContentHTML += selectOptionData ? `<span class="${this.selectClasses.classSelectData}">` : "";
-    selectOptionContentHTML += selectOptionData ? selectOptionDataHTML : "";
-    selectOptionContentHTML += selectOptionData ? `</span>` : "";
-    selectOptionContentHTML += selectOptionData ? `<span class="${this.selectClasses.classSelectText}">` : "";
-    selectOptionContentHTML += selectOption.textContent;
-    selectOptionContentHTML += selectOptionData ? `</span>` : "";
-    selectOptionContentHTML += selectOptionData ? `</span>` : "";
-    return selectOptionContentHTML;
-  }
-  // Получение данных плейсхолдера
-  getSelectPlaceholder(originalSelect) {
-    const selectPlaceholder = Array.from(originalSelect.options).find((option) => !option.value);
-    if (selectPlaceholder) {
-      return {
-        value: selectPlaceholder.textContent,
-        show: selectPlaceholder.hasAttribute("data-fls-select-show"),
-        label: {
-          show: selectPlaceholder.hasAttribute("data-fls-select-label"),
-          text: selectPlaceholder.dataset.flsSelectLabel
-        }
-      };
-    }
-  }
-  // Получение данных из выбранных элементов
-  getSelectedOptionsData(originalSelect, type) {
-    let selectedOptions = [];
-    if (originalSelect.multiple) {
-      selectedOptions = Array.from(originalSelect.options).filter((option) => option.value).filter((option) => option.selected);
-    } else {
-      selectedOptions.push(originalSelect.options[originalSelect.selectedIndex]);
-    }
-    return {
-      elements: selectedOptions.map((option) => option),
-      values: selectedOptions.filter((option) => option.value).map((option) => option.value),
-      html: selectedOptions.map((option) => this.getSelectElementContent(option))
-    };
-  }
-  // Конструктор элементов списка
-  getOptions(originalSelect) {
-    const selectOptionsScroll = originalSelect.hasAttribute("data-fls-select-scroll") ? `` : "";
-    +originalSelect.dataset.flsSelectScroll ? +originalSelect.dataset.flsSelectScroll : null;
-    let selectOptions = Array.from(originalSelect.options);
-    if (selectOptions.length > 0) {
-      let selectOptionsHTML = ``;
-      if (this.getSelectPlaceholder(originalSelect) && !this.getSelectPlaceholder(originalSelect).show || originalSelect.multiple) {
-        selectOptions = selectOptions.filter((option) => option.value);
-      }
-      selectOptionsHTML += `<div ${selectOptionsScroll} ${""} class="${this.selectClasses.classSelectOptionsScroll}">`;
-      selectOptions.forEach((selectOption) => {
-        selectOptionsHTML += this.getOption(selectOption, originalSelect);
-      });
-      selectOptionsHTML += `</div>`;
-      return selectOptionsHTML;
-    }
-  }
-  // Конструктор конкретного элемента списка
-  getOption(selectOption, originalSelect) {
-    const selectOptionSelected = selectOption.selected && originalSelect.multiple ? ` ${this.selectClasses.classSelectOptionSelected}` : "";
-    const selectOptionHide = selectOption.selected && !originalSelect.hasAttribute("data-fls-select-show-selected") && !originalSelect.multiple ? `hidden` : ``;
-    const selectOptionClass = selectOption.dataset.flsSelectClass ? ` ${selectOption.dataset.flsSelectClass}` : "";
-    const selectOptionLink = selectOption.dataset.flsSelectHref ? selectOption.dataset.flsSelectHref : false;
-    const selectOptionLinkTarget = selectOption.hasAttribute("data-fls-select-href-blank") ? `target="_blank"` : "";
-    let selectOptionHTML = ``;
-    selectOptionHTML += selectOptionLink ? `<a ${selectOptionLinkTarget} ${selectOptionHide} href="${selectOptionLink}" data-fls-select-value="${selectOption.value}" class="${this.selectClasses.classSelectOption}${selectOptionClass}${selectOptionSelected}">` : `<button ${selectOptionHide} class="${this.selectClasses.classSelectOption}${selectOptionClass}${selectOptionSelected}" data-fls-select-value="${selectOption.value}" type="button">`;
-    selectOptionHTML += this.getSelectElementContent(selectOption);
-    selectOptionHTML += selectOptionLink ? `</a>` : `</button>`;
-    return selectOptionHTML;
-  }
-  // Сеттер элементов списка (options)
-  setOptions(selectItem, originalSelect) {
-    const selectItemOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
-    selectItemOptions.innerHTML = this.getOptions(originalSelect);
-  }
-  // Определяем, где отобразить выпадающий список
-  setOptionsPosition(selectItem) {
-    const originalSelect = this.getSelectElement(selectItem).originalSelect;
-    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
-    const selectItemScroll = this.getSelectElement(selectItem, this.selectClasses.classSelectOptionsScroll).selectElement;
-    const customMaxHeightValue = +originalSelect.dataset.flsSelectScroll ? `${+originalSelect.dataset.flsSelectScroll}px` : ``;
-    const selectOptionsPosMargin = +originalSelect.dataset.flsSelectOptionsMargin ? +originalSelect.dataset.flsSelectOptionsMargin : 10;
-    if (!selectItem.classList.contains(this.selectClasses.classSelectOpen)) {
-      selectOptions.hidden = false;
-      const selectItemScrollHeight = selectItemScroll.offsetHeight ? selectItemScroll.offsetHeight : parseInt(window.getComputedStyle(selectItemScroll).getPropertyValue("max-height"));
-      const selectOptionsHeight = selectOptions.offsetHeight > selectItemScrollHeight ? selectOptions.offsetHeight : selectItemScrollHeight + selectOptions.offsetHeight;
-      const selectOptionsScrollHeight = selectOptionsHeight - selectItemScrollHeight;
-      selectOptions.hidden = true;
-      const selectItemHeight = selectItem.offsetHeight;
-      const selectItemPos = selectItem.getBoundingClientRect().top;
-      const selectItemTotal = selectItemPos + selectOptionsHeight + selectItemHeight + selectOptionsScrollHeight;
-      const selectItemResult = window.innerHeight - (selectItemTotal + selectOptionsPosMargin);
-      if (selectItemResult < 0) {
-        const newMaxHeightValue = selectOptionsHeight + selectItemResult;
-        if (newMaxHeightValue < 100) {
-          selectItem.classList.add("select--show-top");
-          selectItemScroll.style.maxHeight = selectItemPos < selectOptionsHeight ? `${selectItemPos - (selectOptionsHeight - selectItemPos)}px` : customMaxHeightValue;
-        } else {
-          selectItem.classList.remove("select--show-top");
-          selectItemScroll.style.maxHeight = `${newMaxHeightValue}px`;
-        }
-      }
-    } else {
-      setTimeout(() => {
-        selectItem.classList.remove("select--show-top");
-        selectItemScroll.style.maxHeight = customMaxHeightValue;
-      }, +originalSelect.dataset.flsSelectSpeed);
-    }
-  }
-  // Обработчик клика на пункт списка
-  optionAction(selectItem, originalSelect, optionItem) {
-    const optionsBox = selectItem.querySelector(this.getSelectClass(this.selectClasses.classSelectOptions));
-    if (optionsBox.classList.contains("--slide")) return;
-    if (originalSelect.multiple) {
-      optionItem.classList.toggle(this.selectClasses.classSelectOptionSelected);
-      const selectedEls = this.getSelectedOptionsData(originalSelect).elements;
-      for (const el of selectedEls) {
-        el.removeAttribute("selected");
-      }
-      const selectedUI = selectItem.querySelectorAll(this.getSelectClass(this.selectClasses.classSelectOptionSelected));
-      for (const el of selectedUI) {
-        const val = el.dataset.flsSelectValue;
-        const opt = originalSelect.querySelector(`option[value="${val}"]`);
-        if (opt) opt.setAttribute("selected", "selected");
-      }
-    } else {
-      if (!originalSelect.hasAttribute("data-fls-select-show-selected")) {
-        setTimeout(() => {
-          const hiddenOpt = selectItem.querySelector(`${this.getSelectClass(this.selectClasses.classSelectOption)}[hidden]`);
-          if (hiddenOpt) hiddenOpt.hidden = false;
-          optionItem.hidden = true;
-        }, this.config.speed);
-      }
-      originalSelect.value = optionItem.dataset.flsSelectValue || optionItem.textContent;
-      this.selectAction(selectItem);
-    }
-    this.setSelectTitleValue(selectItem, originalSelect);
-    this.setSelectChange(originalSelect);
-  }
-  // Реакция на изменение исходного select
-  selectChange(e) {
-    const originalSelect = e.target;
-    this.selectBuild(originalSelect);
-    this.setSelectChange(originalSelect);
-  }
-  // Обработчик изменения в селекте
-  setSelectChange(originalSelect) {
-    if (originalSelect.hasAttribute("data-fls-select-validate")) {
-      formValidate.validateInput(originalSelect);
-    }
-    if (originalSelect.hasAttribute("data-fls-select-submit") && originalSelect.value) {
-      let tempButton = document.createElement("button");
-      tempButton.type = "submit";
-      originalSelect.closest("form").append(tempButton);
-      tempButton.click();
-      tempButton.remove();
-    }
-    const selectItem = originalSelect.parentElement;
-    this.selectCallback(selectItem, originalSelect);
-  }
-  // Обработчик disabled
-  selectDisabled(selectItem, originalSelect) {
-    if (originalSelect.disabled) {
-      selectItem.classList.add(this.selectClasses.classSelectDisabled);
-      this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement.disabled = true;
-    } else {
-      selectItem.classList.remove(this.selectClasses.classSelectDisabled);
-      this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement.disabled = false;
-    }
-  }
-  // Обработчик поиска по элементам списка
-  searchActions(selectItem) {
-    const selectInput = this.getSelectElement(selectItem, this.selectClasses.classSelectInput).selectElement;
-    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
-    selectInput.addEventListener("input", () => {
-      const inputValue = selectInput.value.toLowerCase();
-      const selectOptionsItems = selectOptions.querySelectorAll(`.${this.selectClasses.classSelectOption}`);
-      selectOptionsItems.forEach((item) => {
-        const itemText = item.textContent.toLowerCase();
-        item.hidden = !itemText.includes(inputValue);
-      });
-      if (selectOptions.hidden) {
-        this.selectAction(selectItem);
-      }
-    });
-  }
-  // Колбек функция
-  selectCallback(selectItem, originalSelect) {
-    document.dispatchEvent(new CustomEvent("selectCallback", {
-      detail: {
-        select: originalSelect
-      }
-    }));
-  }
-}
-document.querySelector("select[data-fls-select]") ? window.addEventListener("load", () => window.flsSelect = new SelectConstructor({})) : null;
 function isObject$1(obj) {
   return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
 }
@@ -5867,8 +5001,8 @@ function EffectFade(_ref) {
   });
 }
 function initSliders() {
-  if (document.querySelector(".last-work__slider")) {
-    new Swiper(".last-work__slider", {
+  if (document.querySelector(".variants__slider")) {
+    new Swiper(".variants__slider", {
       // <- Указываем класс нужного слайдера
       // Подключаем модули слайдера
       // для конкретного случая
@@ -5906,31 +5040,25 @@ function initSliders() {
       */
       // Кнопки "влево/вправо"
       navigation: {
-        prevEl: ".last-work-button-prev",
-        nextEl: ".last-work-button-next"
+        prevEl: ".variants-button-prev",
+        nextEl: ".variants-button-next"
       },
-      /*
       // Брейкпоинты
       breakpoints: {
-      	640: {
-      		slidesPerView: 1,
-      		spaceBetween: 0,
-      		autoHeight: true,
-      	},
-      	768: {
-      		slidesPerView: 2,
-      		spaceBetween: 20,
-      	},
-      	992: {
-      		slidesPerView: 3,
-      		spaceBetween: 20,
-      	},
-      	1268: {
-      		slidesPerView: 4,
-      		spaceBetween: 30,
-      	},
+        540: {
+          slidesPerView: 2,
+          spaceBetween: 0,
+          autoHeight: true
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 20
+        },
+        992: {
+          slidesPerView: 3,
+          spaceBetween: 20
+        }
       },
-      */
       // События
       on: {}
     });
@@ -5944,7 +5072,7 @@ function initSliders() {
       observer: true,
       observeParents: true,
       slidesPerView: 1,
-      spaceBetween: 0,
+      spaceBetween: 10,
       //autoHeight: true,
       speed: 800,
       //touchRatio: 0,
@@ -5977,28 +5105,22 @@ function initSliders() {
         prevEl: ".reviews-button-prev",
         nextEl: ".reviews-button-next"
       },
-      /*
       // Брейкпоинты
       breakpoints: {
-      	640: {
-      		slidesPerView: 1,
-      		spaceBetween: 0,
-      		autoHeight: true,
-      	},
-      	768: {
-      		slidesPerView: 2,
-      		spaceBetween: 20,
-      	},
-      	992: {
-      		slidesPerView: 3,
-      		spaceBetween: 20,
-      	},
-      	1268: {
-      		slidesPerView: 4,
-      		spaceBetween: 30,
-      	},
+        540: {
+          slidesPerView: 2,
+          spaceBetween: 10,
+          autoHeight: true
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 20
+        },
+        992: {
+          slidesPerView: 3,
+          spaceBetween: 20
+        }
       },
-      */
       // События
       on: {}
     });
@@ -6050,12 +5172,10 @@ function initSliders() {
             progressBarFill.style.width = "0%";
           }
         },
-        //дейсвите после последнего сладера
         reachEnd: function(swiper) {
           document.getElementById("progress").style.display = "none";
           document.getElementById("calc").style.display = "none";
-          document.getElementById("banner").style.display = "none";
-          document.getElementById("wrapper-content").classList.add("last");
+          document.getElementById("calc-last").style.display = "grid";
         },
         fromEdge: function(swiper) {
         }
@@ -6064,114 +5184,78 @@ function initSliders() {
   }
 }
 document.querySelector("[data-fls-slider]") ? window.addEventListener("load", initSliders) : null;
-function showMore() {
-  const showMoreBlocks = document.querySelectorAll("[data-fls-showmore]");
-  let showMoreBlocksRegular;
-  let mdQueriesArray;
-  if (showMoreBlocks.length) {
-    showMoreBlocksRegular = Array.from(showMoreBlocks).filter(function(item, index, self2) {
-      return !item.dataset.flsShowmoreMedia;
-    });
-    showMoreBlocksRegular.length ? initItems(showMoreBlocksRegular) : null;
-    document.addEventListener("click", showMoreActions);
-    window.addEventListener("resize", showMoreActions);
-    mdQueriesArray = dataMediaQueries(showMoreBlocks, "flsShowmoreMedia");
-    if (mdQueriesArray && mdQueriesArray.length) {
-      mdQueriesArray.forEach((mdQueriesItem) => {
-        mdQueriesItem.matchMedia.addEventListener("change", function() {
-          initItems(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-        });
+let bodyLockStatus = true;
+let bodyLockToggle = (delay = 500) => {
+  if (document.documentElement.hasAttribute("data-fls-scrolllock")) {
+    bodyUnlock(delay);
+  } else {
+    bodyLock(delay);
+  }
+};
+let bodyUnlock = (delay = 500) => {
+  if (bodyLockStatus) {
+    const lockPaddingElements = document.querySelectorAll("[data-fls-lp]");
+    setTimeout(() => {
+      lockPaddingElements.forEach((lockPaddingElement) => {
+        lockPaddingElement.style.paddingRight = "";
       });
-      initItemsMedia(mdQueriesArray);
-    }
+      document.body.style.paddingRight = "";
+      document.documentElement.removeAttribute("data-fls-scrolllock");
+    }, delay);
+    bodyLockStatus = false;
+    setTimeout(function() {
+      bodyLockStatus = true;
+    }, delay);
   }
-  function initItemsMedia(mdQueriesArray2) {
-    mdQueriesArray2.forEach((mdQueriesItem) => {
-      initItems(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
+};
+let bodyLock = (delay = 500) => {
+  if (bodyLockStatus) {
+    const lockPaddingElements = document.querySelectorAll("[data-fls-lp]");
+    const lockPaddingValue = window.innerWidth - document.body.offsetWidth + "px";
+    lockPaddingElements.forEach((lockPaddingElement) => {
+      lockPaddingElement.style.paddingRight = lockPaddingValue;
     });
+    document.body.style.paddingRight = lockPaddingValue;
+    document.documentElement.setAttribute("data-fls-scrolllock", "");
+    bodyLockStatus = false;
+    setTimeout(function() {
+      bodyLockStatus = true;
+    }, delay);
   }
-  function initItems(showMoreBlocks2, matchMedia) {
-    showMoreBlocks2.forEach((showMoreBlock) => {
-      initItem(showMoreBlock, matchMedia);
-    });
-  }
-  function initItem(showMoreBlock, matchMedia = false) {
-    showMoreBlock = matchMedia ? showMoreBlock.item : showMoreBlock;
-    let showMoreContent = showMoreBlock.querySelectorAll("[data-fls-showmore-content]");
-    let showMoreButton = showMoreBlock.querySelectorAll("[data-fls-showmore-button]");
-    showMoreContent = Array.from(showMoreContent).filter((item) => item.closest("[data-fls-showmore]") === showMoreBlock)[0];
-    showMoreButton = Array.from(showMoreButton).filter((item) => item.closest("[data-fls-showmore]") === showMoreBlock)[0];
-    const hiddenHeight = getHeight(showMoreBlock, showMoreContent);
-    if (matchMedia.matches || !matchMedia) {
-      if (hiddenHeight < getOriginalHeight(showMoreContent)) {
-        slideUp(showMoreContent, 0, showMoreBlock.classList.contains("--showmore-active") ? getOriginalHeight(showMoreContent) : hiddenHeight);
-        showMoreButton.hidden = false;
+};
+const gotoBlock = (targetBlock, noHeader = false, speed = 500, offsetTop = 0) => {
+  const targetBlockElement = document.querySelector(targetBlock);
+  if (targetBlockElement) {
+    let headerItem = "";
+    let headerItemHeight = 0;
+    if (noHeader) {
+      headerItem = "header.header";
+      const headerElement = document.querySelector(headerItem);
+      if (!headerElement.classList.contains("--header-scroll")) {
+        headerElement.style.cssText = `transition-duration: 0s;`;
+        headerElement.classList.add("--header-scroll");
+        headerItemHeight = headerElement.offsetHeight;
+        headerElement.classList.remove("--header-scroll");
+        setTimeout(() => {
+          headerElement.style.cssText = ``;
+        }, 0);
       } else {
-        slideDown(showMoreContent, 0, hiddenHeight);
-        showMoreButton.hidden = true;
+        headerItemHeight = headerElement.offsetHeight;
       }
-    } else {
-      slideDown(showMoreContent, 0, hiddenHeight);
-      showMoreButton.hidden = true;
     }
-  }
-  function getHeight(showMoreBlock, showMoreContent) {
-    let hiddenHeight = 0;
-    const showMoreType = showMoreBlock.dataset.flsShowmore ? showMoreBlock.dataset.flsShowmore : "size";
-    const rowGap = parseFloat(getComputedStyle(showMoreContent).rowGap) ? parseFloat(getComputedStyle(showMoreContent).rowGap) : 0;
-    if (showMoreType === "items") {
-      const showMoreTypeValue = showMoreContent.dataset.flsShowmoreContent ? showMoreContent.dataset.flsShowmoreContent : 3;
-      const showMoreItems = showMoreContent.children;
-      for (let index = 1; index < showMoreItems.length; index++) {
-        const showMoreItem = showMoreItems[index - 1];
-        const marginTop = parseFloat(getComputedStyle(showMoreItem).marginTop) ? parseFloat(getComputedStyle(showMoreItem).marginTop) : 0;
-        const marginBottom = parseFloat(getComputedStyle(showMoreItem).marginBottom) ? parseFloat(getComputedStyle(showMoreItem).marginBottom) : 0;
-        hiddenHeight += showMoreItem.offsetHeight + marginTop;
-        if (index == showMoreTypeValue) break;
-        hiddenHeight += marginBottom;
-      }
-      rowGap ? hiddenHeight += (showMoreTypeValue - 1) * rowGap : null;
-    } else {
-      const showMoreTypeValue = showMoreContent.dataset.flsShowmoreContent ? showMoreContent.dataset.flsShowmoreContent : 150;
-      hiddenHeight = showMoreTypeValue;
+    if (document.documentElement.hasAttribute("data-fls-menu-open")) {
+      bodyUnlock();
+      document.documentElement.removeAttribute("data-fls-menu-open");
     }
-    return hiddenHeight;
+    let targetBlockElementPosition = targetBlockElement.getBoundingClientRect().top + scrollY;
+    targetBlockElementPosition = headerItemHeight ? targetBlockElementPosition - headerItemHeight : targetBlockElementPosition;
+    targetBlockElementPosition = offsetTop ? targetBlockElementPosition - offsetTop : targetBlockElementPosition;
+    window.scrollTo({
+      top: targetBlockElementPosition,
+      behavior: "smooth"
+    });
   }
-  function getOriginalHeight(showMoreContent) {
-    let parentHidden;
-    let hiddenHeight = showMoreContent.offsetHeight;
-    showMoreContent.style.removeProperty("height");
-    if (showMoreContent.closest(`[hidden]`)) {
-      parentHidden = showMoreContent.closest(`[hidden]`);
-      parentHidden.hidden = false;
-    }
-    let originalHeight = showMoreContent.offsetHeight;
-    parentHidden ? parentHidden.hidden = true : null;
-    showMoreContent.style.height = `${hiddenHeight}px`;
-    return originalHeight;
-  }
-  function showMoreActions(e) {
-    const targetEvent = e.target;
-    const targetType = e.type;
-    if (targetType === "click") {
-      if (targetEvent.closest("[data-fls-showmore-button]")) {
-        const showMoreButton = targetEvent.closest("[data-fls-showmore-button]");
-        const showMoreBlock = showMoreButton.closest("[data-fls-showmore]");
-        const showMoreContent = showMoreBlock.querySelector("[data-fls-showmore-content]");
-        const showMoreSpeed = showMoreBlock.dataset.flsShowmoreButton ? showMoreBlock.dataset.flsShowmoreButton : "500";
-        const hiddenHeight = getHeight(showMoreBlock, showMoreContent);
-        if (!showMoreContent.classList.contains("--slide")) {
-          showMoreBlock.classList.contains("--showmore-active") ? slideUp(showMoreContent, showMoreSpeed, hiddenHeight) : slideDown(showMoreContent, showMoreSpeed, hiddenHeight);
-          showMoreBlock.classList.toggle("--showmore-active");
-        }
-      }
-    } else if (targetType === "resize") {
-      showMoreBlocksRegular && showMoreBlocksRegular.length ? initItems(showMoreBlocksRegular) : null;
-      mdQueriesArray && mdQueriesArray.length ? initItemsMedia(mdQueriesArray) : null;
-    }
-  }
-}
-window.addEventListener("load", showMore);
+};
 class Popup {
   constructor(options) {
     let config = {
@@ -9284,56 +8368,15 @@ function requireLgZoom_min() {
 var lgZoom_minExports = requireLgZoom_min();
 const lgZoom = /* @__PURE__ */ getDefaultExportFromCjs(lgZoom_minExports);
 const KEY = "7EC452A9-0CFD441C-BD984C7C-17C8456E";
-const initGalleries = () => {
-  const galleries = document.querySelectorAll("[data-fls-gallery]");
-  if (galleries.length) {
-    console.log(`Найдено галерей: ${galleries.length}`);
-    galleries.forEach((gallery, index) => {
-      console.log(`Инициализация галереи #${index + 1}:`, gallery);
-      const galleryItems = gallery.querySelectorAll('a[href$=".jpg"], a[href$=".jpeg"], a[href$=".png"], a[href$=".gif"]');
-      console.log(`Элементов в галерее #${index + 1}: ${galleryItems.length}`);
-      if (galleryItems.length === 0) {
-        console.error(`Галерея #${index + 1} не содержит изображений для показа!`);
-        return;
-      }
-      try {
-        const lightGalleryInstance = lightGallery(gallery, {
-          plugins: [lgZoom, lgThumbnail],
-          // Раскомментируйте если нужны плагины
-          licenseKey: KEY,
-          speed: 500,
-          selector: "a",
-          // Указываем селектор для элементов галереи
-          download: false,
-          counter: true,
-          enableDrag: true,
-          enableSwipe: true,
-          // Отладка
-          verbose: true,
-          // Обработчики событий для отладки
-          onAfterOpen: () => {
-            console.log(`Галерея #${index + 1} открыта`);
-          },
-          onAfterClose: () => {
-            console.log(`Галерея #${index + 1} закрыта`);
-          },
-          onSlideItemLoad: (detail) => {
-            console.log(`Слайд загружен в галерее #${index + 1}:`, detail);
-          }
-        });
-        console.log(`Галерея #${index + 1} успешно инициализирована`);
-      } catch (error) {
-        console.error(`Ошибка при инициализации галереи #${index + 1}:`, error);
-      }
+const galleries = document.querySelectorAll("[data-fls-gallery]");
+if (galleries.length) {
+  galleries.forEach((gallery) => {
+    lightGallery(gallery, {
+      plugins: [lgZoom, lgThumbnail],
+      licenseKey: KEY,
+      speed: 500
     });
-  } else {
-    console.log("Галереи не найдены");
-  }
-};
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initGalleries);
-} else {
-  initGalleries();
+  });
 }
 class DynamicAdapt {
   constructor() {
@@ -9454,48 +8497,6 @@ class DynamicAdapt {
 if (document.querySelector("[data-fls-dynamic]")) {
   window.addEventListener("load", () => new DynamicAdapt());
 }
-function digitsCounter() {
-  function digitsCountersInit(digitsCountersItems) {
-    let digitsCounters = digitsCountersItems ? digitsCountersItems : document.querySelectorAll("[data-fls-digcounter]");
-    if (digitsCounters.length) {
-      digitsCounters.forEach((digitsCounter2) => {
-        if (digitsCounter2.hasAttribute("data-fls-digcounter-go")) return;
-        digitsCounter2.setAttribute("data-fls-digcounter-go", "");
-        digitsCounter2.dataset.flsDigcounter = digitsCounter2.innerHTML;
-        digitsCounter2.innerHTML = `0`;
-        digitsCountersAnimate(digitsCounter2);
-      });
-    }
-  }
-  function digitsCountersAnimate(digitsCounter2) {
-    let startTimestamp = null;
-    const duration = parseFloat(digitsCounter2.dataset.flsDigcounterSpeed) ? parseFloat(digitsCounter2.dataset.flsDigcounterSpeed) : 1e3;
-    const startValue = parseFloat(digitsCounter2.dataset.flsDigcounter);
-    const format = digitsCounter2.dataset.flsDigcounterFormat ? digitsCounter2.dataset.flsDigcounterFormat : " ";
-    const startPosition = 0;
-    const step = (timestamp) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      const value = Math.floor(progress * (startPosition + startValue));
-      digitsCounter2.innerHTML = typeof digitsCounter2.dataset.flsDigcounterFormat !== "undefined" ? getDigFormat(value, format) : value;
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      } else {
-        digitsCounter2.removeAttribute("data-fls-digcounter-go");
-      }
-    };
-    window.requestAnimationFrame(step);
-  }
-  function digitsCounterAction(e) {
-    const entry = e.detail.entry;
-    const targetElement = entry.target;
-    if (targetElement.querySelectorAll("[data-fls-digcounter]").length && !targetElement.querySelectorAll("[data-fls-watcher]").length && entry.isIntersecting) {
-      digitsCountersInit(targetElement.querySelectorAll("[data-fls-digcounter]"));
-    }
-  }
-  document.addEventListener("watcherCallback", digitsCounterAction);
-}
-document.querySelector("[data-fls-digcounter]") ? window.addEventListener("load", digitsCounter) : null;
 var inputmask_min$1 = { exports: {} };
 /*!
  * dist/inputmask.min
@@ -12171,6 +11172,101 @@ function inputMask() {
   });
 }
 document.querySelector("input[data-fls-input-mask]") ? window.addEventListener("load", inputMask) : null;
+let formValidate = {
+  getErrors(form) {
+    let error = 0;
+    let formRequiredItems = form.querySelectorAll("[required]");
+    if (formRequiredItems.length) {
+      formRequiredItems.forEach((formRequiredItem) => {
+        if ((formRequiredItem.offsetParent !== null || formRequiredItem.tagName === "SELECT") && !formRequiredItem.disabled) {
+          error += this.validateInput(formRequiredItem);
+        }
+      });
+    }
+    return error;
+  },
+  validateInput(formRequiredItem) {
+    let error = 0;
+    if (formRequiredItem.type === "email") {
+      formRequiredItem.value = formRequiredItem.value.replace(" ", "");
+      if (this.emailTest(formRequiredItem)) {
+        this.addError(formRequiredItem);
+        this.removeSuccess(formRequiredItem);
+        error++;
+      } else {
+        this.removeError(formRequiredItem);
+        this.addSuccess(formRequiredItem);
+      }
+    } else if (formRequiredItem.type === "checkbox" && !formRequiredItem.checked) {
+      this.addError(formRequiredItem);
+      this.removeSuccess(formRequiredItem);
+      error++;
+    } else {
+      if (!formRequiredItem.value.trim()) {
+        this.addError(formRequiredItem);
+        this.removeSuccess(formRequiredItem);
+        error++;
+      } else {
+        this.removeError(formRequiredItem);
+        this.addSuccess(formRequiredItem);
+      }
+    }
+    return error;
+  },
+  addError(formRequiredItem) {
+    formRequiredItem.classList.add("--form-error");
+    formRequiredItem.parentElement.classList.add("--form-error");
+    let inputError = formRequiredItem.parentElement.querySelector("[data-fls-form-error]");
+    if (inputError) formRequiredItem.parentElement.removeChild(inputError);
+    if (formRequiredItem.dataset.flsFormErrtext) {
+      formRequiredItem.parentElement.insertAdjacentHTML("beforeend", `<div data-fls-form-error>${formRequiredItem.dataset.flsFormErrtext}</div>`);
+    }
+  },
+  removeError(formRequiredItem) {
+    formRequiredItem.classList.remove("--form-error");
+    formRequiredItem.parentElement.classList.remove("--form-error");
+    if (formRequiredItem.parentElement.querySelector("[data-fls-form-error]")) {
+      formRequiredItem.parentElement.removeChild(formRequiredItem.parentElement.querySelector("[data-fls-form-error]"));
+    }
+  },
+  addSuccess(formRequiredItem) {
+    formRequiredItem.classList.add("--form-success");
+    formRequiredItem.parentElement.classList.add("--form-success");
+  },
+  removeSuccess(formRequiredItem) {
+    formRequiredItem.classList.remove("--form-success");
+    formRequiredItem.parentElement.classList.remove("--form-success");
+  },
+  formClean(form) {
+    form.reset();
+    setTimeout(() => {
+      let inputs = form.querySelectorAll("input,textarea");
+      for (let index = 0; index < inputs.length; index++) {
+        const el = inputs[index];
+        el.parentElement.classList.remove("--form-focus");
+        el.classList.remove("--form-focus");
+        formValidate.removeError(el);
+      }
+      let checkboxes = form.querySelectorAll('input[type="checkbox"]');
+      if (checkboxes.length) {
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = false;
+        });
+      }
+      if (window["flsSelect"]) {
+        let selects = form.querySelectorAll("select[data-fls-select]");
+        if (selects.length) {
+          selects.forEach((select) => {
+            window["flsSelect"].selectBuild(select);
+          });
+        }
+      }
+    }, 0);
+  },
+  emailTest(formRequiredItem) {
+    return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
+  }
+};
 function formInit() {
   function formSubmit() {
     const forms = document.forms;
@@ -12261,203 +11357,3 @@ function formInit() {
   formFieldsInit();
 }
 document.querySelector("[data-fls-form]") ? window.addEventListener("load", formInit) : null;
-class ScrollWatcher {
-  constructor(props) {
-    let defaultConfig = {
-      logging: true
-    };
-    this.config = Object.assign(defaultConfig, props);
-    this.observer;
-    !document.documentElement.hasAttribute("data-fls-watch") ? this.scrollWatcherRun() : null;
-  }
-  // Обновляем конструктор
-  scrollWatcherUpdate() {
-    this.scrollWatcherRun();
-  }
-  // Запускаем конструктор
-  scrollWatcherRun() {
-    document.documentElement.setAttribute("data-fls-watch", "");
-    this.scrollWatcherConstructor(document.querySelectorAll("[data-fls-watcher]"));
-  }
-  // Конструктор наблюдателей
-  scrollWatcherConstructor(items) {
-    if (items.length) {
-      let uniqParams = uniqArray(Array.from(items).map(function(item) {
-        if (item.dataset.flsWatcher === "navigator" && !item.dataset.flsWatcherThreshold) {
-          let valueOfThreshold;
-          if (item.clientHeight > 2) {
-            valueOfThreshold = window.innerHeight / 2 / (item.clientHeight - 1);
-            if (valueOfThreshold > 1) {
-              valueOfThreshold = 1;
-            }
-          } else {
-            valueOfThreshold = 1;
-          }
-          item.setAttribute(
-            "data-fls-watcher-threshold",
-            valueOfThreshold.toFixed(2)
-          );
-        }
-        return `${item.dataset.flsWatcherRoot ? item.dataset.flsWatcherRoot : null}|${item.dataset.flsWatcherMargin ? item.dataset.flsWatcherMargin : "0px"}|${item.dataset.flsWatcherThreshold ? item.dataset.flsWatcherThreshold : 0}`;
-      }));
-      uniqParams.forEach((uniqParam) => {
-        let uniqParamArray = uniqParam.split("|");
-        let paramsWatch = {
-          root: uniqParamArray[0],
-          margin: uniqParamArray[1],
-          threshold: uniqParamArray[2]
-        };
-        let groupItems = Array.from(items).filter(function(item) {
-          let watchRoot = item.dataset.flsWatcherRoot ? item.dataset.flsWatcherRoot : null;
-          let watchMargin = item.dataset.flsWatcherMargin ? item.dataset.flsWatcherMargin : "0px";
-          let watchThreshold = item.dataset.flsWatcherThreshold ? item.dataset.flsWatcherThreshold : 0;
-          if (String(watchRoot) === paramsWatch.root && String(watchMargin) === paramsWatch.margin && String(watchThreshold) === paramsWatch.threshold) {
-            return item;
-          }
-        });
-        let configWatcher = this.getScrollWatcherConfig(paramsWatch);
-        this.scrollWatcherInit(groupItems, configWatcher);
-      });
-    }
-  }
-  // Функция создания настроек
-  getScrollWatcherConfig(paramsWatch) {
-    let configWatcher = {};
-    if (document.querySelector(paramsWatch.root)) {
-      configWatcher.root = document.querySelector(paramsWatch.root);
-    } else if (paramsWatch.root !== "null") ;
-    configWatcher.rootMargin = paramsWatch.margin;
-    if (paramsWatch.margin.indexOf("px") < 0 && paramsWatch.margin.indexOf("%") < 0) {
-      return;
-    }
-    if (paramsWatch.threshold === "prx") {
-      paramsWatch.threshold = [];
-      for (let i = 0; i <= 1; i += 5e-3) {
-        paramsWatch.threshold.push(i);
-      }
-    } else {
-      paramsWatch.threshold = paramsWatch.threshold.split(",");
-    }
-    configWatcher.threshold = paramsWatch.threshold;
-    return configWatcher;
-  }
-  // Функция создания нового наблюдателя с вашими настройками
-  scrollWatcherCreate(configWatcher) {
-    this.observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        this.scrollWatcherCallback(entry, observer);
-      });
-    }, configWatcher);
-  }
-  // Функция инициализации наблюдателя с его настройками
-  scrollWatcherInit(items, configWatcher) {
-    this.scrollWatcherCreate(configWatcher);
-    items.forEach((item) => this.observer.observe(item));
-  }
-  // Функция обработки базовых действий точек срабатывания
-  scrollWatcherIntersecting(entry, targetElement) {
-    if (entry.isIntersecting) {
-      !targetElement.classList.contains("--watcher-view") ? targetElement.classList.add("--watcher-view") : null;
-    } else {
-      targetElement.classList.contains("--watcher-view") ? targetElement.classList.remove("--watcher-view") : null;
-    }
-  }
-  // Функция отключения слежения за объектом
-  scrollWatcherOff(targetElement, observer) {
-    observer.unobserve(targetElement);
-  }
-  // Функция обработки наблюдения
-  scrollWatcherCallback(entry, observer) {
-    const targetElement = entry.target;
-    this.scrollWatcherIntersecting(entry, targetElement);
-    targetElement.hasAttribute("data-fls-watcher-once") && entry.isIntersecting ? this.scrollWatcherOff(targetElement, observer) : null;
-    document.dispatchEvent(new CustomEvent("watcherCallback", {
-      detail: {
-        entry
-      }
-    }));
-  }
-}
-document.querySelector("[data-fls-watcher]") ? window.addEventListener("load", () => new ScrollWatcher({})) : null;
-document.addEventListener("DOMContentLoaded", function() {
-  window.addEventListener("load", handlePageLoad);
-  let fallbackTimer = setTimeout(() => {
-    handlePageLoad(true);
-  }, 3e3);
-  window.addEventListener("load", () => {
-    clearTimeout(fallbackTimer);
-  });
-});
-function handlePageLoad(isFallback = false) {
-  const preloader = document.getElementById("preloader");
-  const content = document.getElementById("content");
-  if (isFallback) {
-    console.log("Fallback: показываем контент по таймауту");
-  }
-  if (content) {
-    content.style.display = "block";
-    content.style.opacity = "1";
-  } else {
-    document.body.style.opacity = "1";
-    document.body.style.visibility = "visible";
-  }
-  if (preloader) {
-    preloader.classList.add("preloader-hidden");
-    setTimeout(() => {
-      if (preloader.parentNode) {
-        preloader.remove();
-      }
-    }, 500);
-  }
-}
-function initializeSlider(sliderId, inputId, fillId) {
-  const rangeSlider = document.getElementById(sliderId);
-  const valueInput = document.getElementById(inputId);
-  const sliderFill = document.getElementById(fillId);
-  function updateSliderFill() {
-    const value = rangeSlider.value;
-    const max = rangeSlider.max;
-    const percentage = value / max * 100;
-    sliderFill.style.width = `${percentage}%`;
-  }
-  rangeSlider.addEventListener("input", function() {
-    const value = this.value;
-    valueInput.value = value;
-    updateSliderFill();
-  });
-  valueInput.addEventListener("input", function() {
-    let value = parseInt(this.value) || 0;
-    if (value < 0) value = 0;
-    if (value > 500) value = 500;
-    if (value !== parseInt(rangeSlider.value)) {
-      rangeSlider.value = value;
-      updateSliderFill();
-    }
-    this.value = value;
-  });
-  valueInput.addEventListener("blur", function() {
-    if (this.value === "" || isNaN(this.value)) {
-      this.value = rangeSlider.value;
-    }
-  });
-  updateSliderFill();
-}
-document.addEventListener("DOMContentLoaded", function() {
-  initializeSlider("rangeSliderMeters", "valueInputMeters", "sliderFillMeters");
-  initializeSlider("rangeSliderCm", "valueInputCm", "sliderFillCm");
-});
-document.addEventListener("DOMContentLoaded", function() {
-  const navButton = document.querySelector(".nav");
-  const pageHeight = document.body.scrollHeight;
-  const triggerPoint = pageHeight * 0.5;
-  window.addEventListener("scroll", function() {
-    const scrollProgress = window.scrollY / triggerPoint;
-    if (scrollProgress >= 1) {
-      navButton.style.opacity = "1";
-      navButton.style.visibility = "visible";
-    } else {
-      navButton.style.opacity = "0";
-      navButton.style.visibility = "hidden";
-    }
-  });
-});

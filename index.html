@@ -4,9 +4,10 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=1767447351124">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1766762986515"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1766762986515">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1767447351124"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1767447351124">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -31,7 +32,7 @@
 							</a>
 						</div>
 						<div data-fls-dynamic=".menu__body, 460" class="top-header__buttons">
-							<a data-fls-button="" href="#" class="top-header__button button button--black-border">Заказать звонок</a>
+							<a data-fls-button="" data-fls-popup-link="popup" href="#" class="top-header__button button button--black-border">Заказать звонок</a>
 							<a data-fls-button="" href="#" class="top-header__button button">Калькулятор</a>
 						</div>
 						<button type="button" data-fls-menu="" class="menu__icon icon-menu">
@@ -87,6 +88,62 @@
 					</div>
 				</div>
 			</header>
+			<div data-fls-popup="popup" aria-hidden="true" class="popup">
+				<div data-fls-popup-wrapper="" class="popup__wrapper">
+					<div data-fls-popup-body="" class="popup__body">
+						<button data-fls-popup-close="" type="button" class="popup__close">
+							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
+								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
+							</svg>
+						</button>
+						<div data-fls-popup-content="" class="popup__text">
+							<div class="popup__box">
+								<h2 class="popup__title">Оставьте заявку на звонок</h2>
+								<form class="popup__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
+									<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="popup__input input">
+									<label data-fls-checkbox="" class="checkbox">
+										<input checked data-fls-form-errtext="Заполните поле" class="checkbox__input" type="checkbox" value="2" name="check">
+										<span class="checkbox__text">
+											Нажимая на кнопку «Оcтавить заявку», вы даете Согласие на
+                обработку персональных данных и соглашаетесь с Политикой в
+                отношении обработки персональных данных
+										</span>
+									</label>
+									<button type="submit" class="popup__button button">Оставить заявку</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div data-fls-popup="popup-message" aria-hidden="true" class="popup popup--success">
+				<div data-fls-popup-wrapper="" class="popup__wrapper">
+					<div data-fls-popup-body="" class="popup__body">
+						<button data-fls-popup-close="" type="button" class="popup__close">
+							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
+								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
+							</svg>
+						</button>
+						<div data-fls-popup-content="" class="popup__box popup__box--success">
+							<!-- Иконка успеха -->
+							<div class="popup__icon">
+								<svg width="80" height="80" viewbox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<circle cx="40" cy="40" r="40" fill="#4CAF50"></circle>
+									<path d="M25 40L35 50L55 30" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+								</svg>
+							</div>
+							<h2 class="popup__title popup__title--success">Заявка отправлена!</h2>
+							<div class="popup__message">
+								<p class="popup__text">Спасибо за обращение! Мы свяжемся с вами в ближайшее время.</p>
+								<p class="popup__hint">Обычно перезваниваем в течение 15 минут</p>
+							</div>
+							<button data-fls-popup-close="" type="button" class="popup__button button">Понятно, спасибо</button>
+						</div>
+					</div>
+				</div>
+			</div>
 			<main class="page page--home">
 				<section class="hero">
 					<div class="hero__container">
@@ -169,6 +226,144 @@
 						</div>
 					</div>
 				</div>
+				<section class="popular">
+					<div class="popular__container">
+						<h2 data-fls-title="" class="title">
+							<span>Популярные</span>
+							виды работ
+						</h2>
+						<div data-fls-tabs="" class="popular__tabs">
+							<nav data-fls-tabs-titles="" class="popular__navigation">
+								<button type="button" class="popular__title --tab-active">Отделка балконов</button>
+								<button type="button" class="popular__title">Остекление балконов</button>
+								<button type="button" class="popular__title">Ремонт балконов</button>
+								<button type="button" class="popular__title">Утепление балконов</button>
+							</nav>
+							<div data-fls-tabs-body="" class="popular__content">
+								<div class="popular__body tab-popular">
+									<div class="tab-popular__body">
+										<div data-fls-gallery="" class="tab-popular__images">
+											<a class="tab-popular__img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/01.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/02.webp">
+												<img alt="Image" src="./assets/img/gallery/02.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/04.webp">
+												<img alt="Image" src="./assets/img/gallery/04.webp">
+											</a>
+										</div>
+										<div class="tab-popular__content">
+											<h3 class="tab-popular__title">Бесщелевые натяжные потолки Kraab 4.0</h3>
+											<p class="tab-popular__text">
+												Система позволяет не использовать потолочную вставку. Достигается минимальное расстояние от потолка к стене. Бесщелевая система применяется в любых помещениях. Профили образуют прочное основание.
+											</p>
+											<p class="tab-popular__text">Особенности бесщелевых потолков:</p>
+											<ul class="tab-popular__list">
+												<li>нет зазора между стеной и потолком</li>
+												<li>стык не надо маскировать вставкой</li>
+												<li>четкие и ровные углы</li>
+												<li>внешне похож на гипсокартон</li>
+												<li>можно установить тканевые и пвх полотна</li>
+											</ul>
+											<div class="tab-popular__button button">Оставить заявку</div>
+										</div>
+									</div>
+								</div>
+								<div class="popular__body tab-popular">
+									<div class="tab-popular__body">
+										<div data-fls-gallery="" class="tab-popular__images">
+											<a class="tab-popular__img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/05.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/02.webp">
+												<img alt="Image" src="./assets/img/gallery/02.webp">
+											</a>
+											<a class="tab-popular__img" href="assets/img/gallery/6.webp">
+												<img alt="Image" src="./assets/img/gallery/07.webp">
+											</a>
+										</div>
+										<div class="tab-popular__content">
+											<h3 class="tab-popular__title">Бесщелевые натяжные потолки Kraab 4.0</h3>
+											<p class="tab-popular__text">
+												Система позволяет не использовать потолочную вставку. Достигается минимальное расстояние от потолка к стене. Бесщелевая система применяется в любых помещениях. Профили образуют прочное основание.
+											</p>
+											<p class="tab-popular__text">Особенности бесщелевых потолков:</p>
+											<ul class="tab-popular__list">
+												<li>нет зазора между стеной и потолком</li>
+												<li>стык не надо маскировать вставкой</li>
+												<li>четкие и ровные углы</li>
+												<li>внешне похож на гипсокартон</li>
+												<li>можно установить тканевые и пвх полотна</li>
+											</ul>
+											<div class="tab-popular__button button">Оставить заявку</div>
+										</div>
+									</div>
+								</div>
+								<div class="popular__body tab-popular">
+									<div class="tab-popular__body">
+										<div data-fls-gallery="" class="tab-popular__images">
+											<a class="tab-popular__img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/01.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/02.webp">
+												<img alt="Image" src="./assets/img/gallery/02.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/04.webp">
+												<img alt="Image" src="./assets/img/gallery/04.webp">
+											</a>
+										</div>
+										<div class="tab-popular__content">
+											<h3 class="tab-popular__title">Бесщелевые натяжные потолки Kraab 4.0</h3>
+											<p class="tab-popular__text">
+												Система позволяет не использовать потолочную вставку. Достигается минимальное расстояние от потолка к стене. Бесщелевая система применяется в любых помещениях. Профили образуют прочное основание.
+											</p>
+											<p class="tab-popular__text">Особенности бесщелевых потолков:</p>
+											<ul class="tab-popular__list">
+												<li>нет зазора между стеной и потолком</li>
+												<li>стык не надо маскировать вставкой</li>
+												<li>четкие и ровные углы</li>
+												<li>внешне похож на гипсокартон</li>
+												<li>можно установить тканевые и пвх полотна</li>
+											</ul>
+											<div class="tab-popular__button button">Оставить заявку</div>
+										</div>
+									</div>
+								</div>
+								<div class="popular__body tab-popular">
+									<div class="tab-popular__body">
+										<div data-fls-gallery="" class="tab-popular__images">
+											<a class="tab-popular__img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/05.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/02.webp">
+												<img alt="Image" src="./assets/img/gallery/02.webp">
+											</a>
+											<a class="tab-popular__img" href="assets/img/gallery/6.webp">
+												<img alt="Image" src="./assets/img/gallery/07.webp">
+											</a>
+										</div>
+										<div class="tab-popular__content">
+											<h3 class="tab-popular__title">Бесщелевые натяжные потолки Kraab 4.0</h3>
+											<p class="tab-popular__text">
+												Система позволяет не использовать потолочную вставку. Достигается минимальное расстояние от потолка к стене. Бесщелевая система применяется в любых помещениях. Профили образуют прочное основание.
+											</p>
+											<p class="tab-popular__text">Особенности бесщелевых потолков:</p>
+											<ul class="tab-popular__list">
+												<li>нет зазора между стеной и потолком</li>
+												<li>стык не надо маскировать вставкой</li>
+												<li>четкие и ровные углы</li>
+												<li>внешне похож на гипсокартон</li>
+												<li>можно установить тканевые и пвх полотна</li>
+											</ul>
+											<div class="tab-popular__button button">Оставить заявку</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
 				<section class="gift">
 					<div class="gift__container">
 						<div class="gift__body">
@@ -487,6 +682,265 @@
 						</div>
 					</div>
 				</section>
+				<section class="popular">
+					<div class="popular__container">
+						<h2 data-fls-title="" class="title">Обшивка балконов</h2>
+						<div data-fls-tabs="" class="popular__tabs">
+							<nav data-fls-tabs-titles="" class="popular__navigation">
+								<button type="button" class="popular__title --tab-active">Ламинатом</button>
+								<button type="button" class="popular__title">Вагонкой</button>
+								<button type="button" class="popular__title">Пвх панелями</button>
+								<button type="button" class="popular__title">Обшивкой снаружи</button>
+								<button type="button" class="popular__title">Сайдингом</button>
+								<button type="button" class="popular__title">Профнастилом</button>
+								<button type="button" class="popular__title">Гипсокартоном</button>
+								<button type="button" class="popular__title">Паркетом</button>
+							</nav>
+							<div data-fls-tabs-body="" class="popular__content">
+								<div class="popular__body tab-popular">
+									<div class="tab-popular__body">
+										<div data-fls-gallery="" class="tab-popular__images">
+											<a class="tab-popular__img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/01.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/02.webp">
+												<img alt="Image" src="./assets/img/gallery/02.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/04.webp">
+												<img alt="Image" src="./assets/img/gallery/04.webp">
+											</a>
+										</div>
+										<div class="tab-popular__content">
+											<h3 class="tab-popular__title">Бесщелевые натяжные потолки Kraab 4.0</h3>
+											<p class="tab-popular__text">
+												Система позволяет не использовать потолочную вставку. Достигается минимальное расстояние от потолка к стене. Бесщелевая система применяется в любых помещениях. Профили образуют прочное основание.
+											</p>
+											<p class="tab-popular__text">Особенности бесщелевых потолков:</p>
+											<ul class="tab-popular__list">
+												<li>нет зазора между стеной и потолком</li>
+												<li>стык не надо маскировать вставкой</li>
+												<li>четкие и ровные углы</li>
+												<li>внешне похож на гипсокартон</li>
+												<li>можно установить тканевые и пвх полотна</li>
+											</ul>
+											<div class="tab-popular__button button">Оставить заявку</div>
+										</div>
+									</div>
+								</div>
+								<div class="popular__body tab-popular">
+									<div class="tab-popular__body">
+										<div data-fls-gallery="" class="tab-popular__images">
+											<a class="tab-popular__img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/05.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/02.webp">
+												<img alt="Image" src="./assets/img/gallery/02.webp">
+											</a>
+											<a class="tab-popular__img" href="assets/img/gallery/6.webp">
+												<img alt="Image" src="./assets/img/gallery/07.webp">
+											</a>
+										</div>
+										<div class="tab-popular__content">
+											<h3 class="tab-popular__title">Бесщелевые натяжные потолки Kraab 4.0</h3>
+											<p class="tab-popular__text">
+												Система позволяет не использовать потолочную вставку. Достигается минимальное расстояние от потолка к стене. Бесщелевая система применяется в любых помещениях. Профили образуют прочное основание.
+											</p>
+											<p class="tab-popular__text">Особенности бесщелевых потолков:</p>
+											<ul class="tab-popular__list">
+												<li>нет зазора между стеной и потолком</li>
+												<li>стык не надо маскировать вставкой</li>
+												<li>четкие и ровные углы</li>
+												<li>внешне похож на гипсокартон</li>
+												<li>можно установить тканевые и пвх полотна</li>
+											</ul>
+											<div class="tab-popular__button button">Оставить заявку</div>
+										</div>
+									</div>
+								</div>
+								<div class="popular__body tab-popular">
+									<div class="tab-popular__body">
+										<div data-fls-gallery="" class="tab-popular__images">
+											<a class="tab-popular__img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/01.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/02.webp">
+												<img alt="Image" src="./assets/img/gallery/02.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/04.webp">
+												<img alt="Image" src="./assets/img/gallery/04.webp">
+											</a>
+										</div>
+										<div class="tab-popular__content">
+											<h3 class="tab-popular__title">Бесщелевые натяжные потолки Kraab 4.0</h3>
+											<p class="tab-popular__text">
+												Система позволяет не использовать потолочную вставку. Достигается минимальное расстояние от потолка к стене. Бесщелевая система применяется в любых помещениях. Профили образуют прочное основание.
+											</p>
+											<p class="tab-popular__text">Особенности бесщелевых потолков:</p>
+											<ul class="tab-popular__list">
+												<li>нет зазора между стеной и потолком</li>
+												<li>стык не надо маскировать вставкой</li>
+												<li>четкие и ровные углы</li>
+												<li>внешне похож на гипсокартон</li>
+												<li>можно установить тканевые и пвх полотна</li>
+											</ul>
+											<div class="tab-popular__button button">Оставить заявку</div>
+										</div>
+									</div>
+								</div>
+								<div class="popular__body tab-popular">
+									<div class="tab-popular__body">
+										<div data-fls-gallery="" class="tab-popular__images">
+											<a class="tab-popular__img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/05.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/02.webp">
+												<img alt="Image" src="./assets/img/gallery/02.webp">
+											</a>
+											<a class="tab-popular__img" href="assets/img/gallery/6.webp">
+												<img alt="Image" src="./assets/img/gallery/07.webp">
+											</a>
+										</div>
+										<div class="tab-popular__content">
+											<h3 class="tab-popular__title">Бесщелевые натяжные потолки Kraab 4.0</h3>
+											<p class="tab-popular__text">
+												Система позволяет не использовать потолочную вставку. Достигается минимальное расстояние от потолка к стене. Бесщелевая система применяется в любых помещениях. Профили образуют прочное основание.
+											</p>
+											<p class="tab-popular__text">Особенности бесщелевых потолков:</p>
+											<ul class="tab-popular__list">
+												<li>нет зазора между стеной и потолком</li>
+												<li>стык не надо маскировать вставкой</li>
+												<li>четкие и ровные углы</li>
+												<li>внешне похож на гипсокартон</li>
+												<li>можно установить тканевые и пвх полотна</li>
+											</ul>
+											<div class="tab-popular__button button">Оставить заявку</div>
+										</div>
+									</div>
+								</div>
+								<div class="popular__body tab-popular">
+									<div class="tab-popular__body">
+										<div data-fls-gallery="" class="tab-popular__images">
+											<a class="tab-popular__img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/01.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/02.webp">
+												<img alt="Image" src="./assets/img/gallery/02.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/04.webp">
+												<img alt="Image" src="./assets/img/gallery/04.webp">
+											</a>
+										</div>
+										<div class="tab-popular__content">
+											<h3 class="tab-popular__title">Бесщелевые натяжные потолки Kraab 4.0</h3>
+											<p class="tab-popular__text">
+												Система позволяет не использовать потолочную вставку. Достигается минимальное расстояние от потолка к стене. Бесщелевая система применяется в любых помещениях. Профили образуют прочное основание.
+											</p>
+											<p class="tab-popular__text">Особенности бесщелевых потолков:</p>
+											<ul class="tab-popular__list">
+												<li>нет зазора между стеной и потолком</li>
+												<li>стык не надо маскировать вставкой</li>
+												<li>четкие и ровные углы</li>
+												<li>внешне похож на гипсокартон</li>
+												<li>можно установить тканевые и пвх полотна</li>
+											</ul>
+											<div class="tab-popular__button button">Оставить заявку</div>
+										</div>
+									</div>
+								</div>
+								<div class="popular__body tab-popular">
+									<div class="tab-popular__body">
+										<div data-fls-gallery="" class="tab-popular__images">
+											<a class="tab-popular__img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/05.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/02.webp">
+												<img alt="Image" src="./assets/img/gallery/02.webp">
+											</a>
+											<a class="tab-popular__img" href="assets/img/gallery/6.webp">
+												<img alt="Image" src="./assets/img/gallery/07.webp">
+											</a>
+										</div>
+										<div class="tab-popular__content">
+											<h3 class="tab-popular__title">Бесщелевые натяжные потолки Kraab 4.0</h3>
+											<p class="tab-popular__text">
+												Система позволяет не использовать потолочную вставку. Достигается минимальное расстояние от потолка к стене. Бесщелевая система применяется в любых помещениях. Профили образуют прочное основание.
+											</p>
+											<p class="tab-popular__text">Особенности бесщелевых потолков:</p>
+											<ul class="tab-popular__list">
+												<li>нет зазора между стеной и потолком</li>
+												<li>стык не надо маскировать вставкой</li>
+												<li>четкие и ровные углы</li>
+												<li>внешне похож на гипсокартон</li>
+												<li>можно установить тканевые и пвх полотна</li>
+											</ul>
+											<div class="tab-popular__button button">Оставить заявку</div>
+										</div>
+									</div>
+								</div>
+								<div class="popular__body tab-popular">
+									<div class="tab-popular__body">
+										<div data-fls-gallery="" class="tab-popular__images">
+											<a class="tab-popular__img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/01.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/02.webp">
+												<img alt="Image" src="./assets/img/gallery/02.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/04.webp">
+												<img alt="Image" src="./assets/img/gallery/04.webp">
+											</a>
+										</div>
+										<div class="tab-popular__content">
+											<h3 class="tab-popular__title">Бесщелевые натяжные потолки Kraab 4.0</h3>
+											<p class="tab-popular__text">
+												Система позволяет не использовать потолочную вставку. Достигается минимальное расстояние от потолка к стене. Бесщелевая система применяется в любых помещениях. Профили образуют прочное основание.
+											</p>
+											<p class="tab-popular__text">Особенности бесщелевых потолков:</p>
+											<ul class="tab-popular__list">
+												<li>нет зазора между стеной и потолком</li>
+												<li>стык не надо маскировать вставкой</li>
+												<li>четкие и ровные углы</li>
+												<li>внешне похож на гипсокартон</li>
+												<li>можно установить тканевые и пвх полотна</li>
+											</ul>
+											<div class="tab-popular__button button">Оставить заявку</div>
+										</div>
+									</div>
+								</div>
+								<div class="popular__body tab-popular">
+									<div class="tab-popular__body">
+										<div data-fls-gallery="" class="tab-popular__images">
+											<a class="tab-popular__img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/05.webp">
+											</a>
+											<a class="tab-popular__img" href="./assets/img/gallery/02.webp">
+												<img alt="Image" src="./assets/img/gallery/02.webp">
+											</a>
+											<a class="tab-popular__img" href="assets/img/gallery/6.webp">
+												<img alt="Image" src="./assets/img/gallery/07.webp">
+											</a>
+										</div>
+										<div class="tab-popular__content">
+											<h3 class="tab-popular__title">Бесщелевые натяжные потолки Kraab 4.0</h3>
+											<p class="tab-popular__text">
+												Система позволяет не использовать потолочную вставку. Достигается минимальное расстояние от потолка к стене. Бесщелевая система применяется в любых помещениях. Профили образуют прочное основание.
+											</p>
+											<p class="tab-popular__text">Особенности бесщелевых потолков:</p>
+											<ul class="tab-popular__list">
+												<li>нет зазора между стеной и потолком</li>
+												<li>стык не надо маскировать вставкой</li>
+												<li>четкие и ровные углы</li>
+												<li>внешне похож на гипсокартон</li>
+												<li>можно установить тканевые и пвх полотна</li>
+											</ul>
+											<div class="tab-popular__button button">Оставить заявку</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
 				<section class="turnkey">
 					<div class="turnkey__container">
 						<div class="turnkey__body">
@@ -792,11 +1246,11 @@
 				<section class="form">
 					<div class="form__container">
 						<div class="form__body">
+							<h2 data-fls-title="" class="form__title title">
+								Записаться на бесплатный замер со скидкой
+								<span>35 000 руб.</span>
+							</h2>
 							<div class="form__content">
-								<h2 data-fls-title="" class="form__title title">
-									Записаться на бесплатный замер со скидкой
-									<span>35 000 руб.</span>
-								</h2>
 								<div class="form__item">
 									<p class="form__text">Оставьте ваши контактные данные, мы свяжемся с вами в течение 5 минут</p>
 									<form class="form__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
@@ -805,26 +1259,24 @@
 										<button type="submit" class="form__button button">Оставить заявку</button>
 									</form>
 								</div>
-							</div>
-							<div class="form__image">
-								<img alt="Image" src="./assets/img/form/01.webp">
+								<div class="form__image">
+									<img alt="Image" src="./assets/img/form/01.webp">
+								</div>
 							</div>
 						</div>
-					</div>
-				</section>
-				<section class="consultation">
-					<div class="consultation__container">
 						<div class="consultation__body">
 							<div class="consultation__content">
 								<h2 data-fls-title="" class="title">Сомневаетесь в выборе?</h2>
 								<p class="consultation__text">Проконсультируем вас по любым вопросам</p>
+							</div>
+							<div class="consultation__bottom">
 								<div class="consultation__buttons">
 									<a class="consultation__button button" href="#">Получить консультацию</a>
 									<a class="consultation__button button button--black-border" href="#">8 (495) 877-50-98</a>
 								</div>
-							</div>
-							<div class="consultation__image">
-								<img alt="Image" src="./assets/img/consultation/01.webp">
+								<div class="consultation__image">
+									<img alt="Image" src="./assets/img/consultation/01.webp">
+								</div>
 							</div>
 						</div>
 					</div>
@@ -1122,218 +1574,305 @@
 						</div>
 					</div>
 				</section>
-				<section class="page__calculator calculator">
-					<div class="calculator__container">
-						<h4 data-fls-title="" class="title title--center">
-							Рассчитать стоимость вашего балкона со скидкой
-							<span>35 000 рублей</span>
-						</h4>
-						<div class="calculator__body">
-							<!-- вверх квиза -->
-							<div id="calc" class="slide-calculator__slide-calculator slide-calculator-block">
-								<h4 data-fls-title="" class="slide-calculator-block__title title">
-									<!-- Рассчитать стоимость вашего балкона со скидкой <span> 35 000 рублей</span> -->
-								</h4>
-							</div>
-							<div id="calc-last" class="slide-calculator__slide-calculator slide-calculator-block calc-last">
-								<!-- Заключительный шаг. Оставьте свои контакты для получения расчета и скидки 35 000 рублей -->
+				<section data-fls-qwiz="" class="page__qwiz qwiz">
+					<div class="qwiz__container">
+						<div class="qwiz__body">
+							<!-- верх квиза -->
+							<div id="calc" class="qwiz__top">
+								<h4 data-watch="" data-watch-once="" class="qwiz__top-title title">Калькулятор стоимости и остекления балкона</h4>
+								<div style="text-align: center" class="qwiz__top-subtitle">
+									Ответьте всего на 6 вопросов и получите расчет вашего балкона и
+          подарок от компании
+								</div>
 							</div>
 							<!-- Оболонка слайдера -->
-							<div class="calculator__slider swiper swiper-container">
-								<!-- Частина слайдера, що рухається -->
-								<form data-popup-message="#popup-message" action="quiz.php" class="calculator__wrapper swiper-wrapper">
-									<!-- 1 Слайд -->
-									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-										<div class="slide-calculator__body">
-											<h5 class="slide-calculator__title">Выберите тип балкона</h5>
-											<div class="options">
-												<div class="options__item">
-													<input data-required="" id="o_1" class="options__input input" type="radio" value="1" name="step_1">
-													<label for="o_1" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/qwiz/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">3 метра</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_2" class="options__input input" type="radio" value="2" name="step_1">
-													<label for="o_2" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/qwiz/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">6 метров</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_3" class="options__input input" type="radio" value="1" name="step_1">
-													<label for="o_3" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/qwiz/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Хрущевка</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_4" class="options__input input" type="radio" value="2" name="step_1">
-													<label for="o_4" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/qwiz/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Не знаю размер</h3>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- 2 слайд -->
-									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-										<div class="slide-calculator__body">
-											<h5 class="slide-calculator__title">Выберите вариант обшивки балкона</h5>
-											<div class="options">
-												<div class="options__item">
-													<input data-required="" id="o_1" class="options__input input" type="radio" value="1" name="step_1">
-													<label for="o_1" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/qwiz/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">3 метра</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_2" class="options__input input" type="radio" value="2" name="step_1">
-													<label for="o_2" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/qwiz/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">6 метров</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_3" class="options__input input" type="radio" value="1" name="step_1">
-													<label for="o_3" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/qwiz/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Хрущевка</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_4" class="options__input input" type="radio" value="2" name="step_1">
-													<label for="o_4" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/qwiz/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Не знаю размер</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_4" class="options__input input" type="radio" value="2" name="step_1">
-													<label for="o_4" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/qwiz/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Не знаю размер</h3>
+							<div id="wrapper-content" class="qwiz__wrapper-content">
+								<div class="qwiz__slider swiper swiper-container">
+									<!-- Частина слайдера, що рухається -->
+									<form data-fls-form-popup="popup-message" data-fls-form="ajax" action="files/sendmail/sendmail.php" method="POST" class="qwiz__wrapper swiper-wrapper">
+										<!-- 1 Слайд -->
+										<div class="qwiz__slide swiper-slide slide-qwiz slide-main-block">
+											<div class="slide-qwiz__body">
+												<h5 class="slide-qwiz__title">Выберите тип балкона</h5>
+												<div class="options">
+													<div class="options__item">
+														<input data-required="" id="o_1" class="options__input input" checked type="radio" value="Забор жалюзи" name="step_1">
+														<label for="o_1" class="options__label">
+															<div class="options__text options__text-ibg">
+																<img alt="#" src="./assets/img/qwiz/01.jpg">
+															</div>
+														</label>
+														<h3 class="options__title">Забор жалюзи</h3>
+													</div>
+													<div class="options__item">
+														<input data-required="" id="o_2" class="options__input input" type="radio" value="Забор из штакетника" name="step_1">
+														<label for="o_2" class="options__label">
+															<div class="options__text options__text-ibg">
+																<img alt="#" src="./assets/img/qwiz/01.jpg">
+															</div>
+														</label>
+														<h3 class="options__title">Забор из штакетника</h3>
+													</div>
+													<div class="options__item">
+														<input data-required="" id="o_3" class="options__input input" type="radio" value="Забор рабица" name="step_1">
+														<label for="o_3" class="options__label">
+															<div class="options__text options__text-ibg">
+																<img alt="#" src="./assets/img/qwiz/01.jpg">
+															</div>
+														</label>
+														<h3 class="options__title">Забор рабица</h3>
+													</div>
+													<div class="options__item">
+														<input data-required="" id="o_4" class="options__input input" type="radio" value="Забор из профнастила" name="step_1">
+														<label for="o_4" class="options__label">
+															<div class="options__text options__text-ibg">
+																<img alt="#" src="./assets/img/qwiz/01.jpg">
+															</div>
+														</label>
+														<h3 class="options__title">Забор из профнастила</h3>
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-									<!-- 3слайд -->
-									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-										<div class="slide-calculator__body">
-											<h5 class="slide-calculator__title">Выберите ваш подарок</h5>
-											<div class="options">
-												<div class="options__item">
-													<input data-required="" id="o_1" class="options__input input" type="radio" value="1" name="step_1">
-													<label for="o_1" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/qwiz/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">3 метра</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_2" class="options__input input" type="radio" value="2" name="step_1">
-													<label for="o_2" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/qwiz/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">6 метров</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_3" class="options__input input" type="radio" value="1" name="step_1">
-													<label for="o_3" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/qwiz/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Хрущевка</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_4" class="options__input input" type="radio" value="2" name="step_1">
-													<label for="o_4" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/qwiz/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Не знаю размер</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_4" class="options__input input" type="radio" value="2" name="step_1">
-													<label for="o_4" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/qwiz/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Не знаю размер</h3>
+										<!-- 2 слайд -->
+										<div class="qwiz__slide swiper-slide slide-qwiz slide-main-block">
+											<div class="slide-qwiz__body">
+												<h5 class="slide-qwiz__title">Необходимо остекление?</h5>
+												<div class="radio">
+													<div class="radio__item">
+														<input data-required="" id="o_27" class="radio__input" checked type="radio" value="до 1000" name="step_5">
+														<label for="o_27" class="radio__label">
+															<span class="radio__text">Да, необходимо</span>
+														</label>
+													</div>
+													<div class="radio__item">
+														<input id="o_44" class="radio__input" type="radio" value="от 1000 до
+													1500 кв.м" name="step_5">
+														<label for="o_44" class="radio__label">
+															<span class="radio__text">Нет, не нужно</span>
+														</label>
+													</div>
+													<div class="radio__item">
+														<input id="o_28" class="radio__input" type="radio" value="от 1500 до
+													2000 кв.м." name="step_5">
+														<label for="o_28" class="radio__label">
+															<span class="radio__text">Не знаю, нужна консультация</span>
+														</label>
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-									<!-- Конечная страница !форма! -->
-									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-										<div class="slide-calculator-block__form" action="files/sendmail/sendmail.php" method="POST">
-											<h5 class="slide-calculator__title">
-												Заключительный шаг. Оставьте свои контакты для получения расчета и скидки 35 000 рублей
-											</h5>
-											<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" required placeholder="Ваше имя" class="form__input input">
-											<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="form__input input">
-											<label data-fls-checkbox="" class="checkbox">
-												<input data-error="Ошибка" class="checkbox__input" type="checkbox" value="1" name="form[]">
-												<span class="checkbox__text">
-													Нажимая на кнопку «Рассчитать стоимость», вы даете Согласие на обработку персональных данных  и соглашаетесь с Политикой в отношении обработки персональных данных
-												</span>
-											</label>
-											<button type="submit" class="slide-calculator-block__button button">Рассчитать стоимость</button>
+										<!-- 3 слайд -->
+										<div class="qwiz__slide swiper-slide slide-qwiz slide-main-block">
+											<div class="slide-qwiz__body">
+												<h5 class="slide-qwiz__title">Выберите тип балкона</h5>
+												<div class="options">
+													<div class="options__item">
+														<input data-required="" id="o_1" class="options__input input" checked type="radio" value="Забор жалюзи" name="step_1">
+														<label for="o_1" class="options__label">
+															<div class="options__text options__text-ibg">
+																<img alt="#" src="./assets/img/qwiz/01.jpg">
+															</div>
+														</label>
+														<h3 class="options__title">Забор жалюзи</h3>
+													</div>
+													<div class="options__item">
+														<input data-required="" id="o_2" class="options__input input" type="radio" value="Забор из штакетника" name="step_1">
+														<label for="o_2" class="options__label">
+															<div class="options__text options__text-ibg">
+																<img alt="#" src="./assets/img/qwiz/01.jpg">
+															</div>
+														</label>
+														<h3 class="options__title">Забор из штакетника</h3>
+													</div>
+													<div class="options__item">
+														<input data-required="" id="o_3" class="options__input input" type="radio" value="Забор рабица" name="step_1">
+														<label for="o_3" class="options__label">
+															<div class="options__text options__text-ibg">
+																<img alt="#" src="./assets/img/qwiz/01.jpg">
+															</div>
+														</label>
+														<h3 class="options__title">Забор рабица</h3>
+													</div>
+													<div class="options__item">
+														<input data-required="" id="o_4" class="options__input input" type="radio" value="Забор из профнастила" name="step_1">
+														<label for="o_4" class="options__label">
+															<div class="options__text options__text-ibg">
+																<img alt="#" src="./assets/img/qwiz/01.jpg">
+															</div>
+														</label>
+														<h3 class="options__title">Забор из профнастила</h3>
+													</div>
+												</div>
+											</div>
 										</div>
-									</div>
-								</form>
-								<!-- 'элементы навигации' -->
-								<div id="progress" class="calculator__progress">
-									<div class="calculator__progress-body">
-										<div class="calculator__pagination swiper-pagination"></div>
-										<div class="fraction-controll">
-											<span class="fraction-controll__current">01</span>
-											<span class="fraction-controll__all">10</span>
-											<div class="fraction-controll__progress">
-												<span>Готово:</span>
-												0%
+										<!-- 4 слайд -->
+										<div class="qwiz__slide swiper-slide slide-qwiz slide-main-block">
+											<div class="slide-qwiz__body">
+												<h5 class="slide-qwiz__title">Нужна встроенная мебель?</h5>
+												<div class="radio">
+													<div class="radio__item">
+														<input data-required="" id="o_27" class="radio__input" checked type="radio" value="до 1000" name="step_5">
+														<label for="o_27" class="radio__label">
+															<span class="radio__text">Да, нужна</span>
+														</label>
+													</div>
+													<div class="radio__item">
+														<input id="o_44" class="radio__input" type="radio" value="от 1000 до
+													1500 кв.м" name="step_5">
+														<label for="o_44" class="radio__label">
+															<span class="radio__text">Нет, не нужно</span>
+														</label>
+													</div>
+													<div class="radio__item">
+														<input id="o_28" class="radio__input" type="radio" value="от 1500 до
+													2000 кв.м." name="step_5">
+														<label for="o_28" class="radio__label">
+															<span class="radio__text">Не знаю, нужна консультация</span>
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- 5 слайд -->
+										<div class="qwiz__slide swiper-slide slide-qwiz slide-main-block">
+											<div class="slide-qwiz__body">
+												<h5 class="slide-qwiz__title">Объединим балкон с комнатой?</h5>
+												<div class="radio">
+													<div class="radio__item">
+														<input data-required="" id="o_27" class="radio__input" checked type="radio" value="до 1000" name="step_5">
+														<label for="o_27" class="radio__label">
+															<span class="radio__text">Да, объединим</span>
+														</label>
+													</div>
+													<div class="radio__item">
+														<input id="o_44" class="radio__input" type="radio" value="от 1000 до
+													1500 кв.м" name="step_5">
+														<label for="o_44" class="radio__label">
+															<span class="radio__text">Нет, не нужно</span>
+														</label>
+													</div>
+													<div class="radio__item">
+														<input id="o_28" class="radio__input" type="radio" value="от 1500 до
+													2000 кв.м." name="step_5">
+														<label for="o_28" class="radio__label">
+															<span class="radio__text">Не знаю, нужна консультация</span>
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- 6 слайд -->
+										<div class="qwiz__slide swiper-slide slide-qwiz slide-main-block">
+											<div class="slide-qwiz__body">
+												<h5 class="slide-qwiz__title">Когда планируете ремонт?</h5>
+												<div class="radio">
+													<div class="radio__item">
+														<input data-required="" id="o_27" class="radio__input" checked type="radio" value="до 1000" name="step_5">
+														<label for="o_27" class="radio__label">
+															<span class="radio__text">Как можно скорее пока действует скидка %</span>
+														</label>
+													</div>
+													<div class="radio__item">
+														<input id="o_44" class="radio__input" type="radio" value="от 1000 до
+													1500 кв.м" name="step_5">
+														<label for="o_44" class="radio__label">
+															<span class="radio__text">В этом месяце</span>
+														</label>
+													</div>
+													<div class="radio__item">
+														<input id="o_28" class="radio__input" type="radio" value="от 1500 до
+													2000 кв.м." name="step_5">
+														<label for="o_28" class="radio__label">
+															<span class="radio__text">Затрудняюсь ответить</span>
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- Конечная страница !форма! -->
+										<div class="qwiz__slide swiper-slide slide-qwiz slide-qwiz-block slide-main-block">
+											<div class="slide-qwiz-block__content">
+												<h3 class="slide-qwiz-block__title-last">Мы уже приступили к расчету</h3>
+												<p class="slide-qwiz-block__text">
+													<strong>Как удобней с Вами связаться</strong>
+													и озвучить
+                  стоимость работ?
+												</p>
+												<div class="slide-qwiz-block__form">
+													<select data-fls-select="" name="select" data-fls-select-modif="qwiz">
+														<option data-fls-select-asset="assets/img/icon/tg.png" value="Telegram">Telegram</option>
+														<option data-fls-select-asset="assets/img/icon/phone.svg" value="Телефон">Телефон</option>
+														<option data-fls-select-asset="assets/img/icon/viber.png" value="Viber">Viber</option>
+													</select>
+													<input data-required="" type="text" name="name" data-error="заполните поле" placeholder="Ваше имя" class="slide-qwiz-block__input input">
+													<input data-required="" id="phone" type="text" name="phone" data-error="заполните поле" placeholder="+375 (__) ___-__-__" class="slide-qwiz-block__input input">
+													<button class="slide-qwiz-block__button button" type="submit">Получить расчет</button>
+													<label data-fls-checkbox="" class="checkbox">
+														<input data-error="Ошибка" class="checkbox__input" type="checkbox" value="5" name="form[]">
+														<span class="checkbox__text">
+															Я даю согласие на обработку моих персональных данных в
+                      соответствии с политикой конфиденциальности
+														</span>
+													</label>
+												</div>
+											</div>
+											<div class="slide-qwiz-block__image">
+												<div class="slide-qwiz-block__circle">
+													<img src="./assets/img/qwiz/pdf-img.svg" alt="#">
+													<p>
+														Засекайте
+														<span>45 мин.</span>
+													</p>
+												</div>
+												<img class="slide-qwiz-block__image-phone" alt="#" src="./assets/img/qwiz/quiz-final.png">
+											</div>
+										</div>
+									</form>
+									<div id="progress" class="qwiz__progress">
+										<div class="qwiz__progress-body">
+											<div class="qwiz__pagination swiper-pagination"></div>
+											<div class="fraction-controll">
+												<span class="fraction-controll__current">01</span>
+												<span class="fraction-controll__all">10</span>
+												<div class="fraction-controll__progress">
+													<span>Готово:</span>
+													0%
+												</div>
+											</div>
+										</div>
+										<div class="qwiz__button-body">
+											<div data-ripple="" class="qwiz__button-next">
+												Далее
+												<svg class="mdi-icon mdi-24px" viewbox="0 0 24 24">
+													<path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" stroke-width="0" fill-rule="nonzero"></path>
+												</svg>
+											</div>
+											<div data-ripple="" class="qwiz__button-prev">
+												<svg class="mdi-icon mdi-24px" viewbox="0 0 24 24">
+													<path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" stroke-width="0" fill-rule="nonzero"></path>
+												</svg>
 											</div>
 										</div>
 									</div>
-									<div class="calculator__button-body">
-										<div type="button" class="calculator__button-next swiper-button-next">
-											Далее
-											<svg class="mdi-icon mdi-24px" viewbox="0 0 24 24">
-												<path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" stroke-width="0" fill-rule="nonzero"></path>
-											</svg>
+								</div>
+								<div id="banner" class="qwiz__banner banner-qwiz">
+									<img class="banner-qwiz__img-bg" alt="Image" src="./assets/img/qwiz/aside-bg.jpg">
+									<div class="banner-qwiz__body">
+										<div class="banner-qwiz__top">
+											<strong class="banner-qwiz__text-bold">В конце теста</strong>
+											<p class="banner-qwiz__text">вы получите:</p>
+											<div class="banner-qwiz__price">
+												<span>10 000 руб</span>
+												<p>Купон на скидку</p>
+											</div>
 										</div>
-										<div type="button" class="calculator__button-prev swiper-button-prev">
-											<svg class="mdi-icon mdi-24px" viewbox="0 0 24 24">
-												<path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" stroke-width="0" fill-rule="nonzero"></path>
-											</svg>
+										<div class="banner-qwiz__image">
+											<img alt="Image" src="./assets/img/qwiz/person-1.png">
+										</div>
+										<div class="banner-qwiz__info">
+											<div class="banner-qwiz__name">Владислав Слащев</div>
+											<div class="banner-qwiz__status">Основатель компании</div>
 										</div>
 									</div>
 								</div>
@@ -1341,50 +1880,961 @@
 						</div>
 					</div>
 				</section>
-				<section class="form">
-					<div class="form__container">
-						<div class="form__body">
-							<div class="form__content">
-								<h2 data-fls-title="" class="form__title title">
-									Записаться на бесплатный замер со скидкой
-									<span>35 000 руб.</span>
-								</h2>
-								<div class="form__item">
-									<p class="form__text">Оставьте ваши контактные данные, мы свяжемся с вами в течение 5 минут</p>
-									<form class="form__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
-										<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" required placeholder="Ваше имя" class="form__input input">
-										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="form__input input">
-										<button type="submit" class="form__button button">Оставить заявку</button>
-									</form>
+				<section class="examples">
+					<div class="examples__container">
+						<h2 data-fls-title="" class="title">
+							<span>Примеры готовых балконов</span>
+							с остеклением и отделкой
+						</h2>
+						<p class="examples__subtitle">За время работы остеклили и преобразили более 10 000 балконов</p>
+						<div class="examples__body">
+							<div class="examples__content">
+								<div class="examples__text">
+									<strong>Среди наших работ балконы</strong>
+									различных площадей и планировок, выполненных с применением выбранных отделочных материалов и бюджета
+								</div>
+								<div class="examples__navigatoins">
+									<div class="examples-pagination swiper-pagination"></div>
+									<button type="button" class="examples-button-prev swiper-button-prev"></button>
+									<button type="button" class="examples-button-next swiper-button-next"></button>
+								</div>
+								<form data-fls-dynamic=".examples__body, 768" class="examples__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
+									<strong class="examples__text">Оставьте заявку на расчет:</strong>
+									<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="examples__input input">
+									<button type="submit" class="examples__button button">Перезвонить</button>
+									<label data-fls-checkbox="" class="checkbox">
+										<input checked data-fls-form-errtext="Заполните поле" class="checkbox__input" type="checkbox" value="3" name="check">
+										<span class="checkbox__text">
+											Я даю согласие на обработку моих персональных данных в соответствии с политикой конфиденциальности
+										</span>
+									</label>
+								</form>
+							</div>
+							<!-- Оболочка слайдера -->
+							<div data-fls-slider="" class="examples__slider swiper">
+								<!-- Часть слайдера, которая двигается -->
+								<div class="examples__wrapper swiper-wrapper">
+									<!-- Слайд -->
+									<div class="examples__slide swiper-slide">
+										<div data-fls-gallery="" class="examples__slide-images">
+											<a class="examples__slide-img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/01.webp">
+											</a>
+											<div class="examples__slide-images-items">
+												<a class="examples__slide-img" href="./assets/img/gallery/02.webp">
+													<img alt="Image" src="./assets/img/gallery/02.webp">
+												</a>
+												<a class="examples__slide-img" href="./assets/img/gallery/04.webp">
+													<img alt="Image" src="./assets/img/gallery/04.webp">
+												</a>
+												<a class="examples__slide-img" href="./assets/img/gallery/05.webp">
+													<img alt="Image" src="./assets/img/gallery/05.webp">
+												</a>
+											</div>
+										</div>
+										<h3 class="examples__slide-title">Объединили лоджию с комнатой, сделали рабочий кабинет</h3>
+										<div class="examples__slide-price">Смета проекта: от 82 300 руб.</div>
+									</div>
+									<div class="examples__slide swiper-slide">
+										<div data-fls-gallery="" class="examples__slide-images">
+											<a class="examples__slide-img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/01.webp">
+											</a>
+											<div class="examples__slide-images-items">
+												<a class="examples__slide-img" href="./assets/img/gallery/02.webp">
+													<img alt="Image" src="./assets/img/gallery/02.webp">
+												</a>
+												<a class="examples__slide-img" href="./assets/img/gallery/04.webp">
+													<img alt="Image" src="./assets/img/gallery/04.webp">
+												</a>
+												<a class="examples__slide-img" href="./assets/img/gallery/05.webp">
+													<img alt="Image" src="./assets/img/gallery/05.webp">
+												</a>
+											</div>
+										</div>
+										<h3 class="examples__slide-title">Объединили лоджию с комнатой, сделали рабочий кабинет</h3>
+										<div class="examples__slide-price">Смета проекта: от 82 300 руб.</div>
+									</div>
+									<div class="examples__slide swiper-slide">
+										<div data-fls-gallery="" class="examples__slide-images">
+											<a class="examples__slide-img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/01.webp">
+											</a>
+											<div class="examples__slide-images-items">
+												<a class="examples__slide-img" href="./assets/img/gallery/02.webp">
+													<img alt="Image" src="./assets/img/gallery/02.webp">
+												</a>
+												<a class="examples__slide-img" href="./assets/img/gallery/04.webp">
+													<img alt="Image" src="./assets/img/gallery/04.webp">
+												</a>
+												<a class="examples__slide-img" href="./assets/img/gallery/05.webp">
+													<img alt="Image" src="./assets/img/gallery/05.webp">
+												</a>
+											</div>
+										</div>
+										<h3 class="examples__slide-title">Объединили лоджию с комнатой, сделали рабочий кабинет</h3>
+										<div class="examples__slide-price">Смета проекта: от 82 300 руб.</div>
+									</div>
+									<div class="examples__slide swiper-slide">
+										<div data-fls-gallery="" class="examples__slide-images">
+											<a class="examples__slide-img-bg" href="./assets/img/gallery/01.webp">
+												<img alt="Image" src="./assets/img/gallery/01.webp">
+											</a>
+											<div class="examples__slide-images-items">
+												<a class="examples__slide-img" href="./assets/img/gallery/02.webp">
+													<img alt="Image" src="./assets/img/gallery/02.webp">
+												</a>
+												<a class="examples__slide-img" href="./assets/img/gallery/04.webp">
+													<img alt="Image" src="./assets/img/gallery/04.webp">
+												</a>
+												<a class="examples__slide-img" href="./assets/img/gallery/05.webp">
+													<img alt="Image" src="./assets/img/gallery/05.webp">
+												</a>
+											</div>
+										</div>
+										<h3 class="examples__slide-title">Объединили лоджию с комнатой, сделали рабочий кабинет</h3>
+										<div class="examples__slide-price">Смета проекта: от 82 300 руб.</div>
+									</div>
 								</div>
 							</div>
-							<div class="form__image">
-								<img alt="Image" src="./assets/img/form/01.webp">
+						</div>
+					</div>
+				</section>
+				<section class="additional-services">
+					<div class="additional-services__container">
+						<h2 data-fls-title="" class="title">
+							Оказываем
+							<span>дополнительные услуги</span>
+						</h2>
+						<p class="additional-services__subtitle">Для создания современного, функционального и уютного балкона</p>
+						<!-- Оболочка слайдера -->
+						<div data-fls-slider="" class="additional-services__slider swiper">
+							<!-- Часть слайдера, которая двигается -->
+							<div class="swiper-scrollbar"></div>
+							<div class="additional-services__wrapper swiper-wrapper">
+								<!-- Слайд -->
+								<div class="additional-services__slide swiper-slide">
+									<img class="additional-services__img" alt="Image" src="./assets/img/gallery/08.webp">
+									<div class="additional-services__block">
+										<h3 class="additional-services__item-title">Встроенная 
+	                                          мебель</h3>
+										<p class="additional-services__item-text">
+											Изготовим и установим функциональную, вместительную и эстетичную мебель
+	                                             (шкафы, сидушки, кровати, столики и.т.д.)
+										</p>
+										<div class="additional-services__item-price">
+											от
+											<span>10 000</span>
+											руб.
+										</div>
+										<div class="additional-services__item-button button">Заказать</div>
+									</div>
+								</div>
+								<div class="additional-services__slide swiper-slide">
+									<img class="additional-services__img" alt="Image" src="./assets/img/gallery/08.webp">
+									<div class="additional-services__block">
+										<h3 class="additional-services__item-title">Встроенная 
+	                                          мебель</h3>
+										<p class="additional-services__item-text">
+											Изготовим и установим функциональную, вместительную и эстетичную мебель
+	                                             (шкафы, сидушки, кровати, столики и.т.д.)
+										</p>
+										<div class="additional-services__item-price">
+											от
+											<span>10 000</span>
+											руб.
+										</div>
+										<div class="additional-services__item-button button">Заказать</div>
+									</div>
+								</div>
+								<div class="additional-services__slide swiper-slide">
+									<img class="additional-services__img" alt="Image" src="./assets/img/gallery/08.webp">
+									<div class="additional-services__block">
+										<h3 class="additional-services__item-title">Встроенная 
+	                                          мебель</h3>
+										<p class="additional-services__item-text">
+											Изготовим и установим функциональную, вместительную и эстетичную мебель
+	                                             (шкафы, сидушки, кровати, столики и.т.д.)
+										</p>
+										<div class="additional-services__item-price">
+											от
+											<span>10 000</span>
+											руб.
+										</div>
+										<div class="additional-services__item-button button">Заказать</div>
+									</div>
+								</div>
+								<div class="additional-services__slide swiper-slide">
+									<img class="additional-services__img" alt="Image" src="./assets/img/gallery/08.webp">
+									<div class="additional-services__block">
+										<h3 class="additional-services__item-title">Встроенная 
+	                                          мебель</h3>
+										<p class="additional-services__item-text">
+											Изготовим и установим функциональную, вместительную и эстетичную мебель
+	                                             (шкафы, сидушки, кровати, столики и.т.д.)
+										</p>
+										<div class="additional-services__item-price">
+											от
+											<span>10 000</span>
+											руб.
+										</div>
+										<div class="additional-services__item-button button">Заказать</div>
+									</div>
+								</div>
+								<div class="additional-services__slide swiper-slide">
+									<img class="additional-services__img" alt="Image" src="./assets/img/gallery/08.webp">
+									<div class="additional-services__block">
+										<h3 class="additional-services__item-title">Встроенная 
+	                                          мебель</h3>
+										<p class="additional-services__item-text">
+											Изготовим и установим функциональную, вместительную и эстетичную мебель
+	                                             (шкафы, сидушки, кровати, столики и.т.д.)
+										</p>
+										<div class="additional-services__item-price">
+											от
+											<span>10 000</span>
+											руб.
+										</div>
+										<div class="additional-services__item-button button">Заказать</div>
+									</div>
+								</div>
 							</div>
+							<!-- Если нужна пагинация -->
+							<div class="swiper-pagination"></div>
+						</div>
+					</div>
+				</section>
+				<section class="contacts">
+					<div class="contacts__container">
+						<h2 data-fls-title="" class="title">
+							Наши
+							<span>контакты</span>
+						</h2>
+						<p class="contacts__subtitle">Свяжитесь с нами любым удобным способом</p>
+						<div class="contacts__body">
+							<div class="contacts__info">
+								<div class="contacts__clock">Ежедневно с 09:00 - 20:00</div>
+								<a class="contacts__phone" href="tel:
+ +7 (911) 108-10-82">+7 (911) 108-10-82</a>
+								<a class="contacts__link" href="#">Перезвоним за 30 секунд</a>
+								<a class="contacts__mail" href="mailto:tsimmer108@mail.ru">tsimmer108@mail.ru</a>
+								<address class="contacts__address">
+									г. Санкт-Петербург
+									<br>
+								</address>
+								<div class="contacts__socials">
+									<a class="contacts__socials-link" href="">
+										<img alt="Image" src="./assets/img/icon/viber.png">
+									</a>
+									<a class="contacts__socials-link" href="">
+										<img alt="Image" src="./assets/img/icon/instagram.png">
+									</a>
+									<p class="contacts__socials-text">Мы в мессенджерах
+                                 Ответим в течение 1 минуты</p>
+								</div>
+							</div>
+							<div class="contacts__images">
+								<h3>Ждем вас в офисе!</h3>
+								<img alt="Image" src="./assets/img/gallery/04.webp">
+								<img alt="Image" src="./assets/img/gallery/05.webp">
+							</div>
+							<div class="contacts__map">
+								<iframe src="https://yandex.ru/map-widget/v1/?lang=ru_RU&amp;scroll=false&amp;source=constructor-api&amp;um=constructor%3Ab954b9eb59e95230cbd0a44d3a7e3f9dc072aa8799804a92537534b7acec8625" frameborder="0" allowfullscreen width="100%" height="100%" style="display: block"></iframe>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!--
+<section data-fls-calc class="calc">
+<div class="calc__container">
+<h2 data-fls-title class="title">Калькулятор отделки балкона</h2>
+<div class="calc__body">
+<div class="calc__content">
+<div class="calc__column">
+<div class="calc__prize">
+Сделайте расчет и получите подарок
+<img src="@img/calc/calc-prize.png" alt="Image" /> !
+</div>
+<div class="calc__choice">
+<div class="calc__switch">
+<h3 class="calc__choice-title">Отделка стен</h3>
+<label class="rocker rocker-small">
+<input type="checkbox" />
+<span class="switch-left">Yes</span>
+<span class="switch-right">No</span>
+</label>
+</div>
+<div class="calc__buttons">
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/lam-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Ламинат</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/parket-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Стеновой паркет</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/vag-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Вагонка</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/pvh-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">ПВХ панели</p>
+</div>
+</div>
+</div>
+<div class="calc__choice">
+<div class="calc__switch">
+<h3 class="calc__choice-title">Отделка потолка</h3>
+<label class="rocker rocker-small">
+<input type="checkbox" />
+<span class="switch-left">Yes</span>
+<span class="switch-right">No</span>
+</label>
+</div>
+<div class="calc__buttons">
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/pvh-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">ПВХ панели</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/potol-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Натяжной потолок</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/lam-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Ламинат</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/vag-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Вагонка</p>
+</div>
+</div>
+</div>
+<div class="calc__choice">
+<div class="calc__switch">
+<h3 class="calc__choice-title">Отделка пола</h3>
+<label class="rocker rocker-small">
+<input type="checkbox" />
+<span class="switch-left">Yes</span>
+<span class="switch-right">No</span>
+</label>
+</div>
+<div class="calc__buttons">
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/lin-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Линолеум</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/lam-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Ламинат</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/kvarc-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Кварц-винил</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/plit-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Плитка</p>
+</div>
+</div>
+</div>
+</div>
+<div class="calc__items">
+<div class="calc__item">
+<div class="calc__column">
+<div class="calc__size">
+<p>Длина, см</p>
+<input
+data-fls-input
+autocomplete="off"
+type="text"
+name="size"
+placeholder="300"
+class="calc__input input"
+/>
+</div>
+<div class="calc__choice">
+<div class="calc__switch">
+<h3 class="calc__choice-title">Внешняя отделка</h3>
+<label class="rocker rocker-small">
+<input type="checkbox" />
+<span class="switch-left">Yes</span>
+<span class="switch-right">No</span>
+</label>
+</div>
+<div class="calc__buttons">
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/say-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Сайдинг</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/prof-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Профлист</p>
+</div>
+</div>
+</div>
+<div class="calc__choice">
+<div class="calc__switch">
+<h3 class="calc__choice-title">Освещение</h3>
+<label class="rocker rocker-small">
+<input type="checkbox" />
+<span class="switch-left">Yes</span>
+<span class="switch-right">No</span>
+</label>
+</div>
+<div class="calc__buttons">
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/btn-cold1.png"
+alt="Image"
+/>
+<p class="calc__button-name">Точечное</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/btn-hot1.png"
+alt="Image"
+/>
+<p class="calc__button-name">Подвесное</p>
+</div>
+</div>
+</div>
+</div>
+<div class="calc__column">
+<div class="calc__size">
+<p>Ширина, см</p>
+<input
+data-fls-input
+autocomplete="off"
+type="text"
+name="size"
+placeholder="300"
+class="calc__input input"
+/>
+</div>
+<div class="calc__choice">
+<div class="calc__switch">
+<h3 class="calc__choice-title">Остекление</h3>
+<label class="rocker rocker-small">
+<input type="checkbox" />
+<span class="switch-left">Yes</span>
+<span class="switch-right">No</span>
+</label>
+</div>
+<div class="calc__buttons">
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/btn-point.png"
+alt="Image"
+/>
+<p class="calc__button-name">Холодное</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/btn-podves.png"
+alt="Image"
+/>
+<p class="calc__button-name">Теплое</p>
+</div>
+</div>
+</div>
+<div class="calc__choice">
+<div class="calc__switch">
+<h3 class="calc__choice-title">Утепление</h3>
+<label class="rocker rocker-small">
+<input type="checkbox" />
+<span class="switch-left">Да</span>
+<span class="switch-right">Нет</span>
+</label>
+</div>
+<div class="calc__buttons">
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/btn-utep.png"
+alt="Image"
+/>
+<p class="calc__button-name">Да</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/btn-noutep.png"
+alt="Image"
+/>
+<p class="calc__button-name">Нет</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="calc__bottom">
+<div class="calc__price">от <span></span> руб</div>
+<a class="calc__sumbit button">Получить расчет</ф>
+</div>
+</div>
+</div>
+<div class="calc__images">
+<img src="@img/calc/empty.png" alt="Image" />
+<img src="@img/calc/ceiling/potolok-natyazhnoj.png" alt="Image">
+<img src="@img/calc/ceiling/potolok-parket.png" alt="Image">
+<img src="@img/calc/ceiling/pvxpotolok.png" alt="Image">
+<img src="@img/calc/ceiling/uteppotolok.png" alt="Image">
+<img src="@img/calc/ceiling/vagonka-potol.png" alt="Image">
+<img src="@img/calc/exterior/proflist-vneshnyaya1.png" alt="Image">
+<img src="@img/calc/exterior/vneshnyaya-otdelka.png" alt="Image">
+</div>
+</div>
+</div>
+</section>
+-->
+				<section data-fls-calc="" class="calc">
+					<div class="calc__container">
+						<h2 data-fls-title="" class="title">Калькулятор отделки балкона</h2>
+						<div class="calc__body">
+							<div class="calc__content">
+								<div class="calc__column">
+									<div class="calc__prize">
+										Сделайте расчет и получите подарок
+										<img alt="Image" src="./assets/img/calc/calc-prize.png">
+										!
+									</div>
+									<!-- Отделка стен -->
+									<div class="calc__choice" data-section="walls">
+										<div class="calc__switch">
+											<h3 class="calc__choice-title">Отделка стен</h3>
+											<label class="rocker rocker-small">
+												<input type="checkbox" data-enable-section="">
+												<span class="switch-left">Yes</span>
+												<span class="switch-right">No</span>
+											</label>
+										</div>
+										<div class="calc__buttons">
+											<div class="calc__button" data-price="1500" data-image="assets/img/calc/walls/parket-otdelka.png">
+												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/lam-btn.png">
+												<p class="calc__button-name">Ламинат</p>
+											</div>
+											<div class="calc__button" data-price="2000" data-image="assets/img/calc/walls/stenparket.png">
+												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/parket-btn.png">
+												<p class="calc__button-name">Стеновой паркет</p>
+											</div>
+											<div class="calc__button" data-price="800" data-image="assets/img/calc/walls/vagonka.png">
+												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/vag-btn.png">
+												<p class="calc__button-name">Вагонка</p>
+											</div>
+											<div class="calc__button" data-price="600" data-image="assets/img/calc/walls/paneli-otdelka.png">
+												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/pvh-btn.png">
+												<p class="calc__button-name">ПВХ панели</p>
+											</div>
+										</div>
+									</div>
+									<!-- Отделка потолка -->
+									<div class="calc__choice" data-section="ceiling">
+										<div class="calc__switch">
+											<h3 class="calc__choice-title">Отделка потолка</h3>
+											<label class="rocker rocker-small">
+												<input type="checkbox" data-enable-section="">
+												<span class="switch-left">Yes</span>
+												<span class="switch-right">No</span>
+											</label>
+										</div>
+										<div class="calc__buttons">
+											<div class="calc__button" data-price="700" data-image="assets/img/calc/ceiling/pvxpotolok.png">
+												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/pvh-btn.png">
+												<p class="calc__button-name">ПВХ панели</p>
+											</div>
+											<div class="calc__button" data-price="1200" data-image="assets/img/calc/ceiling/potolok-natyazhnoj.png">
+												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/potol-btn.png">
+												<p class="calc__button-name">Натяжной потолок</p>
+											</div>
+											<div class="calc__button" data-price="1000" data-image="assets/img/calc/ceiling/potolok-parket.png">
+												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/lam-btn.png">
+												<p class="calc__button-name">Ламинат</p>
+											</div>
+											<div class="calc__button" data-price="900" data-image="assets/img/calc/ceiling/vagonka-potol.png">
+												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/vag-btn.png">
+												<p class="calc__button-name">Вагонка</p>
+											</div>
+										</div>
+									</div>
+									<!-- Отделка пола -->
+									<div class="calc__choice" data-section="floor">
+										<div class="calc__switch">
+											<h3 class="calc__choice-title">Отделка пола</h3>
+											<label class="rocker rocker-small">
+												<input type="checkbox" data-enable-section="">
+												<span class="switch-left">да</span>
+												<span class="switch-right">Нет</span>
+											</label>
+										</div>
+										<div class="calc__buttons">
+											<div class="calc__button" data-price="500" data-image="assets/img/calc/floor/lenoliumpol1-1.png">
+												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/lin-btn.png">
+												<p class="calc__button-name">Линолеум</p>
+											</div>
+											<div class="calc__button" data-price="900" data-image="assets/img/calc/floor/parket-pol-1.png">
+												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/lam-btn.png">
+												<p class="calc__button-name">Ламинат</p>
+											</div>
+											<div class="calc__button" data-price="1100" data-image="assets/img/calc/floor/kvarczvinil-pol.png">
+												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/kvarc-btn.png">
+												<p class="calc__button-name">Кварц-винил</p>
+											</div>
+											<div class="calc__button" data-price="1300" data-image="assets/img/calc/floor/plitka-pol.png">
+												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/plit-btn.png">
+												<p class="calc__button-name">Плитка</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="calc__items">
+									<div class="calc__item">
+										<div class="calc__column">
+											<div class="calc__size">
+												<p>Длина, см</p>
+												<input data-fls-input="" autocomplete="off" type="text" name="length" placeholder="300" class="calc__input input" data-size-input="">
+											</div>
+											<!-- Внешняя отделка -->
+											<div class="calc__choice" data-section="exterior">
+												<div class="calc__switch">
+													<h3 class="calc__choice-title">Внешняя отделка</h3>
+													<label class="rocker rocker-small">
+														<input type="checkbox" data-enable-section="">
+														<span class="switch-left">Да</span>
+														<span class="switch-right">Нет</span>
+													</label>
+												</div>
+												<div class="calc__buttons">
+													<div class="calc__button" data-price="800" data-image="assets/img/calc/exterior/vneshnyaya-otdelka.png">
+														<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/say-btn.png">
+														<p class="calc__button-name">Сайдинг</p>
+													</div>
+													<div class="calc__button" data-price="700" data-image="assets/img/calc/exterior/proflist-vneshnyaya1.png">
+														<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/prof-btn.png">
+														<p class="calc__button-name">Профлист</p>
+													</div>
+												</div>
+											</div>
+											<!-- Освещение -->
+											<div class="calc__choice" data-section="lighting">
+												<div class="calc__switch">
+													<h3 class="calc__choice-title">Освещение</h3>
+													<label class="rocker rocker-small">
+														<input type="checkbox" data-enable-section="">
+														<span class="switch-left">Да</span>
+														<span class="switch-right">Нет</span>
+													</label>
+												</div>
+												<div class="calc__buttons">
+													<div class="calc__button" data-price="300" data-image="assets/img/calc/light/potolok.png">
+														<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/btn-cold1.png">
+														<p class="calc__button-name">Точечное</p>
+													</div>
+													<div class="calc__button" data-price="400" data-image="assets/img/calc/light/podvesnoi-svetilnik-1.png">
+														<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/btn-hot1.png">
+														<p class="calc__button-name">Подвесное</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="calc__column">
+											<div class="calc__size">
+												<p>Ширина, см</p>
+												<input data-fls-input="" autocomplete="off" type="text" name="width" placeholder="300" class="calc__input input" data-size-input="">
+											</div>
+											<!-- Остекление -->
+											<div class="calc__choice" data-section="glazing">
+												<div class="calc__switch">
+													<h3 class="calc__choice-title">Остекление</h3>
+													<label class="rocker rocker-small">
+														<input type="checkbox" data-enable-section="">
+														<span class="switch-left">Да</span>
+														<span class="switch-right">Нет</span>
+													</label>
+												</div>
+												<div class="calc__buttons">
+													<div class="calc__button" data-price="1500" data-image="assets/img/calc/windows/xolodnoeokno.png">
+														<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/btn-point.png">
+														<p class="calc__button-name">Холодное</p>
+													</div>
+													<div class="calc__button" data-price="2500" data-image="assets/img/calc/windows/teploe-okno.png">
+														<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/btn-podves.png">
+														<p class="calc__button-name">Теплое</p>
+													</div>
+												</div>
+											</div>
+											<!-- Утепление -->
+											<div class="calc__choice" data-section="insulation">
+												<div class="calc__switch">
+													<h3 class="calc__choice-title">Утепление</h3>
+													<label class="rocker rocker-small">
+														<input type="checkbox" data-enable-section="">
+														<span class="switch-left">Да</span>
+														<span class="switch-right">Нет</span>
+													</label>
+												</div>
+												<div class="calc__buttons">
+													<div class="calc__button" data-price="2000" data-image="assets/img/calc/utep/uteplenie.png">
+														<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/btn-utep.png">
+														<p class="calc__button-name">Да</p>
+													</div>
+													<div class="calc__button" data-price="0" data-image="assets/img/calc/utep/bez-utepleniya.png">
+														<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/btn-noutep.png">
+														<p class="calc__button-name">Нет</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="calc__bottom">
+										<div class="calc__price">
+											от
+											<span id="totalPrice">0</span>
+											руб
+										</div>
+										<a class="calc__sumbit button">Получить расчет</a>
+									</div>
+								</div>
+							</div>
+							<!-- Контейнер для изображений -->
+							<div class="calc__images">
+								<!-- Основное пустое изображение (фон) -->
+								<img alt="Image" class="calc__main-img" src="./assets/img/calc/empty.png">
+								<!-- Сюда будут добавляться выбранные изображения -->
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="answers">
+					<div class="answers__container">
+						<h2 data-fls-title="" class="title">Ответы на часто задаваемые вопросы</h2>
+						<div data-fls-spollers="" class="spollers">
+							<details class="spollers__item">
+								<summary class="spollers__title">
+									<img src="./assets/img/answers/questions-arrow-down.svg" alt="Image">
+									Возможно ли остекление и отделка балкона в холодное время года?
+								</summary>
+								<div class="spollers__body">
+									<p>
+										Да, можно, так как используем материалы устойчивые к низким
+        температурам. А стоимость на услуги в зимнее время ниже!
+									</p>
+								</div>
+							</details>
+							<details class="spollers__item">
+								<summary class="spollers__title">
+									<img src="./assets/img/answers/questions-arrow-down.svg" alt="Image">
+									Возможно ли остекление и отделка балкона в холодное время года?
+								</summary>
+								<div class="spollers__body">
+									<p>
+										Да, можно, так как используем материалы устойчивые к низким
+        температурам. А стоимость на услуги в зимнее время ниже!
+									</p>
+								</div>
+							</details>
+							<details class="spollers__item">
+								<summary class="spollers__title">
+									<img src="./assets/img/answers/questions-arrow-down.svg" alt="Image">
+									Возможно ли остекление и отделка балкона в холодное время года?
+								</summary>
+								<div class="spollers__body">
+									<p>
+										Да, можно, так как используем материалы устойчивые к низким
+        температурам. А стоимость на услуги в зимнее время ниже!
+									</p>
+								</div>
+							</details>
+							<details class="spollers__item">
+								<summary class="spollers__title">
+									<img src="./assets/img/answers/questions-arrow-down.svg" alt="Image">
+									Возможно ли остекление и отделка балкона в холодное время года?
+								</summary>
+								<div class="spollers__body">
+									<p>
+										Да, можно, так как используем материалы устойчивые к низким
+        температурам. А стоимость на услуги в зимнее время ниже!
+									</p>
+								</div>
+							</details>
+							<details class="spollers__item">
+								<summary class="spollers__title">
+									<img src="./assets/img/answers/questions-arrow-down.svg" alt="Image">
+									Возможно ли остекление и отделка балкона в холодное время года?
+								</summary>
+								<div class="spollers__body">
+									<p>
+										Да, можно, так как используем материалы устойчивые к низким
+        температурам. А стоимость на услуги в зимнее время ниже!
+									</p>
+								</div>
+							</details>
+							<details class="spollers__item">
+								<summary class="spollers__title">
+									<img src="./assets/img/answers/questions-arrow-down.svg" alt="Image">
+									Возможно ли остекление и отделка балкона в холодное время года?
+								</summary>
+								<div class="spollers__body">
+									<p>
+										Да, можно, так как используем материалы устойчивые к низким
+        температурам. А стоимость на услуги в зимнее время ниже!
+									</p>
+								</div>
+							</details>
 						</div>
 					</div>
 				</section>
 			</main>
-			<footer data-fls-footer="" class="footer">
+			<footer class="footer">
 				<div class="footer__container">
-					<div class="footer__top">
-						<a class="footer__logo" href="#">
-							<img alt="Image" src="./assets/img/footer/logo.webp">
-						</a>
-						<p class="footer__text">Отделка и остекление балконов от производителя в Москве и МО</p>
-						<div class="footer__contact">
-							<a class="footer__phone" href="tel:84958775098">8 (495) 877-50-98</a>
-							<div class="footer__clock">9:00 — 20:00 (без выходных)</div>
-							<a href="mail:balkon1-msk@yandex.ru" class="footer__mail">balkon1-msk@yandex.ru</a>
+					<div class="footer__inner">
+						<div class="footer__top">
+							<div class="footer__item footer__item--1">
+								<a class="footer__logo" href="#">
+									<img loading="lazy" class="footer__logo-img" alt="#" src="./assets/img/footer/logo.webp">
+								</a>
+								<p class="footer__info">Ведущая международная компания по ремонту балконов и лоджий</p>
+								<div class="footer__franchise-box">
+									<img src="./assets/img/footer/pandasb.svg" alt="Image">
+									<p>Продвижение сайта Pandas.web</p>
+								</div>
+							</div>
+							<div class="footer__item consultation-footer footer__item--2">
+								<div class="consultation-footer__title-box">
+									<div class="consultation-footer__title-inner">
+										<h3 class="consultation-footer__title">Нужна консультация?</h3>
+										<p class="consultation-footer__text">Перезвоним и ответим на вопросы</p>
+									</div>
+									<img loading="lazy" class="consultation-footer__img" src="./assets/img/footer/consultation-img.svg" alt="">
+								</div>
+								<form class="footer__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
+									<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="footer__input input">
+									<button type="submit" class="footer__button button">Перезвонить</button>
+									<label data-fls-checkbox="" class="checkbox">
+										<input checked data-fls-form-errtext="Заполните поле" class="checkbox__input" type="checkbox" value="4" name="check">
+										<span class="checkbox__text">
+											Я даю согласие на обработку моих персональных данных в
+                соответствии с политикой конфиденциальности
+										</span>
+									</label>
+								</form>
+							</div>
+							<div class="footer__item footer__item--3">
+								<div class="footer__navigation-body">
+									<div class="footer__navigation-title">Разделы сайта</div>
+									<nav class="footer__menu">
+										<ul class="footer-menu__list">
+											<li class="footer-menu__list-item">
+												<a class="footer-menu__list-link" href="#calculator">Калькулятор стоимости</a>
+											</li>
+											<li class="footer-menu__list-item">
+												<a class="footer-menu__list-link" href="#examples">Наши работы</a>
+											</li>
+											<li class="footer-menu__list-item">
+												<a class="footer-menu__list-link" href="#services">Дополнительные услуги</a>
+											</li>
+											<li class="footer-menu__list-item">
+												<a class="footer-menu__list-link" href="#measuring">Запись на замер</a>
+											</li>
+											<li class="footer-menu__list-item">
+												<a class="footer-menu__list-link" href="#reviews">Отзывы клиентов</a>
+											</li>
+											<li class="footer-menu__list-item">
+												<a class="footer-menu__list-link" href="#contacts">Контакты</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+							<div class="footer__item footer__item--4">
+								<div class="footer__phone-box">
+									<div class="footer__phone-connection">Мы на связи</div>
+									<a class="footer__phone" href="tel:+7 (911) 108-10-82">+7 (911) 108-10-82</a>
+									<a class="footer__call-back" href="">Перезвоним за 30 секунд</a>
+								</div>
+								<div class="footer__calculator-box">
+									<img loading="lazy" class="footer__calculator-img" src="./assets/img/footer/calculator.svg" alt="">
+									<a class="footer__calculator-text" href="#calculator">Калькулятор стоимости отделки балконов и лоджий</a>
+								</div>
+								<div class="information__text-box">
+									<p class="information__text">
+										Обращаем ваше внимание на то, что данный интернет-сайт, а также
+              вся информация о услугах и ценах, предоставленная на нём, носит
+              исключительно информационный характер и ни при каких условиях не
+              является публичной офертой, определяемой положениями Статьи 437
+              Гражданского кодекса Российской Федерации.
+									</p>
+								</div>
+							</div>
 						</div>
-						<div class="footer__info">
-							<div class="footer__address">г. Москва, Можайское шоссе 40, корпус 2</div>
-							<div class="footer__code">ОГРНИП 32477 46008 30118</div>
+						<div class="footer__bottom">
+							<div class="footer__copy">© Окна Нова 2023</div>
+							<div class="footer__links">
+								<a class="footer__copy-link" href="https://oknanova-balkony.ru/privacy-policy.pdf" target="_blanc">Политика конфиденциальности</a>
+								<a class="footer__copy-link" href="https://oknanova-balkony.ru/agreement.pdf" target="_blanc">Пользовательское соглашение</a>
+							</div>
 						</div>
-					</div>
-					<div class="footer__bottom">
-						<a href="#">Согласие на обработку персональных данных</a>
-						<a href="#">Политика в отношении обработки персональных данных</a>
 					</div>
 				</div>
 			</footer>

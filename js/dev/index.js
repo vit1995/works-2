@@ -12659,7 +12659,7 @@ function formInit() {
 }
 document.querySelector("[data-fls-form]") ? window.addEventListener("load", formInit) : null;
 document.addEventListener("DOMContentLoaded", function() {
-  const calcButtons2 = document.querySelectorAll(".calc__button[data-price]");
+  const calcButtons = document.querySelectorAll(".calc__button[data-price]");
   const imagesContainer = document.querySelector(".calc__images");
   imagesContainer.querySelector("img");
   const totalPriceElement = document.getElementById("totalPrice");
@@ -12771,7 +12771,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     updatePrice();
   }
-  calcButtons2.forEach((button) => {
+  calcButtons.forEach((button) => {
     button.addEventListener("click", () => handleButtonClick(button));
   });
   sizeInputs.forEach((input) => {
@@ -12809,10 +12809,4 @@ document.addEventListener("DOMContentLoaded", function() {
       Object.entries(selectedOptions).filter(([_, value]) => value).map(([section, option]) => `${section}: ${option.name}`).join(", ");
     });
   }
-});
-console.log("=== ПУТИ К ИЗОБРАЖЕНИЯМ ===");
-calcButtons.forEach((button, i) => {
-  console.log(`Кнопка ${i}: ${button.querySelector(".calc__button-name").textContent}`);
-  console.log(`data-image: ${button.dataset.image}`);
-  console.log(`src у иконки: ${button.querySelector(".calc__button-img").src}`);
 });

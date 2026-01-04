@@ -12665,6 +12665,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const totalPriceElement = document.getElementById("totalPrice");
   const sizeInputs = document.querySelectorAll("[data-size-input]");
   const sectionSwitches = document.querySelectorAll("[data-enable-section]");
+  const submitButton = document.querySelector(".calc__submit");
   const imageMap = /* @__PURE__ */ new Map();
   const allImages = imagesContainer.querySelectorAll(".calc-layer");
   allImages.forEach((img) => {
@@ -12673,7 +12674,9 @@ document.addEventListener("DOMContentLoaded", function() {
     if (section && material) {
       const key = `${section}-${material}`;
       imageMap.set(key, img);
-      console.log(`Добавлено в карту: ${key} -> ${img.src}`);
+      img.style.opacity = "0";
+      img.style.pointerEvents = "none";
+      console.log(`Добавлено в карту: ${key}`);
     }
   });
   console.log("Всего изображений в карте:", imageMap.size);
@@ -12699,18 +12702,20 @@ document.addEventListener("DOMContentLoaded", function() {
     glazing: 1500,
     insulation: 2e3
   };
-  function manageImage(section, buttonName, show) {
-    const key = `${section}-${buttonName}`;
+  function manageImage(section, material, show) {
+    const key = `${section}-${material}`;
     const img = imageMap.get(key);
     console.log(`manageImage: ${key}, show: ${show}, найдено: ${!!img}`);
     if (img) {
       if (show) {
         img.classList.add("active");
         img.style.opacity = "1";
+        img.style.zIndex = "10";
         console.log(`Показано: ${key}`);
       } else {
         img.classList.remove("active");
         img.style.opacity = "0";
+        img.style.zIndex = "3";
         console.log(`Скрыто: ${key}`);
       }
     } else {
@@ -12746,38 +12751,70 @@ document.addEventListener("DOMContentLoaded", function() {
   function handleButtonClick(button) {
     const section = button.closest(".calc__choice").dataset.section;
     const price = parseInt(button.dataset.price) || 0;
-    const buttonName = button.querySelector(".calc__button-name").textContent;
+    const material = button.dataset.material;
     const sectionSwitch = button.closest(".calc__choice").querySelector("[data-enable-section]");
-    if (!sectionSwitch.checked) return;
-    console.log(`Клик: ${section} - ${buttonName}`);
+    if (!sectionSwitch.checked) {
+      alert("Включите секцию " + section + " для выбора материала");
+      return;
+    }
+    console.log(`Клик: ${section} - ${material}, цена: ${price}`);
     if (button.classList.contains("active")) {
       button.classList.remove("active");
       selectedOptions[section] = null;
-      manageImage(section, buttonName, false);
+      manageImage(section, material, false);
     } else {
       const buttonsInSection = button.closest(".calc__buttons").querySelectorAll(".calc__button");
       buttonsInSection.forEach((btn) => {
         btn.classList.remove("active");
         if (btn !== button) {
-          const oldButtonName = btn.querySelector(".calc__button-name").textContent;
-          manageImage(section, oldButtonName, false);
+          const oldMaterial = btn.dataset.material;
+          manageImage(section, oldMaterial, false);
         }
       });
       button.classList.add("active");
       selectedOptions[section] = {
         price,
-        name: buttonName
+        material
       };
-      manageImage(section, buttonName, true);
+      manageImage(section, material, true);
     }
     updatePrice();
+  }
+  function collectFormData() {
+    const data = {
+      dimensions: { ...dimensions },
+      selectedOptions: { ...selectedOptions },
+      totalPrice: calculateTotalPrice(),
+      area: calculateArea()
+    };
+    console.log("Данные для отправки:", data);
+    let message = `Ваш расчет:
+`;
+    message += `Площадь: ${data.area.toFixed(2)} м²
+`;
+    message += `Длина: ${dimensions.length} см
+`;
+    message += `Ширина: ${dimensions.width} см
+
+`;
+    for (const [section, option] of Object.entries(selectedOptions)) {
+      if (option) {
+        message += `${section}: ${option.material} - ${option.price} руб
+`;
+      }
+    }
+    message += `
+Итого: ${data.totalPrice.toLocaleString("ru-RU")} руб`;
+    alert(message);
+    return data;
   }
   calcButtons.forEach((button) => {
     button.addEventListener("click", () => handleButtonClick(button));
   });
   sizeInputs.forEach((input) => {
     input.addEventListener("input", function() {
-      dimensions[this.name] = parseFloat(this.value) || 0;
+      const value = parseFloat(this.value) || 0;
+      dimensions[this.name] = value > 0 ? value : 0;
       updatePrice();
     });
     dimensions[input.name] = parseFloat(input.value) || 300;
@@ -12789,16 +12826,19 @@ document.addEventListener("DOMContentLoaded", function() {
       if (!this.checked) {
         buttons.forEach((button) => {
           if (button.classList.contains("active")) {
-            const buttonName = button.querySelector(".calc__button-name").textContent;
+            const material = button.dataset.material;
             button.classList.remove("active");
             selectedOptions[section] = null;
-            manageImage(section, buttonName, false);
+            manageImage(section, material, false);
           }
         });
       }
       updatePrice();
     });
   });
+  if (submitButton) {
+    submitButton.addEventListener("click", collectFormData);
+  }
   updatePrice();
   setTimeout(() => {
     console.log("=== ПРОВЕРКА ИЗОБРАЖЕНИЙ ===");

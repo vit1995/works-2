@@ -12659,8 +12659,9 @@ function formInit() {
 }
 document.querySelector("[data-fls-form]") ? window.addEventListener("load", formInit) : null;
 document.addEventListener("DOMContentLoaded", function() {
-  const calcButtons = document.querySelectorAll(".calc__button[data-price]");
+  const calcButtons2 = document.querySelectorAll(".calc__button[data-price]");
   const imagesContainer = document.querySelector(".calc__images");
+  imagesContainer.querySelector("img");
   const totalPriceElement = document.getElementById("totalPrice");
   const sizeInputs = document.querySelectorAll("[data-size-input]");
   const sectionSwitches = document.querySelectorAll("[data-enable-section]");
@@ -12723,32 +12724,17 @@ document.addEventListener("DOMContentLoaded", function() {
         img.className = "calc-layer";
         img.setAttribute("data-section", section);
         img.setAttribute("data-material", buttonName);
-        img.style.opacity = "0";
-        img.style.transition = "opacity 0.3s ease";
         imagesContainer.appendChild(img);
         createdImages[imageKey] = img;
-        img.onload = function() {
-          img.style.opacity = "1";
-        };
-        img.onerror = function() {
-          console.warn("Не удалось загрузить изображение:", imagePath);
-          if (createdImages[imageKey]) {
-            img.remove();
-            delete createdImages[imageKey];
-          }
-        };
+        setTimeout(() => {
+          img.classList.add("active");
+        }, 50);
       } else {
-        createdImages[imageKey].style.opacity = "1";
+        createdImages[imageKey].classList.add("active");
       }
     } else {
       if (createdImages[imageKey]) {
-        createdImages[imageKey].style.opacity = "0";
-        setTimeout(() => {
-          if (createdImages[imageKey] && createdImages[imageKey].style.opacity === "0") {
-            createdImages[imageKey].remove();
-            delete createdImages[imageKey];
-          }
-        }, 300);
+        createdImages[imageKey].classList.remove("active");
       }
     }
   }
@@ -12767,7 +12753,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const buttonsInSection = button.closest(".calc__buttons").querySelectorAll(".calc__button");
       buttonsInSection.forEach((btn) => {
         btn.classList.remove("active");
-        if (btn !== button && btn.dataset.image) {
+        if (btn !== button) {
           const oldImagePath = btn.dataset.image;
           const oldButtonName = btn.querySelector(".calc__button-name").textContent;
           manageImage(section, oldImagePath, oldButtonName, false);
@@ -12785,18 +12771,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     updatePrice();
   }
-  calcButtons.forEach((button) => {
+  calcButtons2.forEach((button) => {
     button.addEventListener("click", () => handleButtonClick(button));
   });
   sizeInputs.forEach((input) => {
     input.addEventListener("input", function() {
       const name = this.name;
-      const value = parseFloat(this.value) || 0;
-      dimensions[name] = value;
+      dimensions[name] = this.value || 0;
       updatePrice();
     });
-    const initialValue = parseFloat(input.value) || 300;
-    dimensions[input.name] = initialValue;
+    dimensions[input.name] = input.value || 300;
   });
   sectionSwitches.forEach((switchElement) => {
     switchElement.addEventListener("change", function() {
@@ -12817,35 +12801,18 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
   updatePrice();
-  console.log("Калькулятор загружен");
-  console.log("Количество кнопок:", calcButtons.length);
-  console.log("Контейнер для изображений:", imagesContainer);
-  const debugButton = document.createElement("button");
-  debugButton.textContent = "Проверить пути к изображениям";
-  debugButton.style.position = "fixed";
-  debugButton.style.bottom = "10px";
-  debugButton.style.right = "10px";
-  debugButton.style.zIndex = "9999";
-  debugButton.style.padding = "10px";
-  debugButton.style.background = "#f00";
-  debugButton.style.color = "#fff";
-  debugButton.style.border = "none";
-  debugButton.style.cursor = "pointer";
-  debugButton.addEventListener("click", function() {
-    console.log("=== ПРОВЕРКА ПУТЕЙ ===");
-    calcButtons.forEach((btn, i) => {
-      const path = btn.dataset.image;
-      console.log(`Кнопка ${i}:`, btn.querySelector(".calc__button-name").textContent);
-      console.log("Путь к изображению:", path);
-      const testImg = new Image();
-      testImg.onload = function() {
-        console.log(`✅ Изображение ${i} загружено успешно`);
-      };
-      testImg.onerror = function() {
-        console.log(`❌ Ошибка загрузки изображения ${i}:`, path);
-      };
-      testImg.src = path;
+  const submitButton = document.querySelector(".calc__sumbit");
+  if (submitButton) {
+    submitButton.addEventListener("click", function(e) {
+      e.preventDefault();
+      calculateTotalPrice();
+      Object.entries(selectedOptions).filter(([_, value]) => value).map(([section, option]) => `${section}: ${option.name}`).join(", ");
     });
-  });
-  document.body.appendChild(debugButton);
+  }
+});
+console.log("=== ПУТИ К ИЗОБРАЖЕНИЯМ ===");
+calcButtons.forEach((button, i) => {
+  console.log(`Кнопка ${i}: ${button.querySelector(".calc__button-name").textContent}`);
+  console.log(`data-image: ${button.dataset.image}`);
+  console.log(`src у иконки: ${button.querySelector(".calc__button-img").src}`);
 });

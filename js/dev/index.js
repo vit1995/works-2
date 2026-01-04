@@ -12659,13 +12659,24 @@ function formInit() {
 }
 document.querySelector("[data-fls-form]") ? window.addEventListener("load", formInit) : null;
 document.addEventListener("DOMContentLoaded", function() {
+  console.log("=== КАЛЬКУЛЯТОР ОТДЕЛКИ БАЛКОНА ===");
   const calcButtons = document.querySelectorAll(".calc__button[data-price]");
   const imagesContainer = document.querySelector(".calc__images");
-  imagesContainer.querySelector("img");
   const totalPriceElement = document.getElementById("totalPrice");
   const sizeInputs = document.querySelectorAll("[data-size-input]");
   const sectionSwitches = document.querySelectorAll("[data-enable-section]");
-  const createdImages = {};
+  const imageMap = /* @__PURE__ */ new Map();
+  const allImages = imagesContainer.querySelectorAll(".calc-layer");
+  allImages.forEach((img) => {
+    const section = img.getAttribute("data-section");
+    const material = img.getAttribute("data-material");
+    if (section && material) {
+      const key = `${section}-${material}`;
+      imageMap.set(key, img);
+      console.log(`Добавлено в карту: ${key} -> ${img.src}`);
+    }
+  });
+  console.log("Всего изображений в карте:", imageMap.size);
   let selectedOptions = {
     walls: null,
     ceiling: null,
@@ -12688,6 +12699,24 @@ document.addEventListener("DOMContentLoaded", function() {
     glazing: 1500,
     insulation: 2e3
   };
+  function manageImage(section, buttonName, show) {
+    const key = `${section}-${buttonName}`;
+    const img = imageMap.get(key);
+    console.log(`manageImage: ${key}, show: ${show}, найдено: ${!!img}`);
+    if (img) {
+      if (show) {
+        img.classList.add("active");
+        img.style.opacity = "1";
+        console.log(`Показано: ${key}`);
+      } else {
+        img.classList.remove("active");
+        img.style.opacity = "0";
+        console.log(`Скрыто: ${key}`);
+      }
+    } else {
+      console.warn(`Изображение не найдено: ${key}`);
+    }
+  }
   function calculateArea() {
     const length = parseFloat(dimensions.length) || 0;
     const width = parseFloat(dimensions.width) || 0;
@@ -12714,60 +12743,32 @@ document.addEventListener("DOMContentLoaded", function() {
       totalPriceElement.textContent = total.toLocaleString("ru-RU");
     }
   }
-  function manageImage(section, imagePath, buttonName, show) {
-    const imageKey = `${section}-${buttonName}`;
-    if (show) {
-      if (!createdImages[imageKey]) {
-        const img = document.createElement("img");
-        img.src = imagePath;
-        img.alt = buttonName;
-        img.className = "calc-layer";
-        img.setAttribute("data-section", section);
-        img.setAttribute("data-material", buttonName);
-        imagesContainer.appendChild(img);
-        createdImages[imageKey] = img;
-        setTimeout(() => {
-          img.classList.add("active");
-        }, 50);
-      } else {
-        createdImages[imageKey].classList.add("active");
-      }
-    } else {
-      if (createdImages[imageKey]) {
-        createdImages[imageKey].classList.remove("active");
-      }
-    }
-  }
   function handleButtonClick(button) {
     const section = button.closest(".calc__choice").dataset.section;
     const price = parseInt(button.dataset.price) || 0;
-    const imagePath = button.dataset.image;
     const buttonName = button.querySelector(".calc__button-name").textContent;
     const sectionSwitch = button.closest(".calc__choice").querySelector("[data-enable-section]");
     if (!sectionSwitch.checked) return;
+    console.log(`Клик: ${section} - ${buttonName}`);
     if (button.classList.contains("active")) {
       button.classList.remove("active");
       selectedOptions[section] = null;
-      manageImage(section, imagePath, buttonName, false);
+      manageImage(section, buttonName, false);
     } else {
       const buttonsInSection = button.closest(".calc__buttons").querySelectorAll(".calc__button");
       buttonsInSection.forEach((btn) => {
         btn.classList.remove("active");
         if (btn !== button) {
-          const oldImagePath = btn.dataset.image;
           const oldButtonName = btn.querySelector(".calc__button-name").textContent;
-          manageImage(section, oldImagePath, oldButtonName, false);
+          manageImage(section, oldButtonName, false);
         }
       });
       button.classList.add("active");
       selectedOptions[section] = {
         price,
-        imagePath,
         name: buttonName
       };
-      if (imagePath) {
-        manageImage(section, imagePath, buttonName, true);
-      }
+      manageImage(section, buttonName, true);
     }
     updatePrice();
   }
@@ -12776,11 +12777,10 @@ document.addEventListener("DOMContentLoaded", function() {
   });
   sizeInputs.forEach((input) => {
     input.addEventListener("input", function() {
-      const name = this.name;
-      dimensions[name] = this.value || 0;
+      dimensions[this.name] = parseFloat(this.value) || 0;
       updatePrice();
     });
-    dimensions[input.name] = input.value || 300;
+    dimensions[input.name] = parseFloat(input.value) || 300;
   });
   sectionSwitches.forEach((switchElement) => {
     switchElement.addEventListener("change", function() {
@@ -12789,11 +12789,10 @@ document.addEventListener("DOMContentLoaded", function() {
       if (!this.checked) {
         buttons.forEach((button) => {
           if (button.classList.contains("active")) {
-            const imagePath = button.dataset.image;
             const buttonName = button.querySelector(".calc__button-name").textContent;
             button.classList.remove("active");
             selectedOptions[section] = null;
-            manageImage(section, imagePath, buttonName, false);
+            manageImage(section, buttonName, false);
           }
         });
       }
@@ -12801,12 +12800,10 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
   updatePrice();
-  const submitButton = document.querySelector(".calc__sumbit");
-  if (submitButton) {
-    submitButton.addEventListener("click", function(e) {
-      e.preventDefault();
-      calculateTotalPrice();
-      Object.entries(selectedOptions).filter(([_, value]) => value).map(([section, option]) => `${section}: ${option.name}`).join(", ");
+  setTimeout(() => {
+    console.log("=== ПРОВЕРКА ИЗОБРАЖЕНИЙ ===");
+    allImages.forEach((img, i) => {
+      console.log(`${i + 1}. src: ${img.src}, data-section: ${img.dataset.section}, data-material: ${img.dataset.material}`);
     });
-  }
+  }, 1e3);
 });

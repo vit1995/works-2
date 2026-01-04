@@ -12821,15 +12821,6 @@ document.addEventListener("DOMContentLoaded", function() {
       area: calculateArea()
     };
     console.log("Данные для отправки:", data);
-    let message = `Ваш расчет:
-`;
-    message += `Площадь: ${data.area.toFixed(2)} м²
-`;
-    message += `Длина: ${dimensions.length} см
-`;
-    message += `Ширина: ${dimensions.width} см
-
-`;
     for (const [section, option] of Object.entries(selectedOptions)) {
       if (option) {
         message += `${section}: ${option.material} - ${option.price} руб

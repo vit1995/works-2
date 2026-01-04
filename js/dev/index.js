@@ -9770,7 +9770,9 @@ if (galleries.length) {
     lightGallery(gallery, {
       plugins: [lgZoom, lgThumbnail],
       licenseKey: KEY,
-      speed: 500
+      speed: 500,
+      selector: "a"
+      // Теперь все ссылки будут работать
     });
   });
 }
@@ -12658,6 +12660,37 @@ function formInit() {
   formFieldsInit();
 }
 document.querySelector("[data-fls-form]") ? window.addEventListener("load", formInit) : null;
+document.addEventListener("DOMContentLoaded", function() {
+  window.addEventListener("load", handlePageLoad);
+  let fallbackTimer = setTimeout(() => {
+    handlePageLoad(true);
+  }, 3e3);
+  window.addEventListener("load", () => {
+    clearTimeout(fallbackTimer);
+  });
+});
+function handlePageLoad(isFallback = false) {
+  const preloader = document.getElementById("preloader");
+  const content = document.getElementById("content");
+  if (isFallback) {
+    console.log("Fallback: показываем контент по таймауту");
+  }
+  if (content) {
+    content.style.display = "block";
+    content.style.opacity = "1";
+  } else {
+    document.body.style.opacity = "1";
+    document.body.style.visibility = "visible";
+  }
+  if (preloader) {
+    preloader.classList.add("preloader-hidden");
+    setTimeout(() => {
+      if (preloader.parentNode) {
+        preloader.remove();
+      }
+    }, 500);
+  }
+}
 document.addEventListener("DOMContentLoaded", function() {
   console.log("=== КАЛЬКУЛЯТОР ОТДЕЛКИ БАЛКОНА ===");
   const calcButtons = document.querySelectorAll(".calc__button[data-price]");

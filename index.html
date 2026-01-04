@@ -4,10 +4,10 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=1767551479164">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=1767552691287">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1767551479164"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1767551479164">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1767552691287"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1767552691287">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -213,6 +213,95 @@
 					</div>
 				</div>
 			</div>
+			<style>
+				#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s, visibility 0.5s;
+  }
+
+  .preloader-hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+			</style>
+			<div data-fls-mypreloader="" id="preloader">
+				<div class="spinner"></div>
+			</div>
+			<script>
+        // Проверяем, что DOM загружен перед работой с элементами
+        document.addEventListener('DOMContentLoaded', function () {
+          // Инициализация после полной загрузки
+          window.addEventListener('load', handlePageLoad);
+
+          // Fallback таймер
+          let fallbackTimer = setTimeout(() => {
+            handlePageLoad(true); // true - означает fallback вызов
+          }, 3000);
+
+          // Отменяем fallback если страница загрузилась
+          window.addEventListener('load', () => {
+            clearTimeout(fallbackTimer);
+          });
+        });
+
+        // Функция обработки загрузки страницы
+        function handlePageLoad(isFallback = false) {
+          const preloader = document.getElementById('preloader');
+          const content = document.getElementById('content');
+
+          // Для отладки
+          if (isFallback) {
+            console.log('Fallback: показываем контент по таймауту');
+          }
+
+          // Проверяем и показываем контент
+          if (content) {
+            content.style.display = 'block';
+            content.style.opacity = '1';
+          } else {
+            // Если элемента content нет, показываем body
+            document.body.style.opacity = '1';
+            document.body.style.visibility = 'visible';
+          }
+
+          // Обрабатываем прелоадер если он есть
+          if (preloader) {
+            preloader.classList.add('preloader-hidden');
+            setTimeout(() => {
+              if (preloader.parentNode) {
+                preloader.remove();
+              }
+            }, 500);
+          }
+        }
+			</script>
 			<main class="page page--home">
 				<section class="hero">
 					<div class="hero__container">
@@ -506,6 +595,554 @@
 </div>
 </div>
 -->
+						</div>
+					</div>
+				</section>
+				<!--
+<section data-fls-calc class="calc">
+<div class="calc__container">
+<h2 data-fls-title class="title">Калькулятор отделки балкона</h2>
+<div class="calc__body">
+<div class="calc__content">
+<div class="calc__column">
+<div class="calc__prize">
+Сделайте расчет и получите подарок
+<img src="@img/calc/calc-prize.png" alt="Image" /> !
+</div>
+<div class="calc__choice">
+<div class="calc__switch">
+<h3 class="calc__choice-title">Отделка стен</h3>
+<label class="rocker rocker-small">
+<input type="checkbox" />
+<span class="switch-left">Yes</span>
+<span class="switch-right">No</span>
+</label>
+</div>
+<div class="calc__buttons">
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/lam-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Ламинат</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/parket-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Стеновой паркет</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/vag-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Вагонка</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/pvh-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">ПВХ панели</p>
+</div>
+</div>
+</div>
+<div class="calc__choice">
+<div class="calc__switch">
+<h3 class="calc__choice-title">Отделка потолка</h3>
+<label class="rocker rocker-small">
+<input type="checkbox" />
+<span class="switch-left">Yes</span>
+<span class="switch-right">No</span>
+</label>
+</div>
+<div class="calc__buttons">
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/pvh-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">ПВХ панели</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/potol-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Натяжной потолок</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/lam-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Ламинат</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/vag-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Вагонка</p>
+</div>
+</div>
+</div>
+<div class="calc__choice">
+<div class="calc__switch">
+<h3 class="calc__choice-title">Отделка пола</h3>
+<label class="rocker rocker-small">
+<input type="checkbox" />
+<span class="switch-left">Yes</span>
+<span class="switch-right">No</span>
+</label>
+</div>
+<div class="calc__buttons">
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/lin-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Линолеум</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/lam-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Ламинат</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/kvarc-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Кварц-винил</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/plit-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Плитка</p>
+</div>
+</div>
+</div>
+</div>
+<div class="calc__items">
+<div class="calc__item">
+<div class="calc__column">
+<div class="calc__size">
+<p>Длина, см</p>
+<input
+data-fls-input
+autocomplete="off"
+type="text"
+name="size"
+placeholder="300"
+class="calc__input input"
+/>
+</div>
+<div class="calc__choice">
+<div class="calc__switch">
+<h3 class="calc__choice-title">Внешняя отделка</h3>
+<label class="rocker rocker-small">
+<input type="checkbox" />
+<span class="switch-left">Yes</span>
+<span class="switch-right">No</span>
+</label>
+</div>
+<div class="calc__buttons">
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/say-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Сайдинг</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/prof-btn.png"
+alt="Image"
+/>
+<p class="calc__button-name">Профлист</p>
+</div>
+</div>
+</div>
+<div class="calc__choice">
+<div class="calc__switch">
+<h3 class="calc__choice-title">Освещение</h3>
+<label class="rocker rocker-small">
+<input type="checkbox" />
+<span class="switch-left">Yes</span>
+<span class="switch-right">No</span>
+</label>
+</div>
+<div class="calc__buttons">
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/btn-cold1.png"
+alt="Image"
+/>
+<p class="calc__button-name">Точечное</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/btn-hot1.png"
+alt="Image"
+/>
+<p class="calc__button-name">Подвесное</p>
+</div>
+</div>
+</div>
+</div>
+<div class="calc__column">
+<div class="calc__size">
+<p>Ширина, см</p>
+<input
+data-fls-input
+autocomplete="off"
+type="text"
+name="size"
+placeholder="300"
+class="calc__input input"
+/>
+</div>
+<div class="calc__choice">
+<div class="calc__switch">
+<h3 class="calc__choice-title">Остекление</h3>
+<label class="rocker rocker-small">
+<input type="checkbox" />
+<span class="switch-left">Yes</span>
+<span class="switch-right">No</span>
+</label>
+</div>
+<div class="calc__buttons">
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/btn-point.png"
+alt="Image"
+/>
+<p class="calc__button-name">Холодное</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/btn-podves.png"
+alt="Image"
+/>
+<p class="calc__button-name">Теплое</p>
+</div>
+</div>
+</div>
+<div class="calc__choice">
+<div class="calc__switch">
+<h3 class="calc__choice-title">Утепление</h3>
+<label class="rocker rocker-small">
+<input type="checkbox" />
+<span class="switch-left">Да</span>
+<span class="switch-right">Нет</span>
+</label>
+</div>
+<div class="calc__buttons">
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/btn-utep.png"
+alt="Image"
+/>
+<p class="calc__button-name">Да</p>
+</div>
+<div class="calc__button">
+<img
+class="calc__button-img"
+src="@img/calc/btn-img/btn-noutep.png"
+alt="Image"
+/>
+<p class="calc__button-name">Нет</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="calc__bottom">
+<div class="calc__price">от <span></span> руб</div>
+<a class="calc__sumbit button">Получить расчет</ф>
+</div>
+</div>
+</div>
+<div class="calc__images">
+<img src="@img/calc/empty.png" alt="Image" />
+<img src="@img/calc/ceiling/potolok-natyazhnoj.png" alt="Image">
+<img src="@img/calc/ceiling/potolok-parket.png" alt="Image">
+<img src="@img/calc/ceiling/pvxpotolok.png" alt="Image">
+<img src="@img/calc/ceiling/uteppotolok.png" alt="Image">
+<img src="@img/calc/ceiling/vagonka-potol.png" alt="Image">
+<img src="@img/calc/exterior/proflist-vneshnyaya1.png" alt="Image">
+<img src="@img/calc/exterior/vneshnyaya-otdelka.png" alt="Image">
+</div>
+</div>
+</div>
+</section>
+-->
+				<section class="calc">
+					<div class="calc__container">
+						<h2 class="title">Калькулятор отделки балкона</h2>
+						<div class="calc__top-mob"></div>
+						<div class="calc__body">
+							<div class="calc__content">
+								<div class="calc__column calc__column--one">
+									<div data-fls-dynamic=".calc__container, 768,1" class="calc__prize">
+										Сделайте расчет и получите подарок
+										<img alt="Подарок" src="./assets/img/calc/calc-prize.png">
+										!
+									</div>
+									<!-- Отделка стен -->
+									<div class="calc__choice" data-section="walls">
+										<div class="calc__switch">
+											<h3 class="calc__choice-title">Отделка стен</h3>
+											<label class="rocker rocker-small">
+												<input type="checkbox" data-enable-section="">
+												<span class="switch-left">Да</span>
+												<span class="switch-right">Нет</span>
+											</label>
+										</div>
+										<div class="calc__buttons">
+											<div class="calc__button" data-price="1500" data-material="Ламинат">
+												<img class="calc__button-img" alt="Ламинат" src="./assets/img/calc/btn-img/lam-btn.png">
+												<p class="calc__button-name">Ламинат</p>
+											</div>
+											<div class="calc__button" data-price="2000" data-material="Стеновой паркет">
+												<img class="calc__button-img" alt="Стеновой паркет" src="./assets/img/calc/btn-img/parket-btn.png">
+												<p class="calc__button-name">Стеновой паркет</p>
+											</div>
+											<div class="calc__button" data-price="800" data-material="Вагонка">
+												<img class="calc__button-img" alt="Вагонка" src="./assets/img/calc/btn-img/vag-btn.png">
+												<p class="calc__button-name">Вагонка</p>
+											</div>
+											<div class="calc__button" data-price="600" data-material="ПВХ панели">
+												<img class="calc__button-img" alt="ПВХ панели" src="./assets/img/calc/btn-img/pvh-btn.png">
+												<p class="calc__button-name">ПВХ панели</p>
+											</div>
+										</div>
+									</div>
+									<!-- Отделка потолка -->
+									<div data-fls-dynamic=".calc__item, 568" class="calc__choice" data-section="ceiling">
+										<div class="calc__switch">
+											<h3 class="calc__choice-title">Отделка потолка</h3>
+											<label class="rocker rocker-small">
+												<input type="checkbox" data-enable-section="">
+												<span class="switch-left">Да</span>
+												<span class="switch-right">Нет</span>
+											</label>
+										</div>
+										<div class="calc__buttons">
+											<div class="calc__button" data-price="700" data-material="ПВХ панели">
+												<img class="calc__button-img" alt="ПВХ панели" src="./assets/img/calc/btn-img/pvh-btn.png">
+												<p class="calc__button-name">ПВХ панели</p>
+											</div>
+											<div class="calc__button" data-price="1200" data-material="Натяжной потолок">
+												<img class="calc__button-img" alt="Натяжной потолок" src="./assets/img/calc/btn-img/potol-btn.png">
+												<p class="calc__button-name">Натяжной потолок</p>
+											</div>
+											<div class="calc__button" data-price="1000" data-material="Ламинат">
+												<img class="calc__button-img" alt="Ламинат" src="./assets/img/calc/btn-img/lam-btn.png">
+												<p class="calc__button-name">Ламинат</p>
+											</div>
+											<div class="calc__button" data-price="900" data-material="Вагонка">
+												<img class="calc__button-img" alt="Вагонка" src="./assets/img/calc/btn-img/vag-btn.png">
+												<p class="calc__button-name">Вагонка</p>
+											</div>
+										</div>
+									</div>
+									<!-- Отделка пола -->
+									<div data-fls-dynamic=".calc__item, 768" class="calc__choice" data-section="floor">
+										<div class="calc__switch">
+											<h3 class="calc__choice-title">Отделка пола</h3>
+											<label class="rocker rocker-small">
+												<input type="checkbox" data-enable-section="">
+												<span class="switch-left">Да</span>
+												<span class="switch-right">Нет</span>
+											</label>
+										</div>
+										<div class="calc__buttons">
+											<div class="calc__button" data-price="500" data-material="Линолеум">
+												<img class="calc__button-img" alt="Линолеум" src="./assets/img/calc/btn-img/lin-btn.png">
+												<p class="calc__button-name">Линолеум</p>
+											</div>
+											<div class="calc__button" data-price="900" data-material="Ламинат">
+												<img class="calc__button-img" alt="Ламинат" src="./assets/img/calc/btn-img/lam-btn.png">
+												<p class="calc__button-name">Ламинат</p>
+											</div>
+											<div class="calc__button" data-price="1100" data-material="Кварц-винил">
+												<img class="calc__button-img" alt="Кварц-винил" src="./assets/img/calc/btn-img/kvarc-btn.png">
+												<p class="calc__button-name">Кварц-винил</p>
+											</div>
+											<div class="calc__button" data-price="1300" data-material="Плитка">
+												<img class="calc__button-img" alt="Плитка" src="./assets/img/calc/btn-img/plit-btn.png">
+												<p class="calc__button-name">Плитка</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="calc__items">
+									<div class="calc__item">
+										<div class="calc__column">
+											<div data-fls-dynamic=".calc__top-mob, 768" class="calc__size">
+												<p>Длина, см</p>
+												<input autocomplete="off" type="number" name="length" placeholder="30" class="calc__input input" data-size-input="" value="30">
+											</div>
+											<!-- Внешняя отделка -->
+											<div class="calc__choice" data-section="exterior">
+												<div class="calc__switch">
+													<h3 class="calc__choice-title">Внешняя отделка</h3>
+													<label class="rocker rocker-small">
+														<input type="checkbox" data-enable-section="">
+														<span class="switch-left">Да</span>
+														<span class="switch-right">Нет</span>
+													</label>
+												</div>
+												<div class="calc__buttons">
+													<div class="calc__button" data-price="800" data-material="Сайдинг">
+														<img class="calc__button-img" alt="Сайдинг" src="./assets/img/calc/btn-img/say-btn.png">
+														<p class="calc__button-name">Сайдинг</p>
+													</div>
+													<div class="calc__button" data-price="700" data-material="Профлист">
+														<img class="calc__button-img" alt="Профлист" src="./assets/img/calc/btn-img/prof-btn.png">
+														<p class="calc__button-name">Профлист</p>
+													</div>
+												</div>
+											</div>
+											<!-- Освещение -->
+											<div class="calc__choice" data-section="lighting">
+												<div class="calc__switch">
+													<h3 class="calc__choice-title">Освещение</h3>
+													<label class="rocker rocker-small">
+														<input type="checkbox" data-enable-section="">
+														<span class="switch-left">Да</span>
+														<span class="switch-right">Нет</span>
+													</label>
+												</div>
+												<div class="calc__buttons">
+													<div class="calc__button" data-price="300" data-material="Точечное">
+														<img class="calc__button-img" alt="Точечное" src="./assets/img/calc/btn-img/btn-cold1.png">
+														<p class="calc__button-name">Точечное</p>
+													</div>
+													<div class="calc__button" data-price="400" data-material="Подвесное">
+														<img class="calc__button-img" alt="Подвесное" src="./assets/img/calc/btn-img/btn-hot1.png">
+														<p class="calc__button-name">Подвесное</p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="calc__column">
+											<div data-fls-dynamic=".calc__top-mob, 768" class="calc__size">
+												<p>Ширина, см</p>
+												<input autocomplete="off" type="number" name="width" placeholder="300" class="calc__input input" data-size-input="" value="300">
+											</div>
+											<!-- Остекление -->
+											<div class="calc__choice" data-section="glazing">
+												<div class="calc__switch">
+													<h3 class="calc__choice-title">Остекление</h3>
+													<label class="rocker rocker-small">
+														<input type="checkbox" data-enable-section="">
+														<span class="switch-left">Да</span>
+														<span class="switch-right">Нет</span>
+													</label>
+												</div>
+												<div class="calc__buttons">
+													<div class="calc__button" data-price="1500" data-material="Холодное">
+														<img class="calc__button-img" alt="Холодное" src="./assets/img/calc/btn-img/btn-point.png">
+														<p class="calc__button-name">Холодное</p>
+													</div>
+													<div class="calc__button" data-price="2500" data-material="Теплое">
+														<img class="calc__button-img" alt="Теплое" src="./assets/img/calc/btn-img/btn-podves.png">
+														<p class="calc__button-name">Теплое</p>
+													</div>
+												</div>
+											</div>
+											<!-- Утепление -->
+											<div class="calc__choice" data-section="insulation">
+												<div class="calc__switch">
+													<h3 class="calc__choice-title">Утепление</h3>
+													<label class="rocker rocker-small">
+														<input type="checkbox" data-enable-section="">
+														<span class="switch-left">Да</span>
+														<span class="switch-right">Нет</span>
+													</label>
+												</div>
+												<div class="calc__buttons">
+													<div class="calc__button" data-price="2000" data-material="Да">
+														<img class="calc__button-img" alt="Да" src="./assets/img/calc/btn-img/btn-utep.png">
+														<p class="calc__button-name">Да</p>
+													</div>
+													<div class="calc__button" data-price="0" data-material="Нет">
+														<img class="calc__button-img" alt="Нет" src="./assets/img/calc/btn-img/btn-noutep.png">
+														<p class="calc__button-name">Нет</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="calc__bottom">
+										<div class="calc__price">
+											от
+											<span id="totalPrice">0</span>
+											руб
+										</div>
+										<a class="calc__submit button">Получить расчет</a>
+									</div>
+								</div>
+							</div>
+							<div data-fls-dynamic=".calc__column--one, 768" class="calc__images">
+								<!-- Основное пустое изображение (фон) -->
+								<img alt="Балкон" class="calc__main-img" src="./assets/img/calc/empty.png">
+								<!-- СТЕНЫ -->
+								<img alt="Ламинат" class="calc-layer" data-section="walls" data-material="Ламинат" src="./assets/img/calc/walls/parket-otdelka.png">
+								<img alt="Стеновой паркет" class="calc-layer" data-section="walls" data-material="Стеновой паркет" src="./assets/img/calc/walls/stenparket.png">
+								<img alt="Вагонка" class="calc-layer" data-section="walls" data-material="Вагонка" src="./assets/img/calc/walls/vagonka.png">
+								<img alt="ПВХ панели" class="calc-layer" data-section="walls" data-material="ПВХ панели" src="./assets/img/calc/walls/paneli-otdelka.png">
+								<!-- ПОТОЛОК -->
+								<img alt="ПВХ панели" class="calc-layer" data-section="ceiling" data-material="ПВХ панели" src="./assets/img/calc/ceiling/pvxpotolok.png">
+								<img alt="Натяжной потолок" class="calc-layer" data-section="ceiling" data-material="Натяжной потолок" src="./assets/img/calc/ceiling/pvxpotolok.png">
+								<img alt="Ламинат" class="calc-layer" data-section="ceiling" data-material="Ламинат" src="./assets/img/calc/ceiling/potolok-parket.png">
+								<img alt="Вагонка" class="calc-layer" data-section="ceiling" data-material="Вагонка" src="./assets/img/calc/ceiling/vagonka-potol.png">
+								<!-- ПОЛ -->
+								<img alt="Линолеум" class="calc-layer" data-section="floor" data-material="Линолеум" src="./assets/img/calc/floor/lenoliumpol1-1.png">
+								<img alt="Ламинат" class="calc-layer" data-section="floor" data-material="Ламинат" src="./assets/img/calc/floor/parket-pol-1.png">
+								<img alt="Кварц-винил" class="calc-layer" data-section="floor" data-material="Кварц-винил" src="./assets/img/calc/floor/kvarczvinil-pol.png">
+								<img alt="Плитка" class="calc-layer" data-section="floor" data-material="Плитка" src="./assets/img/calc/floor/plitka-pol.png">
+								<!-- ВНЕШНЯЯ ОТДЕЛКА -->
+								<img alt="Сайдинг" class="calc-layer" data-section="exterior" data-material="Сайдинг" src="./assets/img/calc/exterior/vneshnyaya-otdelka.png">
+								<img alt="Профлист" class="calc-layer" data-section="exterior" data-material="Профлист" src="./assets/img/calc/exterior/proflist-vneshnyaya1.png">
+								<!-- ОСВЕЩЕНИЕ -->
+								<img alt="Точечное" class="calc-layer" data-section="lighting" data-material="Точечное" src="./assets/img/calc/light/potolok.png">
+								<img alt="Подвесное" class="calc-layer" data-section="lighting" data-material="Подвесное" src="./assets/img/calc/light/podvesnoi-svetilnik-1.png">
+								<!-- ОСТЕКЛЕНИЕ -->
+								<img alt="Холодное" class="calc-layer" data-section="glazing" data-material="Холодное" src="./assets/img/calc/windows/xolodnoeokno.png">
+								<img alt="Теплое" class="calc-layer" data-section="glazing" data-material="Теплое" src="./assets/img/calc/windows/teploe-okno.png">
+								<!-- УТЕПЛЕНИЕ -->
+								<img alt="Да" class="calc-layer" data-section="insulation" data-material="Да" src="./assets/img/calc/utep/uteplenie.png">
+								<img alt="Нет" class="calc-layer" data-section="insulation" data-material="Нет" src="./assets/img/calc/utep/bez-utepleniya.png">
+							</div>
 						</div>
 					</div>
 				</section>
@@ -1006,639 +1643,6 @@
 										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="turnkey">
-					<div class="turnkey__container">
-						<div class="turnkey__body">
-							<h2 data-fls-title="" class="title">Цены на отделку балкона под ключ</h2>
-							<div class="turnkey__items">
-								<div class="turnkey__item">
-									<div data-fls-gallery="" class="turnkey__gallery">
-										<a href="./assets/img/turnkey/01.webp">
-											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-									</div>
-									<div class="turnkey__info">
-										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
-										<ul class="turnkey__list">
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-										</ul>
-										<div class="turnkey__prices">
-											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
-											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
-										</div>
-									</div>
-								</div>
-								<div class="turnkey__item">
-									<div data-fls-gallery="" class="turnkey__gallery">
-										<a href="./assets/img/turnkey/01.webp">
-											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-									</div>
-									<div class="turnkey__info">
-										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
-										<ul class="turnkey__list">
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-										</ul>
-										<div class="turnkey__prices">
-											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
-											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
-										</div>
-									</div>
-								</div>
-								<div class="turnkey__item">
-									<div data-fls-gallery="" class="turnkey__gallery">
-										<a href="./assets/img/turnkey/01.webp">
-											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-									</div>
-									<div class="turnkey__info">
-										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
-										<ul class="turnkey__list">
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-										</ul>
-										<div class="turnkey__prices">
-											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
-											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
-										</div>
-									</div>
-								</div>
-								<div class="turnkey__item">
-									<div data-fls-gallery="" class="turnkey__gallery">
-										<a href="./assets/img/turnkey/01.webp">
-											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-									</div>
-									<div class="turnkey__info">
-										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
-										<ul class="turnkey__list">
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-										</ul>
-										<div class="turnkey__prices">
-											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
-											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
-										</div>
-									</div>
-								</div>
-								<div class="turnkey__item">
-									<div data-fls-gallery="" class="turnkey__gallery">
-										<a href="./assets/img/turnkey/01.webp">
-											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-									</div>
-									<div class="turnkey__info">
-										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
-										<ul class="turnkey__list">
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-										</ul>
-										<div class="turnkey__prices">
-											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
-											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
-										</div>
-									</div>
-								</div>
-								<div class="turnkey__item">
-									<div data-fls-gallery="" class="turnkey__gallery">
-										<a href="./assets/img/turnkey/01.webp">
-											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
-											<img alt="Image" src="./assets/img/turnkey/01.webp">
-										</a>
-									</div>
-									<div class="turnkey__info">
-										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
-										<ul class="turnkey__list">
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-										</ul>
-										<div class="turnkey__prices">
-											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
-											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="glazing-price__buttons">
-								<a data-fls-popup-link="popup" class="glazing-price__button button" href="#">Оставить заявку</a>
-								<a class="glazing-price__button button button--black-border" href="tel:84958775098">8 (495) 877-50-98</a>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="gallery">
-					<div class="gallery__container">
-						<div class="gallery__body">
-							<h2 data-fls-title="" class="title">Наши работы</h2>
-							<div data-fls-gallery="" class="gallery__items">
-								<a href="./assets/img/gallery/01.webp" class="gallery__item">
-									<img alt="#" src="./assets/img/gallery/01.webp">
-								</a>
-								<a href="./assets/img/gallery/02.webp" class="gallery__item">
-									<img alt="#" src="./assets/img/gallery/02.webp">
-								</a>
-								<a href="./assets/img/gallery/03.webp" class="gallery__item">
-									<img alt="#" src="./assets/img/gallery/03.webp">
-								</a>
-								<a href="./assets/img/gallery/04.webp" class="gallery__item">
-									<img alt="#" src="./assets/img/gallery/04.webp">
-								</a>
-								<a href="./assets/img/gallery/05.webp" class="gallery__item">
-									<img alt="#" src="./assets/img/gallery/05.webp">
-								</a>
-								<a href="./assets/img/gallery/06.webp" class="gallery__item">
-									<img alt="#" src="./assets/img/gallery/06.webp">
-								</a>
-								<a href="./assets/img/gallery/07.webp" class="gallery__item">
-									<img alt="#" src="./assets/img/gallery/07.webp">
-								</a>
-								<a href="./assets/img/gallery/08.webp" class="gallery__item">
-									<img alt="#" src="./assets/img/gallery/08.webp">
-								</a>
-								<a href="./assets/img/gallery/09.webp" class="gallery__item">
-									<img alt="#" src="./assets/img/gallery/08.webp">
-								</a>
-								<a href="./assets/img/gallery/01.webp" class="gallery__item">
-									<img alt="#" src="./assets/img/gallery/01.webp">
-								</a>
-							</div>
-							<div class="gallery__buttons">
-								<a data-fls-popup-link="popup" class="gallery__button button" href="#">Оставить заявку</a>
-								<a class="gallery__button button button--black-border" href="tel:84958775098">8 (495) 877-50-98</a>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="form">
-					<div class="form__container">
-						<div class="form__body">
-							<h2 data-fls-title="" class="form__title title">
-								Записаться на бесплатный замер со скидкой
-								<span>35 000 руб.</span>
-							</h2>
-							<div class="form__content">
-								<div class="form__item">
-									<p class="form__text">Оставьте ваши контактные данные, мы свяжемся с вами в течение 5 минут</p>
-									<form class="form__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
-										<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" required placeholder="Ваше имя" class="form__input input">
-										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="form__input input">
-										<button type="submit" class="form__button button">Оставить заявку</button>
-									</form>
-								</div>
-								<div class="form__image">
-									<img alt="Image" src="./assets/img/form/01.webp">
-								</div>
-							</div>
-						</div>
-						<div class="consultation__body">
-							<div class="consultation__content">
-								<h2 data-fls-title="" class="title">Сомневаетесь в выборе?</h2>
-								<p class="consultation__text">Проконсультируем вас по любым вопросам</p>
-							</div>
-							<div class="consultation__bottom">
-								<div class="consultation__buttons">
-									<a class="consultation__button button" href="#">Получить консультацию</a>
-									<a class="consultation__button button button--black-border" href="#">8 (495) 877-50-98</a>
-								</div>
-								<div class="consultation__image">
-									<img alt="Image" src="./assets/img/consultation/01.webp">
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="variants">
-					<div class="variants__container">
-						<div class="variants__body">
-							<h2 data-fls-title="" class="title">
-								Остекление и отделка балконов в Москве и МО
-								<span>под ключ за 3 дня</span>
-							</h2>
-							<p class="variants__text">
-								Балкон — это возможность расширить пространство вашего жилья.Мы поможем превратить ваш балкон или лоджию в уютную комнату, кабинет, оранжерею или удобное место для хранения вещей.
-							</p>
-							<!-- Оболочка слайдера -->
-							<div class="variants__slider-container">
-								<div data-fls-slider="" class="variants__slider swiper">
-									<!-- Часть слайдера, которая двигается -->
-									<div class="variants__wrapper swiper-wrapper">
-										<!-- Слайд -->
-										<div class="variants__slide swiper-slide">
-											<div data-fls-gallery="" class="variants__images">
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img-bg" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-											</div>
-											<a class="variants__button button" href="#">Хочу балкон для отдыха</a>
-											<div class="variants__info">
-												<ul class="variants__list">
-													<li>Отделка пола — доска</li>
-													<li>Отделка стен — вагонка</li>
-													<li>Алюминиевое остекление</li>
-													<li>Натяжной потолок</li>
-													<li>Подводка электрики</li>
-													<li>Балконная мебель</li>
-												</ul>
-												<span class="variants__price">от 80 000 руб.</span>
-											</div>
-										</div>
-										<div class="variants__slide swiper-slide">
-											<div data-fls-gallery="" class="variants__images">
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img-bg" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-											</div>
-											<a class="variants__button button" href="#">Хочу балкон для отдыха</a>
-											<div class="variants__info">
-												<ul class="variants__list">
-													<li>Отделка пола — доска</li>
-													<li>Отделка стен — вагонка</li>
-													<li>Алюминиевое остекление</li>
-													<li>Натяжной потолок</li>
-													<li>Подводка электрики</li>
-													<li>Балконная мебель</li>
-												</ul>
-												<span class="variants__price">от 80 000 руб.</span>
-											</div>
-										</div>
-										<div class="variants__slide swiper-slide">
-											<div data-fls-gallery="" class="variants__images">
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img-bg" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-											</div>
-											<a class="variants__button button" href="#">Хочу балкон для отдыха</a>
-											<div class="variants__info">
-												<ul class="variants__list">
-													<li>Отделка пола — доска</li>
-													<li>Отделка стен — вагонка</li>
-													<li>Алюминиевое остекление</li>
-													<li>Натяжной потолок</li>
-													<li>Подводка электрики</li>
-													<li>Балконная мебель</li>
-												</ul>
-												<span class="variants__price">от 80 000 руб.</span>
-											</div>
-										</div>
-										<div class="variants__slide swiper-slide">
-											<div data-fls-gallery="" class="variants__images">
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img-bg" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-												<a href="./assets/img/variants/01.jpg">
-													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
-												</a>
-											</div>
-											<a class="variants__button button" href="#">Хочу балкон для отдыха</a>
-											<div class="variants__info">
-												<ul class="variants__list">
-													<li>Отделка пола — доска</li>
-													<li>Отделка стен — вагонка</li>
-													<li>Алюминиевое остекление</li>
-													<li>Натяжной потолок</li>
-													<li>Подводка электрики</li>
-													<li>Балконная мебель</li>
-												</ul>
-												<span class="variants__price">от 80 000 руб.</span>
-											</div>
-										</div>
-									</div>
-									<div class="swiper-pagination"></div>
-								</div>
-								<button type="button" class="variants-button-prev swiper-button-prev"></button>
-								<button type="button" class="variants-button-next swiper-button-next"></button>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="warranty">
-					<div class="warranty__container">
-						<div class="warranty__body">
-							<div class="warranty__content">
-								<h2 data-fls-title="" class="title">Гарантия 7 лет</h2>
-								<p class="warranty__text">
-									Мы уверены в качестве оказываемых нами услуг и даем гарантию на выполненные работы, а также на остекление балконных блоков и рам
-								</p>
-								<div class="warranty__buttons">
-									<a class="warranty__button button" href="#">Получить консультацию</a>
-									<a class="warranty__button button button--black-border" href="tel:84958775098">8 (495) 877-50-98</a>
-								</div>
-							</div>
-							<div class="warranty__image">
-								<img alt="Image" src="./assets/img/warranty/01.webp">
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="reviews">
-					<div class="reviews__container">
-						<div class="reviews__body">
-							<div class="reviews__top">
-								<h2 data-fls-title="" class="title">Отзывы наших клиентов</h2>
-								<div class="reviews__yandex">
-									<img class="reviews__img-local" src="./assets/img/reviews/local.svg" alt="Image">
-									<img class="reviews__img-yandex" src="./assets/img/reviews/yandex.svg" alt="Image">
-								</div>
-								<div class="reviews__estimation">
-									<img src="./assets/img/reviews/Star_1.svg" alt="Image">
-									<span>5.0</span>
-									<p>197 оценок</p>
-								</div>
-								<div class="reviews__navigations">
-									<button type="button" class="reviews-button-prev swiper-button-prev"></button>
-									<button type="button" class="reviews-button-next swiper-button-next"></button>
-								</div>
-							</div>
-							<!-- Оболочка слайдера -->
-							<div data-fls-slider="" class="reviews__slider swiper">
-								<!-- Часть слайдера, которая двигается -->
-								<div class="reviews__wrapper swiper-wrapper">
-									<!-- Слайд -->
-									<div class="reviews__slide swiper-slide">
-										<div class="reviews__slide-top">
-											<div class="reviews__name">Анна Курдюкова</div>
-											<div class="reviews__stars">
-												<img src="./assets/img/reviews/stars.svg" alt="Image">
-											</div>
-										</div>
-										<p class="reviews__text">
-											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
-										</p>
-										<a class="reviews__link" href="#">Смотреть отзыв</a>
-									</div>
-									<div class="reviews__slide swiper-slide">
-										<div class="reviews__slide-top">
-											<div class="reviews__name">Анна Курдюкова</div>
-											<div class="reviews__stars">
-												<img src="./assets/img/reviews/stars.svg" alt="Image">
-											</div>
-										</div>
-										<p class="reviews__text">
-											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
-										</p>
-										<a class="reviews__link" href="#">Смотреть отзыв</a>
-									</div>
-									<div class="reviews__slide swiper-slide">
-										<div class="reviews__slide-top">
-											<div class="reviews__name">Анна Курдюкова</div>
-											<div class="reviews__stars">
-												<img src="./assets/img/reviews/stars.svg" alt="Image">
-											</div>
-										</div>
-										<p class="reviews__text">
-											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
-										</p>
-										<a class="reviews__link" href="#">Смотреть отзыв</a>
-									</div>
-									<div class="reviews__slide swiper-slide">
-										<div class="reviews__slide-top">
-											<div class="reviews__name">Анна Курдюкова</div>
-											<div class="reviews__stars">
-												<img src="./assets/img/reviews/stars.svg" alt="Image">
-											</div>
-										</div>
-										<p class="reviews__text">
-											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
-										</p>
-										<a class="reviews__link" href="#">Смотреть отзыв</a>
-									</div>
-									<div class="reviews__slide swiper-slide">
-										<div class="reviews__slide-top">
-											<div class="reviews__name">Анна Курдюкова</div>
-											<div class="reviews__stars">
-												<img src="./assets/img/reviews/stars.svg" alt="Image">
-											</div>
-										</div>
-										<p class="reviews__text">
-											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
-										</p>
-										<a class="reviews__link" href="#">Смотреть отзыв</a>
-									</div>
-								</div>
-								<!-- Если нужна пагинация -->
-								<div class="swiper-pagination"></div>
-								<!-- Если нужна навигация (влево/вправо) -->
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="company">
-					<div class="company__container">
-						<div class="company__body">
-							<div class="company__content">
-								<h2 data-fls-title="" class="title">О компании Первый Балкон</h2>
-								<div class="company__text">
-									<p>
-										Компания Первый Балкон уже более 10 лет успешно работает на рынке остекления и отделки балконов в Москве и Московской области.Мы предлагаем полный спектр услуг по ремонту балконов: остекление балконов (теплое и холодное), утепление, отделка балконов под ключ, монтаж теплого пола, внешняя и внутренняя отделка, подводка электрики, изготовление мебели для балконов на заказ.
-									</p>
-									<p>
-										Наша команда гарантирует высокое качество работ, оперативность и индивидуальный подход к каждому клиенту.Если вы хотите сделать свой балкон комфортным местом для отдыха, работы или хранения, Первый Балкон — это ваш надежный выбор для остекления и отделки балконов в в Москве и Московской области.
-									</p>
-								</div>
-								<div class="company__buttons">
-									<a class="company__button button" href="#">Оставить заявку</a>
-									<a class="company__button button button button--black-border" href="tel:">8 (495) 877-50-98</a>
-								</div>
-							</div>
-							<div class="company__image">
-								<img alt="Image" src="./assets/img/company/01.jpg">
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="installment">
-					<div class="installment__container">
-						<div class="installment__body">
-							<div class="installment__content">
-								<img class="installment__logo-bank" alt="Image" src="./assets/img/insta/logo-bank.png">
-								<h2 data-fls-title="" class="title">Рассрочка от Т-Банка</h2>
-								<ul class="installment__list">
-									<li>За 2 минуты</li>
-									<li>От 3 до 24 месяцев</li>
-									<li>Сумма покупки от 50 000 до 500 000 руб.</li>
-									<li>Достаточно только паспорта</li>
-									<li>Подписание с помощью СМС</li>
-								</ul>
-								<img class="installment__banner" alt="Image" src="./assets/img/insta/banner.webp">
-							</div>
-							<div class="installment__image">
-								<img alt="Image" src="./assets/img/insta/01.webp">
 							</div>
 						</div>
 					</div>
@@ -2173,590 +2177,635 @@
 						</div>
 					</div>
 				</section>
-				<section class="contacts">
-					<div class="contacts__container">
-						<h2 data-fls-title="" class="title">
-							Наши
-							<span>контакты</span>
-						</h2>
-						<p class="contacts__subtitle">Свяжитесь с нами любым удобным способом</p>
-						<div class="contacts__body">
-							<div class="contacts__info">
-								<div class="contacts__clock">Ежедневно с 09:00 - 20:00</div>
-								<a class="contacts__phone" href="tel:
- +7 (911) 108-10-82">+7 (911) 108-10-82</a>
-								<a class="contacts__link" href="#">Перезвоним за 30 секунд</a>
-								<a class="contacts__mail" href="mailto:tsimmer108@mail.ru">tsimmer108@mail.ru</a>
-								<address class="contacts__address">
-									г. Санкт-Петербург
-									<br>
-								</address>
-								<div class="contacts__socials">
-									<a class="contacts__socials-link" href="">
-										<img alt="Image" src="./assets/img/icon/viber.png">
-									</a>
-									<a class="contacts__socials-link" href="">
-										<img alt="Image" src="./assets/img/icon/instagram.png">
-									</a>
-									<p class="contacts__socials-text">Мы в мессенджерах
-                                 Ответим в течение 1 минуты</p>
+				<section class="variants">
+					<div class="variants__container">
+						<div class="variants__body">
+							<h2 data-fls-title="" class="title">
+								Остекление и отделка балконов в Москве и МО
+								<span>под ключ за 3 дня</span>
+							</h2>
+							<p class="variants__text">
+								Балкон — это возможность расширить пространство вашего жилья.Мы поможем превратить ваш балкон или лоджию в уютную комнату, кабинет, оранжерею или удобное место для хранения вещей.
+							</p>
+							<!-- Оболочка слайдера -->
+							<div class="variants__slider-container">
+								<div data-fls-slider="" class="variants__slider swiper">
+									<!-- Часть слайдера, которая двигается -->
+									<div class="variants__wrapper swiper-wrapper">
+										<!-- Слайд -->
+										<div class="variants__slide swiper-slide">
+											<div data-fls-gallery="" class="variants__images">
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img-bg" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+											</div>
+											<a class="variants__button button" href="#">Хочу балкон для отдыха</a>
+											<div class="variants__info">
+												<ul class="variants__list">
+													<li>Отделка пола — доска</li>
+													<li>Отделка стен — вагонка</li>
+													<li>Алюминиевое остекление</li>
+													<li>Натяжной потолок</li>
+													<li>Подводка электрики</li>
+													<li>Балконная мебель</li>
+												</ul>
+												<span class="variants__price">от 80 000 руб.</span>
+											</div>
+										</div>
+										<div class="variants__slide swiper-slide">
+											<div data-fls-gallery="" class="variants__images">
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img-bg" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+											</div>
+											<a class="variants__button button" href="#">Хочу балкон для отдыха</a>
+											<div class="variants__info">
+												<ul class="variants__list">
+													<li>Отделка пола — доска</li>
+													<li>Отделка стен — вагонка</li>
+													<li>Алюминиевое остекление</li>
+													<li>Натяжной потолок</li>
+													<li>Подводка электрики</li>
+													<li>Балконная мебель</li>
+												</ul>
+												<span class="variants__price">от 80 000 руб.</span>
+											</div>
+										</div>
+										<div class="variants__slide swiper-slide">
+											<div data-fls-gallery="" class="variants__images">
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img-bg" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+											</div>
+											<a class="variants__button button" href="#">Хочу балкон для отдыха</a>
+											<div class="variants__info">
+												<ul class="variants__list">
+													<li>Отделка пола — доска</li>
+													<li>Отделка стен — вагонка</li>
+													<li>Алюминиевое остекление</li>
+													<li>Натяжной потолок</li>
+													<li>Подводка электрики</li>
+													<li>Балконная мебель</li>
+												</ul>
+												<span class="variants__price">от 80 000 руб.</span>
+											</div>
+										</div>
+										<div class="variants__slide swiper-slide">
+											<div data-fls-gallery="" class="variants__images">
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img-bg" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+												<a href="./assets/img/variants/01.jpg">
+													<img class="variants__img" alt="Image" src="./assets/img/variants/01.jpg">
+												</a>
+											</div>
+											<a class="variants__button button" href="#">Хочу балкон для отдыха</a>
+											<div class="variants__info">
+												<ul class="variants__list">
+													<li>Отделка пола — доска</li>
+													<li>Отделка стен — вагонка</li>
+													<li>Алюминиевое остекление</li>
+													<li>Натяжной потолок</li>
+													<li>Подводка электрики</li>
+													<li>Балконная мебель</li>
+												</ul>
+												<span class="variants__price">от 80 000 руб.</span>
+											</div>
+										</div>
+									</div>
+									<div class="swiper-pagination"></div>
 								</div>
-							</div>
-							<div class="contacts__images">
-								<h3>Ждем вас в офисе!</h3>
-								<img alt="Image" src="./assets/img/gallery/04.webp">
-								<img alt="Image" src="./assets/img/gallery/05.webp">
-							</div>
-							<div class="contacts__map">
-								<iframe src="https://yandex.ru/map-widget/v1/?lang=ru_RU&amp;scroll=false&amp;source=constructor-api&amp;um=constructor%3Ab954b9eb59e95230cbd0a44d3a7e3f9dc072aa8799804a92537534b7acec8625" frameborder="0" allowfullscreen width="100%" height="100%" style="display: block"></iframe>
+								<button type="button" class="variants-button-prev swiper-button-prev"></button>
+								<button type="button" class="variants-button-next swiper-button-next"></button>
 							</div>
 						</div>
 					</div>
 				</section>
-				<!--
-<section data-fls-calc class="calc">
-<div class="calc__container">
-<h2 data-fls-title class="title">Калькулятор отделки балкона</h2>
-<div class="calc__body">
-<div class="calc__content">
-<div class="calc__column">
-<div class="calc__prize">
-Сделайте расчет и получите подарок
-<img src="@img/calc/calc-prize.png" alt="Image" /> !
-</div>
-<div class="calc__choice">
-<div class="calc__switch">
-<h3 class="calc__choice-title">Отделка стен</h3>
-<label class="rocker rocker-small">
-<input type="checkbox" />
-<span class="switch-left">Yes</span>
-<span class="switch-right">No</span>
-</label>
-</div>
-<div class="calc__buttons">
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/lam-btn.png"
-alt="Image"
-/>
-<p class="calc__button-name">Ламинат</p>
-</div>
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/parket-btn.png"
-alt="Image"
-/>
-<p class="calc__button-name">Стеновой паркет</p>
-</div>
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/vag-btn.png"
-alt="Image"
-/>
-<p class="calc__button-name">Вагонка</p>
-</div>
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/pvh-btn.png"
-alt="Image"
-/>
-<p class="calc__button-name">ПВХ панели</p>
-</div>
-</div>
-</div>
-<div class="calc__choice">
-<div class="calc__switch">
-<h3 class="calc__choice-title">Отделка потолка</h3>
-<label class="rocker rocker-small">
-<input type="checkbox" />
-<span class="switch-left">Yes</span>
-<span class="switch-right">No</span>
-</label>
-</div>
-<div class="calc__buttons">
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/pvh-btn.png"
-alt="Image"
-/>
-<p class="calc__button-name">ПВХ панели</p>
-</div>
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/potol-btn.png"
-alt="Image"
-/>
-<p class="calc__button-name">Натяжной потолок</p>
-</div>
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/lam-btn.png"
-alt="Image"
-/>
-<p class="calc__button-name">Ламинат</p>
-</div>
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/vag-btn.png"
-alt="Image"
-/>
-<p class="calc__button-name">Вагонка</p>
-</div>
-</div>
-</div>
-<div class="calc__choice">
-<div class="calc__switch">
-<h3 class="calc__choice-title">Отделка пола</h3>
-<label class="rocker rocker-small">
-<input type="checkbox" />
-<span class="switch-left">Yes</span>
-<span class="switch-right">No</span>
-</label>
-</div>
-<div class="calc__buttons">
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/lin-btn.png"
-alt="Image"
-/>
-<p class="calc__button-name">Линолеум</p>
-</div>
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/lam-btn.png"
-alt="Image"
-/>
-<p class="calc__button-name">Ламинат</p>
-</div>
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/kvarc-btn.png"
-alt="Image"
-/>
-<p class="calc__button-name">Кварц-винил</p>
-</div>
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/plit-btn.png"
-alt="Image"
-/>
-<p class="calc__button-name">Плитка</p>
-</div>
-</div>
-</div>
-</div>
-<div class="calc__items">
-<div class="calc__item">
-<div class="calc__column">
-<div class="calc__size">
-<p>Длина, см</p>
-<input
-data-fls-input
-autocomplete="off"
-type="text"
-name="size"
-placeholder="300"
-class="calc__input input"
-/>
-</div>
-<div class="calc__choice">
-<div class="calc__switch">
-<h3 class="calc__choice-title">Внешняя отделка</h3>
-<label class="rocker rocker-small">
-<input type="checkbox" />
-<span class="switch-left">Yes</span>
-<span class="switch-right">No</span>
-</label>
-</div>
-<div class="calc__buttons">
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/say-btn.png"
-alt="Image"
-/>
-<p class="calc__button-name">Сайдинг</p>
-</div>
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/prof-btn.png"
-alt="Image"
-/>
-<p class="calc__button-name">Профлист</p>
-</div>
-</div>
-</div>
-<div class="calc__choice">
-<div class="calc__switch">
-<h3 class="calc__choice-title">Освещение</h3>
-<label class="rocker rocker-small">
-<input type="checkbox" />
-<span class="switch-left">Yes</span>
-<span class="switch-right">No</span>
-</label>
-</div>
-<div class="calc__buttons">
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/btn-cold1.png"
-alt="Image"
-/>
-<p class="calc__button-name">Точечное</p>
-</div>
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/btn-hot1.png"
-alt="Image"
-/>
-<p class="calc__button-name">Подвесное</p>
-</div>
-</div>
-</div>
-</div>
-<div class="calc__column">
-<div class="calc__size">
-<p>Ширина, см</p>
-<input
-data-fls-input
-autocomplete="off"
-type="text"
-name="size"
-placeholder="300"
-class="calc__input input"
-/>
-</div>
-<div class="calc__choice">
-<div class="calc__switch">
-<h3 class="calc__choice-title">Остекление</h3>
-<label class="rocker rocker-small">
-<input type="checkbox" />
-<span class="switch-left">Yes</span>
-<span class="switch-right">No</span>
-</label>
-</div>
-<div class="calc__buttons">
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/btn-point.png"
-alt="Image"
-/>
-<p class="calc__button-name">Холодное</p>
-</div>
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/btn-podves.png"
-alt="Image"
-/>
-<p class="calc__button-name">Теплое</p>
-</div>
-</div>
-</div>
-<div class="calc__choice">
-<div class="calc__switch">
-<h3 class="calc__choice-title">Утепление</h3>
-<label class="rocker rocker-small">
-<input type="checkbox" />
-<span class="switch-left">Да</span>
-<span class="switch-right">Нет</span>
-</label>
-</div>
-<div class="calc__buttons">
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/btn-utep.png"
-alt="Image"
-/>
-<p class="calc__button-name">Да</p>
-</div>
-<div class="calc__button">
-<img
-class="calc__button-img"
-src="@img/calc/btn-img/btn-noutep.png"
-alt="Image"
-/>
-<p class="calc__button-name">Нет</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="calc__bottom">
-<div class="calc__price">от <span></span> руб</div>
-<a class="calc__sumbit button">Получить расчет</ф>
-</div>
-</div>
-</div>
-<div class="calc__images">
-<img src="@img/calc/empty.png" alt="Image" />
-<img src="@img/calc/ceiling/potolok-natyazhnoj.png" alt="Image">
-<img src="@img/calc/ceiling/potolok-parket.png" alt="Image">
-<img src="@img/calc/ceiling/pvxpotolok.png" alt="Image">
-<img src="@img/calc/ceiling/uteppotolok.png" alt="Image">
-<img src="@img/calc/ceiling/vagonka-potol.png" alt="Image">
-<img src="@img/calc/exterior/proflist-vneshnyaya1.png" alt="Image">
-<img src="@img/calc/exterior/vneshnyaya-otdelka.png" alt="Image">
-</div>
-</div>
-</div>
-</section>
--->
-				<section class="calc">
-					<div class="calc__container">
-						<h2 class="title">Калькулятор отделки балкона</h2>
-						<div class="calc__top-mob"></div>
-						<div class="calc__body">
-							<div class="calc__content">
-								<div class="calc__column calc__column--one">
-									<div data-fls-dynamic=".calc__container, 768,1" class="calc__prize">
-										Сделайте расчет и получите подарок
-										<img alt="Подарок" src="./assets/img/calc/calc-prize.png">
-										!
+				<section class="warranty">
+					<div class="warranty__container">
+						<div class="warranty__body">
+							<div class="warranty__content">
+								<h2 data-fls-title="" class="title">Гарантия 7 лет</h2>
+								<p class="warranty__text">
+									Мы уверены в качестве оказываемых нами услуг и даем гарантию на выполненные работы, а также на остекление балконных блоков и рам
+								</p>
+								<div class="warranty__buttons">
+									<a class="warranty__button button" href="#">Получить консультацию</a>
+									<a class="warranty__button button button--black-border" href="tel:84958775098">8 (495) 877-50-98</a>
+								</div>
+							</div>
+							<div class="warranty__image">
+								<img alt="Image" src="./assets/img/warranty/01.webp">
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="turnkey">
+					<div class="turnkey__container">
+						<div class="turnkey__body">
+							<h2 data-fls-title="" class="title">Цены на отделку балкона под ключ</h2>
+							<div class="turnkey__items">
+								<div class="turnkey__item">
+									<div data-fls-gallery="" class="turnkey__gallery">
+										<a href="./assets/img/turnkey/01.webp">
+											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
 									</div>
-									<!-- Отделка стен -->
-									<div class="calc__choice" data-section="walls">
-										<div class="calc__switch">
-											<h3 class="calc__choice-title">Отделка стен</h3>
-											<label class="rocker rocker-small">
-												<input type="checkbox" data-enable-section="">
-												<span class="switch-left">Да</span>
-												<span class="switch-right">Нет</span>
-											</label>
-										</div>
-										<div class="calc__buttons">
-											<div class="calc__button" data-price="1500" data-material="Ламинат">
-												<img class="calc__button-img" alt="Ламинат" src="./assets/img/calc/btn-img/lam-btn.png">
-												<p class="calc__button-name">Ламинат</p>
-											</div>
-											<div class="calc__button" data-price="2000" data-material="Стеновой паркет">
-												<img class="calc__button-img" alt="Стеновой паркет" src="./assets/img/calc/btn-img/parket-btn.png">
-												<p class="calc__button-name">Стеновой паркет</p>
-											</div>
-											<div class="calc__button" data-price="800" data-material="Вагонка">
-												<img class="calc__button-img" alt="Вагонка" src="./assets/img/calc/btn-img/vag-btn.png">
-												<p class="calc__button-name">Вагонка</p>
-											</div>
-											<div class="calc__button" data-price="600" data-material="ПВХ панели">
-												<img class="calc__button-img" alt="ПВХ панели" src="./assets/img/calc/btn-img/pvh-btn.png">
-												<p class="calc__button-name">ПВХ панели</p>
-											</div>
-										</div>
-									</div>
-									<!-- Отделка потолка -->
-									<div data-fls-dynamic=".calc__item, 568" class="calc__choice" data-section="ceiling">
-										<div class="calc__switch">
-											<h3 class="calc__choice-title">Отделка потолка</h3>
-											<label class="rocker rocker-small">
-												<input type="checkbox" data-enable-section="">
-												<span class="switch-left">Да</span>
-												<span class="switch-right">Нет</span>
-											</label>
-										</div>
-										<div class="calc__buttons">
-											<div class="calc__button" data-price="700" data-material="ПВХ панели">
-												<img class="calc__button-img" alt="ПВХ панели" src="./assets/img/calc/btn-img/pvh-btn.png">
-												<p class="calc__button-name">ПВХ панели</p>
-											</div>
-											<div class="calc__button" data-price="1200" data-material="Натяжной потолок">
-												<img class="calc__button-img" alt="Натяжной потолок" src="./assets/img/calc/btn-img/potol-btn.png">
-												<p class="calc__button-name">Натяжной потолок</p>
-											</div>
-											<div class="calc__button" data-price="1000" data-material="Ламинат">
-												<img class="calc__button-img" alt="Ламинат" src="./assets/img/calc/btn-img/lam-btn.png">
-												<p class="calc__button-name">Ламинат</p>
-											</div>
-											<div class="calc__button" data-price="900" data-material="Вагонка">
-												<img class="calc__button-img" alt="Вагонка" src="./assets/img/calc/btn-img/vag-btn.png">
-												<p class="calc__button-name">Вагонка</p>
-											</div>
-										</div>
-									</div>
-									<!-- Отделка пола -->
-									<div data-fls-dynamic=".calc__item, 768" class="calc__choice" data-section="floor">
-										<div class="calc__switch">
-											<h3 class="calc__choice-title">Отделка пола</h3>
-											<label class="rocker rocker-small">
-												<input type="checkbox" data-enable-section="">
-												<span class="switch-left">Да</span>
-												<span class="switch-right">Нет</span>
-											</label>
-										</div>
-										<div class="calc__buttons">
-											<div class="calc__button" data-price="500" data-material="Линолеум">
-												<img class="calc__button-img" alt="Линолеум" src="./assets/img/calc/btn-img/lin-btn.png">
-												<p class="calc__button-name">Линолеум</p>
-											</div>
-											<div class="calc__button" data-price="900" data-material="Ламинат">
-												<img class="calc__button-img" alt="Ламинат" src="./assets/img/calc/btn-img/lam-btn.png">
-												<p class="calc__button-name">Ламинат</p>
-											</div>
-											<div class="calc__button" data-price="1100" data-material="Кварц-винил">
-												<img class="calc__button-img" alt="Кварц-винил" src="./assets/img/calc/btn-img/kvarc-btn.png">
-												<p class="calc__button-name">Кварц-винил</p>
-											</div>
-											<div class="calc__button" data-price="1300" data-material="Плитка">
-												<img class="calc__button-img" alt="Плитка" src="./assets/img/calc/btn-img/plit-btn.png">
-												<p class="calc__button-name">Плитка</p>
-											</div>
+									<div class="turnkey__info">
+										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
+										<ul class="turnkey__list">
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+										</ul>
+										<div class="turnkey__prices">
+											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
+											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
 										</div>
 									</div>
 								</div>
-								<div class="calc__items">
-									<div class="calc__item">
-										<div class="calc__column">
-											<div data-fls-dynamic=".calc__top-mob, 768" class="calc__size">
-												<p>Длина, см</p>
-												<input autocomplete="off" type="number" name="length" placeholder="300" class="calc__input input" data-size-input="" value="300">
-											</div>
-											<!-- Внешняя отделка -->
-											<div class="calc__choice" data-section="exterior">
-												<div class="calc__switch">
-													<h3 class="calc__choice-title">Внешняя отделка</h3>
-													<label class="rocker rocker-small">
-														<input type="checkbox" data-enable-section="">
-														<span class="switch-left">Да</span>
-														<span class="switch-right">Нет</span>
-													</label>
-												</div>
-												<div class="calc__buttons">
-													<div class="calc__button" data-price="800" data-material="Сайдинг">
-														<img class="calc__button-img" alt="Сайдинг" src="./assets/img/calc/btn-img/say-btn.png">
-														<p class="calc__button-name">Сайдинг</p>
-													</div>
-													<div class="calc__button" data-price="700" data-material="Профлист">
-														<img class="calc__button-img" alt="Профлист" src="./assets/img/calc/btn-img/prof-btn.png">
-														<p class="calc__button-name">Профлист</p>
-													</div>
-												</div>
-											</div>
-											<!-- Освещение -->
-											<div class="calc__choice" data-section="lighting">
-												<div class="calc__switch">
-													<h3 class="calc__choice-title">Освещение</h3>
-													<label class="rocker rocker-small">
-														<input type="checkbox" data-enable-section="">
-														<span class="switch-left">Да</span>
-														<span class="switch-right">Нет</span>
-													</label>
-												</div>
-												<div class="calc__buttons">
-													<div class="calc__button" data-price="300" data-material="Точечное">
-														<img class="calc__button-img" alt="Точечное" src="./assets/img/calc/btn-img/btn-cold1.png">
-														<p class="calc__button-name">Точечное</p>
-													</div>
-													<div class="calc__button" data-price="400" data-material="Подвесное">
-														<img class="calc__button-img" alt="Подвесное" src="./assets/img/calc/btn-img/btn-hot1.png">
-														<p class="calc__button-name">Подвесное</p>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="calc__column">
-											<div data-fls-dynamic=".calc__top-mob, 768" class="calc__size">
-												<p>Ширина, см</p>
-												<input autocomplete="off" type="number" name="width" placeholder="300" class="calc__input input" data-size-input="" value="300">
-											</div>
-											<!-- Остекление -->
-											<div class="calc__choice" data-section="glazing">
-												<div class="calc__switch">
-													<h3 class="calc__choice-title">Остекление</h3>
-													<label class="rocker rocker-small">
-														<input type="checkbox" data-enable-section="">
-														<span class="switch-left">Да</span>
-														<span class="switch-right">Нет</span>
-													</label>
-												</div>
-												<div class="calc__buttons">
-													<div class="calc__button" data-price="1500" data-material="Холодное">
-														<img class="calc__button-img" alt="Холодное" src="./assets/img/calc/btn-img/btn-point.png">
-														<p class="calc__button-name">Холодное</p>
-													</div>
-													<div class="calc__button" data-price="2500" data-material="Теплое">
-														<img class="calc__button-img" alt="Теплое" src="./assets/img/calc/btn-img/btn-podves.png">
-														<p class="calc__button-name">Теплое</p>
-													</div>
-												</div>
-											</div>
-											<!-- Утепление -->
-											<div class="calc__choice" data-section="insulation">
-												<div class="calc__switch">
-													<h3 class="calc__choice-title">Утепление</h3>
-													<label class="rocker rocker-small">
-														<input type="checkbox" data-enable-section="">
-														<span class="switch-left">Да</span>
-														<span class="switch-right">Нет</span>
-													</label>
-												</div>
-												<div class="calc__buttons">
-													<div class="calc__button" data-price="2000" data-material="Да">
-														<img class="calc__button-img" alt="Да" src="./assets/img/calc/btn-img/btn-utep.png">
-														<p class="calc__button-name">Да</p>
-													</div>
-													<div class="calc__button" data-price="0" data-material="Нет">
-														<img class="calc__button-img" alt="Нет" src="./assets/img/calc/btn-img/btn-noutep.png">
-														<p class="calc__button-name">Нет</p>
-													</div>
-												</div>
-											</div>
+								<div class="turnkey__item">
+									<div data-fls-gallery="" class="turnkey__gallery">
+										<a href="./assets/img/turnkey/01.webp">
+											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+									</div>
+									<div class="turnkey__info">
+										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
+										<ul class="turnkey__list">
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+										</ul>
+										<div class="turnkey__prices">
+											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
+											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
 										</div>
 									</div>
-									<div class="calc__bottom">
-										<div class="calc__price">
-											от
-											<span id="totalPrice">0</span>
-											руб
+								</div>
+								<div class="turnkey__item">
+									<div data-fls-gallery="" class="turnkey__gallery">
+										<a href="./assets/img/turnkey/01.webp">
+											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+									</div>
+									<div class="turnkey__info">
+										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
+										<ul class="turnkey__list">
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+										</ul>
+										<div class="turnkey__prices">
+											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
+											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
 										</div>
-										<a class="calc__submit button">Получить расчет</a>
+									</div>
+								</div>
+								<div class="turnkey__item">
+									<div data-fls-gallery="" class="turnkey__gallery">
+										<a href="./assets/img/turnkey/01.webp">
+											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+									</div>
+									<div class="turnkey__info">
+										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
+										<ul class="turnkey__list">
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+										</ul>
+										<div class="turnkey__prices">
+											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
+											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
+										</div>
+									</div>
+								</div>
+								<div class="turnkey__item">
+									<div data-fls-gallery="" class="turnkey__gallery">
+										<a href="./assets/img/turnkey/01.webp">
+											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+									</div>
+									<div class="turnkey__info">
+										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
+										<ul class="turnkey__list">
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+										</ul>
+										<div class="turnkey__prices">
+											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
+											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
+										</div>
+									</div>
+								</div>
+								<div class="turnkey__item">
+									<div data-fls-gallery="" class="turnkey__gallery">
+										<a href="./assets/img/turnkey/01.webp">
+											<img class="turnkey__gallery-img-bg" alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+										<a class="turnkey__gallery-img" href="./assets/img/turnkey/01.webp">
+											<img alt="Image" src="./assets/img/turnkey/01.webp">
+										</a>
+									</div>
+									<div class="turnkey__info">
+										<h3 class="turnkey__title">Отделка панелями ПВХ</h3>
+										<ul class="turnkey__list">
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+											<li>
+												<p>Монтаж панелей ПВХ</p>
+												<span>от 1 500 руб./м²</span>
+											</li>
+										</ul>
+										<div class="turnkey__prices">
+											<div class="turnkey__price-one">Цена от: 1 500 руб./м²</div>
+											<div class="turnkey__price-all">Цена под ключ: 50 000 руб.</div>
+										</div>
 									</div>
 								</div>
 							</div>
-							<div data-fls-dynamic=".calc__column--one, 768" class="calc__images">
-								<!-- Основное пустое изображение (фон) -->
-								<img alt="Балкон" class="calc__main-img" src="./assets/img/calc/empty.png">
-								<!-- СТЕНЫ -->
-								<img alt="Ламинат" class="calc-layer" data-section="walls" data-material="Ламинат" src="./assets/img/calc/walls/parket-otdelka.png">
-								<img alt="Стеновой паркет" class="calc-layer" data-section="walls" data-material="Стеновой паркет" src="./assets/img/calc/walls/stenparket.png">
-								<img alt="Вагонка" class="calc-layer" data-section="walls" data-material="Вагонка" src="./assets/img/calc/walls/vagonka.png">
-								<img alt="ПВХ панели" class="calc-layer" data-section="walls" data-material="ПВХ панели" src="./assets/img/calc/walls/paneli-otdelka.png">
-								<!-- ПОТОЛОК -->
-								<img alt="ПВХ панели" class="calc-layer" data-section="ceiling" data-material="ПВХ панели" src="./assets/img/calc/ceiling/pvxpotolok.png">
-								<img alt="Натяжной потолок" class="calc-layer" data-section="ceiling" data-material="Натяжной потолок" src="./assets/img/calc/ceiling/pvxpotolok.png">
-								<img alt="Ламинат" class="calc-layer" data-section="ceiling" data-material="Ламинат" src="./assets/img/calc/ceiling/potolok-parket.png">
-								<img alt="Вагонка" class="calc-layer" data-section="ceiling" data-material="Вагонка" src="./assets/img/calc/ceiling/vagonka-potol.png">
-								<!-- ПОЛ -->
-								<img alt="Линолеум" class="calc-layer" data-section="floor" data-material="Линолеум" src="./assets/img/calc/floor/lenoliumpol1-1.png">
-								<img alt="Ламинат" class="calc-layer" data-section="floor" data-material="Ламинат" src="./assets/img/calc/floor/parket-pol-1.png">
-								<img alt="Кварц-винил" class="calc-layer" data-section="floor" data-material="Кварц-винил" src="./assets/img/calc/floor/kvarczvinil-pol.png">
-								<img alt="Плитка" class="calc-layer" data-section="floor" data-material="Плитка" src="./assets/img/calc/floor/plitka-pol.png">
-								<!-- ВНЕШНЯЯ ОТДЕЛКА -->
-								<img alt="Сайдинг" class="calc-layer" data-section="exterior" data-material="Сайдинг" src="./assets/img/calc/exterior/vneshnyaya-otdelka.png">
-								<img alt="Профлист" class="calc-layer" data-section="exterior" data-material="Профлист" src="./assets/img/calc/exterior/proflist-vneshnyaya1.png">
-								<!-- ОСВЕЩЕНИЕ -->
-								<img alt="Точечное" class="calc-layer" data-section="lighting" data-material="Точечное" src="./assets/img/calc/light/potolok.png">
-								<img alt="Подвесное" class="calc-layer" data-section="lighting" data-material="Подвесное" src="./assets/img/calc/light/podvesnoi-svetilnik-1.png">
-								<!-- ОСТЕКЛЕНИЕ -->
-								<img alt="Холодное" class="calc-layer" data-section="glazing" data-material="Холодное" src="./assets/img/calc/windows/xolodnoeokno.png">
-								<img alt="Теплое" class="calc-layer" data-section="glazing" data-material="Теплое" src="./assets/img/calc/windows/teploe-okno.png">
-								<!-- УТЕПЛЕНИЕ -->
-								<img alt="Да" class="calc-layer" data-section="insulation" data-material="Да" src="./assets/img/calc/utep/uteplenie.png">
-								<img alt="Нет" class="calc-layer" data-section="insulation" data-material="Нет" src="./assets/img/calc/utep/bez-utepleniya.png">
+							<div class="glazing-price__buttons">
+								<a data-fls-popup-link="popup" class="glazing-price__button button" href="#">Оставить заявку</a>
+								<a class="glazing-price__button button button--black-border" href="tel:84958775098">8 (495) 877-50-98</a>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="gallery">
+					<div class="gallery__container">
+						<div class="gallery__body">
+							<h2 data-fls-title="" class="title">Наши работы</h2>
+							<div data-fls-gallery="" class="gallery__items">
+								<a href="./assets/img/gallery/01.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/01.webp">
+								</a>
+								<a href="./assets/img/gallery/02.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/02.webp">
+								</a>
+								<a href="./assets/img/gallery/03.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/03.webp">
+								</a>
+								<a href="./assets/img/gallery/04.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/04.webp">
+								</a>
+								<a href="./assets/img/gallery/05.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/05.webp">
+								</a>
+								<a href="./assets/img/gallery/06.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/06.webp">
+								</a>
+								<a href="./assets/img/gallery/07.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/07.webp">
+								</a>
+								<a href="./assets/img/gallery/08.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/08.webp">
+								</a>
+								<a href="./assets/img/gallery/09.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/08.webp">
+								</a>
+								<a href="./assets/img/gallery/01.webp" class="gallery__item">
+									<img alt="#" src="./assets/img/gallery/01.webp">
+								</a>
+							</div>
+							<div class="gallery__buttons">
+								<a data-fls-popup-link="popup" class="gallery__button button" href="#">Оставить заявку</a>
+								<a class="gallery__button button button--black-border" href="tel:84958775098">8 (495) 877-50-98</a>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="reviews">
+					<div class="reviews__container">
+						<div class="reviews__body">
+							<div class="reviews__top">
+								<h2 data-fls-title="" class="title">Отзывы наших клиентов</h2>
+								<div class="reviews__yandex">
+									<img class="reviews__img-local" src="./assets/img/reviews/local.svg" alt="Image">
+									<img class="reviews__img-yandex" src="./assets/img/reviews/yandex.svg" alt="Image">
+								</div>
+								<div class="reviews__estimation">
+									<img src="./assets/img/reviews/Star_1.svg" alt="Image">
+									<span>5.0</span>
+									<p>197 оценок</p>
+								</div>
+								<div class="reviews__navigations">
+									<button type="button" class="reviews-button-prev swiper-button-prev"></button>
+									<button type="button" class="reviews-button-next swiper-button-next"></button>
+								</div>
+							</div>
+							<!-- Оболочка слайдера -->
+							<div data-fls-slider="" class="reviews__slider swiper">
+								<!-- Часть слайдера, которая двигается -->
+								<div class="reviews__wrapper swiper-wrapper">
+									<!-- Слайд -->
+									<div class="reviews__slide swiper-slide">
+										<div class="reviews__slide-top">
+											<div class="reviews__name">Анна Курдюкова</div>
+											<div class="reviews__stars">
+												<img src="./assets/img/reviews/stars.svg" alt="Image">
+											</div>
+										</div>
+										<p class="reviews__text">
+											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
+										</p>
+										<a class="reviews__link" href="#">Смотреть отзыв</a>
+									</div>
+									<div class="reviews__slide swiper-slide">
+										<div class="reviews__slide-top">
+											<div class="reviews__name">Анна Курдюкова</div>
+											<div class="reviews__stars">
+												<img src="./assets/img/reviews/stars.svg" alt="Image">
+											</div>
+										</div>
+										<p class="reviews__text">
+											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
+										</p>
+										<a class="reviews__link" href="#">Смотреть отзыв</a>
+									</div>
+									<div class="reviews__slide swiper-slide">
+										<div class="reviews__slide-top">
+											<div class="reviews__name">Анна Курдюкова</div>
+											<div class="reviews__stars">
+												<img src="./assets/img/reviews/stars.svg" alt="Image">
+											</div>
+										</div>
+										<p class="reviews__text">
+											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
+										</p>
+										<a class="reviews__link" href="#">Смотреть отзыв</a>
+									</div>
+									<div class="reviews__slide swiper-slide">
+										<div class="reviews__slide-top">
+											<div class="reviews__name">Анна Курдюкова</div>
+											<div class="reviews__stars">
+												<img src="./assets/img/reviews/stars.svg" alt="Image">
+											</div>
+										</div>
+										<p class="reviews__text">
+											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
+										</p>
+										<a class="reviews__link" href="#">Смотреть отзыв</a>
+									</div>
+									<div class="reviews__slide swiper-slide">
+										<div class="reviews__slide-top">
+											<div class="reviews__name">Анна Курдюкова</div>
+											<div class="reviews__stars">
+												<img src="./assets/img/reviews/stars.svg" alt="Image">
+											</div>
+										</div>
+										<p class="reviews__text">
+											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
+										</p>
+										<a class="reviews__link" href="#">Смотреть отзыв</a>
+									</div>
+								</div>
+								<!-- Если нужна пагинация -->
+								<div class="swiper-pagination"></div>
+								<!-- Если нужна навигация (влево/вправо) -->
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="company">
+					<div class="company__container">
+						<div class="company__body">
+							<div class="company__content">
+								<h2 data-fls-title="" class="title">О компании Первый Балкон</h2>
+								<div class="company__text">
+									<p>
+										Компания Первый Балкон уже более 10 лет успешно работает на рынке остекления и отделки балконов в Москве и Московской области.Мы предлагаем полный спектр услуг по ремонту балконов: остекление балконов (теплое и холодное), утепление, отделка балконов под ключ, монтаж теплого пола, внешняя и внутренняя отделка, подводка электрики, изготовление мебели для балконов на заказ.
+									</p>
+									<p>
+										Наша команда гарантирует высокое качество работ, оперативность и индивидуальный подход к каждому клиенту.Если вы хотите сделать свой балкон комфортным местом для отдыха, работы или хранения, Первый Балкон — это ваш надежный выбор для остекления и отделки балконов в в Москве и Московской области.
+									</p>
+								</div>
+								<div class="company__buttons">
+									<a class="company__button button" href="#">Оставить заявку</a>
+									<a class="company__button button button button--black-border" href="tel:">8 (495) 877-50-98</a>
+								</div>
+							</div>
+							<div class="company__image">
+								<img alt="Image" src="./assets/img/company/01.jpg">
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="installment">
+					<div class="installment__container">
+						<div class="installment__body">
+							<div class="installment__content">
+								<img class="installment__logo-bank" alt="Image" src="./assets/img/insta/logo-bank.png">
+								<h2 data-fls-title="" class="title">Рассрочка от Т-Банка</h2>
+								<ul class="installment__list">
+									<li>За 2 минуты</li>
+									<li>От 3 до 24 месяцев</li>
+									<li>Сумма покупки от 50 000 до 500 000 руб.</li>
+									<li>Достаточно только паспорта</li>
+									<li>Подписание с помощью СМС</li>
+								</ul>
+								<img class="installment__banner" alt="Image" src="./assets/img/insta/banner.webp">
+							</div>
+							<div class="installment__image">
+								<img alt="Image" src="./assets/img/insta/01.webp">
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="form">
+					<div class="form__container">
+						<div class="form__body">
+							<h2 data-fls-title="" class="form__title title">
+								Записаться на бесплатный замер со скидкой
+								<span>35 000 руб.</span>
+							</h2>
+							<div class="form__content">
+								<div class="form__item">
+									<p class="form__text">Оставьте ваши контактные данные, мы свяжемся с вами в течение 5 минут</p>
+									<form class="form__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
+										<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" required placeholder="Ваше имя" class="form__input input">
+										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="form__input input">
+										<button type="submit" class="form__button button">Оставить заявку</button>
+									</form>
+								</div>
+								<div class="form__image">
+									<img alt="Image" src="./assets/img/form/01.webp">
+								</div>
+							</div>
+						</div>
+						<div class="consultation__body">
+							<div class="consultation__content">
+								<h2 data-fls-title="" class="title">Сомневаетесь в выборе?</h2>
+								<p class="consultation__text">Проконсультируем вас по любым вопросам</p>
+							</div>
+							<div class="consultation__bottom">
+								<div class="consultation__buttons">
+									<a class="consultation__button button" href="#">Получить консультацию</a>
+									<a class="consultation__button button button--black-border" href="#">8 (495) 877-50-98</a>
+								</div>
+								<div class="consultation__image">
+									<img alt="Image" src="./assets/img/consultation/01.webp">
+								</div>
 							</div>
 						</div>
 					</div>
@@ -2837,6 +2886,46 @@ alt="Image"
 									</p>
 								</div>
 							</details>
+						</div>
+					</div>
+				</section>
+				<section class="contacts">
+					<div class="contacts__container">
+						<h2 data-fls-title="" class="title">
+							Наши
+							<span>контакты</span>
+						</h2>
+						<p class="contacts__subtitle">Свяжитесь с нами любым удобным способом</p>
+						<div class="contacts__body">
+							<div class="contacts__info">
+								<div class="contacts__clock">Ежедневно с 09:00 - 20:00</div>
+								<a class="contacts__phone" href="tel:
+ +7 (911) 108-10-82">+7 (911) 108-10-82</a>
+								<a class="contacts__link" href="#">Перезвоним за 30 секунд</a>
+								<a class="contacts__mail" href="mailto:tsimmer108@mail.ru">tsimmer108@mail.ru</a>
+								<address class="contacts__address">
+									г. Санкт-Петербург
+									<br>
+								</address>
+								<div class="contacts__socials">
+									<a class="contacts__socials-link" href="">
+										<img alt="Image" src="./assets/img/icon/viber.png">
+									</a>
+									<a class="contacts__socials-link" href="">
+										<img alt="Image" src="./assets/img/icon/instagram.png">
+									</a>
+									<p class="contacts__socials-text">Мы в мессенджерах
+                                 Ответим в течение 1 минуты</p>
+								</div>
+							</div>
+							<div class="contacts__images">
+								<h3>Ждем вас в офисе!</h3>
+								<img alt="Image" src="./assets/img/gallery/04.webp">
+								<img alt="Image" src="./assets/img/gallery/05.webp">
+							</div>
+							<div class="contacts__map">
+								<iframe src="https://yandex.ru/map-widget/v1/?lang=ru_RU&amp;scroll=false&amp;source=constructor-api&amp;um=constructor%3Ab954b9eb59e95230cbd0a44d3a7e3f9dc072aa8799804a92537534b7acec8625" frameborder="0" allowfullscreen width="100%" height="100%" style="display: block"></iframe>
+							</div>
 						</div>
 					</div>
 				</section>

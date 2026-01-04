@@ -4,10 +4,10 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=1767549633303">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=1767551479164">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1767549633303"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1767549633303">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1767551479164"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1767551479164">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -2521,10 +2521,11 @@ alt="Image"
 				<section class="calc">
 					<div class="calc__container">
 						<h2 class="title">Калькулятор отделки балкона</h2>
+						<div class="calc__top-mob"></div>
 						<div class="calc__body">
 							<div class="calc__content">
 								<div class="calc__column calc__column--one">
-									<div class="calc__prize">
+									<div data-fls-dynamic=".calc__container, 768,1" class="calc__prize">
 										Сделайте расчет и получите подарок
 										<img alt="Подарок" src="./assets/img/calc/calc-prize.png">
 										!
@@ -2559,7 +2560,7 @@ alt="Image"
 										</div>
 									</div>
 									<!-- Отделка потолка -->
-									<div class="calc__choice" data-section="ceiling">
+									<div data-fls-dynamic=".calc__item, 568" class="calc__choice" data-section="ceiling">
 										<div class="calc__switch">
 											<h3 class="calc__choice-title">Отделка потолка</h3>
 											<label class="rocker rocker-small">
@@ -2588,7 +2589,7 @@ alt="Image"
 										</div>
 									</div>
 									<!-- Отделка пола -->
-									<div class="calc__choice" data-section="floor">
+									<div data-fls-dynamic=".calc__item, 768" class="calc__choice" data-section="floor">
 										<div class="calc__switch">
 											<h3 class="calc__choice-title">Отделка пола</h3>
 											<label class="rocker rocker-small">
@@ -2620,7 +2621,7 @@ alt="Image"
 								<div class="calc__items">
 									<div class="calc__item">
 										<div class="calc__column">
-											<div class="calc__size">
+											<div data-fls-dynamic=".calc__top-mob, 768" class="calc__size">
 												<p>Длина, см</p>
 												<input autocomplete="off" type="number" name="length" placeholder="300" class="calc__input input" data-size-input="" value="300">
 											</div>
@@ -2668,7 +2669,7 @@ alt="Image"
 											</div>
 										</div>
 										<div class="calc__column">
-											<div class="calc__size">
+											<div data-fls-dynamic=".calc__top-mob, 768" class="calc__size">
 												<p>Ширина, см</p>
 												<input autocomplete="off" type="number" name="width" placeholder="300" class="calc__input input" data-size-input="" value="300">
 											</div>
@@ -2726,7 +2727,7 @@ alt="Image"
 									</div>
 								</div>
 							</div>
-							<div class="calc__images">
+							<div data-fls-dynamic=".calc__column--one, 768" class="calc__images">
 								<!-- Основное пустое изображение (фон) -->
 								<img alt="Балкон" class="calc__main-img" src="./assets/img/calc/empty.png">
 								<!-- СТЕНЫ -->

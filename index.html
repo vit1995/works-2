@@ -4,10 +4,10 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=1767447351124">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=1767529329778">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1767447351124"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1767447351124">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1767529329778"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1767529329778">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -111,6 +111,75 @@
 										</span>
 									</label>
 									<button type="submit" class="popup__button button">Оставить заявку</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div data-fls-popup="popup-calc" aria-hidden="true" class="popup popup-calc">
+				<div data-fls-popup-wrapper="" class="popup__wrapper">
+					<div data-fls-popup-body="" class="popup__body">
+						<button data-fls-popup-close="" type="button" class="popup__close">
+							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
+								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
+							</svg>
+						</button>
+						<div data-fls-popup-content="" class="popup__text">
+							<div class="popup-calc__box">
+								<h2 class="popup-calc__title">Ваш расчет готов!</h2>
+								<p class="popup-calc__subtitle">Но это еще не все! Мы хотим сделать ваш проект еще более приятным.</p>
+								<form class="popup-calc__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
+									<div class="popup-calc__form-top">
+										<div class="popup-calc__form-top-text">
+											<p>Выберите подарок</p>
+											<img alt="Image" src="./assets/img/calc/popup-calc/modal-gift.webp">
+										</div>
+										<div data-fls-radio="" class="popup-calc-options">
+											<label class="popup-calc-options__item">
+												<input class="popup-calc-options__input" checked type="radio" value="1" name="gift">
+												<span class="popup-calc-options__text">
+													<span class="checkmark"></span>
+													<img alt="Image" src="./assets/img/calc/popup-calc/01.webp">
+												</span>
+											</label>
+											<label class="popup-calc-options__item">
+												<input class="popup-calc-options__input" type="radio" value="2" name="gift">
+												<span class="popup-calc-options__text">
+													<span class="checkmark"></span>
+													<img alt="Image" src="./assets/img/calc/popup-calc/02.webp">
+												</span>
+											</label>
+											<label class="popup-calc-options__item">
+												<input class="popup-calc-options__input" type="radio" value="3" name="gift">
+												<span class="popup-calc-options__text">
+													<span class="checkmark"></span>
+													<img alt="Image" src="./assets/img/calc/popup-calc/03.webp">
+												</span>
+											</label>
+										</div>
+									</div>
+									<div class="popup-calc__main-text">
+										Заполните форму, чтобы получить
+										<span>расчет</span>
+										и закрепить за
+              собой
+										<span>подарок!</span>
+									</div>
+									<div class="popup-calc__item">
+										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" autocomplete="off" type="text" name="phone" placeholder="Имя" class="popup-calc__input input">
+										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="popup-calc__input input">
+										<button type="submit" class="popup-calc__button button">Отправить заявку</button>
+									</div>
+									<label data-fls-checkbox="" class="checkbox">
+										<input checked data-fls-form-errtext="Заполните поле" class="checkbox__input" type="checkbox" value="7" name="check">
+										<span class="checkbox__text">
+											Соглашаюсь с обработкой персональных данных и политикой
+                конфиденциальности
+										</span>
+									</label>
+									<p class="popup-calc__footer">*Подробности акций уточняйте у менеджера</p>
 								</form>
 							</div>
 						</div>
@@ -2454,7 +2523,7 @@ alt="Image"
 						<h2 data-fls-title="" class="title">Калькулятор отделки балкона</h2>
 						<div class="calc__body">
 							<div class="calc__content">
-								<div class="calc__column">
+								<div class="calc__column calc__column--one">
 									<div class="calc__prize">
 										Сделайте расчет и получите подарок
 										<img alt="Image" src="./assets/img/calc/calc-prize.png">
@@ -2471,19 +2540,19 @@ alt="Image"
 											</label>
 										</div>
 										<div class="calc__buttons">
-											<div class="calc__button" data-price="1500" data-image="assets/img/calc/walls/parket-otdelka.png">
+											<div class="calc__button" data-price="1500" data-image="./assets/img/calc/walls/parket-otdelka.png">
 												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/lam-btn.png">
 												<p class="calc__button-name">Ламинат</p>
 											</div>
-											<div class="calc__button" data-price="2000" data-image="assets/img/calc/walls/stenparket.png">
+											<div class="calc__button" data-price="2000" data-image="./assets/img/calc/walls/stenparket.png">
 												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/parket-btn.png">
 												<p class="calc__button-name">Стеновой паркет</p>
 											</div>
-											<div class="calc__button" data-price="800" data-image="assets/img/calc/walls/vagonka.png">
+											<div class="calc__button" data-price="800" data-image="./assets/img/calc/walls/vagonka.png">
 												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/vag-btn.png">
 												<p class="calc__button-name">Вагонка</p>
 											</div>
-											<div class="calc__button" data-price="600" data-image="assets/img/calc/walls/paneli-otdelka.png">
+											<div class="calc__button" data-price="600" data-image="./assets/img/calc/walls/paneli-otdelka.png">
 												<img class="calc__button-img" alt="Image" src="./assets/img/calc/btn-img/pvh-btn.png">
 												<p class="calc__button-name">ПВХ панели</p>
 											</div>
@@ -2548,7 +2617,7 @@ alt="Image"
 										</div>
 									</div>
 								</div>
-								<div class="calc__items">
+								<div data-fls-dynamic=".calc__body, 768" class="calc__items">
 									<div class="calc__item">
 										<div class="calc__column">
 											<div class="calc__size">
@@ -2653,12 +2722,12 @@ alt="Image"
 											<span id="totalPrice">0</span>
 											руб
 										</div>
-										<a class="calc__sumbit button">Получить расчет</a>
+										<a data-fls-popup-link="popup-calc" class="calc__sumbit button">Получить расчет</a>
 									</div>
 								</div>
 							</div>
 							<!-- Контейнер для изображений -->
-							<div class="calc__images">
+							<div data-fls-dynamic=".calc__content, 768" class="calc__images">
 								<!-- Основное пустое изображение (фон) -->
 								<img alt="Image" class="calc__main-img" src="./assets/img/calc/empty.png">
 								<!-- Сюда будут добавляться выбранные изображения -->

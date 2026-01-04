@@ -12805,16 +12805,8 @@ document.addEventListener("DOMContentLoaded", function() {
   if (submitButton) {
     submitButton.addEventListener("click", function(e) {
       e.preventDefault();
-      const area = calculateArea();
-      const total = calculateTotalPrice();
-      const selectedMaterials = Object.entries(selectedOptions).filter(([_, value]) => value).map(([section, option]) => `${section}: ${option.name}`).join(", ");
-      alert(`Расчет стоимости:
-
-Площадь балкона: ${area.toFixed(2)} м²
-Выбранные материалы: ${selectedMaterials || "не выбраны"}
-Общая стоимость: ${total.toLocaleString("ru-RU")} руб.
-
-Наш менеджер свяжется с вами для уточнения деталей.`);
+      calculateTotalPrice();
+      Object.entries(selectedOptions).filter(([_, value]) => value).map(([section, option]) => `${section}: ${option.name}`).join(", ");
     });
   }
 });

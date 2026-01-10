@@ -718,16 +718,16 @@ class SelectConstructor {
   }
   // Получение данных из выбранных элементов
   getSelectedOptionsData(originalSelect, type) {
-    let selectedOptions = [];
+    let selectedOptions2 = [];
     if (originalSelect.multiple) {
-      selectedOptions = Array.from(originalSelect.options).filter((option) => option.value).filter((option) => option.selected);
+      selectedOptions2 = Array.from(originalSelect.options).filter((option) => option.value).filter((option) => option.selected);
     } else {
-      selectedOptions.push(originalSelect.options[originalSelect.selectedIndex]);
+      selectedOptions2.push(originalSelect.options[originalSelect.selectedIndex]);
     }
     return {
-      elements: selectedOptions.map((option) => option),
-      values: selectedOptions.filter((option) => option.value).map((option) => option.value),
-      html: selectedOptions.map((option) => this.getSelectElementContent(option))
+      elements: selectedOptions2.map((option) => option),
+      values: selectedOptions2.filter((option) => option.value).map((option) => option.value),
+      html: selectedOptions2.map((option) => this.getSelectElementContent(option))
     };
   }
   // Конструктор элементов списка
@@ -12713,7 +12713,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
   console.log("Всего изображений в карте:", imageMap.size);
-  let selectedOptions = {
+  let selectedOptions2 = {
     walls: null,
     ceiling: null,
     floor: null,
@@ -12722,7 +12722,7 @@ document.addEventListener("DOMContentLoaded", function() {
     glazing: null,
     insulation: null
   };
-  let dimensions = {
+  let dimensions2 = {
     length: 300,
     width: 300
   };
@@ -12756,14 +12756,14 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
   function calculateArea() {
-    const length = parseFloat(dimensions.length) || 0;
-    const width = parseFloat(dimensions.width) || 0;
+    const length = parseFloat(dimensions2.length) || 0;
+    const width = parseFloat(dimensions2.width) || 0;
     return length * width / 1e4;
   }
-  function calculateTotalPrice() {
+  function calculateTotalPrice2() {
     const area = calculateArea();
     let total = 0;
-    for (const [section, option] of Object.entries(selectedOptions)) {
+    for (const [section, option] of Object.entries(selectedOptions2)) {
       if (option) {
         if (section === "walls" || section === "ceiling" || section === "floor" || section === "exterior") {
           const sectionPrice = basePrice[section] + option.price;
@@ -12776,7 +12776,7 @@ document.addEventListener("DOMContentLoaded", function() {
     return Math.round(total);
   }
   function updatePrice() {
-    const total = calculateTotalPrice();
+    const total = calculateTotalPrice2();
     if (totalPriceElement) {
       totalPriceElement.textContent = total.toLocaleString("ru-RU");
     }
@@ -12793,7 +12793,7 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(`Клик: ${section} - ${material}, цена: ${price}`);
     if (button.classList.contains("active")) {
       button.classList.remove("active");
-      selectedOptions[section] = null;
+      selectedOptions2[section] = null;
       manageImage(section, material, false);
     } else {
       const buttonsInSection = button.closest(".calc__buttons").querySelectorAll(".calc__button");
@@ -12805,7 +12805,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       });
       button.classList.add("active");
-      selectedOptions[section] = {
+      selectedOptions2[section] = {
         price,
         material
       };
@@ -12815,13 +12815,13 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   function collectFormData() {
     const data = {
-      dimensions: { ...dimensions },
-      selectedOptions: { ...selectedOptions },
-      totalPrice: calculateTotalPrice(),
+      dimensions: { ...dimensions2 },
+      selectedOptions: { ...selectedOptions2 },
+      totalPrice: calculateTotalPrice2(),
       area: calculateArea()
     };
     console.log("Данные для отправки:", data);
-    for (const [section, option] of Object.entries(selectedOptions)) {
+    for (const [section, option] of Object.entries(selectedOptions2)) {
       if (option) {
         message += `${section}: ${option.material} - ${option.price} руб
 `;
@@ -12838,10 +12838,10 @@ document.addEventListener("DOMContentLoaded", function() {
   sizeInputs.forEach((input) => {
     input.addEventListener("input", function() {
       const value = parseFloat(this.value) || 0;
-      dimensions[this.name] = value > 0 ? value : 0;
+      dimensions2[this.name] = value > 0 ? value : 0;
       updatePrice();
     });
-    dimensions[input.name] = parseFloat(input.value) || 300;
+    dimensions2[input.name] = parseFloat(input.value) || 300;
   });
   sectionSwitches.forEach((switchElement) => {
     switchElement.addEventListener("change", function() {
@@ -12852,7 +12852,7 @@ document.addEventListener("DOMContentLoaded", function() {
           if (button.classList.contains("active")) {
             const material = button.dataset.material;
             button.classList.remove("active");
-            selectedOptions[section] = null;
+            selectedOptions2[section] = null;
             manageImage(section, material, false);
           }
         });
@@ -12870,4 +12870,17 @@ document.addEventListener("DOMContentLoaded", function() {
       console.log(`${i + 1}. src: ${img.src}, data-section: ${img.dataset.section}, data-material: ${img.dataset.material}`);
     });
   }, 1e3);
+});
+function fillCalcHiddenFields() {
+  document.getElementById("calcLength").value = dimensions.length;
+  document.getElementById("calcWidth").value = dimensions.width;
+  document.getElementById("calcTotalPrice").value = calculateTotalPrice();
+  for (const [section, option] of Object.entries(selectedOptions)) {
+    document.getElementById(section + "Enabled").value = option.enabled;
+    document.getElementById(section + "Material").value = option.material || "";
+    document.getElementById(section + "Price").value = option.price || 0;
+  }
+}
+document.querySelector(".calc__submit").addEventListener("click", function(e) {
+  fillCalcHiddenFields();
 });

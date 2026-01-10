@@ -4,10 +4,10 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=1767633217207">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css?v=1768056570574">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1767633217207"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1767633217207">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1768056570574"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1768056570574">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -130,32 +130,67 @@
 							<div class="popup-calc__box">
 								<h2 class="popup-calc__title">Ваш расчет готов!</h2>
 								<p class="popup-calc__subtitle">Но это еще не все! Мы хотим сделать ваш проект еще более приятным.</p>
-								<form class="popup-calc__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
+								<form class="popup-calc__form" id="calcForm" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail.php">
+									<!-- Скрытые поля для данных калькулятора -->
+									<!-- Размеры балкона -->
+									<input type="hidden" name="length" id="calcLength" value="">
+									<input type="hidden" name="width" id="calcWidth" value="">
+									<input type="hidden" name="totalPrice" id="calcTotalPrice" value="">
+									<!-- Отделка стен -->
+									<input type="hidden" name="walls_enabled" id="wallsEnabled" value="false">
+									<input type="hidden" name="walls_material" id="wallsMaterial" value="">
+									<input type="hidden" name="walls_price" id="wallsPrice" value="0">
+									<!-- Отделка потолка -->
+									<input type="hidden" name="ceiling_enabled" id="ceilingEnabled" value="false">
+									<input type="hidden" name="ceiling_material" id="ceilingMaterial" value="">
+									<input type="hidden" name="ceiling_price" id="ceilingPrice" value="0">
+									<!-- Отделка пола -->
+									<input type="hidden" name="floor_enabled" id="floorEnabled" value="false">
+									<input type="hidden" name="floor_material" id="floorMaterial" value="">
+									<input type="hidden" name="floor_price" id="floorPrice" value="0">
+									<!-- Внешняя отделка -->
+									<input type="hidden" name="exterior_enabled" id="exteriorEnabled" value="false">
+									<input type="hidden" name="exterior_material" id="exteriorMaterial" value="">
+									<input type="hidden" name="exterior_price" id="exteriorPrice" value="0">
+									<!-- Освещение -->
+									<input type="hidden" name="lighting_enabled" id="lightingEnabled" value="false">
+									<input type="hidden" name="lighting_material" id="lightingMaterial" value="">
+									<input type="hidden" name="lighting_price" id="lightingPrice" value="0">
+									<!-- Остекление -->
+									<input type="hidden" name="glazing_enabled" id="glazingEnabled" value="false">
+									<input type="hidden" name="glazing_material" id="glazingMaterial" value="">
+									<input type="hidden" name="glazing_price" id="glazingPrice" value="0">
+									<!-- Утепление -->
+									<input type="hidden" name="insulation_enabled" id="insulationEnabled" value="false">
+									<input type="hidden" name="insulation_material" id="insulationMaterial" value="">
+									<input type="hidden" name="insulation_price" id="insulationPrice" value="0">
+									<!-- Тип формы -->
+									<input type="hidden" name="form_type" value="calc">
 									<div class="popup-calc__form-top">
 										<div class="popup-calc__form-top-text">
 											<p>Выберите подарок</p>
-											<img alt="Image" src="./assets/img/calc/popup-calc/modal-gift.webp">
+											<img alt="Подарок" src="./assets/img/calc/popup-calc/modal-gift.webp">
 										</div>
 										<div data-fls-radio="" class="popup-calc-options">
 											<label class="popup-calc-options__item">
 												<input class="popup-calc-options__input" checked type="radio" value="1" name="gift">
 												<span class="popup-calc-options__text">
 													<span class="checkmark"></span>
-													<img alt="Image" src="./assets/img/calc/popup-calc/01.webp">
+													<img alt="Подарок 1" src="./assets/img/calc/popup-calc/01.webp">
 												</span>
 											</label>
 											<label class="popup-calc-options__item">
 												<input class="popup-calc-options__input" type="radio" value="2" name="gift">
 												<span class="popup-calc-options__text">
 													<span class="checkmark"></span>
-													<img alt="Image" src="./assets/img/calc/popup-calc/02.webp">
+													<img alt="Подарок 2" src="./assets/img/calc/popup-calc/02.webp">
 												</span>
 											</label>
 											<label class="popup-calc-options__item">
 												<input class="popup-calc-options__input" type="radio" value="3" name="gift">
 												<span class="popup-calc-options__text">
 													<span class="checkmark"></span>
-													<img alt="Image" src="./assets/img/calc/popup-calc/03.webp">
+													<img alt="Подарок 3" src="./assets/img/calc/popup-calc/03.webp">
 												</span>
 											</label>
 										</div>
@@ -168,12 +203,13 @@
 										<span>подарок!</span>
 									</div>
 									<div class="popup-calc__item">
-										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" autocomplete="off" type="text" name="phone" placeholder="Имя" class="popup-calc__input input">
-										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="popup-calc__input input">
-										<button type="submit" class="popup-calc__button button">Отправить заявку</button>
+										<!-- Исправлено: name="name" вместо name="phone" -->
+										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" autocomplete="off" type="text" name="name" placeholder="Имя" class="popup-calc__input input" id="calcName">
+										<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" placeholder="+375(__) ___-__-__" class="popup-calc__input input" id="calcPhone">
+										<button type="submit" class="popup-calc__button button" id="calcSubmitBtn">Отправить заявку</button>
 									</div>
 									<label data-fls-checkbox="" class="checkbox">
-										<input checked data-fls-form-errtext="Заполните поле" class="checkbox__input" type="checkbox" value="7" name="check">
+										<input checked data-fls-form-errtext="Заполните поле" class="checkbox__input" type="checkbox" value="1" name="agree" id="calcAgree" required>
 										<span class="checkbox__text">
 											Соглашаюсь с обработкой персональных данных и политикой
                 конфиденциальности
@@ -186,6 +222,145 @@
 					</div>
 				</div>
 			</div>
+			<!--
+<div data-fls-popup="popup-calc" aria-hidden="true" class="popup popup-calc">
+<div data-fls-popup-wrapper class="popup__wrapper">
+<div data-fls-popup-body class="popup__body">
+<button data-fls-popup-close type="button" class="popup__close">
+<svg
+width="23"
+height="23"
+viewBox="0 0 23 23"
+fill="none"
+xmlns="http://www.w3.org/2000/svg"
+>
+<path
+opacity="0.850056"
+d="M1.73333 1.48883L21.5469 21.0288"
+stroke="#979797"
+stroke-linecap="square"
+/>
+<path
+opacity="0.850056"
+d="M21.2667 1.48883L1.45309 21.0288"
+stroke="#979797"
+stroke-linecap="square"
+/>
+</svg>
+</button>
+<div data-fls-popup-content class="popup__text">
+<div class="popup-calc__box">
+<h2 class="popup-calc__title">Ваш расчет готов!</h2>
+<p class="popup-calc__subtitle">
+Но это еще не все! Мы хотим сделать ваш проект еще более приятным.
+</p>
+<form
+class="popup-calc__form"
+data-fls-form="ajax"
+data-fls-form-popup="popup-message"
+method="POST"
+action="sendmail/sendmail.php"
+method="POST"
+>
+<div class="popup-calc__form-top">
+<div class="popup-calc__form-top-text">
+<p>Выберите подарок</p>
+<img src="@img/calc/popup-calc/modal-gift.webp" alt="Image" />
+</div>
+<div data-fls-radio class="popup-calc-options">
+<label class="popup-calc-options__item">
+<input
+class="popup-calc-options__input"
+checked
+type="radio"
+value="1"
+name="gift"
+/>
+<span class="popup-calc-options__text">
+<span class="checkmark"></span>
+<img src="@img/calc/popup-calc/01.webp" alt="Image" />
+</span>
+</label>
+<label class="popup-calc-options__item">
+<input
+class="popup-calc-options__input"
+type="radio"
+value="2"
+name="gift"
+/>
+<span class="popup-calc-options__text">
+<span class="checkmark"></span>
+<img src="@img/calc/popup-calc/02.webp" alt="Image" />
+</span>
+</label>
+<label class="popup-calc-options__item">
+<input
+class="popup-calc-options__input"
+type="radio"
+value="3"
+name="gift"
+/>
+<span class="popup-calc-options__text">
+<span class="checkmark"></span>
+<img src="@img/calc/popup-calc/03.webp" alt="Image" />
+</span>
+</label>
+</div>
+</div>
+<div class="popup-calc__main-text">
+Заполните форму, чтобы получить <span>расчет</span> и закрепить за
+собой <span>подарок!</span>
+</div>
+<div class="popup-calc__item">
+<input
+data-fls-form-errtext="Заполните поле"
+required
+data-fls-input
+autocomplete="off"
+type="text"
+name="phone"
+placeholder="Имя"
+class="popup-calc__input input"
+/>
+<input
+data-fls-form-errtext="Заполните поле"
+required
+data-fls-input
+data-fls-input-mask="+375(99) 999-99-99"
+autocomplete="off"
+type="text"
+name="phone"
+placeholder="+375(__) ___-__-__"
+class="popup-calc__input input"
+/>
+<button type="submit" class="popup-calc__button button">
+Отправить заявку
+</button>
+</div>
+<label data-fls-checkbox class="checkbox">
+<input
+checked
+data-fls-form-errtext="Заполните поле"
+class="checkbox__input"
+type="checkbox"
+value="7"
+name="check"
+/>
+<span class="checkbox__text"
+>Соглашаюсь с обработкой персональных данных и политикой
+конфиденциальности
+</span>
+</label>
+<p class="popup-calc__footer">
+*Подробности акций уточняйте у менеджера
+</p>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+-->
 			<div data-fls-popup="popup-message" aria-hidden="true" class="popup popup--success">
 				<div data-fls-popup-wrapper="" class="popup__wrapper">
 					<div data-fls-popup-body="" class="popup__body">
@@ -1662,208 +1837,226 @@ alt="Image"
 							<div id="wrapper-content" class="qwiz__wrapper-content">
 								<div class="qwiz__slider swiper swiper-container">
 									<!-- Частина слайдера, що рухається -->
-									<form data-fls-form-popup="popup-message" data-fls-form="ajax" action="files/sendmail/sendmail.php" method="POST" class="qwiz__wrapper swiper-wrapper">
-										<!-- 1 Слайд -->
+									<form id="quizForm" data-fls-form-popup="popup-message" data-fls-form="ajax" action="sendmail.php" method="POST" class="qwiz__wrapper swiper-wrapper">
+										<!-- Тип формы -->
+										<input type="hidden" name="form_type" value="quiz">
+										<!-- 1 Слайд: Выберите тип балкона -->
 										<div class="qwiz__slide swiper-slide slide-qwiz slide-main-block">
 											<div class="slide-qwiz__body">
 												<h5 class="slide-qwiz__title">Выберите тип балкона</h5>
 												<div class="options">
 													<div class="options__item">
-														<input data-required="" id="o_1" class="options__input input" checked type="radio" value="Забор жалюзи" name="step_1">
-														<label for="o_1" class="options__label">
+														<input data-required="" id="q1_o1" class="options__input input" type="radio" value="Обычный балкон" name="step_1" required>
+														<label for="q1_o1" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/qwiz/01.jpg">
+																<img src="assets/img/qwiz/balcony-types/01.jpg" alt="Обычный балкон">
 															</div>
 														</label>
-														<h3 class="options__title">Забор жалюзи</h3>
+														<h3 class="options__title">Обычный балкон</h3>
 													</div>
 													<div class="options__item">
-														<input data-required="" id="o_2" class="options__input input" type="radio" value="Забор из штакетника" name="step_1">
-														<label for="o_2" class="options__label">
+														<input data-required="" id="q1_o2" class="options__input input" type="radio" value="Лоджия" name="step_1" required>
+														<label for="q1_o2" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/qwiz/01.jpg">
+																<img src="assets/img/qwiz/balcony-types/02.jpg" alt="Лоджия">
 															</div>
 														</label>
-														<h3 class="options__title">Забор из штакетника</h3>
+														<h3 class="options__title">Лоджия</h3>
 													</div>
 													<div class="options__item">
-														<input data-required="" id="o_3" class="options__input input" type="radio" value="Забор рабица" name="step_1">
-														<label for="o_3" class="options__label">
+														<input data-required="" id="q1_o3" class="options__input input" type="radio" value="Французский балкон" name="step_1" required>
+														<label for="q1_o3" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/qwiz/01.jpg">
+																<img src="assets/img/qwiz/balcony-types/03.jpg" alt="Французский балкон">
 															</div>
 														</label>
-														<h3 class="options__title">Забор рабица</h3>
+														<h3 class="options__title">Французский балкон</h3>
 													</div>
 													<div class="options__item">
-														<input data-required="" id="o_4" class="options__input input" type="radio" value="Забор из профнастила" name="step_1">
-														<label for="o_4" class="options__label">
+														<input data-required="" id="q1_o4" class="options__input input" type="radio" value="Терраса/Веранда" name="step_1" required>
+														<label for="q1_o4" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/qwiz/01.jpg">
+																<img src="assets/img/qwiz/balcony-types/04.jpg" alt="Терраса">
 															</div>
 														</label>
-														<h3 class="options__title">Забор из профнастила</h3>
+														<h3 class="options__title">Терраса/Веранда</h3>
 													</div>
 												</div>
 											</div>
 										</div>
-										<!-- 2 слайд -->
+										<!-- 2 слайд: Необходимо остекление? -->
 										<div class="qwiz__slide swiper-slide slide-qwiz slide-main-block">
 											<div class="slide-qwiz__body">
 												<h5 class="slide-qwiz__title">Необходимо остекление?</h5>
 												<div class="radio">
 													<div class="radio__item">
-														<input data-required="" id="o_27" class="radio__input" checked type="radio" value="до 1000" name="step_5">
-														<label for="o_27" class="radio__label">
-															<span class="radio__text">Да, необходимо</span>
+														<input data-required="" id="q2_o1" class="radio__input" type="radio" value="Да, необходимо холодное остекление" name="step_2" required>
+														<label for="q2_o1" class="radio__label">
+															<span class="radio__text">Да, необходимо холодное остекление</span>
 														</label>
 													</div>
 													<div class="radio__item">
-														<input id="o_44" class="radio__input" type="radio" value="от 1000 до
-													1500 кв.м" name="step_5">
-														<label for="o_44" class="radio__label">
+														<input id="q2_o2" class="radio__input" type="radio" value="Да, необходимо теплое остекление" name="step_2" required>
+														<label for="q2_o2" class="radio__label">
+															<span class="radio__text">Да, необходимо теплое остекление</span>
+														</label>
+													</div>
+													<div class="radio__item">
+														<input id="q2_o3" class="radio__input" type="radio" value="Нет, не нужно" name="step_2" required>
+														<label for="q2_o3" class="radio__label">
 															<span class="radio__text">Нет, не нужно</span>
 														</label>
 													</div>
 													<div class="radio__item">
-														<input id="o_28" class="radio__input" type="radio" value="от 1500 до
-													2000 кв.м." name="step_5">
-														<label for="o_28" class="radio__label">
+														<input id="q2_o4" class="radio__input" type="radio" value="Не знаю, нужна консультация" name="step_2" required>
+														<label for="q2_o4" class="radio__label">
 															<span class="radio__text">Не знаю, нужна консультация</span>
 														</label>
 													</div>
 												</div>
 											</div>
 										</div>
-										<!-- 3 слайд -->
+										<!-- 3 слайд: Какой тип отделки стен интересует? -->
 										<div class="qwiz__slide swiper-slide slide-qwiz slide-main-block">
 											<div class="slide-qwiz__body">
-												<h5 class="slide-qwiz__title">Выберите тип балкона</h5>
+												<h5 class="slide-qwiz__title">Какой тип отделки стен интересует?</h5>
 												<div class="options">
 													<div class="options__item">
-														<input data-required="" id="o_1" class="options__input input" checked type="radio" value="Забор жалюзи" name="step_1">
-														<label for="o_1" class="options__label">
+														<input data-required="" id="q3_o1" class="options__input input" type="radio" value="Панели ПВХ" name="step_3" required>
+														<label for="q3_o1" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/qwiz/01.jpg">
+																<img src="assets/img/qwiz/walls/01.jpg" alt="Панели ПВХ">
 															</div>
 														</label>
-														<h3 class="options__title">Забор жалюзи</h3>
+														<h3 class="options__title">Панели ПВХ</h3>
 													</div>
 													<div class="options__item">
-														<input data-required="" id="o_2" class="options__input input" type="radio" value="Забор из штакетника" name="step_1">
-														<label for="o_2" class="options__label">
+														<input data-required="" id="q3_o2" class="options__input input" type="radio" value="Вагонка" name="step_3" required>
+														<label for="q3_o2" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/qwiz/01.jpg">
+																<img src="assets/img/qwiz/walls/02.jpg" alt="Вагонка">
 															</div>
 														</label>
-														<h3 class="options__title">Забор из штакетника</h3>
+														<h3 class="options__title">Вагонка</h3>
 													</div>
 													<div class="options__item">
-														<input data-required="" id="o_3" class="options__input input" type="radio" value="Забор рабица" name="step_1">
-														<label for="o_3" class="options__label">
+														<input data-required="" id="q3_o3" class="options__input input" type="radio" value="Ламинат на стены" name="step_3" required>
+														<label for="q3_o3" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/qwiz/01.jpg">
+																<img src="assets/img/qwiz/walls/03.jpg" alt="Ламинат">
 															</div>
 														</label>
-														<h3 class="options__title">Забор рабица</h3>
+														<h3 class="options__title">Ламинат на стены</h3>
 													</div>
 													<div class="options__item">
-														<input data-required="" id="o_4" class="options__input input" type="radio" value="Забор из профнастила" name="step_1">
-														<label for="o_4" class="options__label">
+														<input data-required="" id="q3_o4" class="options__input input" type="radio" value="Штукатурка и покраска" name="step_3" required>
+														<label for="q3_o4" class="options__label">
 															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/qwiz/01.jpg">
+																<img src="assets/img/qwiz/walls/04.jpg" alt="Штукатурка">
 															</div>
 														</label>
-														<h3 class="options__title">Забор из профнастила</h3>
+														<h3 class="options__title">Штукатурка и покраска</h3>
 													</div>
 												</div>
 											</div>
 										</div>
-										<!-- 4 слайд -->
+										<!-- 4 слайд: Нужна встроенная мебель? -->
 										<div class="qwiz__slide swiper-slide slide-qwiz slide-main-block">
 											<div class="slide-qwiz__body">
 												<h5 class="slide-qwiz__title">Нужна встроенная мебель?</h5>
 												<div class="radio">
 													<div class="radio__item">
-														<input data-required="" id="o_27" class="radio__input" checked type="radio" value="до 1000" name="step_5">
-														<label for="o_27" class="radio__label">
-															<span class="radio__text">Да, нужна</span>
+														<input data-required="" id="q4_o1" class="radio__input" type="radio" value="Да, шкаф-купе" name="step_4" required>
+														<label for="q4_o1" class="radio__label">
+															<span class="radio__text">Да, шкаф-купе</span>
 														</label>
 													</div>
 													<div class="radio__item">
-														<input id="o_44" class="radio__input" type="radio" value="от 1000 до
-													1500 кв.м" name="step_5">
-														<label for="o_44" class="radio__label">
+														<input id="q4_o2" class="radio__input" type="radio" value="Да, полки и стеллажи" name="step_4" required>
+														<label for="q4_o2" class="radio__label">
+															<span class="radio__text">Да, полки и стеллажи</span>
+														</label>
+													</div>
+													<div class="radio__item">
+														<input id="q4_o3" class="radio__input" type="radio" value="Да, рабочий стол" name="step_4" required>
+														<label for="q4_o3" class="radio__label">
+															<span class="radio__text">Да, рабочий стол</span>
+														</label>
+													</div>
+													<div class="radio__item">
+														<input id="q4_o4" class="radio__input" type="radio" value="Нет, не нужно" name="step_4" required>
+														<label for="q4_o4" class="radio__label">
 															<span class="radio__text">Нет, не нужно</span>
-														</label>
-													</div>
-													<div class="radio__item">
-														<input id="o_28" class="radio__input" type="radio" value="от 1500 до
-													2000 кв.м." name="step_5">
-														<label for="o_28" class="radio__label">
-															<span class="radio__text">Не знаю, нужна консультация</span>
 														</label>
 													</div>
 												</div>
 											</div>
 										</div>
-										<!-- 5 слайд -->
+										<!-- 5 слайд: Объединим балкон с комнатой? -->
 										<div class="qwiz__slide swiper-slide slide-qwiz slide-main-block">
 											<div class="slide-qwiz__body">
 												<h5 class="slide-qwiz__title">Объединим балкон с комнатой?</h5>
 												<div class="radio">
 													<div class="radio__item">
-														<input data-required="" id="o_27" class="radio__input" checked type="radio" value="до 1000" name="step_5">
-														<label for="o_27" class="radio__label">
-															<span class="radio__text">Да, объединим</span>
+														<input data-required="" id="q5_o1" class="radio__input" type="radio" value="Да, полностью объединить" name="step_5" required>
+														<label for="q5_o1" class="radio__label">
+															<span class="radio__text">Да, полностью объединить</span>
 														</label>
 													</div>
 													<div class="radio__item">
-														<input id="o_44" class="radio__input" type="radio" value="от 1000 до
-													1500 кв.м" name="step_5">
-														<label for="o_44" class="radio__label">
-															<span class="radio__text">Нет, не нужно</span>
+														<input id="q5_o2" class="radio__input" type="radio" value="Да, с раздвижной перегородкой" name="step_5" required>
+														<label for="q5_o2" class="radio__label">
+															<span class="radio__text">Да, с раздвижной перегородкой</span>
 														</label>
 													</div>
 													<div class="radio__item">
-														<input id="o_28" class="radio__input" type="radio" value="от 1500 до
-													2000 кв.м." name="step_5">
-														<label for="o_28" class="radio__label">
+														<input id="q5_o3" class="radio__input" type="radio" value="Нет, оставить раздельно" name="step_5" required>
+														<label for="q5_o3" class="radio__label">
+															<span class="radio__text">Нет, оставить раздельно</span>
+														</label>
+													</div>
+													<div class="radio__item">
+														<input id="q5_o4" class="radio__input" type="radio" value="Не знаю, нужна консультация" name="step_5" required>
+														<label for="q5_o4" class="radio__label">
 															<span class="radio__text">Не знаю, нужна консультация</span>
 														</label>
 													</div>
 												</div>
 											</div>
 										</div>
-										<!-- 6 слайд -->
+										<!-- 6 слайд: Когда планируете ремонт? -->
 										<div class="qwiz__slide swiper-slide slide-qwiz slide-main-block">
 											<div class="slide-qwiz__body">
 												<h5 class="slide-qwiz__title">Когда планируете ремонт?</h5>
 												<div class="radio">
 													<div class="radio__item">
-														<input data-required="" id="o_27" class="radio__input" checked type="radio" value="до 1000" name="step_5">
-														<label for="o_27" class="radio__label">
-															<span class="radio__text">Как можно скорее пока действует скидка %</span>
+														<input data-required="" id="q6_o1" class="radio__input" type="radio" value="Как можно скорее, пока действует скидка" name="step_6" required>
+														<label for="q6_o1" class="radio__label">
+															<span class="radio__text">Как можно скорее, пока действует скидка</span>
 														</label>
 													</div>
 													<div class="radio__item">
-														<input id="o_44" class="radio__input" type="radio" value="от 1000 до
-													1500 кв.м" name="step_5">
-														<label for="o_44" class="radio__label">
+														<input id="q6_o2" class="radio__input" type="radio" value="В этом месяце" name="step_6" required>
+														<label for="q6_o2" class="radio__label">
 															<span class="radio__text">В этом месяце</span>
 														</label>
 													</div>
 													<div class="radio__item">
-														<input id="o_28" class="radio__input" type="radio" value="от 1500 до
-													2000 кв.м." name="step_5">
-														<label for="o_28" class="radio__label">
-															<span class="radio__text">Затрудняюсь ответить</span>
+														<input id="q6_o3" class="radio__input" type="radio" value="В ближайшие 3 месяца" name="step_6" required>
+														<label for="q6_o3" class="radio__label">
+															<span class="radio__text">В ближайшие 3 месяца</span>
+														</label>
+													</div>
+													<div class="radio__item">
+														<input id="q6_o4" class="radio__input" type="radio" value="Пока присматриваюсь, без сроков" name="step_6" required>
+														<label for="q6_o4" class="radio__label">
+															<span class="radio__text">Пока присматриваюсь, без сроков</span>
 														</label>
 													</div>
 												</div>
 											</div>
 										</div>
-										<!-- Конечная страница !форма! -->
+										<!-- Конечная страница с формой -->
 										<div class="qwiz__slide swiper-slide slide-qwiz slide-qwiz-block slide-main-block">
 											<div class="slide-qwiz-block__content">
 												<h3 class="slide-qwiz-block__title-last">Мы уже приступили к расчету</h3>
@@ -1873,16 +2066,18 @@ alt="Image"
                   стоимость работ?
 												</p>
 												<div class="slide-qwiz-block__form">
-													<select data-fls-select="" name="select" data-fls-select-modif="qwiz">
+													<select data-fls-select="" name="select" data-fls-select-modif="qwiz" required>
+														<option value="" selected disabled>Выберите способ связи</option>
 														<option data-fls-select-asset="assets/img/icon/tg.png" value="Telegram">Telegram</option>
 														<option data-fls-select-asset="assets/img/icon/phone.svg" value="Телефон">Телефон</option>
 														<option data-fls-select-asset="assets/img/icon/viber.png" value="Viber">Viber</option>
+														<option data-fls-select-asset="assets/img/icon/whatsapp.png" value="WhatsApp">WhatsApp</option>
 													</select>
-													<input data-required="" type="text" name="name" data-error="заполните поле" placeholder="Ваше имя" class="slide-qwiz-block__input input">
-													<input data-required="" id="phone" type="text" name="phone" data-error="заполните поле" placeholder="+375 (__) ___-__-__" class="slide-qwiz-block__input input">
+													<input data-required="" type="text" name="name" data-error="Заполните поле" placeholder="Ваше имя" class="slide-qwiz-block__input input" required>
+													<input data-required="" id="quizPhone" type="text" name="phone" data-error="Заполните поле" placeholder="+375 (__) ___-__-__" class="slide-qwiz-block__input input" required>
 													<button class="slide-qwiz-block__button button" type="submit">Получить расчет</button>
 													<label data-fls-checkbox="" class="checkbox">
-														<input data-error="Ошибка" class="checkbox__input" type="checkbox" value="5" name="form[]">
+														<input data-error="Необходимо согласие" class="checkbox__input" type="checkbox" value="1" name="agree" required>
 														<span class="checkbox__text">
 															Я даю согласие на обработку моих персональных данных в
                       соответствии с политикой конфиденциальности
@@ -1892,13 +2087,13 @@ alt="Image"
 											</div>
 											<div class="slide-qwiz-block__image">
 												<div class="slide-qwiz-block__circle">
-													<img src="./assets/img/qwiz/pdf-img.svg" alt="#">
+													<img src="./assets/img/qwiz/pdf-img.svg" alt="PDF">
 													<p>
 														Засекайте
 														<span>45 мин.</span>
 													</p>
 												</div>
-												<img class="slide-qwiz-block__image-phone" alt="#" src="./assets/img/qwiz/quiz-final.png">
+												<img class="slide-qwiz-block__image-phone" alt="Менеджер" src="./assets/img/qwiz/quiz-final.png">
 											</div>
 										</div>
 									</form>
@@ -1907,7 +2102,7 @@ alt="Image"
 											<div class="qwiz__pagination swiper-pagination"></div>
 											<div class="fraction-controll">
 												<span class="fraction-controll__current">01</span>
-												<span class="fraction-controll__all">10</span>
+												<span class="fraction-controll__all">07</span>
 												<div class="fraction-controll__progress">
 													<span>Готово:</span>
 													0%
@@ -1930,7 +2125,7 @@ alt="Image"
 									</div>
 								</div>
 								<div id="banner" class="qwiz__banner banner-qwiz">
-									<img class="banner-qwiz__img-bg" alt="Image" src="./assets/img/qwiz/aside-bg.jpg">
+									<img class="banner-qwiz__img-bg" alt="Фон" src="./assets/img/qwiz/aside-bg.jpg">
 									<div class="banner-qwiz__body">
 										<div class="banner-qwiz__top">
 											<strong class="banner-qwiz__text-bold">В конце теста</strong>
@@ -1941,7 +2136,7 @@ alt="Image"
 											</div>
 										</div>
 										<div class="banner-qwiz__image">
-											<img alt="Image" src="./assets/img/qwiz/person-1.png">
+											<img alt="Менеджер" src="./assets/img/qwiz/person-1.png">
 										</div>
 										<div class="banner-qwiz__info">
 											<div class="banner-qwiz__name">Владислав Слащев</div>
@@ -2408,14 +2603,6 @@ alt="Image"
 												<p>Монтаж панелей ПВХ</p>
 												<span>от 1 500 руб./м²</span>
 											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
-											<li>
-												<p>Монтаж панелей ПВХ</p>
-												<span>от 1 500 руб./м²</span>
-											</li>
 										</ul>
 										<div class="turnkey__prices">
 											<div class="turnkey__prices-block">
@@ -2709,7 +2896,7 @@ alt="Image"
 											</div>
 										</div>
 										<p class="reviews__text">
-											Наш балкон выходит на оживлённую улицу, и хотелось уменьшить шум. Мастера предложили стеклопакеты с хорошей шумоизоляцией и объяснили, как это работает. Установка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
+											новка прошла быстро и аккуратно, без лишнего мусора. После монтажа стало заметно тише, и теперь вечером можно спокойно отдыхать. Балкон стал уютным и светлым. Мы довольны качеством работы и внимательностью специалистов. Очень рекомендую.
 										</p>
 										<a class="reviews__link" href="#">Смотреть отзыв</a>
 									</div>

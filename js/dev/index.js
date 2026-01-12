@@ -718,16 +718,16 @@ class SelectConstructor {
   }
   // Получение данных из выбранных элементов
   getSelectedOptionsData(originalSelect, type) {
-    let selectedOptions2 = [];
+    let selectedOptions = [];
     if (originalSelect.multiple) {
-      selectedOptions2 = Array.from(originalSelect.options).filter((option) => option.value).filter((option) => option.selected);
+      selectedOptions = Array.from(originalSelect.options).filter((option) => option.value).filter((option) => option.selected);
     } else {
-      selectedOptions2.push(originalSelect.options[originalSelect.selectedIndex]);
+      selectedOptions.push(originalSelect.options[originalSelect.selectedIndex]);
     }
     return {
-      elements: selectedOptions2.map((option) => option),
-      values: selectedOptions2.filter((option) => option.value).map((option) => option.value),
-      html: selectedOptions2.map((option) => this.getSelectElementContent(option))
+      elements: selectedOptions.map((option) => option),
+      values: selectedOptions.filter((option) => option.value).map((option) => option.value),
+      html: selectedOptions.map((option) => this.getSelectElementContent(option))
     };
   }
   // Конструктор элементов списка
@@ -12713,18 +12713,24 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
   console.log("Всего изображений в карте:", imageMap.size);
-  let selectedOptions2 = {
-    walls: null,
-    ceiling: null,
-    floor: null,
-    exterior: null,
-    lighting: null,
-    glazing: null,
-    insulation: null
+  let selectedOptions = {
+    walls: { enabled: false, material: null, price: 0 },
+    ceiling: { enabled: false, material: null, price: 0 },
+    floor: { enabled: false, material: null, price: 0 },
+    exterior: { enabled: false, material: null, price: 0 },
+    lighting: { enabled: false, material: null, price: 0 },
+    glazing: { enabled: false, material: null, price: 0 },
+    insulation: { enabled: false, material: null, price: 0 }
   };
-  let dimensions2 = {
+  let dimensions = {
     length: 300,
     width: 300
+  };
+  let dimensionPrices = {
+    length: 50,
+    // руб/см по умолчанию
+    width: 50
+    // руб/см по умолчанию
   };
   const basePrice = {
     walls: 1200,
@@ -12756,47 +12762,92 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
   function calculateArea() {
-    const length = parseFloat(dimensions2.length) || 0;
-    const width = parseFloat(dimensions2.width) || 0;
-    return length * width / 1e4;
+    const length = parseFloat(dimensions.length) || 0;
+    const width = parseFloat(dimensions.width) || 0;
+    const lengthM = length / 100;
+    const widthM = width / 100;
+    return lengthM * widthM;
   }
-  function calculateTotalPrice2() {
+  function calculateDimensionsPrice() {
+    const length = dimensions.length || 0;
+    const width = dimensions.width || 0;
+    const lengthPrice = length * dimensionPrices.length;
+    const widthPrice = width * dimensionPrices.width;
+    const perimeter = (length + width) * 2;
+    const perimeterPrice = perimeter * dimensionPrices.length;
+    const dimensionsTotal = perimeterPrice;
+    return {
+      lengthPrice,
+      widthPrice,
+      perimeter,
+      perimeterPrice,
+      total: dimensionsTotal
+    };
+  }
+  function calculateTotalPrice() {
     const area = calculateArea();
     let total = 0;
-    for (const [section, option] of Object.entries(selectedOptions2)) {
-      if (option) {
+    const dimensionsPrice = calculateDimensionsPrice();
+    total += dimensionsPrice.total;
+    for (const [section, option] of Object.entries(selectedOptions)) {
+      if (option && option.enabled && option.material) {
         if (section === "walls" || section === "ceiling" || section === "floor" || section === "exterior") {
-          const sectionPrice = basePrice[section] + option.price;
+          const sectionPrice = basePrice[section] + (option.price || 0);
           total += sectionPrice * area;
-        } else {
-          total += option.price;
+        } else if (section === "lighting" || section === "glazing" || section === "insulation") {
+          total += option.price || 0;
         }
       }
     }
     return Math.round(total);
   }
   function updatePrice() {
-    const total = calculateTotalPrice2();
+    const total = calculateTotalPrice();
+    const dimensionsCalc = calculateDimensionsPrice();
+    const area = calculateArea();
     if (totalPriceElement) {
       totalPriceElement.textContent = total.toLocaleString("ru-RU");
     }
+    document.querySelectorAll(".calc__dimension-price").forEach((el) => {
+      const forWhat = el.getAttribute("data-for");
+      if (forWhat === "length") {
+        el.textContent = dimensionsCalc.lengthPrice.toLocaleString("ru-RU");
+      } else if (forWhat === "width") {
+        el.textContent = dimensionsCalc.widthPrice.toLocaleString("ru-RU");
+      }
+    });
+    const dimensionsTotalEl = document.getElementById("dimensionsTotalPrice");
+    const perimeterEl = document.getElementById("perimeter");
+    const areaEl = document.getElementById("area");
+    const lengthPricePerCmEl = document.getElementById("lengthPricePerCm");
+    const widthPricePerCmEl = document.getElementById("widthPricePerCm");
+    if (dimensionsTotalEl) dimensionsTotalEl.textContent = dimensionsCalc.total.toLocaleString("ru-RU");
+    if (perimeterEl) perimeterEl.textContent = Math.round(dimensionsCalc.perimeter);
+    if (areaEl) areaEl.textContent = area.toFixed(2);
+    if (lengthPricePerCmEl) lengthPricePerCmEl.textContent = dimensionPrices.length;
+    if (widthPricePerCmEl) widthPricePerCmEl.textContent = dimensionPrices.width;
   }
   function handleButtonClick(button) {
-    const section = button.closest(".calc__choice").dataset.section;
+    const sectionChoice = button.closest(".calc__choice");
+    const section = sectionChoice.dataset.section;
     const price = parseInt(button.dataset.price) || 0;
     const material = button.dataset.material;
-    const sectionSwitch = button.closest(".calc__choice").querySelector("[data-enable-section]");
+    const sectionSwitch = sectionChoice.querySelector("[data-enable-section]");
     if (!sectionSwitch.checked) {
-      alert("Включите секцию " + section + " для выбора материала");
+      alert('Включите секцию "' + sectionChoice.querySelector(".calc__choice-title").textContent + '" для выбора материала');
       return;
     }
     console.log(`Клик: ${section} - ${material}, цена: ${price}`);
     if (button.classList.contains("active")) {
       button.classList.remove("active");
-      selectedOptions2[section] = null;
+      selectedOptions[section] = {
+        enabled: true,
+        material: null,
+        price: 0
+      };
       manageImage(section, material, false);
     } else {
-      const buttonsInSection = button.closest(".calc__buttons").querySelectorAll(".calc__button");
+      const buttonsInSection = sectionChoice.querySelectorAll(".calc__button");
       buttonsInSection.forEach((btn) => {
         btn.classList.remove("active");
         if (btn !== button) {
@@ -12805,32 +12856,61 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       });
       button.classList.add("active");
-      selectedOptions2[section] = {
-        price,
-        material
+      selectedOptions[section] = {
+        enabled: true,
+        material,
+        price
       };
       manageImage(section, material, true);
     }
     updatePrice();
   }
-  function collectFormData() {
-    const data = {
-      dimensions: { ...dimensions2 },
-      selectedOptions: { ...selectedOptions2 },
-      totalPrice: calculateTotalPrice2(),
-      area: calculateArea()
-    };
-    console.log("Данные для отправки:", data);
-    for (const [section, option] of Object.entries(selectedOptions2)) {
-      if (option) {
-        message += `${section}: ${option.material} - ${option.price} руб
-`;
+  function fillCalcHiddenFields() {
+    console.log("Заполнение скрытых полей формы");
+    const calcLengthField = document.getElementById("calcLength");
+    const calcWidthField = document.getElementById("calcWidth");
+    const calcTotalPriceField = document.getElementById("calcTotalPrice");
+    if (calcLengthField) calcLengthField.value = dimensions.length;
+    if (calcWidthField) calcWidthField.value = dimensions.width;
+    if (calcTotalPriceField) calcTotalPriceField.value = calculateTotalPrice();
+    console.log(`Размеры: ${dimensions.length}см x ${dimensions.width}см, Цена: ${calculateTotalPrice()}`);
+    const lengthPricePerCmField = document.getElementById("lengthPricePerCmHidden");
+    const widthPricePerCmField = document.getElementById("widthPricePerCmHidden");
+    if (lengthPricePerCmField) lengthPricePerCmField.value = dimensionPrices.length;
+    if (widthPricePerCmField) widthPricePerCmField.value = dimensionPrices.width;
+    const sections = ["walls", "ceiling", "floor", "exterior", "lighting", "glazing", "insulation"];
+    sections.forEach((section) => {
+      const option = selectedOptions[section];
+      const enabledField = document.querySelector(`[name="${section}_enabled"], #${section}Enabled`);
+      const materialField = document.querySelector(`[name="${section}_material"], #${section}Material`);
+      const priceField = document.querySelector(`[name="${section}_price"], #${section}Price`);
+      if (enabledField) {
+        enabledField.value = option.enabled ? "true" : "false";
       }
-    }
-    message += `
-Итого: ${data.totalPrice.toLocaleString("ru-RU")} руб`;
-    alert(message);
-    return data;
+      if (materialField) {
+        materialField.value = option.material || "";
+      }
+      if (priceField) {
+        priceField.value = option.price || 0;
+      }
+      console.log(`${section}: enabled=${option.enabled}, material=${option.material}, price=${option.price}`);
+    });
+  }
+  function initializeDimensions() {
+    sizeInputs.forEach((input) => {
+      const initialValue = parseFloat(input.value) || 0;
+      dimensions[input.name] = initialValue;
+      if (dimensions[input.name] === 0) {
+        dimensions[input.name] = input.name === "length" ? 30 : 300;
+        input.value = dimensions[input.name];
+      }
+      const pricePerCm = input.getAttribute("data-price-per-cm");
+      if (pricePerCm) {
+        dimensionPrices[input.name] = parseFloat(pricePerCm) || 50;
+        console.log(`Цена за см для ${input.name}: ${dimensionPrices[input.name]} руб (из data-атрибута)`);
+      }
+      console.log(`Поле ${input.name}: значение=${dimensions[input.name]} см, цена за см=${dimensionPrices[input.name]} руб`);
+    });
   }
   calcButtons.forEach((button) => {
     button.addEventListener("click", () => handleButtonClick(button));
@@ -12838,49 +12918,80 @@ document.addEventListener("DOMContentLoaded", function() {
   sizeInputs.forEach((input) => {
     input.addEventListener("input", function() {
       const value = parseFloat(this.value) || 0;
-      dimensions2[this.name] = value > 0 ? value : 0;
+      dimensions[this.name] = value > 0 ? value : 0;
+      const pricePerCm = this.getAttribute("data-price-per-cm");
+      if (pricePerCm) {
+        dimensionPrices[this.name] = parseFloat(pricePerCm) || 50;
+      }
+      console.log(`Размер ${this.name}: ${dimensions[this.name]} см, цена за см: ${dimensionPrices[this.name]} руб`);
       updatePrice();
     });
-    dimensions2[input.name] = parseFloat(input.value) || 300;
   });
   sectionSwitches.forEach((switchElement) => {
     switchElement.addEventListener("change", function() {
-      const section = this.closest(".calc__choice").dataset.section;
-      const buttons = this.closest(".calc__choice").querySelectorAll(".calc__button");
+      const sectionChoice = this.closest(".calc__choice");
+      const section2 = sectionChoice.dataset.section;
+      const buttons = sectionChoice.querySelectorAll(".calc__button");
+      selectedOptions[section2].enabled = this.checked;
       if (!this.checked) {
         buttons.forEach((button) => {
           if (button.classList.contains("active")) {
             const material = button.dataset.material;
             button.classList.remove("active");
-            selectedOptions2[section] = null;
-            manageImage(section, material, false);
+            selectedOptions[section2].material = null;
+            selectedOptions[section2].price = 0;
+            manageImage(section2, material, false);
           }
         });
       }
+      console.log(`Секция ${section2} включена: ${this.checked}`);
       updatePrice();
     });
+    const section = switchElement.closest(".calc__choice").dataset.section;
+    selectedOptions[section].enabled = switchElement.checked;
   });
   if (submitButton) {
-    submitButton.addEventListener("click", collectFormData);
-  }
-  updatePrice();
-  setTimeout(() => {
-    console.log("=== ПРОВЕРКА ИЗОБРАЖЕНИЙ ===");
-    allImages.forEach((img, i) => {
-      console.log(`${i + 1}. src: ${img.src}, data-section: ${img.dataset.section}, data-material: ${img.dataset.material}`);
+    submitButton.addEventListener("click", function(e) {
+      console.log('Нажата кнопка "Получить расчет"');
+      fillCalcHiddenFields();
+      console.log("=== ДАННЫЕ ДЛЯ ОТПРАВКИ ===");
+      console.log("Длина:", dimensions.length, "см");
+      console.log("Ширина:", dimensions.width, "см");
+      console.log("Цена за см длины:", dimensionPrices.length, "руб");
+      console.log("Цена за см ширины:", dimensionPrices.width, "руб");
+      console.log("Площадь:", calculateArea().toFixed(2), "м²");
+      console.log("Итоговая цена:", calculateTotalPrice(), "руб");
+      console.log("Выбранные опции:", selectedOptions);
     });
-  }, 1e3);
-});
-function fillCalcHiddenFields() {
-  document.getElementById("calcLength").value = dimensions.length;
-  document.getElementById("calcWidth").value = dimensions.width;
-  document.getElementById("calcTotalPrice").value = calculateTotalPrice();
-  for (const [section, option] of Object.entries(selectedOptions)) {
-    document.getElementById(section + "Enabled").value = option.enabled;
-    document.getElementById(section + "Material").value = option.material || "";
-    document.getElementById(section + "Price").value = option.price || 0;
   }
-}
-document.querySelector(".calc__submit").addEventListener("click", function(e) {
-  fillCalcHiddenFields();
+  document.addEventListener("submit", function(e) {
+    if (e.target.closest("#calcForm")) {
+      console.log("Форма калькулятора отправляется");
+      fillCalcHiddenFields();
+      const formData = new FormData(e.target);
+      console.log("Данные формы:");
+      for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+      }
+    }
+  });
+  function initialize() {
+    console.log("Инициализация калькулятора...");
+    initializeDimensions();
+    console.log("Начальные размеры:", dimensions);
+    console.log("Цены за см:", dimensionPrices);
+    console.log("Начальные опции:", selectedOptions);
+    updatePrice();
+    console.log("Инициализация завершена");
+  }
+  setTimeout(initialize, 100);
+  window.calcData = {
+    dimensions,
+    dimensionPrices,
+    selectedOptions,
+    calculateTotalPrice,
+    calculateArea,
+    calculateDimensionsPrice,
+    fillCalcHiddenFields
+  };
 });

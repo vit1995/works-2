@@ -27,15 +27,6 @@
     fetch(link.href, fetchOpts);
   }
 })();
-function getHash() {
-  if (location.hash) {
-    return location.hash.replace("#", "");
-  }
-}
-function setHash(hash) {
-  hash = hash ? `#${hash}` : window.location.href.split("#")[0];
-  history.pushState("", "", hash);
-}
 let slideUp = (target, duration = 500, showmore = 0) => {
   if (!target.classList.contains("--slide")) {
     target.classList.add("--slide");
@@ -196,697 +187,6 @@ const gotoBlock = (targetBlock, noHeader = false, speed = 500, offsetTop = 0) =>
     });
   }
 };
-function tabs() {
-  const tabs2 = document.querySelectorAll("[data-fls-tabs]");
-  let tabsActiveHash = [];
-  if (tabs2.length > 0) {
-    const hash = getHash();
-    if (hash && hash.startsWith("tab-")) {
-      tabsActiveHash = hash.replace("tab-", "").split("-");
-    }
-    tabs2.forEach((tabsBlock, index) => {
-      tabsBlock.classList.add("--tab-init");
-      tabsBlock.setAttribute("data-fls-tabs-index", index);
-      tabsBlock.addEventListener("click", setTabsAction);
-      initTabs(tabsBlock);
-    });
-    let mdQueriesArray = dataMediaQueries(tabs2, "flsTabs");
-    if (mdQueriesArray && mdQueriesArray.length) {
-      mdQueriesArray.forEach((mdQueriesItem) => {
-        mdQueriesItem.matchMedia.addEventListener("change", function() {
-          setTitlePosition(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-        });
-        setTitlePosition(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-      });
-    }
-  }
-  function setTitlePosition(tabsMediaArray, matchMedia) {
-    tabsMediaArray.forEach((tabsMediaItem) => {
-      tabsMediaItem = tabsMediaItem.item;
-      let tabsTitles = tabsMediaItem.querySelector("[data-fls-tabs-titles]");
-      let tabsTitleItems = tabsMediaItem.querySelectorAll("[data-fls-tabs-title]");
-      let tabsContent = tabsMediaItem.querySelector("[data-fls-tabs-body]");
-      let tabsContentItems = tabsMediaItem.querySelectorAll("[data-fls-tabs-item]");
-      tabsTitleItems = Array.from(tabsTitleItems).filter((item) => item.closest("[data-fls-tabs]") === tabsMediaItem);
-      tabsContentItems = Array.from(tabsContentItems).filter((item) => item.closest("[data-fls-tabs]") === tabsMediaItem);
-      tabsContentItems.forEach((tabsContentItem, index) => {
-        if (matchMedia.matches) {
-          tabsContent.append(tabsTitleItems[index]);
-          tabsContent.append(tabsContentItem);
-          tabsMediaItem.classList.add("--tab-spoller");
-        } else {
-          tabsTitles.append(tabsTitleItems[index]);
-          tabsMediaItem.classList.remove("--tab-spoller");
-        }
-      });
-    });
-  }
-  function initTabs(tabsBlock) {
-    let tabsTitles = tabsBlock.querySelectorAll("[data-fls-tabs-titles]>*");
-    let tabsContent = tabsBlock.querySelectorAll("[data-fls-tabs-body]>*");
-    const tabsBlockIndex = tabsBlock.dataset.flsTabsIndex;
-    const tabsActiveHashBlock = tabsActiveHash[0] == tabsBlockIndex;
-    if (tabsActiveHashBlock) {
-      const tabsActiveTitle = tabsBlock.querySelector("[data-fls-tabs-titles]>.--tab-active");
-      tabsActiveTitle ? tabsActiveTitle.classList.remove("--tab-active") : null;
-    }
-    if (tabsContent.length) {
-      tabsContent.forEach((tabsContentItem, index) => {
-        tabsTitles[index].setAttribute("data-fls-tabs-title", "");
-        tabsContentItem.setAttribute("data-fls-tabs-item", "");
-        if (tabsActiveHashBlock && index == tabsActiveHash[1]) {
-          tabsTitles[index].classList.add("--tab-active");
-        }
-        tabsContentItem.hidden = !tabsTitles[index].classList.contains("--tab-active");
-      });
-    }
-  }
-  function setTabsStatus(tabsBlock) {
-    let tabsTitles = tabsBlock.querySelectorAll("[data-fls-tabs-title]");
-    let tabsContent = tabsBlock.querySelectorAll("[data-fls-tabs-item]");
-    const tabsBlockIndex = tabsBlock.dataset.flsTabsIndex;
-    function isTabsAnamate(tabsBlock2) {
-      if (tabsBlock2.hasAttribute("data-fls-tabs-animate")) {
-        return tabsBlock2.dataset.flsTabsAnimate > 0 ? Number(tabsBlock2.dataset.flsTabsAnimate) : 500;
-      }
-    }
-    const tabsBlockAnimate = isTabsAnamate(tabsBlock);
-    if (tabsContent.length > 0) {
-      const isHash = tabsBlock.hasAttribute("data-fls-tabs-hash");
-      tabsContent = Array.from(tabsContent).filter((item) => item.closest("[data-fls-tabs]") === tabsBlock);
-      tabsTitles = Array.from(tabsTitles).filter((item) => item.closest("[data-fls-tabs]") === tabsBlock);
-      tabsContent.forEach((tabsContentItem, index) => {
-        if (tabsTitles[index].classList.contains("--tab-active")) {
-          if (tabsBlockAnimate) {
-            slideDown(tabsContentItem, tabsBlockAnimate);
-          } else {
-            tabsContentItem.hidden = false;
-          }
-          if (isHash && !tabsContentItem.closest(".popup")) {
-            setHash(`tab-${tabsBlockIndex}-${index}`);
-          }
-        } else {
-          if (tabsBlockAnimate) {
-            slideUp(tabsContentItem, tabsBlockAnimate);
-          } else {
-            tabsContentItem.hidden = true;
-          }
-        }
-      });
-    }
-  }
-  function setTabsAction(e) {
-    const el = e.target;
-    if (el.closest("[data-fls-tabs-title]")) {
-      const tabTitle = el.closest("[data-fls-tabs-title]");
-      const tabsBlock = tabTitle.closest("[data-fls-tabs]");
-      if (!tabTitle.classList.contains("--tab-active") && !tabsBlock.querySelector(".--slide")) {
-        let tabActiveTitle = tabsBlock.querySelectorAll("[data-fls-tabs-title].--tab-active");
-        tabActiveTitle.length ? tabActiveTitle = Array.from(tabActiveTitle).filter((item) => item.closest("[data-fls-tabs]") === tabsBlock) : null;
-        tabActiveTitle.length ? tabActiveTitle[0].classList.remove("--tab-active") : null;
-        tabTitle.classList.add("--tab-active");
-        setTabsStatus(tabsBlock);
-      }
-      e.preventDefault();
-    }
-  }
-}
-window.addEventListener("load", tabs);
-let formValidate = {
-  getErrors(form) {
-    let error = 0;
-    let formRequiredItems = form.querySelectorAll("[required]");
-    if (formRequiredItems.length) {
-      formRequiredItems.forEach((formRequiredItem) => {
-        if ((formRequiredItem.offsetParent !== null || formRequiredItem.tagName === "SELECT") && !formRequiredItem.disabled) {
-          error += this.validateInput(formRequiredItem);
-        }
-      });
-    }
-    return error;
-  },
-  validateInput(formRequiredItem) {
-    let error = 0;
-    if (formRequiredItem.type === "email") {
-      formRequiredItem.value = formRequiredItem.value.replace(" ", "");
-      if (this.emailTest(formRequiredItem)) {
-        this.addError(formRequiredItem);
-        this.removeSuccess(formRequiredItem);
-        error++;
-      } else {
-        this.removeError(formRequiredItem);
-        this.addSuccess(formRequiredItem);
-      }
-    } else if (formRequiredItem.type === "checkbox" && !formRequiredItem.checked) {
-      this.addError(formRequiredItem);
-      this.removeSuccess(formRequiredItem);
-      error++;
-    } else {
-      if (!formRequiredItem.value.trim()) {
-        this.addError(formRequiredItem);
-        this.removeSuccess(formRequiredItem);
-        error++;
-      } else {
-        this.removeError(formRequiredItem);
-        this.addSuccess(formRequiredItem);
-      }
-    }
-    return error;
-  },
-  addError(formRequiredItem) {
-    formRequiredItem.classList.add("--form-error");
-    formRequiredItem.parentElement.classList.add("--form-error");
-    let inputError = formRequiredItem.parentElement.querySelector("[data-fls-form-error]");
-    if (inputError) formRequiredItem.parentElement.removeChild(inputError);
-    if (formRequiredItem.dataset.flsFormErrtext) {
-      formRequiredItem.parentElement.insertAdjacentHTML("beforeend", `<div data-fls-form-error>${formRequiredItem.dataset.flsFormErrtext}</div>`);
-    }
-  },
-  removeError(formRequiredItem) {
-    formRequiredItem.classList.remove("--form-error");
-    formRequiredItem.parentElement.classList.remove("--form-error");
-    if (formRequiredItem.parentElement.querySelector("[data-fls-form-error]")) {
-      formRequiredItem.parentElement.removeChild(formRequiredItem.parentElement.querySelector("[data-fls-form-error]"));
-    }
-  },
-  addSuccess(formRequiredItem) {
-    formRequiredItem.classList.add("--form-success");
-    formRequiredItem.parentElement.classList.add("--form-success");
-  },
-  removeSuccess(formRequiredItem) {
-    formRequiredItem.classList.remove("--form-success");
-    formRequiredItem.parentElement.classList.remove("--form-success");
-  },
-  formClean(form) {
-    form.reset();
-    setTimeout(() => {
-      let inputs = form.querySelectorAll("input,textarea");
-      for (let index = 0; index < inputs.length; index++) {
-        const el = inputs[index];
-        el.parentElement.classList.remove("--form-focus");
-        el.classList.remove("--form-focus");
-        formValidate.removeError(el);
-      }
-      let checkboxes = form.querySelectorAll('input[type="checkbox"]');
-      if (checkboxes.length) {
-        checkboxes.forEach((checkbox) => {
-          checkbox.checked = false;
-        });
-      }
-      if (window["flsSelect"]) {
-        let selects = form.querySelectorAll("select[data-fls-select]");
-        if (selects.length) {
-          selects.forEach((select) => {
-            window["flsSelect"].selectBuild(select);
-          });
-        }
-      }
-    }, 0);
-  },
-  emailTest(formRequiredItem) {
-    return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
-  }
-};
-class SelectConstructor {
-  constructor(props, data = null) {
-    let defaultConfig = {
-      init: true,
-      speed: 150
-    };
-    this.config = Object.assign(defaultConfig, props);
-    this.selectClasses = {
-      classSelect: "select",
-      // Основной блок
-      classSelectBody: "select__body",
-      // Тело селекта
-      classSelectTitle: "select__title",
-      // Заголовок
-      classSelectValue: "select__value",
-      // Значения у заголовка
-      classSelectLabel: "select__label",
-      // Лабел
-      classSelectInput: "select__input",
-      // Поле ввода
-      classSelectText: "select__text",
-      // Оболочка текстовых данных
-      classSelectLink: "select__link",
-      // Ссылка в элементе
-      classSelectOptions: "select__options",
-      // Выпадающий список
-      classSelectOptionsScroll: "select__scroll",
-      // Оболочка при скролле
-      classSelectOption: "select__option",
-      // Пункт
-      classSelectContent: "select__content",
-      // Оболочка контента в заголовке
-      classSelectRow: "select__row",
-      // Ряд
-      classSelectData: "select__asset",
-      // Дополнительные данные
-      classSelectDisabled: "--select-disabled",
-      // Запрещено
-      classSelectTag: "--select-tag",
-      // Класс тега
-      classSelectOpen: "--select-open",
-      // Список открыт
-      classSelectActive: "--select-active",
-      // Список выбран
-      classSelectFocus: "--select-focus",
-      // Список в фокусе
-      classSelectMultiple: "--select-multiple",
-      // Мультивыбор
-      classSelectCheckBox: "--select-checkbox",
-      // Стиль чекбокса
-      classSelectOptionSelected: "--select-selected",
-      // Вибраный пункт
-      classSelectPseudoLabel: "--select-pseudo-label"
-      // Псевдолейбл
-    };
-    this._this = this;
-    if (this.config.init) {
-      const selectItems = data ? document.querySelectorAll(data) : document.querySelectorAll("select[data-fls-select]");
-      if (selectItems.length) {
-        this.selectsInit(selectItems);
-      }
-    }
-  }
-  // Конструктор CSS класcа
-  getSelectClass(className) {
-    return `.${className}`;
-  }
-  // Геттер элементов псевдоселекта
-  getSelectElement(selectItem, className) {
-    return {
-      originalSelect: selectItem.querySelector("select"),
-      selectElement: selectItem.querySelector(this.getSelectClass(className))
-    };
-  }
-  // Функция инициализации всех селектов
-  selectsInit(selectItems) {
-    selectItems.forEach((originalSelect, index) => {
-      this.selectInit(originalSelect, index + 1);
-    });
-    document.addEventListener("click", (function(e) {
-      this.selectsActions(e);
-    }).bind(this));
-    document.addEventListener("keydown", (function(e) {
-      this.selectsActions(e);
-    }).bind(this));
-    document.addEventListener("focusin", (function(e) {
-      this.selectsActions(e);
-    }).bind(this));
-    document.addEventListener("focusout", (function(e) {
-      this.selectsActions(e);
-    }).bind(this));
-  }
-  // Функция инициализации конкретного селекта
-  selectInit(originalSelect, index) {
-    index ? originalSelect.dataset.flsSelectId = index : null;
-    if (originalSelect.options.length) {
-      const _this = this;
-      let selectItem = document.createElement("div");
-      selectItem.classList.add(this.selectClasses.classSelect);
-      originalSelect.parentNode.insertBefore(selectItem, originalSelect);
-      selectItem.appendChild(originalSelect);
-      originalSelect.hidden = true;
-      if (this.getSelectPlaceholder(originalSelect)) {
-        originalSelect.dataset.placeholder = this.getSelectPlaceholder(originalSelect).value;
-        if (this.getSelectPlaceholder(originalSelect).label.show) {
-          const selectItemTitle = this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement;
-          selectItemTitle.insertAdjacentHTML("afterbegin", `<span class="${this.selectClasses.classSelectLabel}">${this.getSelectPlaceholder(originalSelect).label.text ? this.getSelectPlaceholder(originalSelect).label.text : this.getSelectPlaceholder(originalSelect).value}</span>`);
-        }
-      }
-      selectItem.insertAdjacentHTML("beforeend", `<div class="${this.selectClasses.classSelectBody}"><div hidden class="${this.selectClasses.classSelectOptions}"></div></div>`);
-      this.selectBuild(originalSelect);
-      originalSelect.dataset.flsSelectSpeed = originalSelect.dataset.flsSelectSpeed ? originalSelect.dataset.flsSelectSpeed : this.config.speed;
-      this.config.speed = +originalSelect.dataset.flsSelectSpeed;
-      originalSelect.addEventListener("change", function(e) {
-        _this.selectChange(e);
-      });
-    }
-  }
-  // Конструктор псевдоселекта
-  selectBuild(originalSelect) {
-    const selectItem = originalSelect.parentElement;
-    if (originalSelect.id) {
-      selectItem.id = originalSelect.id;
-      originalSelect.removeAttribute("id");
-    }
-    selectItem.dataset.flsSelectId = originalSelect.dataset.flsSelectId;
-    originalSelect.dataset.flsSelectModif ? selectItem.classList.add(`select--${originalSelect.dataset.flsSelectModif}`) : null;
-    originalSelect.multiple ? selectItem.classList.add(this.selectClasses.classSelectMultiple) : selectItem.classList.remove(this.selectClasses.classSelectMultiple);
-    originalSelect.hasAttribute("data-fls-select-checkbox") && originalSelect.multiple ? selectItem.classList.add(this.selectClasses.classSelectCheckBox) : selectItem.classList.remove(this.selectClasses.classSelectCheckBox);
-    this.setSelectTitleValue(selectItem, originalSelect);
-    this.setOptions(selectItem, originalSelect);
-    originalSelect.hasAttribute("data-fls-select-search") ? this.searchActions(selectItem) : null;
-    originalSelect.hasAttribute("data-fls-select-open") ? this.selectAction(selectItem) : null;
-    this.selectDisabled(selectItem, originalSelect);
-  }
-  // Функция реакций на события
-  selectsActions(e) {
-    const t = e.target, type = e.type;
-    const isSelect = t.closest(this.getSelectClass(this.selectClasses.classSelect));
-    const isTag = t.closest(this.getSelectClass(this.selectClasses.classSelectTag));
-    if (!isSelect && !isTag) return this.selectsСlose();
-    const selectItem = isSelect || document.querySelector(`.${this.selectClasses.classSelect}[data-fls-select-id="${isTag.dataset.flsSelectId}"]`);
-    const originalSelect = this.getSelectElement(selectItem).originalSelect;
-    if (originalSelect.disabled) return;
-    if (type === "click") {
-      const tag = t.closest(this.getSelectClass(this.selectClasses.classSelectTag));
-      const title = t.closest(this.getSelectClass(this.selectClasses.classSelectTitle));
-      const option = t.closest(this.getSelectClass(this.selectClasses.classSelectOption));
-      if (tag) {
-        const optionItem = document.querySelector(`.${this.selectClasses.classSelect}[data-fls-select-id="${tag.dataset.flsSelectId}"] .select__option[data-fls-select-value="${tag.dataset.flsSelectValue}"]`);
-        this.optionAction(selectItem, originalSelect, optionItem);
-      } else if (title) {
-        this.selectAction(selectItem);
-      } else if (option) {
-        this.optionAction(selectItem, originalSelect, option);
-      }
-    } else if (type === "focusin" || type === "focusout") {
-      if (isSelect) selectItem.classList.toggle(this.selectClasses.classSelectFocus, type === "focusin");
-    } else if (type === "keydown" && e.code === "Escape") {
-      this.selectsСlose();
-    }
-  }
-  // Функция закрытия всех селектов
-  selectsСlose(selectOneGroup) {
-    const selectsGroup = selectOneGroup ? selectOneGroup : document;
-    const selectActiveItems = selectsGroup.querySelectorAll(`${this.getSelectClass(this.selectClasses.classSelect)}${this.getSelectClass(this.selectClasses.classSelectOpen)}`);
-    if (selectActiveItems.length) {
-      selectActiveItems.forEach((selectActiveItem) => {
-        this.selectСlose(selectActiveItem);
-      });
-    }
-  }
-  // Функция закрытия конкретного селекта
-  selectСlose(selectItem) {
-    const originalSelect = this.getSelectElement(selectItem).originalSelect;
-    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
-    if (!selectOptions.classList.contains("_slide")) {
-      selectItem.classList.remove(this.selectClasses.classSelectOpen);
-      slideUp(selectOptions, originalSelect.dataset.flsSelectSpeed);
-      setTimeout(() => {
-        selectItem.style.zIndex = "";
-      }, originalSelect.dataset.flsSelectSpeed);
-    }
-  }
-  // Функция открытия / закрытия конкретного селекта
-  selectAction(selectItem) {
-    const originalSelect = this.getSelectElement(selectItem).originalSelect;
-    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
-    selectOptions.querySelectorAll(`.${this.selectClasses.classSelectOption}`);
-    const selectOpenzIndex = originalSelect.dataset.flsSelectZIndex ? originalSelect.dataset.flsSelectZIndex : 3;
-    this.setOptionsPosition(selectItem);
-    if (originalSelect.closest("[data-fls-select-one]")) {
-      const selectOneGroup = originalSelect.closest("[data-fls-select-one]");
-      this.selectsСlose(selectOneGroup);
-    }
-    setTimeout(() => {
-      if (!selectOptions.classList.contains("--slide")) {
-        selectItem.classList.toggle(this.selectClasses.classSelectOpen);
-        slideToggle(selectOptions, originalSelect.dataset.flsSelectSpeed);
-        if (selectItem.classList.contains(this.selectClasses.classSelectOpen)) {
-          selectItem.style.zIndex = selectOpenzIndex;
-        } else {
-          setTimeout(() => {
-            selectItem.style.zIndex = "";
-          }, originalSelect.dataset.flsSelectSpeed);
-        }
-      }
-    }, 0);
-  }
-  // Сеттер значение заголовка селекта
-  setSelectTitleValue(selectItem, originalSelect) {
-    const selectItemBody = this.getSelectElement(selectItem, this.selectClasses.classSelectBody).selectElement;
-    const selectItemTitle = this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement;
-    if (selectItemTitle) selectItemTitle.remove();
-    selectItemBody.insertAdjacentHTML("afterbegin", this.getSelectTitleValue(selectItem, originalSelect));
-    originalSelect.hasAttribute("data-fls-select-search") ? this.searchActions(selectItem) : null;
-  }
-  // Конструктор значения заголовка
-  // getSelectTitleValue(selectItem, originalSelect) {
-  // 	// Получаем выбранные текстовые значения
-  // 	let selectTitleValue = this.getSelectedOptionsData(originalSelect, 2).html;
-  // 	// Обработка значений мультивыбора
-  // 	// Если включен режим тегов (указаны настройки data-fls-select-tags)
-  // 	if (originalSelect.multiple && originalSelect.hasAttribute('data-fls-select-tags')) {
-  // 		selectTitleValue = this.getSelectedOptionsData(originalSelect).elements.map(option => `<span role="button" data-fls-select-id="${selectItem.dataset.flsSelectId}" data-fls-select-value="${option.value}" class="--select-tag">${this.getSelectElementContent(option)}</span>`).join('');
-  // 		// Если вывод тегов во внешний блок
-  // 		if (originalSelect.dataset.flsSelectTags && document.querySelector(originalSelect.dataset.flsSelectTags)) {
-  // 			document.querySelector(originalSelect.dataset.flsSelectTags).innerHTML = selectTitleValue;
-  // 			if (originalSelect.hasAttribute('data-fls-select-search')) selectTitleValue = false;
-  // 		}
-  // 	}
-  // 	// Значение или плейсхолдер
-  // 	selectTitleValue = selectTitleValue.length ? selectTitleValue : (originalSelect.dataset.flsSelectPlaceholder || '')
-  // 	if (!originalSelect.hasAttribute('data-fls-select-tags')) {
-  // 		selectTitleValue = selectTitleValue ? selectTitleValue.map(item => item.replace(/"/g, '&quot;')) : ''
-  // 	}
-  // 	// Если включен режим pseudo
-  // 	let pseudoAttribute = '';
-  // 	let pseudoAttributeClass = '';
-  // 	if (originalSelect.hasAttribute('data-fls-select-pseudo-label')) {
-  // 		pseudoAttribute = originalSelect.dataset.flsSelectPseudoLabel ? ` data-fls-select-pseudo-label="${originalSelect.dataset.flsSelectPseudoLabel}"` : ` data-fls-select-pseudo-label="Заповніть атрибут"`;
-  // 		pseudoAttributeClass = ` ${this.selectClasses.classSelectPseudoLabel}`;
-  // 	}
-  // 	// Если есть значение, добавляем класс
-  // 	this.getSelectedOptionsData(originalSelect).values.length ? selectItem.classList.add(this.selectClasses.classSelectActive) : selectItem.classList.remove(this.selectClasses.classSelectActive);
-  // 	// Возвращаем поле ввода для поиска или текст
-  // 	if (originalSelect.hasAttribute('data-fls-select-search')) {
-  // 		// Выводим поле ввода для поиска
-  // 		return `<div class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}"><input autocomplete="off" type="text" placeholder="${selectTitleValue}" data-fls-select-placeholder="${selectTitleValue}" class="${this.selectClasses.classSelectInput}"></span></div>`;
-  // 	} else {
-  // 		// Если выбран элемент со своим классом
-  // 		const customClass = this.getSelectedOptionsData(originalSelect).elements.length && this.getSelectedOptionsData(originalSelect).elements[0].dataset.flsSelectClass ? ` ${this.getSelectedOptionsData(originalSelect).elements[0].dataset.flsSelectClass}` : '';
-  // 		// Выводим текстовое значение
-  // 		return `<button type="button" class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}${pseudoAttributeClass}"><span class="${this.selectClasses.classSelectContent}${customClass}">${selectTitleValue}</span></span></button>`;
-  // 	}
-  // }
-  // Конструктор значения заголовка
-  // Конструктор значения заголовка
-  getSelectTitleValue(selectItem, originalSelect) {
-    const selectedOption = originalSelect.options[originalSelect.selectedIndex];
-    const selectedAsset = selectedOption.getAttribute("data-fls-select-asset");
-    let assetHTML = "";
-    if (selectedAsset) {
-      assetHTML = `<span class="${this.selectClasses.classSelectData}">${selectedAsset.indexOf("img") >= 0 ? `<img src="${selectedAsset}" alt="">` : selectedAsset}</span>`;
-    }
-    const selectedText = selectedOption.textContent;
-    let pseudoAttribute = "";
-    let pseudoAttributeClass = "";
-    if (originalSelect.hasAttribute("data-fls-select-pseudo-label")) {
-      pseudoAttribute = originalSelect.dataset.flsSelectPseudoLabel ? ` data-fls-select-pseudo-label="${originalSelect.dataset.flsSelectPseudoLabel}"` : ` data-fls-select-pseudo-label="Заповніть атрибут"`;
-      pseudoAttributeClass = ` ${this.selectClasses.classSelectPseudoLabel}`;
-    }
-    this.getSelectedOptionsData(originalSelect).values.length ? selectItem.classList.add(this.selectClasses.classSelectActive) : selectItem.classList.remove(this.selectClasses.classSelectActive);
-    if (originalSelect.hasAttribute("data-fls-select-search")) {
-      return `<div class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}"><input autocomplete="off" type="text" placeholder="${selectedText}" data-fls-select-placeholder="${selectedText}" class="${this.selectClasses.classSelectInput}"></span></div>`;
-    } else {
-      const customClass = selectedOption.dataset.flsSelectClass ? ` ${selectedOption.dataset.flsSelectClass}` : "";
-      return `<button type="button" class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}${pseudoAttributeClass}"><span class="${this.selectClasses.classSelectContent}${customClass}">${assetHTML}<span class="${this.selectClasses.classSelectText}">${selectedText}</span></span></span></button>`;
-    }
-  }
-  // Конструктор данных для значения заголовка
-  getSelectElementContent(selectOption) {
-    const selectOptionData = selectOption.dataset.flsSelectAsset ? `${selectOption.dataset.flsSelectAsset}` : "";
-    const selectOptionDataHTML = selectOptionData.indexOf("img") >= 0 ? `<img src="${selectOptionData}" alt="">` : selectOptionData;
-    let selectOptionContentHTML = ``;
-    selectOptionContentHTML += selectOptionData ? `<span class="${this.selectClasses.classSelectRow}">` : "";
-    selectOptionContentHTML += selectOptionData ? `<span class="${this.selectClasses.classSelectData}">` : "";
-    selectOptionContentHTML += selectOptionData ? selectOptionDataHTML : "";
-    selectOptionContentHTML += selectOptionData ? `</span>` : "";
-    selectOptionContentHTML += selectOptionData ? `<span class="${this.selectClasses.classSelectText}">` : "";
-    selectOptionContentHTML += selectOption.textContent;
-    selectOptionContentHTML += selectOptionData ? `</span>` : "";
-    selectOptionContentHTML += selectOptionData ? `</span>` : "";
-    return selectOptionContentHTML;
-  }
-  // Получение данных плейсхолдера
-  getSelectPlaceholder(originalSelect) {
-    const selectPlaceholder = Array.from(originalSelect.options).find((option) => !option.value);
-    if (selectPlaceholder) {
-      return {
-        value: selectPlaceholder.textContent,
-        show: selectPlaceholder.hasAttribute("data-fls-select-show"),
-        label: {
-          show: selectPlaceholder.hasAttribute("data-fls-select-label"),
-          text: selectPlaceholder.dataset.flsSelectLabel
-        }
-      };
-    }
-  }
-  // Получение данных из выбранных элементов
-  getSelectedOptionsData(originalSelect, type) {
-    let selectedOptions = [];
-    if (originalSelect.multiple) {
-      selectedOptions = Array.from(originalSelect.options).filter((option) => option.value).filter((option) => option.selected);
-    } else {
-      selectedOptions.push(originalSelect.options[originalSelect.selectedIndex]);
-    }
-    return {
-      elements: selectedOptions.map((option) => option),
-      values: selectedOptions.filter((option) => option.value).map((option) => option.value),
-      html: selectedOptions.map((option) => this.getSelectElementContent(option))
-    };
-  }
-  // Конструктор элементов списка
-  getOptions(originalSelect) {
-    const selectOptionsScroll = originalSelect.hasAttribute("data-fls-select-scroll") ? `` : "";
-    +originalSelect.dataset.flsSelectScroll ? +originalSelect.dataset.flsSelectScroll : null;
-    let selectOptions = Array.from(originalSelect.options);
-    if (selectOptions.length > 0) {
-      let selectOptionsHTML = ``;
-      if (this.getSelectPlaceholder(originalSelect) && !this.getSelectPlaceholder(originalSelect).show || originalSelect.multiple) {
-        selectOptions = selectOptions.filter((option) => option.value);
-      }
-      selectOptionsHTML += `<div ${selectOptionsScroll} ${""} class="${this.selectClasses.classSelectOptionsScroll}">`;
-      selectOptions.forEach((selectOption) => {
-        selectOptionsHTML += this.getOption(selectOption, originalSelect);
-      });
-      selectOptionsHTML += `</div>`;
-      return selectOptionsHTML;
-    }
-  }
-  // Конструктор конкретного элемента списка
-  getOption(selectOption, originalSelect) {
-    const selectOptionSelected = selectOption.selected && originalSelect.multiple ? ` ${this.selectClasses.classSelectOptionSelected}` : "";
-    const selectOptionHide = selectOption.selected && !originalSelect.hasAttribute("data-fls-select-show-selected") && !originalSelect.multiple ? `hidden` : ``;
-    const selectOptionClass = selectOption.dataset.flsSelectClass ? ` ${selectOption.dataset.flsSelectClass}` : "";
-    const selectOptionLink = selectOption.dataset.flsSelectHref ? selectOption.dataset.flsSelectHref : false;
-    const selectOptionLinkTarget = selectOption.hasAttribute("data-fls-select-href-blank") ? `target="_blank"` : "";
-    let selectOptionHTML = ``;
-    selectOptionHTML += selectOptionLink ? `<a ${selectOptionLinkTarget} ${selectOptionHide} href="${selectOptionLink}" data-fls-select-value="${selectOption.value}" class="${this.selectClasses.classSelectOption}${selectOptionClass}${selectOptionSelected}">` : `<button ${selectOptionHide} class="${this.selectClasses.classSelectOption}${selectOptionClass}${selectOptionSelected}" data-fls-select-value="${selectOption.value}" type="button">`;
-    selectOptionHTML += this.getSelectElementContent(selectOption);
-    selectOptionHTML += selectOptionLink ? `</a>` : `</button>`;
-    return selectOptionHTML;
-  }
-  // Сеттер элементов списка (options)
-  setOptions(selectItem, originalSelect) {
-    const selectItemOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
-    selectItemOptions.innerHTML = this.getOptions(originalSelect);
-  }
-  // Определяем, где отобразить выпадающий список
-  setOptionsPosition(selectItem) {
-    const originalSelect = this.getSelectElement(selectItem).originalSelect;
-    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
-    const selectItemScroll = this.getSelectElement(selectItem, this.selectClasses.classSelectOptionsScroll).selectElement;
-    const customMaxHeightValue = +originalSelect.dataset.flsSelectScroll ? `${+originalSelect.dataset.flsSelectScroll}px` : ``;
-    const selectOptionsPosMargin = +originalSelect.dataset.flsSelectOptionsMargin ? +originalSelect.dataset.flsSelectOptionsMargin : 10;
-    if (!selectItem.classList.contains(this.selectClasses.classSelectOpen)) {
-      selectOptions.hidden = false;
-      const selectItemScrollHeight = selectItemScroll.offsetHeight ? selectItemScroll.offsetHeight : parseInt(window.getComputedStyle(selectItemScroll).getPropertyValue("max-height"));
-      const selectOptionsHeight = selectOptions.offsetHeight > selectItemScrollHeight ? selectOptions.offsetHeight : selectItemScrollHeight + selectOptions.offsetHeight;
-      const selectOptionsScrollHeight = selectOptionsHeight - selectItemScrollHeight;
-      selectOptions.hidden = true;
-      const selectItemHeight = selectItem.offsetHeight;
-      const selectItemPos = selectItem.getBoundingClientRect().top;
-      const selectItemTotal = selectItemPos + selectOptionsHeight + selectItemHeight + selectOptionsScrollHeight;
-      const selectItemResult = window.innerHeight - (selectItemTotal + selectOptionsPosMargin);
-      if (selectItemResult < 0) {
-        const newMaxHeightValue = selectOptionsHeight + selectItemResult;
-        if (newMaxHeightValue < 100) {
-          selectItem.classList.add("select--show-top");
-          selectItemScroll.style.maxHeight = selectItemPos < selectOptionsHeight ? `${selectItemPos - (selectOptionsHeight - selectItemPos)}px` : customMaxHeightValue;
-        } else {
-          selectItem.classList.remove("select--show-top");
-          selectItemScroll.style.maxHeight = `${newMaxHeightValue}px`;
-        }
-      }
-    } else {
-      setTimeout(() => {
-        selectItem.classList.remove("select--show-top");
-        selectItemScroll.style.maxHeight = customMaxHeightValue;
-      }, +originalSelect.dataset.flsSelectSpeed);
-    }
-  }
-  // Обработчик клика на пункт списка
-  optionAction(selectItem, originalSelect, optionItem) {
-    const optionsBox = selectItem.querySelector(this.getSelectClass(this.selectClasses.classSelectOptions));
-    if (optionsBox.classList.contains("--slide")) return;
-    if (originalSelect.multiple) {
-      optionItem.classList.toggle(this.selectClasses.classSelectOptionSelected);
-      const selectedEls = this.getSelectedOptionsData(originalSelect).elements;
-      for (const el of selectedEls) {
-        el.removeAttribute("selected");
-      }
-      const selectedUI = selectItem.querySelectorAll(this.getSelectClass(this.selectClasses.classSelectOptionSelected));
-      for (const el of selectedUI) {
-        const val = el.dataset.flsSelectValue;
-        const opt = originalSelect.querySelector(`option[value="${val}"]`);
-        if (opt) opt.setAttribute("selected", "selected");
-      }
-    } else {
-      if (!originalSelect.hasAttribute("data-fls-select-show-selected")) {
-        setTimeout(() => {
-          const hiddenOpt = selectItem.querySelector(`${this.getSelectClass(this.selectClasses.classSelectOption)}[hidden]`);
-          if (hiddenOpt) hiddenOpt.hidden = false;
-          optionItem.hidden = true;
-        }, this.config.speed);
-      }
-      originalSelect.value = optionItem.dataset.flsSelectValue || optionItem.textContent;
-      this.selectAction(selectItem);
-    }
-    this.setSelectTitleValue(selectItem, originalSelect);
-    this.setSelectChange(originalSelect);
-  }
-  // Реакция на изменение исходного select
-  selectChange(e) {
-    const originalSelect = e.target;
-    this.selectBuild(originalSelect);
-    this.setSelectChange(originalSelect);
-  }
-  // Обработчик изменения в селекте
-  setSelectChange(originalSelect) {
-    if (originalSelect.hasAttribute("data-fls-select-validate")) {
-      formValidate.validateInput(originalSelect);
-    }
-    if (originalSelect.hasAttribute("data-fls-select-submit") && originalSelect.value) {
-      let tempButton = document.createElement("button");
-      tempButton.type = "submit";
-      originalSelect.closest("form").append(tempButton);
-      tempButton.click();
-      tempButton.remove();
-    }
-    const selectItem = originalSelect.parentElement;
-    this.selectCallback(selectItem, originalSelect);
-  }
-  // Обработчик disabled
-  selectDisabled(selectItem, originalSelect) {
-    if (originalSelect.disabled) {
-      selectItem.classList.add(this.selectClasses.classSelectDisabled);
-      this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement.disabled = true;
-    } else {
-      selectItem.classList.remove(this.selectClasses.classSelectDisabled);
-      this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement.disabled = false;
-    }
-  }
-  // Обработчик поиска по элементам списка
-  searchActions(selectItem) {
-    const selectInput = this.getSelectElement(selectItem, this.selectClasses.classSelectInput).selectElement;
-    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
-    selectInput.addEventListener("input", () => {
-      const inputValue = selectInput.value.toLowerCase();
-      const selectOptionsItems = selectOptions.querySelectorAll(`.${this.selectClasses.classSelectOption}`);
-      selectOptionsItems.forEach((item) => {
-        const itemText = item.textContent.toLowerCase();
-        item.hidden = !itemText.includes(inputValue);
-      });
-      if (selectOptions.hidden) {
-        this.selectAction(selectItem);
-      }
-    });
-  }
-  // Колбек функция
-  selectCallback(selectItem, originalSelect) {
-    document.dispatchEvent(new CustomEvent("selectCallback", {
-      detail: {
-        select: originalSelect
-      }
-    }));
-  }
-}
-document.querySelector("select[data-fls-select]") ? window.addEventListener("load", () => window.flsSelect = new SelectConstructor({})) : null;
 function spollers() {
   const spollersArray = document.querySelectorAll("[data-fls-spollers]");
   if (spollersArray.length > 0) {
@@ -1372,20 +672,6 @@ function createElement(tag, classes2) {
   const el = document.createElement(tag);
   el.classList.add(...Array.isArray(classes2) ? classes2 : classesToTokens(classes2));
   return el;
-}
-function elementOffset(el) {
-  const window2 = getWindow();
-  const document2 = getDocument();
-  const box = el.getBoundingClientRect();
-  const body = document2.body;
-  const clientTop = el.clientTop || body.clientTop || 0;
-  const clientLeft = el.clientLeft || body.clientLeft || 0;
-  const scrollTop = el === window2 ? window2.scrollY : el.scrollTop;
-  const scrollLeft = el === window2 ? window2.scrollX : el.scrollLeft;
-  return {
-    top: box.top + scrollTop - clientTop,
-    left: box.left + scrollLeft - clientLeft
-  };
 }
 function elementPrevAll(el, selector) {
   const prevEls = [];
@@ -5843,363 +5129,300 @@ function Pagination(_ref) {
     destroy
   });
 }
-function Scrollbar(_ref) {
+function Autoplay(_ref) {
   let {
     swiper,
     extendParams,
     on,
-    emit
+    emit,
+    params
   } = _ref;
-  const document2 = getDocument();
-  let isTouched = false;
-  let timeout = null;
-  let dragTimeout = null;
-  let dragStartPos;
-  let dragSize;
-  let trackSize;
-  let divider;
-  extendParams({
-    scrollbar: {
-      el: null,
-      dragSize: "auto",
-      hide: false,
-      draggable: false,
-      snapOnRelease: true,
-      lockClass: "swiper-scrollbar-lock",
-      dragClass: "swiper-scrollbar-drag",
-      scrollbarDisabledClass: "swiper-scrollbar-disabled",
-      horizontalClass: `swiper-scrollbar-horizontal`,
-      verticalClass: `swiper-scrollbar-vertical`
-    }
-  });
-  swiper.scrollbar = {
-    el: null,
-    dragEl: null
+  swiper.autoplay = {
+    running: false,
+    paused: false,
+    timeLeft: 0
   };
-  function setTranslate2() {
-    if (!swiper.params.scrollbar.el || !swiper.scrollbar.el) return;
-    const {
-      scrollbar,
-      rtlTranslate: rtl
-    } = swiper;
-    const {
-      dragEl,
-      el
-    } = scrollbar;
-    const params = swiper.params.scrollbar;
-    const progress = swiper.params.loop ? swiper.progressLoop : swiper.progress;
-    let newSize = dragSize;
-    let newPos = (trackSize - dragSize) * progress;
-    if (rtl) {
-      newPos = -newPos;
-      if (newPos > 0) {
-        newSize = dragSize - newPos;
-        newPos = 0;
-      } else if (-newPos + dragSize > trackSize) {
-        newSize = trackSize + newPos;
-      }
-    } else if (newPos < 0) {
-      newSize = dragSize + newPos;
-      newPos = 0;
-    } else if (newPos + dragSize > trackSize) {
-      newSize = trackSize - newPos;
+  extendParams({
+    autoplay: {
+      enabled: false,
+      delay: 3e3,
+      waitForTransition: true,
+      disableOnInteraction: false,
+      stopOnLastSlide: false,
+      reverseDirection: false,
+      pauseOnMouseEnter: false
     }
-    if (swiper.isHorizontal()) {
-      dragEl.style.transform = `translate3d(${newPos}px, 0, 0)`;
-      dragEl.style.width = `${newSize}px`;
+  });
+  let timeout;
+  let raf;
+  let autoplayDelayTotal = params && params.autoplay ? params.autoplay.delay : 3e3;
+  let autoplayDelayCurrent = params && params.autoplay ? params.autoplay.delay : 3e3;
+  let autoplayTimeLeft;
+  let autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
+  let wasPaused;
+  let isTouched;
+  let pausedByTouch;
+  let touchStartTimeout;
+  let slideChanged;
+  let pausedByInteraction;
+  let pausedByPointerEnter;
+  function onTransitionEnd(e) {
+    if (!swiper || swiper.destroyed || !swiper.wrapperEl) return;
+    if (e.target !== swiper.wrapperEl) return;
+    swiper.wrapperEl.removeEventListener("transitionend", onTransitionEnd);
+    if (pausedByPointerEnter || e.detail && e.detail.bySwiperTouchMove) {
+      return;
+    }
+    resume();
+  }
+  const calcTimeLeft = () => {
+    if (swiper.destroyed || !swiper.autoplay.running) return;
+    if (swiper.autoplay.paused) {
+      wasPaused = true;
+    } else if (wasPaused) {
+      autoplayDelayCurrent = autoplayTimeLeft;
+      wasPaused = false;
+    }
+    const timeLeft = swiper.autoplay.paused ? autoplayTimeLeft : autoplayStartTime + autoplayDelayCurrent - (/* @__PURE__ */ new Date()).getTime();
+    swiper.autoplay.timeLeft = timeLeft;
+    emit("autoplayTimeLeft", timeLeft, timeLeft / autoplayDelayTotal);
+    raf = requestAnimationFrame(() => {
+      calcTimeLeft();
+    });
+  };
+  const getSlideDelay = () => {
+    let activeSlideEl;
+    if (swiper.virtual && swiper.params.virtual.enabled) {
+      activeSlideEl = swiper.slides.find((slideEl) => slideEl.classList.contains("swiper-slide-active"));
     } else {
-      dragEl.style.transform = `translate3d(0px, ${newPos}px, 0)`;
-      dragEl.style.height = `${newSize}px`;
+      activeSlideEl = swiper.slides[swiper.activeIndex];
     }
-    if (params.hide) {
+    if (!activeSlideEl) return void 0;
+    const currentSlideDelay = parseInt(activeSlideEl.getAttribute("data-swiper-autoplay"), 10);
+    return currentSlideDelay;
+  };
+  const run = (delayForce) => {
+    if (swiper.destroyed || !swiper.autoplay.running) return;
+    cancelAnimationFrame(raf);
+    calcTimeLeft();
+    let delay = typeof delayForce === "undefined" ? swiper.params.autoplay.delay : delayForce;
+    autoplayDelayTotal = swiper.params.autoplay.delay;
+    autoplayDelayCurrent = swiper.params.autoplay.delay;
+    const currentSlideDelay = getSlideDelay();
+    if (!Number.isNaN(currentSlideDelay) && currentSlideDelay > 0 && typeof delayForce === "undefined") {
+      delay = currentSlideDelay;
+      autoplayDelayTotal = currentSlideDelay;
+      autoplayDelayCurrent = currentSlideDelay;
+    }
+    autoplayTimeLeft = delay;
+    const speed = swiper.params.speed;
+    const proceed = () => {
+      if (!swiper || swiper.destroyed) return;
+      if (swiper.params.autoplay.reverseDirection) {
+        if (!swiper.isBeginning || swiper.params.loop || swiper.params.rewind) {
+          swiper.slidePrev(speed, true, true);
+          emit("autoplay");
+        } else if (!swiper.params.autoplay.stopOnLastSlide) {
+          swiper.slideTo(swiper.slides.length - 1, speed, true, true);
+          emit("autoplay");
+        }
+      } else {
+        if (!swiper.isEnd || swiper.params.loop || swiper.params.rewind) {
+          swiper.slideNext(speed, true, true);
+          emit("autoplay");
+        } else if (!swiper.params.autoplay.stopOnLastSlide) {
+          swiper.slideTo(0, speed, true, true);
+          emit("autoplay");
+        }
+      }
+      if (swiper.params.cssMode) {
+        autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
+        requestAnimationFrame(() => {
+          run();
+        });
+      }
+    };
+    if (delay > 0) {
       clearTimeout(timeout);
-      el.style.opacity = 1;
       timeout = setTimeout(() => {
-        el.style.opacity = 0;
-        el.style.transitionDuration = "400ms";
-      }, 1e3);
-    }
-  }
-  function setTransition2(duration) {
-    if (!swiper.params.scrollbar.el || !swiper.scrollbar.el) return;
-    swiper.scrollbar.dragEl.style.transitionDuration = `${duration}ms`;
-  }
-  function updateSize2() {
-    if (!swiper.params.scrollbar.el || !swiper.scrollbar.el) return;
-    const {
-      scrollbar
-    } = swiper;
-    const {
-      dragEl,
-      el
-    } = scrollbar;
-    dragEl.style.width = "";
-    dragEl.style.height = "";
-    trackSize = swiper.isHorizontal() ? el.offsetWidth : el.offsetHeight;
-    divider = swiper.size / (swiper.virtualSize + swiper.params.slidesOffsetBefore - (swiper.params.centeredSlides ? swiper.snapGrid[0] : 0));
-    if (swiper.params.scrollbar.dragSize === "auto") {
-      dragSize = trackSize * divider;
+        proceed();
+      }, delay);
     } else {
-      dragSize = parseInt(swiper.params.scrollbar.dragSize, 10);
+      requestAnimationFrame(() => {
+        proceed();
+      });
     }
-    if (swiper.isHorizontal()) {
-      dragEl.style.width = `${dragSize}px`;
-    } else {
-      dragEl.style.height = `${dragSize}px`;
+    return delay;
+  };
+  const start = () => {
+    autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
+    swiper.autoplay.running = true;
+    run();
+    emit("autoplayStart");
+  };
+  const stop = () => {
+    swiper.autoplay.running = false;
+    clearTimeout(timeout);
+    cancelAnimationFrame(raf);
+    emit("autoplayStop");
+  };
+  const pause = (internal, reset) => {
+    if (swiper.destroyed || !swiper.autoplay.running) return;
+    clearTimeout(timeout);
+    if (!internal) {
+      pausedByInteraction = true;
     }
-    if (divider >= 1) {
-      el.style.display = "none";
-    } else {
-      el.style.display = "";
-    }
-    if (swiper.params.scrollbar.hide) {
-      el.style.opacity = 0;
-    }
-    if (swiper.params.watchOverflow && swiper.enabled) {
-      scrollbar.el.classList[swiper.isLocked ? "add" : "remove"](swiper.params.scrollbar.lockClass);
-    }
-  }
-  function getPointerPosition(e) {
-    return swiper.isHorizontal() ? e.clientX : e.clientY;
-  }
-  function setDragPosition(e) {
-    const {
-      scrollbar,
-      rtlTranslate: rtl
-    } = swiper;
-    const {
-      el
-    } = scrollbar;
-    let positionRatio;
-    positionRatio = (getPointerPosition(e) - elementOffset(el)[swiper.isHorizontal() ? "left" : "top"] - (dragStartPos !== null ? dragStartPos : dragSize / 2)) / (trackSize - dragSize);
-    positionRatio = Math.max(Math.min(positionRatio, 1), 0);
-    if (rtl) {
-      positionRatio = 1 - positionRatio;
-    }
-    const position = swiper.minTranslate() + (swiper.maxTranslate() - swiper.minTranslate()) * positionRatio;
-    swiper.updateProgress(position);
-    swiper.setTranslate(position);
-    swiper.updateActiveIndex();
-    swiper.updateSlidesClasses();
-  }
-  function onDragStart(e) {
-    const params = swiper.params.scrollbar;
-    const {
-      scrollbar,
-      wrapperEl
-    } = swiper;
-    const {
-      el,
-      dragEl
-    } = scrollbar;
-    isTouched = true;
-    dragStartPos = e.target === dragEl ? getPointerPosition(e) - e.target.getBoundingClientRect()[swiper.isHorizontal() ? "left" : "top"] : null;
-    e.preventDefault();
-    e.stopPropagation();
-    wrapperEl.style.transitionDuration = "100ms";
-    dragEl.style.transitionDuration = "100ms";
-    setDragPosition(e);
-    clearTimeout(dragTimeout);
-    el.style.transitionDuration = "0ms";
-    if (params.hide) {
-      el.style.opacity = 1;
-    }
-    if (swiper.params.cssMode) {
-      swiper.wrapperEl.style["scroll-snap-type"] = "none";
-    }
-    emit("scrollbarDragStart", e);
-  }
-  function onDragMove(e) {
-    const {
-      scrollbar,
-      wrapperEl
-    } = swiper;
-    const {
-      el,
-      dragEl
-    } = scrollbar;
-    if (!isTouched) return;
-    if (e.preventDefault && e.cancelable) e.preventDefault();
-    else e.returnValue = false;
-    setDragPosition(e);
-    wrapperEl.style.transitionDuration = "0ms";
-    el.style.transitionDuration = "0ms";
-    dragEl.style.transitionDuration = "0ms";
-    emit("scrollbarDragMove", e);
-  }
-  function onDragEnd(e) {
-    const params = swiper.params.scrollbar;
-    const {
-      scrollbar,
-      wrapperEl
-    } = swiper;
-    const {
-      el
-    } = scrollbar;
-    if (!isTouched) return;
-    isTouched = false;
-    if (swiper.params.cssMode) {
-      swiper.wrapperEl.style["scroll-snap-type"] = "";
-      wrapperEl.style.transitionDuration = "";
-    }
-    if (params.hide) {
-      clearTimeout(dragTimeout);
-      dragTimeout = nextTick(() => {
-        el.style.opacity = 0;
-        el.style.transitionDuration = "400ms";
-      }, 1e3);
-    }
-    emit("scrollbarDragEnd", e);
-    if (params.snapOnRelease) {
-      swiper.slideToClosest();
-    }
-  }
-  function events2(method) {
-    const {
-      scrollbar,
-      params
-    } = swiper;
-    const el = scrollbar.el;
-    if (!el) return;
-    const target = el;
-    const activeListener = params.passiveListeners ? {
-      passive: false,
-      capture: false
-    } : false;
-    const passiveListener = params.passiveListeners ? {
-      passive: true,
-      capture: false
-    } : false;
-    if (!target) return;
-    const eventMethod = method === "on" ? "addEventListener" : "removeEventListener";
-    target[eventMethod]("pointerdown", onDragStart, activeListener);
-    document2[eventMethod]("pointermove", onDragMove, activeListener);
-    document2[eventMethod]("pointerup", onDragEnd, passiveListener);
-  }
-  function enableDraggable() {
-    if (!swiper.params.scrollbar.el || !swiper.scrollbar.el) return;
-    events2("on");
-  }
-  function disableDraggable() {
-    if (!swiper.params.scrollbar.el || !swiper.scrollbar.el) return;
-    events2("off");
-  }
-  function init() {
-    const {
-      scrollbar,
-      el: swiperEl
-    } = swiper;
-    swiper.params.scrollbar = createElementIfNotDefined(swiper, swiper.originalParams.scrollbar, swiper.params.scrollbar, {
-      el: "swiper-scrollbar"
-    });
-    const params = swiper.params.scrollbar;
-    if (!params.el) return;
-    let el;
-    if (typeof params.el === "string" && swiper.isElement) {
-      el = swiper.el.querySelector(params.el);
-    }
-    if (!el && typeof params.el === "string") {
-      el = document2.querySelectorAll(params.el);
-      if (!el.length) return;
-    } else if (!el) {
-      el = params.el;
-    }
-    if (swiper.params.uniqueNavElements && typeof params.el === "string" && el.length > 1 && swiperEl.querySelectorAll(params.el).length === 1) {
-      el = swiperEl.querySelector(params.el);
-    }
-    if (el.length > 0) el = el[0];
-    el.classList.add(swiper.isHorizontal() ? params.horizontalClass : params.verticalClass);
-    let dragEl;
-    if (el) {
-      dragEl = el.querySelector(classesToSelector(swiper.params.scrollbar.dragClass));
-      if (!dragEl) {
-        dragEl = createElement("div", swiper.params.scrollbar.dragClass);
-        el.append(dragEl);
+    const proceed = () => {
+      emit("autoplayPause");
+      if (swiper.params.autoplay.waitForTransition) {
+        swiper.wrapperEl.addEventListener("transitionend", onTransitionEnd);
+      } else {
+        resume();
       }
+    };
+    swiper.autoplay.paused = true;
+    if (reset) {
+      if (slideChanged) {
+        autoplayTimeLeft = swiper.params.autoplay.delay;
+      }
+      slideChanged = false;
+      proceed();
+      return;
     }
-    Object.assign(scrollbar, {
-      el,
-      dragEl
-    });
-    if (params.draggable) {
-      enableDraggable();
-    }
-    if (el) {
-      el.classList[swiper.enabled ? "remove" : "add"](...classesToTokens(swiper.params.scrollbar.lockClass));
-    }
-  }
-  function destroy() {
-    const params = swiper.params.scrollbar;
-    const el = swiper.scrollbar.el;
-    if (el) {
-      el.classList.remove(...classesToTokens(swiper.isHorizontal() ? params.horizontalClass : params.verticalClass));
-    }
-    disableDraggable();
-  }
-  on("changeDirection", () => {
-    if (!swiper.scrollbar || !swiper.scrollbar.el) return;
-    const params = swiper.params.scrollbar;
-    let {
-      el
-    } = swiper.scrollbar;
-    el = makeElementsArray(el);
-    el.forEach((subEl) => {
-      subEl.classList.remove(params.horizontalClass, params.verticalClass);
-      subEl.classList.add(swiper.isHorizontal() ? params.horizontalClass : params.verticalClass);
-    });
-  });
-  on("init", () => {
-    if (swiper.params.scrollbar.enabled === false) {
-      disable();
+    const delay = autoplayTimeLeft || swiper.params.autoplay.delay;
+    autoplayTimeLeft = delay - ((/* @__PURE__ */ new Date()).getTime() - autoplayStartTime);
+    if (swiper.isEnd && autoplayTimeLeft < 0 && !swiper.params.loop) return;
+    if (autoplayTimeLeft < 0) autoplayTimeLeft = 0;
+    proceed();
+  };
+  const resume = () => {
+    if (swiper.isEnd && autoplayTimeLeft < 0 && !swiper.params.loop || swiper.destroyed || !swiper.autoplay.running) return;
+    autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
+    if (pausedByInteraction) {
+      pausedByInteraction = false;
+      run(autoplayTimeLeft);
     } else {
-      init();
-      updateSize2();
-      setTranslate2();
+      run();
     }
-  });
-  on("update resize observerUpdate lock unlock changeDirection", () => {
-    updateSize2();
-  });
-  on("setTranslate", () => {
-    setTranslate2();
-  });
-  on("setTransition", (_s, duration) => {
-    setTransition2(duration);
-  });
-  on("enable disable", () => {
-    const {
-      el
-    } = swiper.scrollbar;
-    if (el) {
-      el.classList[swiper.enabled ? "remove" : "add"](...classesToTokens(swiper.params.scrollbar.lockClass));
+    swiper.autoplay.paused = false;
+    emit("autoplayResume");
+  };
+  const onVisibilityChange = () => {
+    if (swiper.destroyed || !swiper.autoplay.running) return;
+    const document2 = getDocument();
+    if (document2.visibilityState === "hidden") {
+      pausedByInteraction = true;
+      pause(true);
+    }
+    if (document2.visibilityState === "visible") {
+      resume();
+    }
+  };
+  const onPointerEnter = (e) => {
+    if (e.pointerType !== "mouse") return;
+    pausedByInteraction = true;
+    pausedByPointerEnter = true;
+    if (swiper.animating || swiper.autoplay.paused) return;
+    pause(true);
+  };
+  const onPointerLeave = (e) => {
+    if (e.pointerType !== "mouse") return;
+    pausedByPointerEnter = false;
+    if (swiper.autoplay.paused) {
+      resume();
+    }
+  };
+  const attachMouseEvents = () => {
+    if (swiper.params.autoplay.pauseOnMouseEnter) {
+      swiper.el.addEventListener("pointerenter", onPointerEnter);
+      swiper.el.addEventListener("pointerleave", onPointerLeave);
+    }
+  };
+  const detachMouseEvents = () => {
+    if (swiper.el && typeof swiper.el !== "string") {
+      swiper.el.removeEventListener("pointerenter", onPointerEnter);
+      swiper.el.removeEventListener("pointerleave", onPointerLeave);
+    }
+  };
+  const attachDocumentEvents = () => {
+    const document2 = getDocument();
+    document2.addEventListener("visibilitychange", onVisibilityChange);
+  };
+  const detachDocumentEvents = () => {
+    const document2 = getDocument();
+    document2.removeEventListener("visibilitychange", onVisibilityChange);
+  };
+  on("init", () => {
+    if (swiper.params.autoplay.enabled) {
+      attachMouseEvents();
+      attachDocumentEvents();
+      start();
     }
   });
   on("destroy", () => {
-    destroy();
+    detachMouseEvents();
+    detachDocumentEvents();
+    if (swiper.autoplay.running) {
+      stop();
+    }
   });
-  const enable = () => {
-    swiper.el.classList.remove(...classesToTokens(swiper.params.scrollbar.scrollbarDisabledClass));
-    if (swiper.scrollbar.el) {
-      swiper.scrollbar.el.classList.remove(...classesToTokens(swiper.params.scrollbar.scrollbarDisabledClass));
+  on("_freeModeStaticRelease", () => {
+    if (pausedByTouch || pausedByInteraction) {
+      resume();
     }
-    init();
-    updateSize2();
-    setTranslate2();
-  };
-  const disable = () => {
-    swiper.el.classList.add(...classesToTokens(swiper.params.scrollbar.scrollbarDisabledClass));
-    if (swiper.scrollbar.el) {
-      swiper.scrollbar.el.classList.add(...classesToTokens(swiper.params.scrollbar.scrollbarDisabledClass));
+  });
+  on("_freeModeNoMomentumRelease", () => {
+    if (!swiper.params.autoplay.disableOnInteraction) {
+      pause(true, true);
+    } else {
+      stop();
     }
-    destroy();
-  };
-  Object.assign(swiper.scrollbar, {
-    enable,
-    disable,
-    updateSize: updateSize2,
-    setTranslate: setTranslate2,
-    init,
-    destroy
+  });
+  on("beforeTransitionStart", (_s, speed, internal) => {
+    if (swiper.destroyed || !swiper.autoplay.running) return;
+    if (internal || !swiper.params.autoplay.disableOnInteraction) {
+      pause(true, true);
+    } else {
+      stop();
+    }
+  });
+  on("sliderFirstMove", () => {
+    if (swiper.destroyed || !swiper.autoplay.running) return;
+    if (swiper.params.autoplay.disableOnInteraction) {
+      stop();
+      return;
+    }
+    isTouched = true;
+    pausedByTouch = false;
+    pausedByInteraction = false;
+    touchStartTimeout = setTimeout(() => {
+      pausedByInteraction = true;
+      pausedByTouch = true;
+      pause(true);
+    }, 200);
+  });
+  on("touchEnd", () => {
+    if (swiper.destroyed || !swiper.autoplay.running || !isTouched) return;
+    clearTimeout(touchStartTimeout);
+    clearTimeout(timeout);
+    if (swiper.params.autoplay.disableOnInteraction) {
+      pausedByTouch = false;
+      isTouched = false;
+      return;
+    }
+    if (pausedByTouch && swiper.params.cssMode) resume();
+    pausedByTouch = false;
+    isTouched = false;
+  });
+  on("slideChange", () => {
+    if (swiper.destroyed || !swiper.autoplay.running) return;
+    slideChanged = true;
+  });
+  Object.assign(swiper.autoplay, {
+    start,
+    stop,
+    pause,
+    resume
   });
 }
 function effectInit(params) {
@@ -6353,250 +5576,16 @@ function EffectFade(_ref) {
   });
 }
 function initSliders() {
-  if (document.querySelector(".variants__slider")) {
-    new Swiper(".variants__slider", {
+  if (document.querySelector(".result__slider")) {
+    new Swiper(".result__slider", {
       // <- Указываем класс нужного слайдера
       // Подключаем модули слайдера
       // для конкретного случая
-      modules: [Navigation, Pagination],
-      observer: true,
-      observeParents: true,
-      slidesPerView: 1,
-      spaceBetween: 10,
-      //autoHeight: true,
-      speed: 800,
-      //touchRatio: 0,
-      //simulateTouch: false,
-      //loop: true,
-      //preloadImages: false,
-      //lazy: true,
-      /*
-      // Эффекты
-      effect: 'fade',
-      autoplay: {
-      	delay: 3000,
-      	disableOnInteraction: false,
-      },
-      */
-      // Пагинация
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true
-      },
-      // Скроллбар
-      /*
-      scrollbar: {
-      	el: '.swiper-scrollbar',
-      	draggable: true,
-      },
-      */
-      // Кнопки "влево/вправо"
-      navigation: {
-        prevEl: ".variants-button-prev",
-        nextEl: ".variants-button-next"
-      },
-      // Брейкпоинты
-      breakpoints: {
-        560: {
-          slidesPerView: 2,
-          spaceBetween: 10,
-          autoHeight: true
-        },
-        992: {
-          slidesPerView: 3,
-          spaceBetween: 20
-        }
-      },
-      // События
-      on: {}
-    });
-  }
-  if (document.querySelector(".reviews__slider")) {
-    new Swiper(".reviews__slider", {
-      // <- Указываем класс нужного слайдера
-      // Подключаем модули слайдера
-      // для конкретного случая
-      modules: [Navigation, Pagination],
-      observer: true,
-      observeParents: true,
-      slidesPerView: 1,
-      spaceBetween: 10,
-      //autoHeight: true,
-      speed: 800,
-      //touchRatio: 0,
-      //simulateTouch: false,
-      //loop: true,
-      //preloadImages: false,
-      //lazy: true,
-      /*
-      // Эффекты
-      effect: 'fade',
-      autoplay: {
-      	delay: 3000,
-      	disableOnInteraction: false,
-      },
-      */
-      // Пагинация
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true
-      },
-      // Скроллбар
-      /*
-      scrollbar: {
-      	el: '.swiper-scrollbar',
-      	draggable: true,
-      },
-      */
-      // Кнопки "влево/вправо"
-      navigation: {
-        prevEl: ".reviews-button-prev",
-        nextEl: ".reviews-button-next"
-      },
-      // Брейкпоинты
-      breakpoints: {
-        540: {
-          slidesPerView: 2,
-          spaceBetween: 10,
-          autoHeight: true
-        },
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 20
-        },
-        992: {
-          slidesPerView: 3,
-          spaceBetween: 20
-        }
-      },
-      // События
-      on: {}
-    });
-  }
-  if (document.querySelector(".qwiz__slider")) {
-    new Swiper(".qwiz__slider", {
-      modules: [Navigation, Pagination, EffectFade],
-      observer: true,
-      observeParents: true,
-      slidesPerView: 1,
-      spaceBetween: 0,
-      autoHeight: true,
-      speed: 800,
-      pagination: {
-        el: ".qwiz__pagination",
-        type: "progressbar",
-        clickable: true
-      },
-      simulateTouch: false,
-      allowTouchMove: false,
-      effect: "fade",
-      fadeEffect: {
-        crossFade: true
-      },
-      navigation: {
-        prevEl: ".qwiz__button-prev",
-        nextEl: ".qwiz__button-next"
-      },
-      on: {
-        init: function(swiper) {
-          const allSlides = document.querySelector(".fraction-controll__all");
-          const allSlidesItems = document.querySelectorAll(".slide-main-block:not(.swiper-slide-duplicate)");
-          allSlides.innerHTML = allSlidesItems.length < 10 ? `0${allSlidesItems.length}` : allSlidesItems.length;
-          const progressElement = document.querySelector(".fraction-controll__progress");
-          progressElement.innerHTML = `<span>Готово</span>: 0%`;
-          const progressBarFill = document.querySelector(".swiper-pagination-progressbar-fill");
-          progressBarFill.style.width = "0%";
-        },
-        slideChange: function(swiper) {
-          const currentSlide = document.querySelector(".fraction-controll__current");
-          currentSlide.innerHTML = swiper.realIndex + 1 < 10 ? `0${swiper.realIndex + 1}` : swiper.realIndex + 1;
-          const progress = swiper.realIndex / (swiper.slides.length - 1) * 100;
-          const progressElement = document.querySelector(".fraction-controll__progress");
-          progressElement.innerHTML = `<span>Готово</span>: ${progress.toFixed(2)}%`;
-          const progressBarFill = document.querySelector(".swiper-pagination-progressbar-fill");
-          progressBarFill.style.width = `${progress}%`;
-          if (swiper.realIndex === 0) {
-            progressElement.innerHTML = `<span>Готово</span>: 0%`;
-            progressBarFill.style.width = "0%";
-          }
-        },
-        //дейсвите после последнего сладера
-        reachEnd: function(swiper) {
-          document.getElementById("progress").style.display = "none";
-          document.getElementById("calc").style.display = "none";
-          document.getElementById("banner").style.display = "none";
-          document.getElementById("wrapper-content").classList.add("last");
-        },
-        fromEdge: function(swiper) {
-        }
-      }
-    });
-  }
-  if (document.querySelector(".examples__slider")) {
-    new Swiper(".examples__slider", {
-      // <- Указываем класс нужного слайдера
-      // Подключаем модули слайдера
-      // для конкретного случая
-      modules: [Navigation, Pagination],
-      observer: true,
-      observeParents: true,
-      slidesPerView: 1,
-      spaceBetween: 15,
-      //autoHeight: true,
-      speed: 800,
-      //touchRatio: 0,
-      //simulateTouch: false,
-      //loop: true,
-      //preloadImages: false,
-      //lazy: true,
-      /*
-      // Эффекты
-      effect: 'fade',
-      autoplay: {
-      	delay: 3000,
-      	disableOnInteraction: false,
-      },
-      */
-      // Пагинация
-      pagination: {
-        el: ".examples-pagination",
-        clickable: true,
-        type: "fraction"
-      },
-      // Скроллбар
-      /*
-      scrollbar: {
-      	el: '.swiper-scrollbar',
-      	draggable: true,
-      },
-      */
-      // Кнопки "влево/вправо"
-      navigation: {
-        prevEl: ".examples-button-prev",
-        nextEl: ".examples-button-next"
-      },
-      // Брейкпоинты
-      breakpoints: {
-        540: {
-          slidesPerView: 1.3,
-          spaceBetween: 30,
-          autoHeight: true
-        }
-      },
-      // События
-      on: {}
-    });
-  }
-  if (document.querySelector(".additional-services__slider")) {
-    new Swiper(".additional-services__slider", {
-      // <- Указываем класс нужного слайдера
-      // Подключаем модули слайдера
-      // для конкретного случая
-      modules: [Pagination, Scrollbar],
+      modules: [Navigation],
       observer: true,
       observeParents: true,
       slidesPerView: 1.3,
-      spaceBetween: 15,
+      spaceBetween: 10,
       //autoHeight: true,
       speed: 800,
       //touchRatio: 0,
@@ -6613,40 +5602,174 @@ function initSliders() {
       },
       */
       // Пагинация
-      // pagination: {
-      // 	el: '.swiper-pagination',
-      // 	clickable: true, 
-      // 	  type: "progressbar",
-      // },
-      // Скроллбар
-      scrollbar: {
-        el: ".swiper-scrollbar",
-        draggable: true
+      /*
+      pagination: {
+      	el: '.swiper-pagination',
+      	clickable: true,
       },
-      // // Кнопки "влево/вправо"
-      // navigation: {
-      // 	prevEl: '.examples-button-prev',
-      // 	nextEl: '.examples-button-next',
-      // },
-      // Брейкпоинты
+      */
+      // Скроллбар
+      /*
+      scrollbar: {
+      	el: '.swiper-scrollbar',
+      	draggable: true,
+      },
+      */
+      // Кнопки "влево/вправо"
+      navigation: {
+        prevEl: ".result-prev",
+        nextEl: ".result-next"
+      },
       breakpoints: {
-        540: {
+        640: {
+          slidesPerView: 1.5,
+          spaceBetween: 10,
+          autoHeight: true
+        },
+        768: {
+          slidesPerView: 2.5,
+          spaceBetween: 20
+        }
+      },
+      on: {}
+    });
+  }
+  if (document.querySelector(".base__slider")) {
+    new Swiper(".base__slider", {
+      // <- Указываем класс нужного слайдера
+      // Подключаем модули слайдера
+      // для конкретного случая
+      modules: [Autoplay, EffectFade, Pagination],
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1.3,
+      spaceBetween: 10,
+      //autoHeight: true,
+      speed: 800,
+      //touchRatio: 0,
+      //simulateTouch: false,
+      //loop: true,
+      //preloadImages: false,
+      //lazy: true,
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+      },
+      effect: "fade",
+      autoplay: {
+        delay: 3e3,
+        disableOnInteraction: false
+      },
+      on: {}
+    });
+  }
+  if (document.querySelector(".steps__slider")) {
+    new Swiper(".steps__slider", {
+      // <- Указываем класс нужного слайдера
+      // Подключаем модули слайдера
+      // для конкретного случая
+      modules: [Navigation, Pagination],
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1.3,
+      spaceBetween: 10,
+      autoHeight: true,
+      speed: 800,
+      //touchRatio: 0,
+      //simulateTouch: false,
+      //loop: true,
+      //preloadImages: false,
+      //lazy: true,
+      /*
+      // Эффекты
+      effect: 'fade',
+      autoplay: {
+      	delay: 3000,
+      	disableOnInteraction: false,
+      },
+      */
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+      },
+      // Скроллбар
+      /*
+      scrollbar: {
+      	el: '.swiper-scrollbar',
+      	draggable: true,
+      },
+      */
+      // Кнопки "влево/вправо"
+      navigation: {
+        prevEl: ".steps-prev",
+        nextEl: ".steps-next"
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 1.5,
+          spaceBetween: 10,
+          autoHeight: true
+        },
+        768: {
+          slidesPerView: 2.5,
+          spaceBetween: 20
+        }
+      },
+      on: {}
+    });
+  }
+  if (document.querySelector(".price__slider")) {
+    new Swiper(".price__slider", {
+      // <- Указываем класс нужного слайдера
+      // Подключаем модули слайдера
+      // для конкретного случая
+      modules: [Navigation, Pagination],
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1.3,
+      spaceBetween: 10,
+      autoHeight: true,
+      speed: 800,
+      //touchRatio: 0,
+      //simulateTouch: false,
+      //loop: true,
+      //preloadImages: false,
+      //lazy: true,
+      /*
+      // Эффекты
+      effect: 'fade',
+      autoplay: {
+      	delay: 3000,
+      	disableOnInteraction: false,
+      },
+      */
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true
+      },
+      // Скроллбар
+      /*
+      scrollbar: {
+      	el: '.swiper-scrollbar',
+      	draggable: true,
+      },
+      */
+      // Кнопки "влево/вправо"
+      navigation: {
+        prevEl: ".price-prev",
+        nextEl: ".price-next"
+      },
+      breakpoints: {
+        640: {
           slidesPerView: 2,
-          spaceBetween: 20,
+          spaceBetween: 10,
           autoHeight: true
         },
         768: {
           slidesPerView: 3,
-          spaceBetween: 20,
-          autoHeight: true
-        },
-        1200: {
-          slidesPerView: 4,
-          spaceBetween: 30,
-          autoHeight: true
+          spaceBetween: 20
         }
       },
-      // События
       on: {}
     });
   }
@@ -6963,59 +6086,6 @@ function menuInit() {
   });
 }
 document.querySelector("[data-fls-menu]") ? window.addEventListener("load", menuInit) : null;
-document.addEventListener("DOMContentLoaded", function() {
-  function initSpollers() {
-    const spollers2 = document.querySelectorAll("[data-spoller]");
-    const pcBreakpoint = 1200;
-    spollers2.forEach((spoller) => {
-      spoller.addEventListener("click", function(e) {
-        if (window.innerWidth >= pcBreakpoint) {
-          return;
-        }
-        e.preventDefault();
-        e.stopPropagation();
-        const menuItem = this.closest(".menu__item");
-        const subMenu = menuItem.querySelector(".sub-menu");
-        document.querySelectorAll(".sub-menu._spoller-active").forEach((menu) => {
-          if (menu !== subMenu) {
-            menu.classList.remove("_spoller-active");
-            const trigger = menu.previousElementSibling;
-            if (trigger && trigger.hasAttribute("data-spoller")) {
-              trigger.classList.remove("_active");
-            }
-          }
-        });
-        subMenu.classList.toggle("_spoller-active");
-        this.classList.toggle("_active");
-      });
-    });
-    document.addEventListener("click", function(e) {
-      if (window.innerWidth >= pcBreakpoint) return;
-      if (!e.target.closest(".menu__item")) {
-        document.querySelectorAll(".sub-menu._spoller-active").forEach((menu) => {
-          menu.classList.remove("_spoller-active");
-          const trigger = menu.previousElementSibling;
-          if (trigger && trigger.hasAttribute("data-spoller")) {
-            trigger.classList.remove("_active");
-          }
-        });
-      }
-    });
-    function handleResize() {
-      if (window.innerWidth >= pcBreakpoint) {
-        document.querySelectorAll(".sub-menu._spoller-active").forEach((menu) => {
-          menu.classList.remove("_spoller-active");
-          const trigger = menu.previousElementSibling;
-          if (trigger && trigger.hasAttribute("data-spoller")) {
-            trigger.classList.remove("_active");
-          }
-        });
-      }
-    }
-    window.addEventListener("resize", handleResize);
-  }
-  initSpollers();
-});
 function headerScroll() {
   const header = document.querySelector("[data-fls-header-scroll]");
   const headerShow = header.hasAttribute("data-fls-header-scroll-show");
@@ -9764,18 +8834,17 @@ function requireLgZoom_min() {
 var lgZoom_minExports = requireLgZoom_min();
 const lgZoom = /* @__PURE__ */ getDefaultExportFromCjs(lgZoom_minExports);
 const KEY = "7EC452A9-0CFD441C-BD984C7C-17C8456E";
-const galleries = document.querySelectorAll("[data-fls-gallery]");
-if (galleries.length) {
-  galleries.forEach((gallery) => {
-    lightGallery(gallery, {
+function initGallery() {
+  if (document.querySelector("[data-fls-gallery]")) {
+    new lightGallery(document.querySelector("[data-fls-gallery]"), {
       plugins: [lgZoom, lgThumbnail],
       licenseKey: KEY,
-      speed: 500,
-      selector: "a"
-      // Теперь все ссылки будут работать
+      selector: "a",
+      speed: 500
     });
-  });
+  }
 }
+window.addEventListener("load", initGallery());
 class DynamicAdapt {
   constructor() {
     this.type = "max";
@@ -12570,6 +11639,101 @@ function inputMask() {
   });
 }
 document.querySelector("input[data-fls-input-mask]") ? window.addEventListener("load", inputMask) : null;
+let formValidate = {
+  getErrors(form) {
+    let error = 0;
+    let formRequiredItems = form.querySelectorAll("[required]");
+    if (formRequiredItems.length) {
+      formRequiredItems.forEach((formRequiredItem) => {
+        if ((formRequiredItem.offsetParent !== null || formRequiredItem.tagName === "SELECT") && !formRequiredItem.disabled) {
+          error += this.validateInput(formRequiredItem);
+        }
+      });
+    }
+    return error;
+  },
+  validateInput(formRequiredItem) {
+    let error = 0;
+    if (formRequiredItem.type === "email") {
+      formRequiredItem.value = formRequiredItem.value.replace(" ", "");
+      if (this.emailTest(formRequiredItem)) {
+        this.addError(formRequiredItem);
+        this.removeSuccess(formRequiredItem);
+        error++;
+      } else {
+        this.removeError(formRequiredItem);
+        this.addSuccess(formRequiredItem);
+      }
+    } else if (formRequiredItem.type === "checkbox" && !formRequiredItem.checked) {
+      this.addError(formRequiredItem);
+      this.removeSuccess(formRequiredItem);
+      error++;
+    } else {
+      if (!formRequiredItem.value.trim()) {
+        this.addError(formRequiredItem);
+        this.removeSuccess(formRequiredItem);
+        error++;
+      } else {
+        this.removeError(formRequiredItem);
+        this.addSuccess(formRequiredItem);
+      }
+    }
+    return error;
+  },
+  addError(formRequiredItem) {
+    formRequiredItem.classList.add("--form-error");
+    formRequiredItem.parentElement.classList.add("--form-error");
+    let inputError = formRequiredItem.parentElement.querySelector("[data-fls-form-error]");
+    if (inputError) formRequiredItem.parentElement.removeChild(inputError);
+    if (formRequiredItem.dataset.flsFormErrtext) {
+      formRequiredItem.parentElement.insertAdjacentHTML("beforeend", `<div data-fls-form-error>${formRequiredItem.dataset.flsFormErrtext}</div>`);
+    }
+  },
+  removeError(formRequiredItem) {
+    formRequiredItem.classList.remove("--form-error");
+    formRequiredItem.parentElement.classList.remove("--form-error");
+    if (formRequiredItem.parentElement.querySelector("[data-fls-form-error]")) {
+      formRequiredItem.parentElement.removeChild(formRequiredItem.parentElement.querySelector("[data-fls-form-error]"));
+    }
+  },
+  addSuccess(formRequiredItem) {
+    formRequiredItem.classList.add("--form-success");
+    formRequiredItem.parentElement.classList.add("--form-success");
+  },
+  removeSuccess(formRequiredItem) {
+    formRequiredItem.classList.remove("--form-success");
+    formRequiredItem.parentElement.classList.remove("--form-success");
+  },
+  formClean(form) {
+    form.reset();
+    setTimeout(() => {
+      let inputs = form.querySelectorAll("input,textarea");
+      for (let index = 0; index < inputs.length; index++) {
+        const el = inputs[index];
+        el.parentElement.classList.remove("--form-focus");
+        el.classList.remove("--form-focus");
+        formValidate.removeError(el);
+      }
+      let checkboxes = form.querySelectorAll('input[type="checkbox"]');
+      if (checkboxes.length) {
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = false;
+        });
+      }
+      if (window["flsSelect"]) {
+        let selects = form.querySelectorAll("select[data-fls-select]");
+        if (selects.length) {
+          selects.forEach((select) => {
+            window["flsSelect"].selectBuild(select);
+          });
+        }
+      }
+    }, 0);
+  },
+  emailTest(formRequiredItem) {
+    return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
+  }
+};
 function formInit() {
   function formSubmit() {
     const forms = document.forms;
@@ -12660,338 +11824,30 @@ function formInit() {
   formFieldsInit();
 }
 document.querySelector("[data-fls-form]") ? window.addEventListener("load", formInit) : null;
-document.addEventListener("DOMContentLoaded", function() {
-  window.addEventListener("load", handlePageLoad);
-  let fallbackTimer = setTimeout(() => {
-    handlePageLoad(true);
-  }, 3e3);
-  window.addEventListener("load", () => {
-    clearTimeout(fallbackTimer);
+function rippleEffect() {
+  document.addEventListener("click", function(e) {
+    const targetItem = e.target;
+    if (targetItem.closest("[data-fls-ripple]")) {
+      let getAnimationDuration2 = function() {
+        const aDuration = window.getComputedStyle(ripple).animationDuration;
+        return aDuration.includes("ms") ? aDuration.replace("ms", "") : aDuration.replace("s", "") * 1e3;
+      };
+      var getAnimationDuration = getAnimationDuration2;
+      const button = targetItem.closest("[data-fls-ripple]");
+      const ripple = document.createElement("span");
+      const diameter = Math.max(button.clientWidth, button.clientHeight);
+      const radius = diameter / 2;
+      ripple.style.width = ripple.style.height = `${diameter}px`;
+      ripple.style.left = `${e.pageX - (button.getBoundingClientRect().left + scrollX) - radius}px`;
+      ripple.style.top = `${e.pageY - (button.getBoundingClientRect().top + scrollY) - radius}px`;
+      ripple.classList.add("--ripple");
+      button.dataset.ripple === "once" && button.querySelector("--ripple") ? button.querySelector("--ripple").remove() : null;
+      button.appendChild(ripple);
+      const timeOut = getAnimationDuration2();
+      setTimeout(() => {
+        ripple ? ripple.remove() : null;
+      }, timeOut);
+    }
   });
-});
-function handlePageLoad(isFallback = false) {
-  const preloader = document.getElementById("preloader");
-  const content = document.getElementById("content");
-  if (isFallback) {
-    console.log("Fallback: показываем контент по таймауту");
-  }
-  if (content) {
-    content.style.display = "block";
-    content.style.opacity = "1";
-  } else {
-    document.body.style.opacity = "1";
-    document.body.style.visibility = "visible";
-  }
-  if (preloader) {
-    preloader.classList.add("preloader-hidden");
-    setTimeout(() => {
-      if (preloader.parentNode) {
-        preloader.remove();
-      }
-    }, 500);
-  }
 }
-document.addEventListener("DOMContentLoaded", function() {
-  console.log("=== КАЛЬКУЛЯТОР ОТДЕЛКИ БАЛКОНА ===");
-  const calcButtons = document.querySelectorAll(".calc__button[data-price]");
-  const imagesContainer = document.querySelector(".calc__images");
-  const totalPriceElement = document.getElementById("totalPrice");
-  const sizeInputs = document.querySelectorAll("[data-size-input]");
-  const sectionSwitches = document.querySelectorAll("[data-enable-section]");
-  const submitButton = document.querySelector(".calc__submit");
-  const imageMap = /* @__PURE__ */ new Map();
-  const allImages = imagesContainer.querySelectorAll(".calc-layer");
-  allImages.forEach((img) => {
-    const section = img.getAttribute("data-section");
-    const material = img.getAttribute("data-material");
-    if (section && material) {
-      const key = `${section}-${material}`;
-      imageMap.set(key, img);
-      img.style.opacity = "0";
-      img.style.pointerEvents = "none";
-      console.log(`Добавлено в карту: ${key}`);
-    }
-  });
-  console.log("Всего изображений в карте:", imageMap.size);
-  let selectedOptions = {
-    walls: { enabled: false, material: null, price: 0 },
-    ceiling: { enabled: false, material: null, price: 0 },
-    floor: { enabled: false, material: null, price: 0 },
-    exterior: { enabled: false, material: null, price: 0 },
-    lighting: { enabled: false, material: null, price: 0 },
-    glazing: { enabled: false, material: null, price: 0 },
-    insulation: { enabled: false, material: null, price: 0 }
-  };
-  let dimensions = {
-    length: 300,
-    width: 300
-  };
-  let dimensionPrices = {
-    length: 50,
-    // руб/см по умолчанию
-    width: 50
-    // руб/см по умолчанию
-  };
-  const basePrice = {
-    walls: 1200,
-    ceiling: 1e3,
-    floor: 900,
-    exterior: 800,
-    lighting: 500,
-    glazing: 1500,
-    insulation: 2e3
-  };
-  function manageImage(section, material, show) {
-    const key = `${section}-${material}`;
-    const img = imageMap.get(key);
-    console.log(`manageImage: ${key}, show: ${show}, найдено: ${!!img}`);
-    if (img) {
-      if (show) {
-        img.classList.add("active");
-        img.style.opacity = "1";
-        img.style.zIndex = "10";
-        console.log(`Показано: ${key}`);
-      } else {
-        img.classList.remove("active");
-        img.style.opacity = "0";
-        img.style.zIndex = "3";
-        console.log(`Скрыто: ${key}`);
-      }
-    } else {
-      console.warn(`Изображение не найдено: ${key}`);
-    }
-  }
-  function calculateArea() {
-    const length = parseFloat(dimensions.length) || 0;
-    const width = parseFloat(dimensions.width) || 0;
-    const lengthM = length / 100;
-    const widthM = width / 100;
-    return lengthM * widthM;
-  }
-  function calculateDimensionsPrice() {
-    const length = dimensions.length || 0;
-    const width = dimensions.width || 0;
-    const lengthPrice = length * dimensionPrices.length;
-    const widthPrice = width * dimensionPrices.width;
-    const perimeter = (length + width) * 2;
-    const perimeterPrice = perimeter * dimensionPrices.length;
-    const dimensionsTotal = perimeterPrice;
-    return {
-      lengthPrice,
-      widthPrice,
-      perimeter,
-      perimeterPrice,
-      total: dimensionsTotal
-    };
-  }
-  function calculateTotalPrice() {
-    const area = calculateArea();
-    let total = 0;
-    const dimensionsPrice = calculateDimensionsPrice();
-    total += dimensionsPrice.total;
-    for (const [section, option] of Object.entries(selectedOptions)) {
-      if (option && option.enabled && option.material) {
-        if (section === "walls" || section === "ceiling" || section === "floor" || section === "exterior") {
-          const sectionPrice = basePrice[section] + (option.price || 0);
-          total += sectionPrice * area;
-        } else if (section === "lighting" || section === "glazing" || section === "insulation") {
-          total += option.price || 0;
-        }
-      }
-    }
-    return Math.round(total);
-  }
-  function updatePrice() {
-    const total = calculateTotalPrice();
-    const dimensionsCalc = calculateDimensionsPrice();
-    const area = calculateArea();
-    if (totalPriceElement) {
-      totalPriceElement.textContent = total.toLocaleString("ru-RU");
-    }
-    document.querySelectorAll(".calc__dimension-price").forEach((el) => {
-      const forWhat = el.getAttribute("data-for");
-      if (forWhat === "length") {
-        el.textContent = dimensionsCalc.lengthPrice.toLocaleString("ru-RU");
-      } else if (forWhat === "width") {
-        el.textContent = dimensionsCalc.widthPrice.toLocaleString("ru-RU");
-      }
-    });
-    const dimensionsTotalEl = document.getElementById("dimensionsTotalPrice");
-    const perimeterEl = document.getElementById("perimeter");
-    const areaEl = document.getElementById("area");
-    const lengthPricePerCmEl = document.getElementById("lengthPricePerCm");
-    const widthPricePerCmEl = document.getElementById("widthPricePerCm");
-    if (dimensionsTotalEl) dimensionsTotalEl.textContent = dimensionsCalc.total.toLocaleString("ru-RU");
-    if (perimeterEl) perimeterEl.textContent = Math.round(dimensionsCalc.perimeter);
-    if (areaEl) areaEl.textContent = area.toFixed(2);
-    if (lengthPricePerCmEl) lengthPricePerCmEl.textContent = dimensionPrices.length;
-    if (widthPricePerCmEl) widthPricePerCmEl.textContent = dimensionPrices.width;
-  }
-  function handleButtonClick(button) {
-    const sectionChoice = button.closest(".calc__choice");
-    const section = sectionChoice.dataset.section;
-    const price = parseInt(button.dataset.price) || 0;
-    const material = button.dataset.material;
-    const sectionSwitch = sectionChoice.querySelector("[data-enable-section]");
-    if (!sectionSwitch.checked) {
-      alert('Включите секцию "' + sectionChoice.querySelector(".calc__choice-title").textContent + '" для выбора материала');
-      return;
-    }
-    console.log(`Клик: ${section} - ${material}, цена: ${price}`);
-    if (button.classList.contains("active")) {
-      button.classList.remove("active");
-      selectedOptions[section] = {
-        enabled: true,
-        material: null,
-        price: 0
-      };
-      manageImage(section, material, false);
-    } else {
-      const buttonsInSection = sectionChoice.querySelectorAll(".calc__button");
-      buttonsInSection.forEach((btn) => {
-        btn.classList.remove("active");
-        if (btn !== button) {
-          const oldMaterial = btn.dataset.material;
-          manageImage(section, oldMaterial, false);
-        }
-      });
-      button.classList.add("active");
-      selectedOptions[section] = {
-        enabled: true,
-        material,
-        price
-      };
-      manageImage(section, material, true);
-    }
-    updatePrice();
-  }
-  function fillCalcHiddenFields() {
-    console.log("Заполнение скрытых полей формы");
-    const calcLengthField = document.getElementById("calcLength");
-    const calcWidthField = document.getElementById("calcWidth");
-    const calcTotalPriceField = document.getElementById("calcTotalPrice");
-    if (calcLengthField) calcLengthField.value = dimensions.length;
-    if (calcWidthField) calcWidthField.value = dimensions.width;
-    if (calcTotalPriceField) calcTotalPriceField.value = calculateTotalPrice();
-    console.log(`Размеры: ${dimensions.length}см x ${dimensions.width}см, Цена: ${calculateTotalPrice()}`);
-    const lengthPricePerCmField = document.getElementById("lengthPricePerCmHidden");
-    const widthPricePerCmField = document.getElementById("widthPricePerCmHidden");
-    if (lengthPricePerCmField) lengthPricePerCmField.value = dimensionPrices.length;
-    if (widthPricePerCmField) widthPricePerCmField.value = dimensionPrices.width;
-    const sections = ["walls", "ceiling", "floor", "exterior", "lighting", "glazing", "insulation"];
-    sections.forEach((section) => {
-      const option = selectedOptions[section];
-      const enabledField = document.querySelector(`[name="${section}_enabled"], #${section}Enabled`);
-      const materialField = document.querySelector(`[name="${section}_material"], #${section}Material`);
-      const priceField = document.querySelector(`[name="${section}_price"], #${section}Price`);
-      if (enabledField) {
-        enabledField.value = option.enabled ? "true" : "false";
-      }
-      if (materialField) {
-        materialField.value = option.material || "";
-      }
-      if (priceField) {
-        priceField.value = option.price || 0;
-      }
-      console.log(`${section}: enabled=${option.enabled}, material=${option.material}, price=${option.price}`);
-    });
-  }
-  function initializeDimensions() {
-    sizeInputs.forEach((input) => {
-      const initialValue = parseFloat(input.value) || 0;
-      dimensions[input.name] = initialValue;
-      if (dimensions[input.name] === 0) {
-        dimensions[input.name] = input.name === "length" ? 30 : 300;
-        input.value = dimensions[input.name];
-      }
-      const pricePerCm = input.getAttribute("data-price-per-cm");
-      if (pricePerCm) {
-        dimensionPrices[input.name] = parseFloat(pricePerCm) || 50;
-        console.log(`Цена за см для ${input.name}: ${dimensionPrices[input.name]} руб (из data-атрибута)`);
-      }
-      console.log(`Поле ${input.name}: значение=${dimensions[input.name]} см, цена за см=${dimensionPrices[input.name]} руб`);
-    });
-  }
-  calcButtons.forEach((button) => {
-    button.addEventListener("click", () => handleButtonClick(button));
-  });
-  sizeInputs.forEach((input) => {
-    input.addEventListener("input", function() {
-      const value = parseFloat(this.value) || 0;
-      dimensions[this.name] = value > 0 ? value : 0;
-      const pricePerCm = this.getAttribute("data-price-per-cm");
-      if (pricePerCm) {
-        dimensionPrices[this.name] = parseFloat(pricePerCm) || 50;
-      }
-      console.log(`Размер ${this.name}: ${dimensions[this.name]} см, цена за см: ${dimensionPrices[this.name]} руб`);
-      updatePrice();
-    });
-  });
-  sectionSwitches.forEach((switchElement) => {
-    switchElement.addEventListener("change", function() {
-      const sectionChoice = this.closest(".calc__choice");
-      const section2 = sectionChoice.dataset.section;
-      const buttons = sectionChoice.querySelectorAll(".calc__button");
-      selectedOptions[section2].enabled = this.checked;
-      if (!this.checked) {
-        buttons.forEach((button) => {
-          if (button.classList.contains("active")) {
-            const material = button.dataset.material;
-            button.classList.remove("active");
-            selectedOptions[section2].material = null;
-            selectedOptions[section2].price = 0;
-            manageImage(section2, material, false);
-          }
-        });
-      }
-      console.log(`Секция ${section2} включена: ${this.checked}`);
-      updatePrice();
-    });
-    const section = switchElement.closest(".calc__choice").dataset.section;
-    selectedOptions[section].enabled = switchElement.checked;
-  });
-  if (submitButton) {
-    submitButton.addEventListener("click", function(e) {
-      console.log('Нажата кнопка "Получить расчет"');
-      fillCalcHiddenFields();
-      console.log("=== ДАННЫЕ ДЛЯ ОТПРАВКИ ===");
-      console.log("Длина:", dimensions.length, "см");
-      console.log("Ширина:", dimensions.width, "см");
-      console.log("Цена за см длины:", dimensionPrices.length, "руб");
-      console.log("Цена за см ширины:", dimensionPrices.width, "руб");
-      console.log("Площадь:", calculateArea().toFixed(2), "м²");
-      console.log("Итоговая цена:", calculateTotalPrice(), "руб");
-      console.log("Выбранные опции:", selectedOptions);
-    });
-  }
-  document.addEventListener("submit", function(e) {
-    if (e.target.closest("#calcForm")) {
-      console.log("Форма калькулятора отправляется");
-      fillCalcHiddenFields();
-      const formData = new FormData(e.target);
-      console.log("Данные формы:");
-      for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
-      }
-    }
-  });
-  function initialize() {
-    console.log("Инициализация калькулятора...");
-    initializeDimensions();
-    console.log("Начальные размеры:", dimensions);
-    console.log("Цены за см:", dimensionPrices);
-    console.log("Начальные опции:", selectedOptions);
-    updatePrice();
-    console.log("Инициализация завершена");
-  }
-  setTimeout(initialize, 100);
-  window.calcData = {
-    dimensions,
-    dimensionPrices,
-    selectedOptions,
-    calculateTotalPrice,
-    calculateArea,
-    calculateDimensionsPrice,
-    fillCalcHiddenFields
-  };
-});
+document.querySelector("[data-fls-ripple]") ? window.addEventListener("load", rippleEffect) : null;

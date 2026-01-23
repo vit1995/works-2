@@ -23,8 +23,8 @@
 		<link rel="preload" href="./assets/fonts/GubiaBlack.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1769200220087"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1769200220087">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1769206683753"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1769206683753">
 		<link rel="preload" as="style" href="./css/webfonts.min.css">
 		<link rel="stylesheet" media="print" onload="this.onload=null;this.removeAttribute('media');" href="./css/webfonts.min.css">
 	</head>
@@ -120,10 +120,10 @@
 								и ремонту выхлопных систем в Москве
 							</p>
 						</div>
-						<div data-fls-dynamic=".menu__body, 430" class="main-header__info">
+						<div data-fls-dynamic=".menu__body, 650" class="main-header__info">
 							<div class="main-header__address-body">
 								<div class="main-header__address-base">
-									<div class="main-header__address-name">Адреса сервисов</div>
+									<div class="main-header__address-name main-header__address-name--icon-chevron-down">Адреса сервисов</div>
 									<div class="main-header__address-text">Проложить маршрут</div>
 								</div>
 								<div class="main-header__address-box">
@@ -216,6 +216,97 @@
 					</div>
 				</div>
 			</div>
+			<style>
+				#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:
+      opacity 0.5s,
+      visibility 0.5s;
+  }
+
+  .preloader-hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--gren);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+			</style>
+			<div data-fls-mypreloader="" id="preloader">
+				<div class="spinner"></div>
+			</div>
+			<script>
+        // Проверяем, что DOM загружен перед работой с элементами
+        document.addEventListener("DOMContentLoaded", function () {
+          // Инициализация после полной загрузки
+          window.addEventListener("load", handlePageLoad);
+
+          // Fallback таймер
+          let fallbackTimer = setTimeout(() => {
+            handlePageLoad(true); // true - означает fallback вызов
+          }, 3000);
+
+          // Отменяем fallback если страница загрузилась
+          window.addEventListener("load", () => {
+            clearTimeout(fallbackTimer);
+          });
+        });
+
+        // Функция обработки загрузки страницы
+        function handlePageLoad(isFallback = false) {
+          const preloader = document.getElementById("preloader");
+          const content = document.getElementById("content");
+
+          // Для отладки
+          if (isFallback) {
+            console.log("Fallback: показываем контент по таймауту");
+          }
+
+          // Проверяем и показываем контент
+          if (content) {
+            content.style.display = "block";
+            content.style.opacity = "1";
+          } else {
+            // Если элемента content нет, показываем body
+            document.body.style.opacity = "1";
+            document.body.style.visibility = "visible";
+          }
+
+          // Обрабатываем прелоадер если он есть
+          if (preloader) {
+            preloader.classList.add("preloader-hidden");
+            setTimeout(() => {
+              if (preloader.parentNode) {
+                preloader.remove();
+              }
+            }, 500);
+          }
+        }
+			</script>
 			<main class="page page--home">
 				<section class="hero">
 					<img class="hero__img-bg" alt="Image" src="./assets/img/hero/01.jpg">

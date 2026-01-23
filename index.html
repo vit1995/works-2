@@ -23,8 +23,8 @@
 		<link rel="preload" href="./assets/fonts/GubiaBlack.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1769181940162"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1769181940162">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1769200220087"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1769200220087">
 		<link rel="preload" as="style" href="./css/webfonts.min.css">
 		<link rel="stylesheet" media="print" onload="this.onload=null;this.removeAttribute('media');" href="./css/webfonts.min.css">
 	</head>
@@ -176,7 +176,7 @@
 								Узнайте стоимость на ваш автомобиль и зафиксируйте скидку 15% до конца
           недели
 							</h2>
-							<form data-fls-form="ajax" data-fls-form-popup="popup" method="POST" action="sendmail/sendmail.php" class="popup__form">
+							<form data-fls-form="dev" data-fls-form-popup="popup" method="POST" action="sendmail/sendmail.php" class="popup__form">
 								<input data-fls-input-mask="+375(99) 999-99-99" required type="text" name="phone" autocomplete="off" data-fls-form-errtext="Заполните поле" placeholder="+375(__) ___-__-__" class="popup__input input">
 								<input data-fls-input="" required autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Ваше имя" class="popup__input input">
 								<button type="submit" data-fls-button="" data-fls-ripple="" class="popup__button button">
@@ -208,7 +208,7 @@
 							</div>
 							<h2 class="popup__title popup__title--success">Заявка отправлена!</h2>
 							<div class="popup__message">
-								<p class="popup__text">Спасибо за обращение! Мы свяжемся с вами в ближайшее время.</p>
+								<p style="color: white" class="popup__text">Спасибо за обращение! Мы свяжемся с вами в ближайшее время.</p>
 								<p class="popup__hint">Обычно перезваниваем в течение 15 минут</p>
 							</div>
 							<button data-fls-popup-close="" type="button" class="popup__button button">Понятно, спасибо</button>
@@ -237,7 +237,7 @@
 								</div>
 							</div>
 						</div>
-						<form data-fls-form="ajax" data-fls-form-popup="popup" method="POST" action="sendmail/sendmail.php" class="hero__form">
+						<form data-fls-form="dev" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php" class="hero__form">
 							<h3 class="hero__form-title">
 								Узнайте стоимость работ на ваше авто и зафиксируйте
 								<span>скидку 15%</span>
@@ -401,57 +401,57 @@
 										<div class="table-services__item">
 											<div class="table-services__name">Диагностика выхлопной системы</div>
 											<div class="table-services__price">Бесплатно</div>
-											<a href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
+											<a data-fls-popup-link="popup" href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
 										</div>
 										<div class="table-services__item">
 											<div class="table-services__name">Проверка катализатора эндоскопом</div>
 											<div class="table-services__price">от 97 BYN</div>
-											<a href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
+											<a data-fls-popup-link="popup" href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
 										</div>
 										<div class="table-services__item">
 											<div class="table-services__name">Проверка катализатора эндоскопом</div>
 											<div class="table-services__price">от 97 BYN</div>
-											<a href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
+											<a data-fls-popup-link="popup" href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
 										</div>
 										<div class="table-services__item">
 											<div class="table-services__name">Проверка катализатора эндоскопом</div>
 											<div class="table-services__price">от 97 BYN</div>
-											<a href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
+											<a data-fls-popup-link="popup" href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
 										</div>
 										<div class="table-services__item">
 											<div class="table-services__name">Проверка катализатора эндоскопом</div>
 											<div class="table-services__price">от 97 BYN</div>
-											<a href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
+											<a data-fls-popup-link="popup" href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
 										</div>
 										<div class="table-services__item">
 											<div class="table-services__name">Проверка катализатора эндоскопом</div>
 											<div class="table-services__price">от 97 BYN</div>
-											<a href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
+											<a data-fls-popup-link="popup" href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
 										</div>
 										<div class="table-services__item">
 											<div class="table-services__name">Проверка катализатора эндоскопом</div>
 											<div class="table-services__price">от 97 BYN</div>
-											<a href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
+											<a data-fls-popup-link="popup" href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
 										</div>
 										<div class="table-services__item">
 											<div class="table-services__name">Проверка катализатора эндоскопом</div>
 											<div class="table-services__price">от 97 BYN</div>
-											<a href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
+											<a data-fls-popup-link="popup" href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
 										</div>
 										<div class="table-services__item">
 											<div class="table-services__name">Проверка катализатора эндоскопом</div>
 											<div class="table-services__price">от 97 BYN</div>
-											<a href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
+											<a data-fls-popup-link="popup" href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
 										</div>
 										<div class="table-services__item">
 											<div class="table-services__name">Проверка катализатора эндоскопом</div>
 											<div class="table-services__price">от 97 BYN</div>
-											<a href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
+											<a data-fls-popup-link="popup" href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
 										</div>
 										<div class="table-services__item">
 											<div class="table-services__name">Проверка катализатора эндоскопом</div>
 											<div class="table-services__price">от 97 BYN</div>
-											<a href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
+											<a data-fls-popup-link="popup" href="#" class="table-services__link --icon-arrow-right-2">Записаться</a>
 										</div>
 									</div>
 								</div>
@@ -1205,7 +1205,7 @@
 						</div>
 						<div data-fls-spollers="768,max" class="footer__menu">
 							<details class="footer__nav">
-								<summary class="footer__menu-title">Услуги</summary>
+								<summary class="footer__menu-title">Марки</summary>
 								<ul class="footer__nav-list">
 									<li>
 										<a href="https://mr-glushitel.ru/remont-zamena-glushitelya-katalizatora-acura/">Acura</a>
@@ -1239,7 +1239,7 @@
 						</div>
 						<div data-fls-spollers="768,max" class="footer__menu">
 							<details class="footer__nav">
-								<summary class="footer__menu-title">Услуги</summary>
+								<summary class="footer__menu-title">Навигация</summary>
 								<ul class="footer__nav-list">
 									<li>
 										<a href="https://mr-glushitel.ru/">Главная</a>

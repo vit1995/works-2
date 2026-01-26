@@ -1065,7 +1065,11 @@ button.swiper-pagination-bullet {
   padding-bottom: 0.3125rem;
 }
 .top-header__social-link {
-  transition: color 0.3s ease 0s;
+  transition: opacity 0.3s ease 0s;
+}
+.top-header__social-link img {
+  width: 1.3125rem;
+  height: 1.3125rem;
 }
 .top-header__button {
   color: white;
@@ -3661,9 +3665,6 @@ body::after {
   }
 }
 @media (max-width: 26.875em){
-  .top-header__socials {
-    flex-direction: column;
-  }
   .main-header {
     display: none;
   }
@@ -4942,7 +4943,7 @@ body::after {
     color: var(--gren);
   }
   .top-header__social-link:hover {
-    color: var(--gren);
+    opacity: 0.7;
   }
   .top-header__button:hover {
     color: var(--gren);

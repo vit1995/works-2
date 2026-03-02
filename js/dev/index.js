@@ -27,6 +27,11 @@
     fetch(link.href, fetchOpts);
   }
 })();
+function getHash() {
+  if (location.hash) {
+    return location.hash.replace("#", "");
+  }
+}
 let slideUp = (target, duration = 500, showmore = 0) => {
   if (!target.classList.contains("--slide")) {
     target.classList.add("--slide");
@@ -187,6 +192,581 @@ const gotoBlock = (targetBlock, noHeader = false, speed = 500, offsetTop = 0) =>
     });
   }
 };
+let formValidate = {
+  getErrors(form) {
+    let error = 0;
+    let formRequiredItems = form.querySelectorAll("[required]");
+    if (formRequiredItems.length) {
+      formRequiredItems.forEach((formRequiredItem) => {
+        if ((formRequiredItem.offsetParent !== null || formRequiredItem.tagName === "SELECT") && !formRequiredItem.disabled) {
+          error += this.validateInput(formRequiredItem);
+        }
+      });
+    }
+    return error;
+  },
+  validateInput(formRequiredItem) {
+    let error = 0;
+    if (formRequiredItem.type === "email") {
+      formRequiredItem.value = formRequiredItem.value.replace(" ", "");
+      if (this.emailTest(formRequiredItem)) {
+        this.addError(formRequiredItem);
+        this.removeSuccess(formRequiredItem);
+        error++;
+      } else {
+        this.removeError(formRequiredItem);
+        this.addSuccess(formRequiredItem);
+      }
+    } else if (formRequiredItem.type === "checkbox" && !formRequiredItem.checked) {
+      this.addError(formRequiredItem);
+      this.removeSuccess(formRequiredItem);
+      error++;
+    } else {
+      if (!formRequiredItem.value.trim()) {
+        this.addError(formRequiredItem);
+        this.removeSuccess(formRequiredItem);
+        error++;
+      } else {
+        this.removeError(formRequiredItem);
+        this.addSuccess(formRequiredItem);
+      }
+    }
+    return error;
+  },
+  addError(formRequiredItem) {
+    formRequiredItem.classList.add("--form-error");
+    formRequiredItem.parentElement.classList.add("--form-error");
+    let inputError = formRequiredItem.parentElement.querySelector("[data-fls-form-error]");
+    if (inputError) formRequiredItem.parentElement.removeChild(inputError);
+    if (formRequiredItem.dataset.flsFormErrtext) {
+      formRequiredItem.parentElement.insertAdjacentHTML("beforeend", `<div data-fls-form-error>${formRequiredItem.dataset.flsFormErrtext}</div>`);
+    }
+  },
+  removeError(formRequiredItem) {
+    formRequiredItem.classList.remove("--form-error");
+    formRequiredItem.parentElement.classList.remove("--form-error");
+    if (formRequiredItem.parentElement.querySelector("[data-fls-form-error]")) {
+      formRequiredItem.parentElement.removeChild(formRequiredItem.parentElement.querySelector("[data-fls-form-error]"));
+    }
+  },
+  addSuccess(formRequiredItem) {
+    formRequiredItem.classList.add("--form-success");
+    formRequiredItem.parentElement.classList.add("--form-success");
+  },
+  removeSuccess(formRequiredItem) {
+    formRequiredItem.classList.remove("--form-success");
+    formRequiredItem.parentElement.classList.remove("--form-success");
+  },
+  formClean(form) {
+    form.reset();
+    setTimeout(() => {
+      let inputs = form.querySelectorAll("input,textarea");
+      for (let index = 0; index < inputs.length; index++) {
+        const el = inputs[index];
+        el.parentElement.classList.remove("--form-focus");
+        el.classList.remove("--form-focus");
+        formValidate.removeError(el);
+      }
+      let checkboxes = form.querySelectorAll('input[type="checkbox"]');
+      if (checkboxes.length) {
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = false;
+        });
+      }
+      if (window["flsSelect"]) {
+        let selects = form.querySelectorAll("select[data-fls-select]");
+        if (selects.length) {
+          selects.forEach((select) => {
+            window["flsSelect"].selectBuild(select);
+          });
+        }
+      }
+    }, 0);
+  },
+  emailTest(formRequiredItem) {
+    return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
+  }
+};
+class SelectConstructor {
+  constructor(props, data = null) {
+    let defaultConfig = {
+      init: true,
+      speed: 150
+    };
+    this.config = Object.assign(defaultConfig, props);
+    this.selectClasses = {
+      classSelect: "select",
+      // Основной блок
+      classSelectBody: "select__body",
+      // Тело селекта
+      classSelectTitle: "select__title",
+      // Заголовок
+      classSelectValue: "select__value",
+      // Значения у заголовка
+      classSelectLabel: "select__label",
+      // Лабел
+      classSelectInput: "select__input",
+      // Поле ввода
+      classSelectText: "select__text",
+      // Оболочка текстовых данных
+      classSelectLink: "select__link",
+      // Ссылка в элементе
+      classSelectOptions: "select__options",
+      // Выпадающий список
+      classSelectOptionsScroll: "select__scroll",
+      // Оболочка при скролле
+      classSelectOption: "select__option",
+      // Пункт
+      classSelectContent: "select__content",
+      // Оболочка контента в заголовке
+      classSelectRow: "select__row",
+      // Ряд
+      classSelectData: "select__asset",
+      // Дополнительные данные
+      classSelectDisabled: "--select-disabled",
+      // Запрещено
+      classSelectTag: "--select-tag",
+      // Класс тега
+      classSelectOpen: "--select-open",
+      // Список открыт
+      classSelectActive: "--select-active",
+      // Список выбран
+      classSelectFocus: "--select-focus",
+      // Список в фокусе
+      classSelectMultiple: "--select-multiple",
+      // Мультивыбор
+      classSelectCheckBox: "--select-checkbox",
+      // Стиль чекбокса
+      classSelectOptionSelected: "--select-selected",
+      // Вибраный пункт
+      classSelectPseudoLabel: "--select-pseudo-label"
+      // Псевдолейбл
+    };
+    this._this = this;
+    if (this.config.init) {
+      const selectItems = data ? document.querySelectorAll(data) : document.querySelectorAll("select[data-fls-select]");
+      if (selectItems.length) {
+        this.selectsInit(selectItems);
+      }
+    }
+  }
+  // Конструктор CSS класcа
+  getSelectClass(className) {
+    return `.${className}`;
+  }
+  // Геттер элементов псевдоселекта
+  getSelectElement(selectItem, className) {
+    return {
+      originalSelect: selectItem.querySelector("select"),
+      selectElement: selectItem.querySelector(this.getSelectClass(className))
+    };
+  }
+  // Функция инициализации всех селектов
+  selectsInit(selectItems) {
+    selectItems.forEach((originalSelect, index) => {
+      this.selectInit(originalSelect, index + 1);
+    });
+    document.addEventListener("click", (function(e) {
+      this.selectsActions(e);
+    }).bind(this));
+    document.addEventListener("keydown", (function(e) {
+      this.selectsActions(e);
+    }).bind(this));
+    document.addEventListener("focusin", (function(e) {
+      this.selectsActions(e);
+    }).bind(this));
+    document.addEventListener("focusout", (function(e) {
+      this.selectsActions(e);
+    }).bind(this));
+  }
+  // Функция инициализации конкретного селекта
+  selectInit(originalSelect, index) {
+    index ? originalSelect.dataset.flsSelectId = index : null;
+    if (originalSelect.options.length) {
+      const _this = this;
+      let selectItem = document.createElement("div");
+      selectItem.classList.add(this.selectClasses.classSelect);
+      originalSelect.parentNode.insertBefore(selectItem, originalSelect);
+      selectItem.appendChild(originalSelect);
+      originalSelect.hidden = true;
+      if (this.getSelectPlaceholder(originalSelect)) {
+        originalSelect.dataset.placeholder = this.getSelectPlaceholder(originalSelect).value;
+        if (this.getSelectPlaceholder(originalSelect).label.show) {
+          const selectItemTitle = this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement;
+          selectItemTitle.insertAdjacentHTML("afterbegin", `<span class="${this.selectClasses.classSelectLabel}">${this.getSelectPlaceholder(originalSelect).label.text ? this.getSelectPlaceholder(originalSelect).label.text : this.getSelectPlaceholder(originalSelect).value}</span>`);
+        }
+      }
+      selectItem.insertAdjacentHTML("beforeend", `<div class="${this.selectClasses.classSelectBody}"><div hidden class="${this.selectClasses.classSelectOptions}"></div></div>`);
+      this.selectBuild(originalSelect);
+      originalSelect.dataset.flsSelectSpeed = originalSelect.dataset.flsSelectSpeed ? originalSelect.dataset.flsSelectSpeed : this.config.speed;
+      this.config.speed = +originalSelect.dataset.flsSelectSpeed;
+      originalSelect.addEventListener("change", function(e) {
+        _this.selectChange(e);
+      });
+    }
+  }
+  // Конструктор псевдоселекта
+  selectBuild(originalSelect) {
+    const selectItem = originalSelect.parentElement;
+    if (originalSelect.id) {
+      selectItem.id = originalSelect.id;
+      originalSelect.removeAttribute("id");
+    }
+    selectItem.dataset.flsSelectId = originalSelect.dataset.flsSelectId;
+    originalSelect.dataset.flsSelectModif ? selectItem.classList.add(`select--${originalSelect.dataset.flsSelectModif}`) : null;
+    originalSelect.multiple ? selectItem.classList.add(this.selectClasses.classSelectMultiple) : selectItem.classList.remove(this.selectClasses.classSelectMultiple);
+    originalSelect.hasAttribute("data-fls-select-checkbox") && originalSelect.multiple ? selectItem.classList.add(this.selectClasses.classSelectCheckBox) : selectItem.classList.remove(this.selectClasses.classSelectCheckBox);
+    this.setSelectTitleValue(selectItem, originalSelect);
+    this.setOptions(selectItem, originalSelect);
+    originalSelect.hasAttribute("data-fls-select-search") ? this.searchActions(selectItem) : null;
+    originalSelect.hasAttribute("data-fls-select-open") ? this.selectAction(selectItem) : null;
+    this.selectDisabled(selectItem, originalSelect);
+  }
+  // Функция реакций на события
+  selectsActions(e) {
+    const t = e.target, type = e.type;
+    const isSelect = t.closest(this.getSelectClass(this.selectClasses.classSelect));
+    const isTag = t.closest(this.getSelectClass(this.selectClasses.classSelectTag));
+    if (!isSelect && !isTag) return this.selectsСlose();
+    const selectItem = isSelect || document.querySelector(`.${this.selectClasses.classSelect}[data-fls-select-id="${isTag.dataset.flsSelectId}"]`);
+    const originalSelect = this.getSelectElement(selectItem).originalSelect;
+    if (originalSelect.disabled) return;
+    if (type === "click") {
+      const tag = t.closest(this.getSelectClass(this.selectClasses.classSelectTag));
+      const title = t.closest(this.getSelectClass(this.selectClasses.classSelectTitle));
+      const option = t.closest(this.getSelectClass(this.selectClasses.classSelectOption));
+      if (tag) {
+        const optionItem = document.querySelector(`.${this.selectClasses.classSelect}[data-fls-select-id="${tag.dataset.flsSelectId}"] .select__option[data-fls-select-value="${tag.dataset.flsSelectValue}"]`);
+        this.optionAction(selectItem, originalSelect, optionItem);
+      } else if (title) {
+        this.selectAction(selectItem);
+      } else if (option) {
+        this.optionAction(selectItem, originalSelect, option);
+      }
+    } else if (type === "focusin" || type === "focusout") {
+      if (isSelect) selectItem.classList.toggle(this.selectClasses.classSelectFocus, type === "focusin");
+    } else if (type === "keydown" && e.code === "Escape") {
+      this.selectsСlose();
+    }
+  }
+  // Функция закрытия всех селектов
+  selectsСlose(selectOneGroup) {
+    const selectsGroup = selectOneGroup ? selectOneGroup : document;
+    const selectActiveItems = selectsGroup.querySelectorAll(`${this.getSelectClass(this.selectClasses.classSelect)}${this.getSelectClass(this.selectClasses.classSelectOpen)}`);
+    if (selectActiveItems.length) {
+      selectActiveItems.forEach((selectActiveItem) => {
+        this.selectСlose(selectActiveItem);
+      });
+    }
+  }
+  // Функция закрытия конкретного селекта
+  selectСlose(selectItem) {
+    const originalSelect = this.getSelectElement(selectItem).originalSelect;
+    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
+    if (!selectOptions.classList.contains("_slide")) {
+      selectItem.classList.remove(this.selectClasses.classSelectOpen);
+      slideUp(selectOptions, originalSelect.dataset.flsSelectSpeed);
+      setTimeout(() => {
+        selectItem.style.zIndex = "";
+      }, originalSelect.dataset.flsSelectSpeed);
+    }
+  }
+  // Функция открытия / закрытия конкретного селекта
+  selectAction(selectItem) {
+    const originalSelect = this.getSelectElement(selectItem).originalSelect;
+    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
+    selectOptions.querySelectorAll(`.${this.selectClasses.classSelectOption}`);
+    const selectOpenzIndex = originalSelect.dataset.flsSelectZIndex ? originalSelect.dataset.flsSelectZIndex : 3;
+    this.setOptionsPosition(selectItem);
+    if (originalSelect.closest("[data-fls-select-one]")) {
+      const selectOneGroup = originalSelect.closest("[data-fls-select-one]");
+      this.selectsСlose(selectOneGroup);
+    }
+    setTimeout(() => {
+      if (!selectOptions.classList.contains("--slide")) {
+        selectItem.classList.toggle(this.selectClasses.classSelectOpen);
+        slideToggle(selectOptions, originalSelect.dataset.flsSelectSpeed);
+        if (selectItem.classList.contains(this.selectClasses.classSelectOpen)) {
+          selectItem.style.zIndex = selectOpenzIndex;
+        } else {
+          setTimeout(() => {
+            selectItem.style.zIndex = "";
+          }, originalSelect.dataset.flsSelectSpeed);
+        }
+      }
+    }, 0);
+  }
+  // Сеттер значение заголовка селекта
+  setSelectTitleValue(selectItem, originalSelect) {
+    const selectItemBody = this.getSelectElement(selectItem, this.selectClasses.classSelectBody).selectElement;
+    const selectItemTitle = this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement;
+    if (selectItemTitle) selectItemTitle.remove();
+    selectItemBody.insertAdjacentHTML("afterbegin", this.getSelectTitleValue(selectItem, originalSelect));
+    originalSelect.hasAttribute("data-fls-select-search") ? this.searchActions(selectItem) : null;
+  }
+  // Конструктор значения заголовка
+  // getSelectTitleValue(selectItem, originalSelect) {
+  // 	// Получаем выбранные текстовые значения
+  // 	let selectTitleValue = this.getSelectedOptionsData(originalSelect, 2).html;
+  // 	// Обработка значений мультивыбора
+  // 	// Если включен режим тегов (указаны настройки data-fls-select-tags)
+  // 	if (originalSelect.multiple && originalSelect.hasAttribute('data-fls-select-tags')) {
+  // 		selectTitleValue = this.getSelectedOptionsData(originalSelect).elements.map(option => `<span role="button" data-fls-select-id="${selectItem.dataset.flsSelectId}" data-fls-select-value="${option.value}" class="--select-tag">${this.getSelectElementContent(option)}</span>`).join('');
+  // 		// Если вывод тегов во внешний блок
+  // 		if (originalSelect.dataset.flsSelectTags && document.querySelector(originalSelect.dataset.flsSelectTags)) {
+  // 			document.querySelector(originalSelect.dataset.flsSelectTags).innerHTML = selectTitleValue;
+  // 			if (originalSelect.hasAttribute('data-fls-select-search')) selectTitleValue = false;
+  // 		}
+  // 	}
+  // 	// Значение или плейсхолдер
+  // 	selectTitleValue = selectTitleValue.length ? selectTitleValue : (originalSelect.dataset.flsSelectPlaceholder || '')
+  // 	if (!originalSelect.hasAttribute('data-fls-select-tags')) {
+  // 		selectTitleValue = selectTitleValue ? selectTitleValue.map(item => item.replace(/"/g, '&quot;')) : ''
+  // 	}
+  // 	// Если включен режим pseudo
+  // 	let pseudoAttribute = '';
+  // 	let pseudoAttributeClass = '';
+  // 	if (originalSelect.hasAttribute('data-fls-select-pseudo-label')) {
+  // 		pseudoAttribute = originalSelect.dataset.flsSelectPseudoLabel ? ` data-fls-select-pseudo-label="${originalSelect.dataset.flsSelectPseudoLabel}"` : ` data-fls-select-pseudo-label="Заповніть атрибут"`;
+  // 		pseudoAttributeClass = ` ${this.selectClasses.classSelectPseudoLabel}`;
+  // 	}
+  // 	// Если есть значение, добавляем класс
+  // 	this.getSelectedOptionsData(originalSelect).values.length ? selectItem.classList.add(this.selectClasses.classSelectActive) : selectItem.classList.remove(this.selectClasses.classSelectActive);
+  // 	// Возвращаем поле ввода для поиска или текст
+  // 	if (originalSelect.hasAttribute('data-fls-select-search')) {
+  // 		// Выводим поле ввода для поиска
+  // 		return `<div class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}"><input autocomplete="off" type="text" placeholder="${selectTitleValue}" data-fls-select-placeholder="${selectTitleValue}" class="${this.selectClasses.classSelectInput}"></span></div>`;
+  // 	} else {
+  // 		// Если выбран элемент со своим классом
+  // 		const customClass = this.getSelectedOptionsData(originalSelect).elements.length && this.getSelectedOptionsData(originalSelect).elements[0].dataset.flsSelectClass ? ` ${this.getSelectedOptionsData(originalSelect).elements[0].dataset.flsSelectClass}` : '';
+  // 		// Выводим текстовое значение
+  // 		return `<button type="button" class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}${pseudoAttributeClass}"><span class="${this.selectClasses.classSelectContent}${customClass}">${selectTitleValue}</span></span></button>`;
+  // 	}
+  // }
+  // Конструктор значения заголовка
+  // Конструктор значения заголовка
+  getSelectTitleValue(selectItem, originalSelect) {
+    const selectedOption = originalSelect.options[originalSelect.selectedIndex];
+    const selectedAsset = selectedOption.getAttribute("data-fls-select-asset");
+    let assetHTML = "";
+    if (selectedAsset) {
+      assetHTML = `<span class="${this.selectClasses.classSelectData}">${selectedAsset.indexOf("img") >= 0 ? `<img src="${selectedAsset}" alt="">` : selectedAsset}</span>`;
+    }
+    const selectedText = selectedOption.textContent;
+    let pseudoAttribute = "";
+    let pseudoAttributeClass = "";
+    if (originalSelect.hasAttribute("data-fls-select-pseudo-label")) {
+      pseudoAttribute = originalSelect.dataset.flsSelectPseudoLabel ? ` data-fls-select-pseudo-label="${originalSelect.dataset.flsSelectPseudoLabel}"` : ` data-fls-select-pseudo-label="Заповніть атрибут"`;
+      pseudoAttributeClass = ` ${this.selectClasses.classSelectPseudoLabel}`;
+    }
+    this.getSelectedOptionsData(originalSelect).values.length ? selectItem.classList.add(this.selectClasses.classSelectActive) : selectItem.classList.remove(this.selectClasses.classSelectActive);
+    if (originalSelect.hasAttribute("data-fls-select-search")) {
+      return `<div class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}"><input autocomplete="off" type="text" placeholder="${selectedText}" data-fls-select-placeholder="${selectedText}" class="${this.selectClasses.classSelectInput}"></span></div>`;
+    } else {
+      const customClass = selectedOption.dataset.flsSelectClass ? ` ${selectedOption.dataset.flsSelectClass}` : "";
+      return `<button type="button" class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}${pseudoAttributeClass}"><span class="${this.selectClasses.classSelectContent}${customClass}">${assetHTML}<span class="${this.selectClasses.classSelectText}">${selectedText}</span></span></span></button>`;
+    }
+  }
+  // Конструктор данных для значения заголовка
+  getSelectElementContent(selectOption) {
+    const selectOptionData = selectOption.dataset.flsSelectAsset ? `${selectOption.dataset.flsSelectAsset}` : "";
+    const selectOptionDataHTML = selectOptionData.indexOf("img") >= 0 ? `<img src="${selectOptionData}" alt="">` : selectOptionData;
+    let selectOptionContentHTML = ``;
+    selectOptionContentHTML += selectOptionData ? `<span class="${this.selectClasses.classSelectRow}">` : "";
+    selectOptionContentHTML += selectOptionData ? `<span class="${this.selectClasses.classSelectData}">` : "";
+    selectOptionContentHTML += selectOptionData ? selectOptionDataHTML : "";
+    selectOptionContentHTML += selectOptionData ? `</span>` : "";
+    selectOptionContentHTML += selectOptionData ? `<span class="${this.selectClasses.classSelectText}">` : "";
+    selectOptionContentHTML += selectOption.textContent;
+    selectOptionContentHTML += selectOptionData ? `</span>` : "";
+    selectOptionContentHTML += selectOptionData ? `</span>` : "";
+    return selectOptionContentHTML;
+  }
+  // Получение данных плейсхолдера
+  getSelectPlaceholder(originalSelect) {
+    const selectPlaceholder = Array.from(originalSelect.options).find((option) => !option.value);
+    if (selectPlaceholder) {
+      return {
+        value: selectPlaceholder.textContent,
+        show: selectPlaceholder.hasAttribute("data-fls-select-show"),
+        label: {
+          show: selectPlaceholder.hasAttribute("data-fls-select-label"),
+          text: selectPlaceholder.dataset.flsSelectLabel
+        }
+      };
+    }
+  }
+  // Получение данных из выбранных элементов
+  getSelectedOptionsData(originalSelect, type) {
+    let selectedOptions = [];
+    if (originalSelect.multiple) {
+      selectedOptions = Array.from(originalSelect.options).filter((option) => option.value).filter((option) => option.selected);
+    } else {
+      selectedOptions.push(originalSelect.options[originalSelect.selectedIndex]);
+    }
+    return {
+      elements: selectedOptions.map((option) => option),
+      values: selectedOptions.filter((option) => option.value).map((option) => option.value),
+      html: selectedOptions.map((option) => this.getSelectElementContent(option))
+    };
+  }
+  // Конструктор элементов списка
+  getOptions(originalSelect) {
+    const selectOptionsScroll = originalSelect.hasAttribute("data-fls-select-scroll") ? `` : "";
+    +originalSelect.dataset.flsSelectScroll ? +originalSelect.dataset.flsSelectScroll : null;
+    let selectOptions = Array.from(originalSelect.options);
+    if (selectOptions.length > 0) {
+      let selectOptionsHTML = ``;
+      if (this.getSelectPlaceholder(originalSelect) && !this.getSelectPlaceholder(originalSelect).show || originalSelect.multiple) {
+        selectOptions = selectOptions.filter((option) => option.value);
+      }
+      selectOptionsHTML += `<div ${selectOptionsScroll} ${""} class="${this.selectClasses.classSelectOptionsScroll}">`;
+      selectOptions.forEach((selectOption) => {
+        selectOptionsHTML += this.getOption(selectOption, originalSelect);
+      });
+      selectOptionsHTML += `</div>`;
+      return selectOptionsHTML;
+    }
+  }
+  // Конструктор конкретного элемента списка
+  getOption(selectOption, originalSelect) {
+    const selectOptionSelected = selectOption.selected && originalSelect.multiple ? ` ${this.selectClasses.classSelectOptionSelected}` : "";
+    const selectOptionHide = selectOption.selected && !originalSelect.hasAttribute("data-fls-select-show-selected") && !originalSelect.multiple ? `hidden` : ``;
+    const selectOptionClass = selectOption.dataset.flsSelectClass ? ` ${selectOption.dataset.flsSelectClass}` : "";
+    const selectOptionLink = selectOption.dataset.flsSelectHref ? selectOption.dataset.flsSelectHref : false;
+    const selectOptionLinkTarget = selectOption.hasAttribute("data-fls-select-href-blank") ? `target="_blank"` : "";
+    let selectOptionHTML = ``;
+    selectOptionHTML += selectOptionLink ? `<a ${selectOptionLinkTarget} ${selectOptionHide} href="${selectOptionLink}" data-fls-select-value="${selectOption.value}" class="${this.selectClasses.classSelectOption}${selectOptionClass}${selectOptionSelected}">` : `<button ${selectOptionHide} class="${this.selectClasses.classSelectOption}${selectOptionClass}${selectOptionSelected}" data-fls-select-value="${selectOption.value}" type="button">`;
+    selectOptionHTML += this.getSelectElementContent(selectOption);
+    selectOptionHTML += selectOptionLink ? `</a>` : `</button>`;
+    return selectOptionHTML;
+  }
+  // Сеттер элементов списка (options)
+  setOptions(selectItem, originalSelect) {
+    const selectItemOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
+    selectItemOptions.innerHTML = this.getOptions(originalSelect);
+  }
+  // Определяем, где отобразить выпадающий список
+  setOptionsPosition(selectItem) {
+    const originalSelect = this.getSelectElement(selectItem).originalSelect;
+    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
+    const selectItemScroll = this.getSelectElement(selectItem, this.selectClasses.classSelectOptionsScroll).selectElement;
+    const customMaxHeightValue = +originalSelect.dataset.flsSelectScroll ? `${+originalSelect.dataset.flsSelectScroll}px` : ``;
+    const selectOptionsPosMargin = +originalSelect.dataset.flsSelectOptionsMargin ? +originalSelect.dataset.flsSelectOptionsMargin : 10;
+    if (!selectItem.classList.contains(this.selectClasses.classSelectOpen)) {
+      selectOptions.hidden = false;
+      const selectItemScrollHeight = selectItemScroll.offsetHeight ? selectItemScroll.offsetHeight : parseInt(window.getComputedStyle(selectItemScroll).getPropertyValue("max-height"));
+      const selectOptionsHeight = selectOptions.offsetHeight > selectItemScrollHeight ? selectOptions.offsetHeight : selectItemScrollHeight + selectOptions.offsetHeight;
+      const selectOptionsScrollHeight = selectOptionsHeight - selectItemScrollHeight;
+      selectOptions.hidden = true;
+      const selectItemHeight = selectItem.offsetHeight;
+      const selectItemPos = selectItem.getBoundingClientRect().top;
+      const selectItemTotal = selectItemPos + selectOptionsHeight + selectItemHeight + selectOptionsScrollHeight;
+      const selectItemResult = window.innerHeight - (selectItemTotal + selectOptionsPosMargin);
+      if (selectItemResult < 0) {
+        const newMaxHeightValue = selectOptionsHeight + selectItemResult;
+        if (newMaxHeightValue < 100) {
+          selectItem.classList.add("select--show-top");
+          selectItemScroll.style.maxHeight = selectItemPos < selectOptionsHeight ? `${selectItemPos - (selectOptionsHeight - selectItemPos)}px` : customMaxHeightValue;
+        } else {
+          selectItem.classList.remove("select--show-top");
+          selectItemScroll.style.maxHeight = `${newMaxHeightValue}px`;
+        }
+      }
+    } else {
+      setTimeout(() => {
+        selectItem.classList.remove("select--show-top");
+        selectItemScroll.style.maxHeight = customMaxHeightValue;
+      }, +originalSelect.dataset.flsSelectSpeed);
+    }
+  }
+  // Обработчик клика на пункт списка
+  optionAction(selectItem, originalSelect, optionItem) {
+    const optionsBox = selectItem.querySelector(this.getSelectClass(this.selectClasses.classSelectOptions));
+    if (optionsBox.classList.contains("--slide")) return;
+    if (originalSelect.multiple) {
+      optionItem.classList.toggle(this.selectClasses.classSelectOptionSelected);
+      const selectedEls = this.getSelectedOptionsData(originalSelect).elements;
+      for (const el of selectedEls) {
+        el.removeAttribute("selected");
+      }
+      const selectedUI = selectItem.querySelectorAll(this.getSelectClass(this.selectClasses.classSelectOptionSelected));
+      for (const el of selectedUI) {
+        const val = el.dataset.flsSelectValue;
+        const opt = originalSelect.querySelector(`option[value="${val}"]`);
+        if (opt) opt.setAttribute("selected", "selected");
+      }
+    } else {
+      if (!originalSelect.hasAttribute("data-fls-select-show-selected")) {
+        setTimeout(() => {
+          const hiddenOpt = selectItem.querySelector(`${this.getSelectClass(this.selectClasses.classSelectOption)}[hidden]`);
+          if (hiddenOpt) hiddenOpt.hidden = false;
+          optionItem.hidden = true;
+        }, this.config.speed);
+      }
+      originalSelect.value = optionItem.dataset.flsSelectValue || optionItem.textContent;
+      this.selectAction(selectItem);
+    }
+    this.setSelectTitleValue(selectItem, originalSelect);
+    this.setSelectChange(originalSelect);
+  }
+  // Реакция на изменение исходного select
+  selectChange(e) {
+    const originalSelect = e.target;
+    this.selectBuild(originalSelect);
+    this.setSelectChange(originalSelect);
+  }
+  // Обработчик изменения в селекте
+  setSelectChange(originalSelect) {
+    if (originalSelect.hasAttribute("data-fls-select-validate")) {
+      formValidate.validateInput(originalSelect);
+    }
+    if (originalSelect.hasAttribute("data-fls-select-submit") && originalSelect.value) {
+      let tempButton = document.createElement("button");
+      tempButton.type = "submit";
+      originalSelect.closest("form").append(tempButton);
+      tempButton.click();
+      tempButton.remove();
+    }
+    const selectItem = originalSelect.parentElement;
+    this.selectCallback(selectItem, originalSelect);
+  }
+  // Обработчик disabled
+  selectDisabled(selectItem, originalSelect) {
+    if (originalSelect.disabled) {
+      selectItem.classList.add(this.selectClasses.classSelectDisabled);
+      this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement.disabled = true;
+    } else {
+      selectItem.classList.remove(this.selectClasses.classSelectDisabled);
+      this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement.disabled = false;
+    }
+  }
+  // Обработчик поиска по элементам списка
+  searchActions(selectItem) {
+    const selectInput = this.getSelectElement(selectItem, this.selectClasses.classSelectInput).selectElement;
+    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
+    selectInput.addEventListener("input", () => {
+      const inputValue = selectInput.value.toLowerCase();
+      const selectOptionsItems = selectOptions.querySelectorAll(`.${this.selectClasses.classSelectOption}`);
+      selectOptionsItems.forEach((item) => {
+        const itemText = item.textContent.toLowerCase();
+        item.hidden = !itemText.includes(inputValue);
+      });
+      if (selectOptions.hidden) {
+        this.selectAction(selectItem);
+      }
+    });
+  }
+  // Колбек функция
+  selectCallback(selectItem, originalSelect) {
+    document.dispatchEvent(new CustomEvent("selectCallback", {
+      detail: {
+        select: originalSelect
+      }
+    }));
+  }
+}
+document.querySelector("select[data-fls-select]") ? window.addEventListener("load", () => window.flsSelect = new SelectConstructor({})) : null;
 function spollers() {
   const spollersArray = document.querySelectorAll("[data-fls-spollers]");
   if (spollersArray.length > 0) {
@@ -5129,302 +5709,6 @@ function Pagination(_ref) {
     destroy
   });
 }
-function Autoplay(_ref) {
-  let {
-    swiper,
-    extendParams,
-    on,
-    emit,
-    params
-  } = _ref;
-  swiper.autoplay = {
-    running: false,
-    paused: false,
-    timeLeft: 0
-  };
-  extendParams({
-    autoplay: {
-      enabled: false,
-      delay: 3e3,
-      waitForTransition: true,
-      disableOnInteraction: false,
-      stopOnLastSlide: false,
-      reverseDirection: false,
-      pauseOnMouseEnter: false
-    }
-  });
-  let timeout;
-  let raf;
-  let autoplayDelayTotal = params && params.autoplay ? params.autoplay.delay : 3e3;
-  let autoplayDelayCurrent = params && params.autoplay ? params.autoplay.delay : 3e3;
-  let autoplayTimeLeft;
-  let autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
-  let wasPaused;
-  let isTouched;
-  let pausedByTouch;
-  let touchStartTimeout;
-  let slideChanged;
-  let pausedByInteraction;
-  let pausedByPointerEnter;
-  function onTransitionEnd(e) {
-    if (!swiper || swiper.destroyed || !swiper.wrapperEl) return;
-    if (e.target !== swiper.wrapperEl) return;
-    swiper.wrapperEl.removeEventListener("transitionend", onTransitionEnd);
-    if (pausedByPointerEnter || e.detail && e.detail.bySwiperTouchMove) {
-      return;
-    }
-    resume();
-  }
-  const calcTimeLeft = () => {
-    if (swiper.destroyed || !swiper.autoplay.running) return;
-    if (swiper.autoplay.paused) {
-      wasPaused = true;
-    } else if (wasPaused) {
-      autoplayDelayCurrent = autoplayTimeLeft;
-      wasPaused = false;
-    }
-    const timeLeft = swiper.autoplay.paused ? autoplayTimeLeft : autoplayStartTime + autoplayDelayCurrent - (/* @__PURE__ */ new Date()).getTime();
-    swiper.autoplay.timeLeft = timeLeft;
-    emit("autoplayTimeLeft", timeLeft, timeLeft / autoplayDelayTotal);
-    raf = requestAnimationFrame(() => {
-      calcTimeLeft();
-    });
-  };
-  const getSlideDelay = () => {
-    let activeSlideEl;
-    if (swiper.virtual && swiper.params.virtual.enabled) {
-      activeSlideEl = swiper.slides.find((slideEl) => slideEl.classList.contains("swiper-slide-active"));
-    } else {
-      activeSlideEl = swiper.slides[swiper.activeIndex];
-    }
-    if (!activeSlideEl) return void 0;
-    const currentSlideDelay = parseInt(activeSlideEl.getAttribute("data-swiper-autoplay"), 10);
-    return currentSlideDelay;
-  };
-  const run = (delayForce) => {
-    if (swiper.destroyed || !swiper.autoplay.running) return;
-    cancelAnimationFrame(raf);
-    calcTimeLeft();
-    let delay = typeof delayForce === "undefined" ? swiper.params.autoplay.delay : delayForce;
-    autoplayDelayTotal = swiper.params.autoplay.delay;
-    autoplayDelayCurrent = swiper.params.autoplay.delay;
-    const currentSlideDelay = getSlideDelay();
-    if (!Number.isNaN(currentSlideDelay) && currentSlideDelay > 0 && typeof delayForce === "undefined") {
-      delay = currentSlideDelay;
-      autoplayDelayTotal = currentSlideDelay;
-      autoplayDelayCurrent = currentSlideDelay;
-    }
-    autoplayTimeLeft = delay;
-    const speed = swiper.params.speed;
-    const proceed = () => {
-      if (!swiper || swiper.destroyed) return;
-      if (swiper.params.autoplay.reverseDirection) {
-        if (!swiper.isBeginning || swiper.params.loop || swiper.params.rewind) {
-          swiper.slidePrev(speed, true, true);
-          emit("autoplay");
-        } else if (!swiper.params.autoplay.stopOnLastSlide) {
-          swiper.slideTo(swiper.slides.length - 1, speed, true, true);
-          emit("autoplay");
-        }
-      } else {
-        if (!swiper.isEnd || swiper.params.loop || swiper.params.rewind) {
-          swiper.slideNext(speed, true, true);
-          emit("autoplay");
-        } else if (!swiper.params.autoplay.stopOnLastSlide) {
-          swiper.slideTo(0, speed, true, true);
-          emit("autoplay");
-        }
-      }
-      if (swiper.params.cssMode) {
-        autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
-        requestAnimationFrame(() => {
-          run();
-        });
-      }
-    };
-    if (delay > 0) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        proceed();
-      }, delay);
-    } else {
-      requestAnimationFrame(() => {
-        proceed();
-      });
-    }
-    return delay;
-  };
-  const start = () => {
-    autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
-    swiper.autoplay.running = true;
-    run();
-    emit("autoplayStart");
-  };
-  const stop = () => {
-    swiper.autoplay.running = false;
-    clearTimeout(timeout);
-    cancelAnimationFrame(raf);
-    emit("autoplayStop");
-  };
-  const pause = (internal, reset) => {
-    if (swiper.destroyed || !swiper.autoplay.running) return;
-    clearTimeout(timeout);
-    if (!internal) {
-      pausedByInteraction = true;
-    }
-    const proceed = () => {
-      emit("autoplayPause");
-      if (swiper.params.autoplay.waitForTransition) {
-        swiper.wrapperEl.addEventListener("transitionend", onTransitionEnd);
-      } else {
-        resume();
-      }
-    };
-    swiper.autoplay.paused = true;
-    if (reset) {
-      if (slideChanged) {
-        autoplayTimeLeft = swiper.params.autoplay.delay;
-      }
-      slideChanged = false;
-      proceed();
-      return;
-    }
-    const delay = autoplayTimeLeft || swiper.params.autoplay.delay;
-    autoplayTimeLeft = delay - ((/* @__PURE__ */ new Date()).getTime() - autoplayStartTime);
-    if (swiper.isEnd && autoplayTimeLeft < 0 && !swiper.params.loop) return;
-    if (autoplayTimeLeft < 0) autoplayTimeLeft = 0;
-    proceed();
-  };
-  const resume = () => {
-    if (swiper.isEnd && autoplayTimeLeft < 0 && !swiper.params.loop || swiper.destroyed || !swiper.autoplay.running) return;
-    autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
-    if (pausedByInteraction) {
-      pausedByInteraction = false;
-      run(autoplayTimeLeft);
-    } else {
-      run();
-    }
-    swiper.autoplay.paused = false;
-    emit("autoplayResume");
-  };
-  const onVisibilityChange = () => {
-    if (swiper.destroyed || !swiper.autoplay.running) return;
-    const document2 = getDocument();
-    if (document2.visibilityState === "hidden") {
-      pausedByInteraction = true;
-      pause(true);
-    }
-    if (document2.visibilityState === "visible") {
-      resume();
-    }
-  };
-  const onPointerEnter = (e) => {
-    if (e.pointerType !== "mouse") return;
-    pausedByInteraction = true;
-    pausedByPointerEnter = true;
-    if (swiper.animating || swiper.autoplay.paused) return;
-    pause(true);
-  };
-  const onPointerLeave = (e) => {
-    if (e.pointerType !== "mouse") return;
-    pausedByPointerEnter = false;
-    if (swiper.autoplay.paused) {
-      resume();
-    }
-  };
-  const attachMouseEvents = () => {
-    if (swiper.params.autoplay.pauseOnMouseEnter) {
-      swiper.el.addEventListener("pointerenter", onPointerEnter);
-      swiper.el.addEventListener("pointerleave", onPointerLeave);
-    }
-  };
-  const detachMouseEvents = () => {
-    if (swiper.el && typeof swiper.el !== "string") {
-      swiper.el.removeEventListener("pointerenter", onPointerEnter);
-      swiper.el.removeEventListener("pointerleave", onPointerLeave);
-    }
-  };
-  const attachDocumentEvents = () => {
-    const document2 = getDocument();
-    document2.addEventListener("visibilitychange", onVisibilityChange);
-  };
-  const detachDocumentEvents = () => {
-    const document2 = getDocument();
-    document2.removeEventListener("visibilitychange", onVisibilityChange);
-  };
-  on("init", () => {
-    if (swiper.params.autoplay.enabled) {
-      attachMouseEvents();
-      attachDocumentEvents();
-      start();
-    }
-  });
-  on("destroy", () => {
-    detachMouseEvents();
-    detachDocumentEvents();
-    if (swiper.autoplay.running) {
-      stop();
-    }
-  });
-  on("_freeModeStaticRelease", () => {
-    if (pausedByTouch || pausedByInteraction) {
-      resume();
-    }
-  });
-  on("_freeModeNoMomentumRelease", () => {
-    if (!swiper.params.autoplay.disableOnInteraction) {
-      pause(true, true);
-    } else {
-      stop();
-    }
-  });
-  on("beforeTransitionStart", (_s, speed, internal) => {
-    if (swiper.destroyed || !swiper.autoplay.running) return;
-    if (internal || !swiper.params.autoplay.disableOnInteraction) {
-      pause(true, true);
-    } else {
-      stop();
-    }
-  });
-  on("sliderFirstMove", () => {
-    if (swiper.destroyed || !swiper.autoplay.running) return;
-    if (swiper.params.autoplay.disableOnInteraction) {
-      stop();
-      return;
-    }
-    isTouched = true;
-    pausedByTouch = false;
-    pausedByInteraction = false;
-    touchStartTimeout = setTimeout(() => {
-      pausedByInteraction = true;
-      pausedByTouch = true;
-      pause(true);
-    }, 200);
-  });
-  on("touchEnd", () => {
-    if (swiper.destroyed || !swiper.autoplay.running || !isTouched) return;
-    clearTimeout(touchStartTimeout);
-    clearTimeout(timeout);
-    if (swiper.params.autoplay.disableOnInteraction) {
-      pausedByTouch = false;
-      isTouched = false;
-      return;
-    }
-    if (pausedByTouch && swiper.params.cssMode) resume();
-    pausedByTouch = false;
-    isTouched = false;
-  });
-  on("slideChange", () => {
-    if (swiper.destroyed || !swiper.autoplay.running) return;
-    slideChanged = true;
-  });
-  Object.assign(swiper.autoplay, {
-    start,
-    stop,
-    pause,
-    resume
-  });
-}
 function effectInit(params) {
   const {
     effect,
@@ -5576,17 +5860,17 @@ function EffectFade(_ref) {
   });
 }
 function initSliders() {
-  if (document.querySelector(".result__slider")) {
-    new Swiper(".result__slider", {
+  if (document.querySelector(".portofilio__slider")) {
+    new Swiper(".portofilio__slider", {
       // <- Указываем класс нужного слайдера
       // Подключаем модули слайдера
       // для конкретного случая
-      modules: [Navigation],
+      modules: [Navigation, Pagination],
       observer: true,
       observeParents: true,
-      slidesPerView: 1.3,
-      spaceBetween: 10,
-      //autoHeight: true,
+      slidesPerView: 1,
+      spaceBetween: 20,
+      autoHeight: true,
       speed: 800,
       //touchRatio: 0,
       //simulateTouch: false,
@@ -5602,12 +5886,10 @@ function initSliders() {
       },
       */
       // Пагинация
-      /*
       pagination: {
-      	el: '.swiper-pagination',
-      	clickable: true,
+        el: ".swiper-pagination",
+        clickable: true
       },
-      */
       // Скроллбар
       /*
       scrollbar: {
@@ -5617,61 +5899,44 @@ function initSliders() {
       */
       // Кнопки "влево/вправо"
       navigation: {
-        prevEl: ".result-prev",
-        nextEl: ".result-next"
+        prevEl: ".portofilio-prev",
+        nextEl: ".portofilio-next"
       },
+      /*
+      // Брейкпоинты
       breakpoints: {
-        640: {
-          slidesPerView: 1.5,
-          spaceBetween: 10,
-          autoHeight: true
-        },
-        768: {
-          slidesPerView: 2.5,
-          spaceBetween: 20
-        }
+      	640: {
+      		slidesPerView: 1,
+      		spaceBetween: 0,
+      		autoHeight: true,
+      	},
+      	768: {
+      		slidesPerView: 2,
+      		spaceBetween: 20,
+      	},
+      	992: {
+      		slidesPerView: 3,
+      		spaceBetween: 20,
+      	},
+      	1268: {
+      		slidesPerView: 4,
+      		spaceBetween: 30,
+      	},
       },
+      */
+      // События
       on: {}
     });
   }
-  if (document.querySelector(".base__slider")) {
-    new Swiper(".base__slider", {
-      // <- Указываем класс нужного слайдера
-      // Подключаем модули слайдера
-      // для конкретного случая
-      modules: [Autoplay, EffectFade, Pagination],
-      observer: true,
-      observeParents: true,
-      slidesPerView: 1.3,
-      spaceBetween: 10,
-      //autoHeight: true,
-      speed: 800,
-      //touchRatio: 0,
-      //simulateTouch: false,
-      //loop: true,
-      //preloadImages: false,
-      //lazy: true,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true
-      },
-      effect: "fade",
-      autoplay: {
-        delay: 3e3,
-        disableOnInteraction: false
-      },
-      on: {}
-    });
-  }
-  if (document.querySelector(".steps__slider")) {
-    new Swiper(".steps__slider", {
+  if (document.querySelector(".video__slider")) {
+    new Swiper(".video__slider", {
       // <- Указываем класс нужного слайдера
       // Подключаем модули слайдера
       // для конкретного случая
       modules: [Navigation, Pagination],
       observer: true,
       observeParents: true,
-      slidesPerView: 1.3,
+      slidesPerView: 1.2,
       spaceBetween: 10,
       autoHeight: true,
       speed: 800,
@@ -5688,6 +5953,7 @@ function initSliders() {
       	disableOnInteraction: false,
       },
       */
+      // Пагинация
       pagination: {
         el: ".swiper-pagination",
         clickable: true
@@ -5701,80 +5967,203 @@ function initSliders() {
       */
       // Кнопки "влево/вправо"
       navigation: {
-        prevEl: ".steps-prev",
-        nextEl: ".steps-next"
+        prevEl: ".video-prev",
+        nextEl: ".video-next"
       },
+      // Брейкпоинты
       breakpoints: {
         640: {
-          slidesPerView: 1.5,
-          spaceBetween: 10,
+          slidesPerView: 1,
+          spaceBetween: 0,
           autoHeight: true
         },
         768: {
-          slidesPerView: 2.5,
-          spaceBetween: 20
-        }
-      },
-      on: {}
-    });
-  }
-  if (document.querySelector(".price__slider")) {
-    new Swiper(".price__slider", {
-      // <- Указываем класс нужного слайдера
-      // Подключаем модули слайдера
-      // для конкретного случая
-      modules: [Navigation, Pagination],
-      observer: true,
-      observeParents: true,
-      slidesPerView: 1.3,
-      spaceBetween: 10,
-      autoHeight: true,
-      speed: 800,
-      //touchRatio: 0,
-      //simulateTouch: false,
-      //loop: true,
-      //preloadImages: false,
-      //lazy: true,
-      /*
-      // Эффекты
-      effect: 'fade',
-      autoplay: {
-      	delay: 3000,
-      	disableOnInteraction: false,
-      },
-      */
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true
-      },
-      // Скроллбар
-      /*
-      scrollbar: {
-      	el: '.swiper-scrollbar',
-      	draggable: true,
-      },
-      */
-      // Кнопки "влево/вправо"
-      navigation: {
-        prevEl: ".price-prev",
-        nextEl: ".price-next"
-      },
-      breakpoints: {
-        640: {
           slidesPerView: 2,
-          spaceBetween: 10,
-          autoHeight: true
+          spaceBetween: 20
         },
-        768: {
+        992: {
           slidesPerView: 3,
           spaceBetween: 20
         }
       },
+      // События
       on: {}
+    });
+  }
+  if (document.querySelector(".calculator__slider")) {
+    new Swiper(".calculator__slider", {
+      modules: [Navigation, Pagination, EffectFade],
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1,
+      spaceBetween: 0,
+      autoHeight: true,
+      speed: 800,
+      pagination: {
+        el: ".calculator__pagination",
+        type: "progressbar",
+        clickable: true
+      },
+      simulateTouch: false,
+      allowTouchMove: false,
+      effect: "fade",
+      fadeEffect: {
+        crossFade: true
+      },
+      navigation: {
+        prevEl: ".calculator__button-prev",
+        nextEl: ".calculator__button-next"
+      },
+      breakpoints: {
+        992: {
+          autoHeight: false
+        }
+      },
+      on: {
+        init: function(swiper) {
+          const allSlides = document.querySelector(".fraction-controll__all");
+          const allSlidesItems = document.querySelectorAll(".slide-main-block:not(.swiper-slide-duplicate)");
+          allSlides.innerHTML = allSlidesItems.length < 10 ? `0${allSlidesItems.length}` : allSlidesItems.length;
+          const progressElement = document.querySelector(".fraction-controll__progress");
+          progressElement.innerHTML = `<span>Готово</span>: 0%`;
+          const progressBarFill = document.querySelector(".swiper-pagination-progressbar-fill");
+          progressBarFill.style.width = "0%";
+        },
+        slideChange: function(swiper) {
+          const currentSlide = document.querySelector(".fraction-controll__current");
+          currentSlide.innerHTML = swiper.realIndex + 1 < 10 ? `0${swiper.realIndex + 1}` : swiper.realIndex + 1;
+          const progress = swiper.realIndex / (swiper.slides.length - 1) * 100;
+          const progressElement = document.querySelector(".fraction-controll__progress");
+          progressElement.innerHTML = `<span>Готово</span>: ${progress.toFixed(2)}%`;
+          const progressBarFill = document.querySelector(".swiper-pagination-progressbar-fill");
+          progressBarFill.style.width = `${progress}%`;
+          if (swiper.realIndex === 0) {
+            progressElement.innerHTML = `<span>Готово</span>: 0%`;
+            progressBarFill.style.width = "0%";
+          }
+        },
+        //дейсвите после последнего сладера
+        reachEnd: function(swiper) {
+          document.getElementById("progress").style.display = "none";
+          document.getElementById("calc").style.display = "none";
+          document.getElementById("banner").style.display = "none";
+          document.getElementById("wrapper-content").classList.add("last");
+        },
+        fromEdge: function(swiper) {
+        }
+      }
     });
   }
 }
 document.querySelector("[data-fls-slider]") ? window.addEventListener("load", initSliders) : null;
+function showMore() {
+  const showMoreBlocks = document.querySelectorAll("[data-fls-showmore]");
+  let showMoreBlocksRegular;
+  let mdQueriesArray;
+  if (showMoreBlocks.length) {
+    showMoreBlocksRegular = Array.from(showMoreBlocks).filter(function(item, index, self2) {
+      return !item.dataset.flsShowmoreMedia;
+    });
+    showMoreBlocksRegular.length ? initItems(showMoreBlocksRegular) : null;
+    document.addEventListener("click", showMoreActions);
+    window.addEventListener("resize", showMoreActions);
+    mdQueriesArray = dataMediaQueries(showMoreBlocks, "flsShowmoreMedia");
+    if (mdQueriesArray && mdQueriesArray.length) {
+      mdQueriesArray.forEach((mdQueriesItem) => {
+        mdQueriesItem.matchMedia.addEventListener("change", function() {
+          initItems(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
+        });
+      });
+      initItemsMedia(mdQueriesArray);
+    }
+  }
+  function initItemsMedia(mdQueriesArray2) {
+    mdQueriesArray2.forEach((mdQueriesItem) => {
+      initItems(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
+    });
+  }
+  function initItems(showMoreBlocks2, matchMedia) {
+    showMoreBlocks2.forEach((showMoreBlock) => {
+      initItem(showMoreBlock, matchMedia);
+    });
+  }
+  function initItem(showMoreBlock, matchMedia = false) {
+    showMoreBlock = matchMedia ? showMoreBlock.item : showMoreBlock;
+    let showMoreContent = showMoreBlock.querySelectorAll("[data-fls-showmore-content]");
+    let showMoreButton = showMoreBlock.querySelectorAll("[data-fls-showmore-button]");
+    showMoreContent = Array.from(showMoreContent).filter((item) => item.closest("[data-fls-showmore]") === showMoreBlock)[0];
+    showMoreButton = Array.from(showMoreButton).filter((item) => item.closest("[data-fls-showmore]") === showMoreBlock)[0];
+    const hiddenHeight = getHeight(showMoreBlock, showMoreContent);
+    if (matchMedia.matches || !matchMedia) {
+      if (hiddenHeight < getOriginalHeight(showMoreContent)) {
+        slideUp(showMoreContent, 0, showMoreBlock.classList.contains("--showmore-active") ? getOriginalHeight(showMoreContent) : hiddenHeight);
+        showMoreButton.hidden = false;
+      } else {
+        slideDown(showMoreContent, 0, hiddenHeight);
+        showMoreButton.hidden = true;
+      }
+    } else {
+      slideDown(showMoreContent, 0, hiddenHeight);
+      showMoreButton.hidden = true;
+    }
+  }
+  function getHeight(showMoreBlock, showMoreContent) {
+    let hiddenHeight = 0;
+    const showMoreType = showMoreBlock.dataset.flsShowmore ? showMoreBlock.dataset.flsShowmore : "size";
+    const rowGap = parseFloat(getComputedStyle(showMoreContent).rowGap) ? parseFloat(getComputedStyle(showMoreContent).rowGap) : 0;
+    if (showMoreType === "items") {
+      const showMoreTypeValue = showMoreContent.dataset.flsShowmoreContent ? showMoreContent.dataset.flsShowmoreContent : 3;
+      const showMoreItems = showMoreContent.children;
+      for (let index = 1; index < showMoreItems.length; index++) {
+        const showMoreItem = showMoreItems[index - 1];
+        const marginTop = parseFloat(getComputedStyle(showMoreItem).marginTop) ? parseFloat(getComputedStyle(showMoreItem).marginTop) : 0;
+        const marginBottom = parseFloat(getComputedStyle(showMoreItem).marginBottom) ? parseFloat(getComputedStyle(showMoreItem).marginBottom) : 0;
+        hiddenHeight += showMoreItem.offsetHeight + marginTop;
+        if (index == showMoreTypeValue) break;
+        hiddenHeight += marginBottom;
+      }
+      rowGap ? hiddenHeight += (showMoreTypeValue - 1) * rowGap : null;
+    } else {
+      const showMoreTypeValue = showMoreContent.dataset.flsShowmoreContent ? showMoreContent.dataset.flsShowmoreContent : 150;
+      hiddenHeight = showMoreTypeValue;
+    }
+    return hiddenHeight;
+  }
+  function getOriginalHeight(showMoreContent) {
+    let parentHidden;
+    let hiddenHeight = showMoreContent.offsetHeight;
+    showMoreContent.style.removeProperty("height");
+    if (showMoreContent.closest(`[hidden]`)) {
+      parentHidden = showMoreContent.closest(`[hidden]`);
+      parentHidden.hidden = false;
+    }
+    let originalHeight = showMoreContent.offsetHeight;
+    parentHidden ? parentHidden.hidden = true : null;
+    showMoreContent.style.height = `${hiddenHeight}px`;
+    return originalHeight;
+  }
+  function showMoreActions(e) {
+    const targetEvent = e.target;
+    const targetType = e.type;
+    if (targetType === "click") {
+      if (targetEvent.closest("[data-fls-showmore-button]")) {
+        const showMoreButton = targetEvent.closest("[data-fls-showmore-button]");
+        const showMoreBlock = showMoreButton.closest("[data-fls-showmore]");
+        const showMoreContent = showMoreBlock.querySelector("[data-fls-showmore-content]");
+        const showMoreSpeed = showMoreBlock.dataset.flsShowmoreButton ? showMoreBlock.dataset.flsShowmoreButton : "500";
+        const hiddenHeight = getHeight(showMoreBlock, showMoreContent);
+        if (!showMoreContent.classList.contains("--slide")) {
+          showMoreBlock.classList.contains("--showmore-active") ? slideUp(showMoreContent, showMoreSpeed, hiddenHeight) : slideDown(showMoreContent, showMoreSpeed, hiddenHeight);
+          showMoreBlock.classList.toggle("--showmore-active");
+        }
+      }
+    } else if (targetType === "resize") {
+      showMoreBlocksRegular && showMoreBlocksRegular.length ? initItems(showMoreBlocksRegular) : null;
+      mdQueriesArray && mdQueriesArray.length ? initItemsMedia(mdQueriesArray) : null;
+    }
+  }
+}
+window.addEventListener("load", showMore);
 class Popup {
   constructor(options) {
     let config = {
@@ -8834,17 +9223,16 @@ function requireLgZoom_min() {
 var lgZoom_minExports = requireLgZoom_min();
 const lgZoom = /* @__PURE__ */ getDefaultExportFromCjs(lgZoom_minExports);
 const KEY = "7EC452A9-0CFD441C-BD984C7C-17C8456E";
-function initGallery() {
-  if (document.querySelector("[data-fls-gallery]")) {
-    new lightGallery(document.querySelector("[data-fls-gallery]"), {
+const galleries = document.querySelectorAll("[data-fls-gallery]");
+if (galleries.length) {
+  galleries.forEach((gallery) => {
+    lightGallery(gallery, {
       plugins: [lgZoom, lgThumbnail],
       licenseKey: KEY,
-      selector: "a",
       speed: 500
     });
-  }
+  });
 }
-window.addEventListener("load", initGallery());
 class DynamicAdapt {
   constructor() {
     this.type = "max";
@@ -11639,101 +12027,6 @@ function inputMask() {
   });
 }
 document.querySelector("input[data-fls-input-mask]") ? window.addEventListener("load", inputMask) : null;
-let formValidate = {
-  getErrors(form) {
-    let error = 0;
-    let formRequiredItems = form.querySelectorAll("[required]");
-    if (formRequiredItems.length) {
-      formRequiredItems.forEach((formRequiredItem) => {
-        if ((formRequiredItem.offsetParent !== null || formRequiredItem.tagName === "SELECT") && !formRequiredItem.disabled) {
-          error += this.validateInput(formRequiredItem);
-        }
-      });
-    }
-    return error;
-  },
-  validateInput(formRequiredItem) {
-    let error = 0;
-    if (formRequiredItem.type === "email") {
-      formRequiredItem.value = formRequiredItem.value.replace(" ", "");
-      if (this.emailTest(formRequiredItem)) {
-        this.addError(formRequiredItem);
-        this.removeSuccess(formRequiredItem);
-        error++;
-      } else {
-        this.removeError(formRequiredItem);
-        this.addSuccess(formRequiredItem);
-      }
-    } else if (formRequiredItem.type === "checkbox" && !formRequiredItem.checked) {
-      this.addError(formRequiredItem);
-      this.removeSuccess(formRequiredItem);
-      error++;
-    } else {
-      if (!formRequiredItem.value.trim()) {
-        this.addError(formRequiredItem);
-        this.removeSuccess(formRequiredItem);
-        error++;
-      } else {
-        this.removeError(formRequiredItem);
-        this.addSuccess(formRequiredItem);
-      }
-    }
-    return error;
-  },
-  addError(formRequiredItem) {
-    formRequiredItem.classList.add("--form-error");
-    formRequiredItem.parentElement.classList.add("--form-error");
-    let inputError = formRequiredItem.parentElement.querySelector("[data-fls-form-error]");
-    if (inputError) formRequiredItem.parentElement.removeChild(inputError);
-    if (formRequiredItem.dataset.flsFormErrtext) {
-      formRequiredItem.parentElement.insertAdjacentHTML("beforeend", `<div data-fls-form-error>${formRequiredItem.dataset.flsFormErrtext}</div>`);
-    }
-  },
-  removeError(formRequiredItem) {
-    formRequiredItem.classList.remove("--form-error");
-    formRequiredItem.parentElement.classList.remove("--form-error");
-    if (formRequiredItem.parentElement.querySelector("[data-fls-form-error]")) {
-      formRequiredItem.parentElement.removeChild(formRequiredItem.parentElement.querySelector("[data-fls-form-error]"));
-    }
-  },
-  addSuccess(formRequiredItem) {
-    formRequiredItem.classList.add("--form-success");
-    formRequiredItem.parentElement.classList.add("--form-success");
-  },
-  removeSuccess(formRequiredItem) {
-    formRequiredItem.classList.remove("--form-success");
-    formRequiredItem.parentElement.classList.remove("--form-success");
-  },
-  formClean(form) {
-    form.reset();
-    setTimeout(() => {
-      let inputs = form.querySelectorAll("input,textarea");
-      for (let index = 0; index < inputs.length; index++) {
-        const el = inputs[index];
-        el.parentElement.classList.remove("--form-focus");
-        el.classList.remove("--form-focus");
-        formValidate.removeError(el);
-      }
-      let checkboxes = form.querySelectorAll('input[type="checkbox"]');
-      if (checkboxes.length) {
-        checkboxes.forEach((checkbox) => {
-          checkbox.checked = false;
-        });
-      }
-      if (window["flsSelect"]) {
-        let selects = form.querySelectorAll("select[data-fls-select]");
-        if (selects.length) {
-          selects.forEach((select) => {
-            window["flsSelect"].selectBuild(select);
-          });
-        }
-      }
-    }, 0);
-  },
-  emailTest(formRequiredItem) {
-    return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
-  }
-};
 function formInit() {
   function formSubmit() {
     const forms = document.forms;
@@ -11824,6 +12117,69 @@ function formInit() {
   formFieldsInit();
 }
 document.querySelector("[data-fls-form]") ? window.addEventListener("load", formInit) : null;
+function pageNavigation() {
+  document.addEventListener("click", pageNavigationAction);
+  document.addEventListener("watcherCallback", pageNavigationAction);
+  function pageNavigationAction(e) {
+    if (e.type === "click") {
+      const targetElement = e.target;
+      if (targetElement.closest("[data-fls-scrollto]")) {
+        const gotoLink = targetElement.closest("[data-fls-scrollto]");
+        const gotoLinkSelector = gotoLink.dataset.flsScrollto ? gotoLink.dataset.flsScrollto : "";
+        const noHeader = gotoLink.hasAttribute("data-fls-scrollto-header") ? true : false;
+        const gotoSpeed = gotoLink.dataset.flsScrolltoSpeed ? gotoLink.dataset.flsScrolltoSpeed : 500;
+        const offsetTop = gotoLink.dataset.flsScrolltoTop ? parseInt(gotoLink.dataset.flsScrolltoTop) : 0;
+        if (window.fullpage) {
+          const fullpageSection = document.querySelector(`${gotoLinkSelector}`).closest("[data-fls-fullpage-section]");
+          const fullpageSectionId = fullpageSection ? +fullpageSection.dataset.flsFullpageId : null;
+          if (fullpageSectionId !== null) {
+            window.fullpage.switchingSection(fullpageSectionId);
+            if (document.documentElement.hasAttribute("data-fls-menu-open")) {
+              bodyUnlock();
+              document.documentElement.removeAttribute("data-fls-menu-open");
+            }
+          }
+        } else {
+          gotoBlock(gotoLinkSelector, noHeader, gotoSpeed, offsetTop);
+        }
+        e.preventDefault();
+      }
+    } else if (e.type === "watcherCallback" && e.detail) {
+      const entry = e.detail.entry;
+      const targetElement = entry.target;
+      if (targetElement.dataset.flsWatcher === "navigator") {
+        document.querySelector(`[data-fls-scrollto].--navigator-active`);
+        let navigatorCurrentItem;
+        if (targetElement.id && document.querySelector(`[data-fls-scrollto="#${targetElement.id}"]`)) {
+          navigatorCurrentItem = document.querySelector(`[data-fls-scrollto="#${targetElement.id}"]`);
+        } else if (targetElement.classList.length) {
+          for (let index = 0; index < targetElement.classList.length; index++) {
+            const element = targetElement.classList[index];
+            if (document.querySelector(`[data-fls-scrollto=".${element}"]`)) {
+              navigatorCurrentItem = document.querySelector(`[data-fls-scrollto=".${element}"]`);
+              break;
+            }
+          }
+        }
+        if (entry.isIntersecting) {
+          navigatorCurrentItem ? navigatorCurrentItem.classList.add("--navigator-active") : null;
+        } else {
+          navigatorCurrentItem ? navigatorCurrentItem.classList.remove("--navigator-active") : null;
+        }
+      }
+    }
+  }
+  if (getHash()) {
+    let goToHash;
+    if (document.querySelector(`#${getHash()}`)) {
+      goToHash = `#${getHash()}`;
+    } else if (document.querySelector(`.${getHash()}`)) {
+      goToHash = `.${getHash()}`;
+    }
+    goToHash ? gotoBlock(goToHash) : null;
+  }
+}
+document.querySelector("[data-fls-scrollto]") ? window.addEventListener("load", pageNavigation) : null;
 function rippleEffect() {
   document.addEventListener("click", function(e) {
     const targetItem = e.target;
@@ -11851,34 +12207,261 @@ function rippleEffect() {
   });
 }
 document.querySelector("[data-fls-ripple]") ? window.addEventListener("load", rippleEffect) : null;
+const marquee = () => {
+  const $marqueeArray = document.querySelectorAll("[data-fls-marquee]");
+  const ATTR_NAMES = {
+    inner: "data-fls-marquee-inner",
+    item: "data-fls-marquee-item"
+  };
+  if (!$marqueeArray.length) return;
+  const { head } = document;
+  const debounce = (delay, fn) => {
+    let timerId;
+    return (...args) => {
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+      timerId = setTimeout(() => {
+        fn(...args);
+        timerId = null;
+      }, delay);
+    };
+  };
+  const onWindowWidthResize = (cb) => {
+    if (!cb && !isFunction(cb)) return;
+    let prevWidth = 0;
+    const handleResize = () => {
+      const currentWidth = window.innerWidth;
+      if (prevWidth !== currentWidth) {
+        prevWidth = currentWidth;
+        cb();
+      }
+    };
+    window.addEventListener("resize", debounce(50, handleResize));
+    handleResize();
+  };
+  const buildMarquee = (marqueeNode) => {
+    if (!marqueeNode) return;
+    const $marquee = marqueeNode;
+    const $childElements = $marquee.children;
+    if (!$childElements.length) return;
+    Array.from($childElements).forEach(($childItem) => $childItem.setAttribute(ATTR_NAMES.item, ""));
+    const htmlStructure = `<div ${ATTR_NAMES.inner}>${$marquee.innerHTML}</div>`;
+    $marquee.innerHTML = htmlStructure;
+  };
+  const getElSize = ($el, isVertical) => {
+    if (isVertical) return $el.offsetHeight;
+    return $el.offsetWidth;
+  };
+  $marqueeArray.forEach(($wrapper) => {
+    if (!$wrapper) return;
+    buildMarquee($wrapper);
+    const $marqueeInner = $wrapper.firstElementChild;
+    let cacheArray = [];
+    if (!$marqueeInner) return;
+    const dataMarqueeSpace = parseFloat($wrapper.getAttribute("data-fls-marquee-space"));
+    const $items = $wrapper.querySelectorAll(`[${ATTR_NAMES.item}]`);
+    const speed = parseFloat($wrapper.getAttribute("data-fls-marquee-speed")) / 10 || 100;
+    const isMousePaused = $wrapper.hasAttribute("data-fls-marquee-pause-mouse-enter");
+    const direction = $wrapper.getAttribute("data-fls-marquee-direction");
+    const isVertical = direction === "bottom" || direction === "top";
+    const animName = `marqueeAnimation-${Math.floor(Math.random() * 1e7)}`;
+    let spaceBetweenItem = parseFloat(window.getComputedStyle($items[0])?.getPropertyValue("margin-right"));
+    let spaceBetween = spaceBetweenItem ? spaceBetweenItem : !isNaN(dataMarqueeSpace) ? dataMarqueeSpace : 30;
+    let startPosition = parseFloat($wrapper.getAttribute("data-fls-marquee-start")) || 0;
+    let sumSize = 0;
+    let firstScreenVisibleSize = 0;
+    let initialSizeElements = 0;
+    let initialElementsLength = $marqueeInner.children.length;
+    let index = 0;
+    let counterDuplicateElements = 0;
+    const initEvents = () => {
+      if (startPosition) $marqueeInner.addEventListener("animationiteration", onChangeStartPosition);
+      if (!isMousePaused) return;
+      $marqueeInner.removeEventListener("mouseenter", onChangePaused);
+      $marqueeInner.removeEventListener("mouseleave", onChangePaused);
+      $marqueeInner.addEventListener("mouseenter", onChangePaused);
+      $marqueeInner.addEventListener("mouseleave", onChangePaused);
+    };
+    const onChangeStartPosition = () => {
+      startPosition = 0;
+      $marqueeInner.removeEventListener("animationiteration", onChangeStartPosition);
+      onResize2();
+    };
+    const setBaseStyles = (firstScreenVisibleSize2) => {
+      let baseStyle = "display: flex; flex-wrap: nowrap;";
+      if (isVertical) {
+        baseStyle += `
+				flex-direction: column;
+				position: relative;
+				will-change: transform;`;
+        if (direction === "bottom") {
+          baseStyle += `top: -${firstScreenVisibleSize2}px;`;
+        }
+      } else {
+        baseStyle += `
+				position: relative;
+				will-change: transform;`;
+        if (direction === "right") {
+          baseStyle += `inset-inline-start: -${firstScreenVisibleSize2}px;;`;
+        }
+      }
+      $marqueeInner.style.cssText = baseStyle;
+    };
+    const setdirectionAnim = (totalWidth) => {
+      switch (direction) {
+        case "right":
+        case "bottom":
+          return totalWidth;
+        default:
+          return -totalWidth;
+      }
+    };
+    const animation = () => {
+      const keyFrameCss = `@keyframes ${animName} {
+					 0% {
+						 transform: translate${isVertical ? "Y" : "X"}(${!isVertical && window.stateRtl ? -startPosition : startPosition}%);
+					 }
+					 100% {
+						 transform: translate${isVertical ? "Y" : "X"}(${setdirectionAnim(
+        !isVertical && window.stateRtl ? -firstScreenVisibleSize : firstScreenVisibleSize
+      )}px);
+					 }
+				 }`;
+      const $style = document.createElement("style");
+      $style.classList.add(animName);
+      $style.innerHTML = keyFrameCss;
+      head.append($style);
+      $marqueeInner.style.animation = `${animName} ${(firstScreenVisibleSize + startPosition * firstScreenVisibleSize / 100) / speed}s infinite linear`;
+    };
+    const addDublicateElements = () => {
+      sumSize = firstScreenVisibleSize = initialSizeElements = counterDuplicateElements = index = 0;
+      const $parentNodeWidth = getElSize($wrapper, isVertical);
+      let $childrenEl = Array.from($marqueeInner.children);
+      if (!$childrenEl.length) return;
+      if (!cacheArray.length) {
+        cacheArray = $childrenEl.map(($item) => $item);
+      } else {
+        $childrenEl = [...cacheArray];
+      }
+      $marqueeInner.style.display = "flex";
+      if (isVertical) $marqueeInner.style.flexDirection = "column";
+      $marqueeInner.innerHTML = "";
+      $childrenEl.forEach(($item) => {
+        $marqueeInner.append($item);
+      });
+      $childrenEl.forEach(($item) => {
+        if (isVertical) {
+          $item.style.marginBottom = `${spaceBetween}px`;
+        } else {
+          $item.style.marginRight = `${spaceBetween}px`;
+          $item.style.flexShrink = 0;
+        }
+        const sizeEl = getElSize($item, isVertical);
+        sumSize += sizeEl + spaceBetween;
+        firstScreenVisibleSize += sizeEl + spaceBetween;
+        initialSizeElements += sizeEl + spaceBetween;
+        counterDuplicateElements += 1;
+        return sizeEl;
+      });
+      const $multiplyWidth = $parentNodeWidth * 2 + initialSizeElements;
+      for (; sumSize < $multiplyWidth; index += 1) {
+        if (!$childrenEl[index]) index = 0;
+        const $cloneNone = $childrenEl[index].cloneNode(true);
+        const $lastElement = $marqueeInner.children[index];
+        $marqueeInner.append($cloneNone);
+        sumSize += getElSize($lastElement, isVertical) + spaceBetween;
+        if (firstScreenVisibleSize < $parentNodeWidth || counterDuplicateElements % initialElementsLength !== 0) {
+          counterDuplicateElements += 1;
+          firstScreenVisibleSize += getElSize($lastElement, isVertical) + spaceBetween;
+        }
+      }
+      setBaseStyles(firstScreenVisibleSize);
+    };
+    const correctSpaceBetween = () => {
+      if (spaceBetweenItem) {
+        $items.forEach(($item) => $item.style.removeProperty("margin-right"));
+        spaceBetweenItem = parseFloat(window.getComputedStyle($items[0]).getPropertyValue("margin-right"));
+        spaceBetween = spaceBetweenItem ? spaceBetweenItem : !isNaN(dataMarqueeSpace) ? dataMarqueeSpace : 30;
+      }
+    };
+    const init = () => {
+      correctSpaceBetween();
+      addDublicateElements();
+      animation();
+      initEvents();
+    };
+    const onResize2 = () => {
+      head.querySelector(`.${animName}`)?.remove();
+      init();
+    };
+    const onChangePaused = (e) => {
+      const { type, target } = e;
+      target.style.animationPlayState = type === "mouseenter" ? "paused" : "running";
+    };
+    onWindowWidthResize(onResize2);
+  });
+};
+marquee();
 document.addEventListener("DOMContentLoaded", function() {
-  window.addEventListener("load", handlePageLoad);
-  let fallbackTimer = setTimeout(() => {
-    handlePageLoad(true);
-  }, 3e3);
-  window.addEventListener("load", () => {
-    clearTimeout(fallbackTimer);
+  const navButton = document.querySelector(".nav");
+  const pageHeight = document.body.scrollHeight;
+  const triggerPoint = pageHeight * 0.5;
+  window.addEventListener("scroll", function() {
+    const scrollProgress = window.scrollY / triggerPoint;
+    if (scrollProgress >= 1) {
+      navButton.style.opacity = "1";
+      navButton.style.visibility = "visible";
+    } else {
+      navButton.style.opacity = "0";
+      navButton.style.visibility = "hidden";
+    }
   });
 });
-function handlePageLoad(isFallback = false) {
-  const preloader = document.getElementById("preloader");
-  const content = document.getElementById("content");
-  if (isFallback) {
-    console.log("Fallback: показываем контент по таймауту");
-  }
-  if (content) {
-    content.style.display = "block";
-    content.style.opacity = "1";
-  } else {
-    document.body.style.opacity = "1";
-    document.body.style.visibility = "visible";
-  }
-  if (preloader) {
-    preloader.classList.add("preloader-hidden");
-    setTimeout(() => {
-      if (preloader.parentNode) {
-        preloader.remove();
+document.querySelectorAll(".video-block").forEach((block) => {
+  const poster = block.querySelector(".video-poster");
+  const realVideo = block.querySelector(".real-video");
+  poster.addEventListener("click", () => {
+    poster.classList.add("hide");
+    realVideo.classList.add("show");
+    realVideo.play();
+  });
+  realVideo.addEventListener("ended", () => {
+    poster.classList.remove("hide");
+    realVideo.classList.remove("show");
+  });
+});
+document.addEventListener("DOMContentLoaded", function() {
+  const markers = document.querySelectorAll(".interactive-house__marker");
+  if (window.innerWidth <= 991) {
+    markers.forEach((marker) => {
+      marker.addEventListener("click", function(e) {
+        e.stopPropagation();
+        markers.forEach((m) => {
+          const tooltip2 = m.querySelector(".interactive-house__tooltip");
+          if (m !== marker) {
+            tooltip2.classList.remove("active");
+          }
+        });
+        const tooltip = this.querySelector(".interactive-house__tooltip");
+        tooltip.classList.toggle("active");
+      });
+    });
+    document.addEventListener("click", function(e) {
+      if (!e.target.closest(".interactive-house__marker")) {
+        markers.forEach((marker) => {
+          const tooltip = marker.querySelector(".interactive-house__tooltip");
+          tooltip.classList.remove("active");
+        });
       }
-    }, 500);
+    });
   }
-}
+  function adjustMarkersPosition() {
+    const container = document.querySelector(".interactive-house__area");
+    if (!container) return;
+    container.offsetWidth;
+    container.offsetHeight;
+  }
+  window.addEventListener("resize", adjustMarkersPosition);
+  adjustMarkersPosition();
+});

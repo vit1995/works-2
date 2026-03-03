@@ -5,8 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1772546974118"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1772546974118">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1772547223279"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1772547223279">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -200,97 +200,9 @@
 					</div>
 				</div>
 			</div>
-			<style>
-				#preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition:
-      opacity 0.5s,
-      visibility 0.5s;
-  }
-
-  .preloader-hidden {
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  .spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #f3f3f3;
-    border-top: 5px solid var(--gren);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-			</style>
 			<div data-fls-mypreloader="" id="preloader">
 				<div class="spinner"></div>
 			</div>
-			<script>
-        // Проверяем, что DOM загружен перед работой с элементами
-        document.addEventListener("DOMContentLoaded", function () {
-          // Инициализация после полной загрузки
-          window.addEventListener("load", handlePageLoad);
-
-          // Fallback таймер
-          let fallbackTimer = setTimeout(() => {
-            handlePageLoad(true); // true - означает fallback вызов
-          }, 3000);
-
-          // Отменяем fallback если страница загрузилась
-          window.addEventListener("load", () => {
-            clearTimeout(fallbackTimer);
-          });
-        });
-
-        // Функция обработки загрузки страницы
-        function handlePageLoad(isFallback = false) {
-          const preloader = document.getElementById("preloader");
-          const content = document.getElementById("content");
-
-          // Для отладки
-          if (isFallback) {
-            console.log("Fallback: показываем контент по таймауту");
-          }
-
-          // Проверяем и показываем контент
-          if (content) {
-            content.style.display = "block";
-            content.style.opacity = "1";
-          } else {
-            // Если элемента content нет, показываем body
-            document.body.style.opacity = "1";
-            document.body.style.visibility = "visible";
-          }
-
-          // Обрабатываем прелоадер если он есть
-          if (preloader) {
-            preloader.classList.add("preloader-hidden");
-            setTimeout(() => {
-              if (preloader.parentNode) {
-                preloader.remove();
-              }
-            }, 500);
-          }
-        }
-			</script>
 			<main class="page page--home">
 				<section class="hero">
 					<img class="hero__img-bg" alt="Image" src="./assets/img/hero/bg.avif">
@@ -325,7 +237,7 @@
 									</p>
 								</div>
 							</div>
-							<a class="button button--start" href="#" data-fls-button="">
+							<a data-fls-popup-link="popup" class="button button--start" href="#" data-fls-button="">
 								<span>Обсудить ремонт</span>
 								<img alt="Image" src="./assets/img/hero/arrow.webp">
 							</a>
@@ -1358,56 +1270,56 @@
 								<h3 class="services__title">Косметический ремонт</h3>
 								<p class="services__text">Освежим интерьер за 5 дней</p>
 								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="#popup" class="services__button button" href="#">Заказать звонок</a>
+								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
 							</article>
 							<article class="services__item">
 								<img class="services__img-bg" alt="Image" src="./assets/img/services/02.jpg">
 								<h3 class="services__title">Капитальный ремонт</h3>
 								<p class="services__text">Полное обновление квартиры под ключ</p>
 								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="#popup" class="services__button button" href="#">Заказать звонок</a>
+								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
 							</article>
 							<article class="services__item">
 								<img class="services__img-bg" alt="Image" src="./assets/img/services/03.jpg">
 								<h3 class="services__title">Косметический ремонт</h3>
 								<p class="services__text">Освежим интерьер за 5 дней</p>
 								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="#popup" class="services__button button" href="#">Заказать звонок</a>
+								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
 							</article>
 							<article class="services__item">
 								<img class="services__img-bg" alt="Image" src="./assets/img/services/04.jpg">
 								<h3 class="services__title">Разработка технического проекта</h3>
 								<p class="services__text">Точный план работ — чтобы всё было под контролем</p>
 								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="#popup" class="services__button button" href="#">Заказать звонок</a>
+								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
 							</article>
 							<article class="services__item">
 								<img class="services__img-bg" alt="Image" src="./assets/img/services/01.jpg">
 								<h3 class="services__title">Косметический ремонт</h3>
 								<p class="services__text">Освежим интерьер за 5 дней</p>
 								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="#popup" class="services__button button" href="#">Заказать звонок</a>
+								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
 							</article>
 							<article class="services__item">
 								<img class="services__img-bg" alt="Image" src="./assets/img/services/02.jpg">
 								<h3 class="services__title">Капитальный ремонт</h3>
 								<p class="services__text">Полное обновление квартиры под ключ</p>
 								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="#popup" class="services__button button" href="#">Заказать звонок</a>
+								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
 							</article>
 							<article class="services__item">
 								<img class="services__img-bg" alt="Image" src="./assets/img/services/03.jpg">
 								<h3 class="services__title">Косметический ремонт</h3>
 								<p class="services__text">Освежим интерьер за 5 дней</p>
 								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="#popup" class="services__button button" href="#">Заказать звонок</a>
+								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
 							</article>
 							<article class="services__item">
 								<img class="services__img-bg" alt="Image" src="./assets/img/services/04.jpg">
 								<h3 class="services__title">Разработка технического проекта</h3>
 								<p class="services__text">Точный план работ — чтобы всё было под контролем</p>
 								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="#popup" class="services__button button" href="#">Заказать звонок</a>
+								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
 							</article>
 						</div>
 					</div>

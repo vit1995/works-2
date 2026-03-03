@@ -2498,7 +2498,7 @@ textarea.input {
   width: 3.125rem;
   height: 3.125rem;
   border: 0.3125rem solid #f3f3f3;
-  border-top: 0.3125rem solid #3498db;
+  border-top: 0.3125rem solid var(--yellow);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

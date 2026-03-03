@@ -1284,15 +1284,12 @@ button.swiper-pagination-bullet {
   color: var(--yellow);
   border-radius: 0.9375rem;
   cursor: pointer;
+  transition: all 0.3s ease 0s;
   box-shadow: 0 0.1875rem 0 0 #a66b08, 0 0 0.8125rem 0 rgba(255, 255, 255, 0.25) inset;
 }
 .top-header__dowload img {
   width: 0.9375rem;
   height: 0.9375rem;
-}
-.top-header__dowload img {
-  width: 0.75rem;
-  height: 0.75rem;
 }
 .top-header__social {
   display: flex;
@@ -1310,6 +1307,7 @@ button.swiper-pagination-bullet {
 .top-header__social-link img {
   width: 1.75rem;
   height: 1.75rem;
+  transition: opacity 0.3s ease 0s;
 }
 .top-header__contacts {
   display: flex;
@@ -1321,6 +1319,7 @@ button.swiper-pagination-bullet {
 }
 .top-header__contacts a {
   font-weight: 600;
+  transition: all 0.3s ease 0s;
 }
 .top-header__link {
   font-size: 0.875rem;
@@ -3286,6 +3285,7 @@ textarea.input {
   height: 100%;
   border-radius: 0.9375rem;
   object-fit: cover;
+  transition: scale 0.3s ease 0s;
 }
 .portofilio__content {
   line-height: 1.2;
@@ -3898,6 +3898,7 @@ textarea.input {
   background-color: rgba(226, 197, 176, 0);
   box-shadow: 0 0.1875rem 0 0 #a66b08, 0 0 0.8125rem 0 rgba(255, 255, 255, 0.25) inset;
   align-self: flex-start;
+  transition: all 0.3s ease 0s;
 }
 
 .consultation {
@@ -6460,6 +6461,19 @@ body::after {
   .sub-list a:hover {
     color: var(--yellow);
   }
+  .top-header__dowload:hover {
+    color: white;
+    background-color: var(--yellow);
+  }
+  .top-header__social-link img:hover {
+    opacity: 0.7;
+  }
+  .top-header__contacts a:hover {
+    color: var(--yellow);
+  }
+  .top-header__link:hover {
+    text-decoration: none;
+  }
   .footer__nav a:hover {
     color: var(--yellow);
     text-decoration: underline;
@@ -6489,6 +6503,9 @@ body::after {
   .nav__button:hover::before {
     color: rgb(116, 48, 48);
   }
+  .portofilio__images img:hover {
+    scale: 1.02;
+  }
   .video-block--slide:hover::after {
     content: "";
     position: absolute;
@@ -6507,6 +6524,10 @@ body::after {
   }
   .services__item:hover::after {
     opacity: 0.7;
+  }
+  .honestly__item-button:hover {
+    color: white;
+    background-color: var(--yellow);
   }
   .consultation__links a:hover {
     opacity: 0.7;

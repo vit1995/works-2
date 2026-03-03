@@ -1187,9 +1187,7 @@ button.swiper-pagination-bullet {
   transform-origin: 0 0;
   z-index: 5;
   transition: all 0.3s ease 0s;
-  transform: rotateX(-90deg);
-  visibility: hidden;
-  opacity: 0;
+  left: 20%;
 }
 .sub-list li {
   padding: 0.625rem;
@@ -3479,7 +3477,34 @@ textarea.input {
   z-index: 4;
   transition: all 0.3s ease 0s;
 }
+.video-play::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: var(--yellow);
+  z-index: -1;
+  opacity: 0.7;
+  animation: pulse 2s infinite;
+}
 
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
 .video-play:hover {
   background: rgb(185, 146, 37);
 }

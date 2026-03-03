@@ -12404,6 +12404,37 @@ const marquee = () => {
 };
 marquee();
 document.addEventListener("DOMContentLoaded", function() {
+  window.addEventListener("load", handlePageLoad);
+  let fallbackTimer = setTimeout(() => {
+    handlePageLoad(true);
+  }, 3e3);
+  window.addEventListener("load", () => {
+    clearTimeout(fallbackTimer);
+  });
+});
+function handlePageLoad(isFallback = false) {
+  const preloader = document.getElementById("preloader");
+  const content = document.getElementById("content");
+  if (isFallback) {
+    console.log("Fallback: показываем контент по таймауту");
+  }
+  if (content) {
+    content.style.display = "block";
+    content.style.opacity = "1";
+  } else {
+    document.body.style.opacity = "1";
+    document.body.style.visibility = "visible";
+  }
+  if (preloader) {
+    preloader.classList.add("preloader-hidden");
+    setTimeout(() => {
+      if (preloader.parentNode) {
+        preloader.remove();
+      }
+    }, 500);
+  }
+}
+document.addEventListener("DOMContentLoaded", function() {
   const navButton = document.querySelector(".nav");
   const pageHeight = document.body.scrollHeight;
   const triggerPoint = pageHeight * 0.5;

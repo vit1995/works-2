@@ -32,6 +32,10 @@ function getHash() {
     return location.hash.replace("#", "");
   }
 }
+function setHash(hash) {
+  hash = hash ? `#${hash}` : window.location.href.split("#")[0];
+  history.pushState("", "", hash);
+}
 let slideUp = (target, duration = 500, showmore = 0) => {
   if (!target.classList.contains("--slide")) {
     target.classList.add("--slide");
@@ -192,581 +196,122 @@ const gotoBlock = (targetBlock, noHeader = false, speed = 500, offsetTop = 0) =>
     });
   }
 };
-let formValidate = {
-  getErrors(form) {
-    let error = 0;
-    let formRequiredItems = form.querySelectorAll("[required]");
-    if (formRequiredItems.length) {
-      formRequiredItems.forEach((formRequiredItem) => {
-        if ((formRequiredItem.offsetParent !== null || formRequiredItem.tagName === "SELECT") && !formRequiredItem.disabled) {
-          error += this.validateInput(formRequiredItem);
-        }
-      });
+function tabs() {
+  const tabs2 = document.querySelectorAll("[data-fls-tabs]");
+  let tabsActiveHash = [];
+  if (tabs2.length > 0) {
+    const hash = getHash();
+    if (hash && hash.startsWith("tab-")) {
+      tabsActiveHash = hash.replace("tab-", "").split("-");
     }
-    return error;
-  },
-  validateInput(formRequiredItem) {
-    let error = 0;
-    if (formRequiredItem.type === "email") {
-      formRequiredItem.value = formRequiredItem.value.replace(" ", "");
-      if (this.emailTest(formRequiredItem)) {
-        this.addError(formRequiredItem);
-        this.removeSuccess(formRequiredItem);
-        error++;
-      } else {
-        this.removeError(formRequiredItem);
-        this.addSuccess(formRequiredItem);
-      }
-    } else if (formRequiredItem.type === "checkbox" && !formRequiredItem.checked) {
-      this.addError(formRequiredItem);
-      this.removeSuccess(formRequiredItem);
-      error++;
-    } else {
-      if (!formRequiredItem.value.trim()) {
-        this.addError(formRequiredItem);
-        this.removeSuccess(formRequiredItem);
-        error++;
-      } else {
-        this.removeError(formRequiredItem);
-        this.addSuccess(formRequiredItem);
-      }
-    }
-    return error;
-  },
-  addError(formRequiredItem) {
-    formRequiredItem.classList.add("--form-error");
-    formRequiredItem.parentElement.classList.add("--form-error");
-    let inputError = formRequiredItem.parentElement.querySelector("[data-fls-form-error]");
-    if (inputError) formRequiredItem.parentElement.removeChild(inputError);
-    if (formRequiredItem.dataset.flsFormErrtext) {
-      formRequiredItem.parentElement.insertAdjacentHTML("beforeend", `<div data-fls-form-error>${formRequiredItem.dataset.flsFormErrtext}</div>`);
-    }
-  },
-  removeError(formRequiredItem) {
-    formRequiredItem.classList.remove("--form-error");
-    formRequiredItem.parentElement.classList.remove("--form-error");
-    if (formRequiredItem.parentElement.querySelector("[data-fls-form-error]")) {
-      formRequiredItem.parentElement.removeChild(formRequiredItem.parentElement.querySelector("[data-fls-form-error]"));
-    }
-  },
-  addSuccess(formRequiredItem) {
-    formRequiredItem.classList.add("--form-success");
-    formRequiredItem.parentElement.classList.add("--form-success");
-  },
-  removeSuccess(formRequiredItem) {
-    formRequiredItem.classList.remove("--form-success");
-    formRequiredItem.parentElement.classList.remove("--form-success");
-  },
-  formClean(form) {
-    form.reset();
-    setTimeout(() => {
-      let inputs = form.querySelectorAll("input,textarea");
-      for (let index = 0; index < inputs.length; index++) {
-        const el = inputs[index];
-        el.parentElement.classList.remove("--form-focus");
-        el.classList.remove("--form-focus");
-        formValidate.removeError(el);
-      }
-      let checkboxes = form.querySelectorAll('input[type="checkbox"]');
-      if (checkboxes.length) {
-        checkboxes.forEach((checkbox) => {
-          checkbox.checked = false;
+    tabs2.forEach((tabsBlock, index) => {
+      tabsBlock.classList.add("--tab-init");
+      tabsBlock.setAttribute("data-fls-tabs-index", index);
+      tabsBlock.addEventListener("click", setTabsAction);
+      initTabs(tabsBlock);
+    });
+    let mdQueriesArray = dataMediaQueries(tabs2, "flsTabs");
+    if (mdQueriesArray && mdQueriesArray.length) {
+      mdQueriesArray.forEach((mdQueriesItem) => {
+        mdQueriesItem.matchMedia.addEventListener("change", function() {
+          setTitlePosition(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
         });
-      }
-      if (window["flsSelect"]) {
-        let selects = form.querySelectorAll("select[data-fls-select]");
-        if (selects.length) {
-          selects.forEach((select) => {
-            window["flsSelect"].selectBuild(select);
-          });
-        }
-      }
-    }, 0);
-  },
-  emailTest(formRequiredItem) {
-    return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
-  }
-};
-class SelectConstructor {
-  constructor(props, data = null) {
-    let defaultConfig = {
-      init: true,
-      speed: 150
-    };
-    this.config = Object.assign(defaultConfig, props);
-    this.selectClasses = {
-      classSelect: "select",
-      // Основной блок
-      classSelectBody: "select__body",
-      // Тело селекта
-      classSelectTitle: "select__title",
-      // Заголовок
-      classSelectValue: "select__value",
-      // Значения у заголовка
-      classSelectLabel: "select__label",
-      // Лабел
-      classSelectInput: "select__input",
-      // Поле ввода
-      classSelectText: "select__text",
-      // Оболочка текстовых данных
-      classSelectLink: "select__link",
-      // Ссылка в элементе
-      classSelectOptions: "select__options",
-      // Выпадающий список
-      classSelectOptionsScroll: "select__scroll",
-      // Оболочка при скролле
-      classSelectOption: "select__option",
-      // Пункт
-      classSelectContent: "select__content",
-      // Оболочка контента в заголовке
-      classSelectRow: "select__row",
-      // Ряд
-      classSelectData: "select__asset",
-      // Дополнительные данные
-      classSelectDisabled: "--select-disabled",
-      // Запрещено
-      classSelectTag: "--select-tag",
-      // Класс тега
-      classSelectOpen: "--select-open",
-      // Список открыт
-      classSelectActive: "--select-active",
-      // Список выбран
-      classSelectFocus: "--select-focus",
-      // Список в фокусе
-      classSelectMultiple: "--select-multiple",
-      // Мультивыбор
-      classSelectCheckBox: "--select-checkbox",
-      // Стиль чекбокса
-      classSelectOptionSelected: "--select-selected",
-      // Вибраный пункт
-      classSelectPseudoLabel: "--select-pseudo-label"
-      // Псевдолейбл
-    };
-    this._this = this;
-    if (this.config.init) {
-      const selectItems = data ? document.querySelectorAll(data) : document.querySelectorAll("select[data-fls-select]");
-      if (selectItems.length) {
-        this.selectsInit(selectItems);
-      }
-    }
-  }
-  // Конструктор CSS класcа
-  getSelectClass(className) {
-    return `.${className}`;
-  }
-  // Геттер элементов псевдоселекта
-  getSelectElement(selectItem, className) {
-    return {
-      originalSelect: selectItem.querySelector("select"),
-      selectElement: selectItem.querySelector(this.getSelectClass(className))
-    };
-  }
-  // Функция инициализации всех селектов
-  selectsInit(selectItems) {
-    selectItems.forEach((originalSelect, index) => {
-      this.selectInit(originalSelect, index + 1);
-    });
-    document.addEventListener("click", (function(e) {
-      this.selectsActions(e);
-    }).bind(this));
-    document.addEventListener("keydown", (function(e) {
-      this.selectsActions(e);
-    }).bind(this));
-    document.addEventListener("focusin", (function(e) {
-      this.selectsActions(e);
-    }).bind(this));
-    document.addEventListener("focusout", (function(e) {
-      this.selectsActions(e);
-    }).bind(this));
-  }
-  // Функция инициализации конкретного селекта
-  selectInit(originalSelect, index) {
-    index ? originalSelect.dataset.flsSelectId = index : null;
-    if (originalSelect.options.length) {
-      const _this = this;
-      let selectItem = document.createElement("div");
-      selectItem.classList.add(this.selectClasses.classSelect);
-      originalSelect.parentNode.insertBefore(selectItem, originalSelect);
-      selectItem.appendChild(originalSelect);
-      originalSelect.hidden = true;
-      if (this.getSelectPlaceholder(originalSelect)) {
-        originalSelect.dataset.placeholder = this.getSelectPlaceholder(originalSelect).value;
-        if (this.getSelectPlaceholder(originalSelect).label.show) {
-          const selectItemTitle = this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement;
-          selectItemTitle.insertAdjacentHTML("afterbegin", `<span class="${this.selectClasses.classSelectLabel}">${this.getSelectPlaceholder(originalSelect).label.text ? this.getSelectPlaceholder(originalSelect).label.text : this.getSelectPlaceholder(originalSelect).value}</span>`);
-        }
-      }
-      selectItem.insertAdjacentHTML("beforeend", `<div class="${this.selectClasses.classSelectBody}"><div hidden class="${this.selectClasses.classSelectOptions}"></div></div>`);
-      this.selectBuild(originalSelect);
-      originalSelect.dataset.flsSelectSpeed = originalSelect.dataset.flsSelectSpeed ? originalSelect.dataset.flsSelectSpeed : this.config.speed;
-      this.config.speed = +originalSelect.dataset.flsSelectSpeed;
-      originalSelect.addEventListener("change", function(e) {
-        _this.selectChange(e);
+        setTitlePosition(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
       });
     }
   }
-  // Конструктор псевдоселекта
-  selectBuild(originalSelect) {
-    const selectItem = originalSelect.parentElement;
-    if (originalSelect.id) {
-      selectItem.id = originalSelect.id;
-      originalSelect.removeAttribute("id");
-    }
-    selectItem.dataset.flsSelectId = originalSelect.dataset.flsSelectId;
-    originalSelect.dataset.flsSelectModif ? selectItem.classList.add(`select--${originalSelect.dataset.flsSelectModif}`) : null;
-    originalSelect.multiple ? selectItem.classList.add(this.selectClasses.classSelectMultiple) : selectItem.classList.remove(this.selectClasses.classSelectMultiple);
-    originalSelect.hasAttribute("data-fls-select-checkbox") && originalSelect.multiple ? selectItem.classList.add(this.selectClasses.classSelectCheckBox) : selectItem.classList.remove(this.selectClasses.classSelectCheckBox);
-    this.setSelectTitleValue(selectItem, originalSelect);
-    this.setOptions(selectItem, originalSelect);
-    originalSelect.hasAttribute("data-fls-select-search") ? this.searchActions(selectItem) : null;
-    originalSelect.hasAttribute("data-fls-select-open") ? this.selectAction(selectItem) : null;
-    this.selectDisabled(selectItem, originalSelect);
-  }
-  // Функция реакций на события
-  selectsActions(e) {
-    const t = e.target, type = e.type;
-    const isSelect = t.closest(this.getSelectClass(this.selectClasses.classSelect));
-    const isTag = t.closest(this.getSelectClass(this.selectClasses.classSelectTag));
-    if (!isSelect && !isTag) return this.selectsСlose();
-    const selectItem = isSelect || document.querySelector(`.${this.selectClasses.classSelect}[data-fls-select-id="${isTag.dataset.flsSelectId}"]`);
-    const originalSelect = this.getSelectElement(selectItem).originalSelect;
-    if (originalSelect.disabled) return;
-    if (type === "click") {
-      const tag = t.closest(this.getSelectClass(this.selectClasses.classSelectTag));
-      const title = t.closest(this.getSelectClass(this.selectClasses.classSelectTitle));
-      const option = t.closest(this.getSelectClass(this.selectClasses.classSelectOption));
-      if (tag) {
-        const optionItem = document.querySelector(`.${this.selectClasses.classSelect}[data-fls-select-id="${tag.dataset.flsSelectId}"] .select__option[data-fls-select-value="${tag.dataset.flsSelectValue}"]`);
-        this.optionAction(selectItem, originalSelect, optionItem);
-      } else if (title) {
-        this.selectAction(selectItem);
-      } else if (option) {
-        this.optionAction(selectItem, originalSelect, option);
-      }
-    } else if (type === "focusin" || type === "focusout") {
-      if (isSelect) selectItem.classList.toggle(this.selectClasses.classSelectFocus, type === "focusin");
-    } else if (type === "keydown" && e.code === "Escape") {
-      this.selectsСlose();
-    }
-  }
-  // Функция закрытия всех селектов
-  selectsСlose(selectOneGroup) {
-    const selectsGroup = selectOneGroup ? selectOneGroup : document;
-    const selectActiveItems = selectsGroup.querySelectorAll(`${this.getSelectClass(this.selectClasses.classSelect)}${this.getSelectClass(this.selectClasses.classSelectOpen)}`);
-    if (selectActiveItems.length) {
-      selectActiveItems.forEach((selectActiveItem) => {
-        this.selectСlose(selectActiveItem);
-      });
-    }
-  }
-  // Функция закрытия конкретного селекта
-  selectСlose(selectItem) {
-    const originalSelect = this.getSelectElement(selectItem).originalSelect;
-    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
-    if (!selectOptions.classList.contains("_slide")) {
-      selectItem.classList.remove(this.selectClasses.classSelectOpen);
-      slideUp(selectOptions, originalSelect.dataset.flsSelectSpeed);
-      setTimeout(() => {
-        selectItem.style.zIndex = "";
-      }, originalSelect.dataset.flsSelectSpeed);
-    }
-  }
-  // Функция открытия / закрытия конкретного селекта
-  selectAction(selectItem) {
-    const originalSelect = this.getSelectElement(selectItem).originalSelect;
-    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
-    selectOptions.querySelectorAll(`.${this.selectClasses.classSelectOption}`);
-    const selectOpenzIndex = originalSelect.dataset.flsSelectZIndex ? originalSelect.dataset.flsSelectZIndex : 3;
-    this.setOptionsPosition(selectItem);
-    if (originalSelect.closest("[data-fls-select-one]")) {
-      const selectOneGroup = originalSelect.closest("[data-fls-select-one]");
-      this.selectsСlose(selectOneGroup);
-    }
-    setTimeout(() => {
-      if (!selectOptions.classList.contains("--slide")) {
-        selectItem.classList.toggle(this.selectClasses.classSelectOpen);
-        slideToggle(selectOptions, originalSelect.dataset.flsSelectSpeed);
-        if (selectItem.classList.contains(this.selectClasses.classSelectOpen)) {
-          selectItem.style.zIndex = selectOpenzIndex;
+  function setTitlePosition(tabsMediaArray, matchMedia) {
+    tabsMediaArray.forEach((tabsMediaItem) => {
+      tabsMediaItem = tabsMediaItem.item;
+      let tabsTitles = tabsMediaItem.querySelector("[data-fls-tabs-titles]");
+      let tabsTitleItems = tabsMediaItem.querySelectorAll("[data-fls-tabs-title]");
+      let tabsContent = tabsMediaItem.querySelector("[data-fls-tabs-body]");
+      let tabsContentItems = tabsMediaItem.querySelectorAll("[data-fls-tabs-item]");
+      tabsTitleItems = Array.from(tabsTitleItems).filter((item) => item.closest("[data-fls-tabs]") === tabsMediaItem);
+      tabsContentItems = Array.from(tabsContentItems).filter((item) => item.closest("[data-fls-tabs]") === tabsMediaItem);
+      tabsContentItems.forEach((tabsContentItem, index) => {
+        if (matchMedia.matches) {
+          tabsContent.append(tabsTitleItems[index]);
+          tabsContent.append(tabsContentItem);
+          tabsMediaItem.classList.add("--tab-spoller");
         } else {
-          setTimeout(() => {
-            selectItem.style.zIndex = "";
-          }, originalSelect.dataset.flsSelectSpeed);
+          tabsTitles.append(tabsTitleItems[index]);
+          tabsMediaItem.classList.remove("--tab-spoller");
         }
-      }
-    }, 0);
-  }
-  // Сеттер значение заголовка селекта
-  setSelectTitleValue(selectItem, originalSelect) {
-    const selectItemBody = this.getSelectElement(selectItem, this.selectClasses.classSelectBody).selectElement;
-    const selectItemTitle = this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement;
-    if (selectItemTitle) selectItemTitle.remove();
-    selectItemBody.insertAdjacentHTML("afterbegin", this.getSelectTitleValue(selectItem, originalSelect));
-    originalSelect.hasAttribute("data-fls-select-search") ? this.searchActions(selectItem) : null;
-  }
-  // Конструктор значения заголовка
-  // getSelectTitleValue(selectItem, originalSelect) {
-  // 	// Получаем выбранные текстовые значения
-  // 	let selectTitleValue = this.getSelectedOptionsData(originalSelect, 2).html;
-  // 	// Обработка значений мультивыбора
-  // 	// Если включен режим тегов (указаны настройки data-fls-select-tags)
-  // 	if (originalSelect.multiple && originalSelect.hasAttribute('data-fls-select-tags')) {
-  // 		selectTitleValue = this.getSelectedOptionsData(originalSelect).elements.map(option => `<span role="button" data-fls-select-id="${selectItem.dataset.flsSelectId}" data-fls-select-value="${option.value}" class="--select-tag">${this.getSelectElementContent(option)}</span>`).join('');
-  // 		// Если вывод тегов во внешний блок
-  // 		if (originalSelect.dataset.flsSelectTags && document.querySelector(originalSelect.dataset.flsSelectTags)) {
-  // 			document.querySelector(originalSelect.dataset.flsSelectTags).innerHTML = selectTitleValue;
-  // 			if (originalSelect.hasAttribute('data-fls-select-search')) selectTitleValue = false;
-  // 		}
-  // 	}
-  // 	// Значение или плейсхолдер
-  // 	selectTitleValue = selectTitleValue.length ? selectTitleValue : (originalSelect.dataset.flsSelectPlaceholder || '')
-  // 	if (!originalSelect.hasAttribute('data-fls-select-tags')) {
-  // 		selectTitleValue = selectTitleValue ? selectTitleValue.map(item => item.replace(/"/g, '&quot;')) : ''
-  // 	}
-  // 	// Если включен режим pseudo
-  // 	let pseudoAttribute = '';
-  // 	let pseudoAttributeClass = '';
-  // 	if (originalSelect.hasAttribute('data-fls-select-pseudo-label')) {
-  // 		pseudoAttribute = originalSelect.dataset.flsSelectPseudoLabel ? ` data-fls-select-pseudo-label="${originalSelect.dataset.flsSelectPseudoLabel}"` : ` data-fls-select-pseudo-label="Заповніть атрибут"`;
-  // 		pseudoAttributeClass = ` ${this.selectClasses.classSelectPseudoLabel}`;
-  // 	}
-  // 	// Если есть значение, добавляем класс
-  // 	this.getSelectedOptionsData(originalSelect).values.length ? selectItem.classList.add(this.selectClasses.classSelectActive) : selectItem.classList.remove(this.selectClasses.classSelectActive);
-  // 	// Возвращаем поле ввода для поиска или текст
-  // 	if (originalSelect.hasAttribute('data-fls-select-search')) {
-  // 		// Выводим поле ввода для поиска
-  // 		return `<div class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}"><input autocomplete="off" type="text" placeholder="${selectTitleValue}" data-fls-select-placeholder="${selectTitleValue}" class="${this.selectClasses.classSelectInput}"></span></div>`;
-  // 	} else {
-  // 		// Если выбран элемент со своим классом
-  // 		const customClass = this.getSelectedOptionsData(originalSelect).elements.length && this.getSelectedOptionsData(originalSelect).elements[0].dataset.flsSelectClass ? ` ${this.getSelectedOptionsData(originalSelect).elements[0].dataset.flsSelectClass}` : '';
-  // 		// Выводим текстовое значение
-  // 		return `<button type="button" class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}${pseudoAttributeClass}"><span class="${this.selectClasses.classSelectContent}${customClass}">${selectTitleValue}</span></span></button>`;
-  // 	}
-  // }
-  // Конструктор значения заголовка
-  // Конструктор значения заголовка
-  getSelectTitleValue(selectItem, originalSelect) {
-    const selectedOption = originalSelect.options[originalSelect.selectedIndex];
-    const selectedAsset = selectedOption.getAttribute("data-fls-select-asset");
-    let assetHTML = "";
-    if (selectedAsset) {
-      assetHTML = `<span class="${this.selectClasses.classSelectData}">${selectedAsset.indexOf("img") >= 0 ? `<img src="${selectedAsset}" alt="">` : selectedAsset}</span>`;
-    }
-    const selectedText = selectedOption.textContent;
-    let pseudoAttribute = "";
-    let pseudoAttributeClass = "";
-    if (originalSelect.hasAttribute("data-fls-select-pseudo-label")) {
-      pseudoAttribute = originalSelect.dataset.flsSelectPseudoLabel ? ` data-fls-select-pseudo-label="${originalSelect.dataset.flsSelectPseudoLabel}"` : ` data-fls-select-pseudo-label="Заповніть атрибут"`;
-      pseudoAttributeClass = ` ${this.selectClasses.classSelectPseudoLabel}`;
-    }
-    this.getSelectedOptionsData(originalSelect).values.length ? selectItem.classList.add(this.selectClasses.classSelectActive) : selectItem.classList.remove(this.selectClasses.classSelectActive);
-    if (originalSelect.hasAttribute("data-fls-select-search")) {
-      return `<div class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}"><input autocomplete="off" type="text" placeholder="${selectedText}" data-fls-select-placeholder="${selectedText}" class="${this.selectClasses.classSelectInput}"></span></div>`;
-    } else {
-      const customClass = selectedOption.dataset.flsSelectClass ? ` ${selectedOption.dataset.flsSelectClass}` : "";
-      return `<button type="button" class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}${pseudoAttributeClass}"><span class="${this.selectClasses.classSelectContent}${customClass}">${assetHTML}<span class="${this.selectClasses.classSelectText}">${selectedText}</span></span></span></button>`;
-    }
-  }
-  // Конструктор данных для значения заголовка
-  getSelectElementContent(selectOption) {
-    const selectOptionData = selectOption.dataset.flsSelectAsset ? `${selectOption.dataset.flsSelectAsset}` : "";
-    const selectOptionDataHTML = selectOptionData.indexOf("img") >= 0 ? `<img src="${selectOptionData}" alt="">` : selectOptionData;
-    let selectOptionContentHTML = ``;
-    selectOptionContentHTML += selectOptionData ? `<span class="${this.selectClasses.classSelectRow}">` : "";
-    selectOptionContentHTML += selectOptionData ? `<span class="${this.selectClasses.classSelectData}">` : "";
-    selectOptionContentHTML += selectOptionData ? selectOptionDataHTML : "";
-    selectOptionContentHTML += selectOptionData ? `</span>` : "";
-    selectOptionContentHTML += selectOptionData ? `<span class="${this.selectClasses.classSelectText}">` : "";
-    selectOptionContentHTML += selectOption.textContent;
-    selectOptionContentHTML += selectOptionData ? `</span>` : "";
-    selectOptionContentHTML += selectOptionData ? `</span>` : "";
-    return selectOptionContentHTML;
-  }
-  // Получение данных плейсхолдера
-  getSelectPlaceholder(originalSelect) {
-    const selectPlaceholder = Array.from(originalSelect.options).find((option) => !option.value);
-    if (selectPlaceholder) {
-      return {
-        value: selectPlaceholder.textContent,
-        show: selectPlaceholder.hasAttribute("data-fls-select-show"),
-        label: {
-          show: selectPlaceholder.hasAttribute("data-fls-select-label"),
-          text: selectPlaceholder.dataset.flsSelectLabel
-        }
-      };
-    }
-  }
-  // Получение данных из выбранных элементов
-  getSelectedOptionsData(originalSelect, type) {
-    let selectedOptions = [];
-    if (originalSelect.multiple) {
-      selectedOptions = Array.from(originalSelect.options).filter((option) => option.value).filter((option) => option.selected);
-    } else {
-      selectedOptions.push(originalSelect.options[originalSelect.selectedIndex]);
-    }
-    return {
-      elements: selectedOptions.map((option) => option),
-      values: selectedOptions.filter((option) => option.value).map((option) => option.value),
-      html: selectedOptions.map((option) => this.getSelectElementContent(option))
-    };
-  }
-  // Конструктор элементов списка
-  getOptions(originalSelect) {
-    const selectOptionsScroll = originalSelect.hasAttribute("data-fls-select-scroll") ? `` : "";
-    +originalSelect.dataset.flsSelectScroll ? +originalSelect.dataset.flsSelectScroll : null;
-    let selectOptions = Array.from(originalSelect.options);
-    if (selectOptions.length > 0) {
-      let selectOptionsHTML = ``;
-      if (this.getSelectPlaceholder(originalSelect) && !this.getSelectPlaceholder(originalSelect).show || originalSelect.multiple) {
-        selectOptions = selectOptions.filter((option) => option.value);
-      }
-      selectOptionsHTML += `<div ${selectOptionsScroll} ${""} class="${this.selectClasses.classSelectOptionsScroll}">`;
-      selectOptions.forEach((selectOption) => {
-        selectOptionsHTML += this.getOption(selectOption, originalSelect);
       });
-      selectOptionsHTML += `</div>`;
-      return selectOptionsHTML;
-    }
-  }
-  // Конструктор конкретного элемента списка
-  getOption(selectOption, originalSelect) {
-    const selectOptionSelected = selectOption.selected && originalSelect.multiple ? ` ${this.selectClasses.classSelectOptionSelected}` : "";
-    const selectOptionHide = selectOption.selected && !originalSelect.hasAttribute("data-fls-select-show-selected") && !originalSelect.multiple ? `hidden` : ``;
-    const selectOptionClass = selectOption.dataset.flsSelectClass ? ` ${selectOption.dataset.flsSelectClass}` : "";
-    const selectOptionLink = selectOption.dataset.flsSelectHref ? selectOption.dataset.flsSelectHref : false;
-    const selectOptionLinkTarget = selectOption.hasAttribute("data-fls-select-href-blank") ? `target="_blank"` : "";
-    let selectOptionHTML = ``;
-    selectOptionHTML += selectOptionLink ? `<a ${selectOptionLinkTarget} ${selectOptionHide} href="${selectOptionLink}" data-fls-select-value="${selectOption.value}" class="${this.selectClasses.classSelectOption}${selectOptionClass}${selectOptionSelected}">` : `<button ${selectOptionHide} class="${this.selectClasses.classSelectOption}${selectOptionClass}${selectOptionSelected}" data-fls-select-value="${selectOption.value}" type="button">`;
-    selectOptionHTML += this.getSelectElementContent(selectOption);
-    selectOptionHTML += selectOptionLink ? `</a>` : `</button>`;
-    return selectOptionHTML;
-  }
-  // Сеттер элементов списка (options)
-  setOptions(selectItem, originalSelect) {
-    const selectItemOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
-    selectItemOptions.innerHTML = this.getOptions(originalSelect);
-  }
-  // Определяем, где отобразить выпадающий список
-  setOptionsPosition(selectItem) {
-    const originalSelect = this.getSelectElement(selectItem).originalSelect;
-    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
-    const selectItemScroll = this.getSelectElement(selectItem, this.selectClasses.classSelectOptionsScroll).selectElement;
-    const customMaxHeightValue = +originalSelect.dataset.flsSelectScroll ? `${+originalSelect.dataset.flsSelectScroll}px` : ``;
-    const selectOptionsPosMargin = +originalSelect.dataset.flsSelectOptionsMargin ? +originalSelect.dataset.flsSelectOptionsMargin : 10;
-    if (!selectItem.classList.contains(this.selectClasses.classSelectOpen)) {
-      selectOptions.hidden = false;
-      const selectItemScrollHeight = selectItemScroll.offsetHeight ? selectItemScroll.offsetHeight : parseInt(window.getComputedStyle(selectItemScroll).getPropertyValue("max-height"));
-      const selectOptionsHeight = selectOptions.offsetHeight > selectItemScrollHeight ? selectOptions.offsetHeight : selectItemScrollHeight + selectOptions.offsetHeight;
-      const selectOptionsScrollHeight = selectOptionsHeight - selectItemScrollHeight;
-      selectOptions.hidden = true;
-      const selectItemHeight = selectItem.offsetHeight;
-      const selectItemPos = selectItem.getBoundingClientRect().top;
-      const selectItemTotal = selectItemPos + selectOptionsHeight + selectItemHeight + selectOptionsScrollHeight;
-      const selectItemResult = window.innerHeight - (selectItemTotal + selectOptionsPosMargin);
-      if (selectItemResult < 0) {
-        const newMaxHeightValue = selectOptionsHeight + selectItemResult;
-        if (newMaxHeightValue < 100) {
-          selectItem.classList.add("select--show-top");
-          selectItemScroll.style.maxHeight = selectItemPos < selectOptionsHeight ? `${selectItemPos - (selectOptionsHeight - selectItemPos)}px` : customMaxHeightValue;
-        } else {
-          selectItem.classList.remove("select--show-top");
-          selectItemScroll.style.maxHeight = `${newMaxHeightValue}px`;
-        }
-      }
-    } else {
-      setTimeout(() => {
-        selectItem.classList.remove("select--show-top");
-        selectItemScroll.style.maxHeight = customMaxHeightValue;
-      }, +originalSelect.dataset.flsSelectSpeed);
-    }
-  }
-  // Обработчик клика на пункт списка
-  optionAction(selectItem, originalSelect, optionItem) {
-    const optionsBox = selectItem.querySelector(this.getSelectClass(this.selectClasses.classSelectOptions));
-    if (optionsBox.classList.contains("--slide")) return;
-    if (originalSelect.multiple) {
-      optionItem.classList.toggle(this.selectClasses.classSelectOptionSelected);
-      const selectedEls = this.getSelectedOptionsData(originalSelect).elements;
-      for (const el of selectedEls) {
-        el.removeAttribute("selected");
-      }
-      const selectedUI = selectItem.querySelectorAll(this.getSelectClass(this.selectClasses.classSelectOptionSelected));
-      for (const el of selectedUI) {
-        const val = el.dataset.flsSelectValue;
-        const opt = originalSelect.querySelector(`option[value="${val}"]`);
-        if (opt) opt.setAttribute("selected", "selected");
-      }
-    } else {
-      if (!originalSelect.hasAttribute("data-fls-select-show-selected")) {
-        setTimeout(() => {
-          const hiddenOpt = selectItem.querySelector(`${this.getSelectClass(this.selectClasses.classSelectOption)}[hidden]`);
-          if (hiddenOpt) hiddenOpt.hidden = false;
-          optionItem.hidden = true;
-        }, this.config.speed);
-      }
-      originalSelect.value = optionItem.dataset.flsSelectValue || optionItem.textContent;
-      this.selectAction(selectItem);
-    }
-    this.setSelectTitleValue(selectItem, originalSelect);
-    this.setSelectChange(originalSelect);
-  }
-  // Реакция на изменение исходного select
-  selectChange(e) {
-    const originalSelect = e.target;
-    this.selectBuild(originalSelect);
-    this.setSelectChange(originalSelect);
-  }
-  // Обработчик изменения в селекте
-  setSelectChange(originalSelect) {
-    if (originalSelect.hasAttribute("data-fls-select-validate")) {
-      formValidate.validateInput(originalSelect);
-    }
-    if (originalSelect.hasAttribute("data-fls-select-submit") && originalSelect.value) {
-      let tempButton = document.createElement("button");
-      tempButton.type = "submit";
-      originalSelect.closest("form").append(tempButton);
-      tempButton.click();
-      tempButton.remove();
-    }
-    const selectItem = originalSelect.parentElement;
-    this.selectCallback(selectItem, originalSelect);
-  }
-  // Обработчик disabled
-  selectDisabled(selectItem, originalSelect) {
-    if (originalSelect.disabled) {
-      selectItem.classList.add(this.selectClasses.classSelectDisabled);
-      this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement.disabled = true;
-    } else {
-      selectItem.classList.remove(this.selectClasses.classSelectDisabled);
-      this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement.disabled = false;
-    }
-  }
-  // Обработчик поиска по элементам списка
-  searchActions(selectItem) {
-    const selectInput = this.getSelectElement(selectItem, this.selectClasses.classSelectInput).selectElement;
-    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
-    selectInput.addEventListener("input", () => {
-      const inputValue = selectInput.value.toLowerCase();
-      const selectOptionsItems = selectOptions.querySelectorAll(`.${this.selectClasses.classSelectOption}`);
-      selectOptionsItems.forEach((item) => {
-        const itemText = item.textContent.toLowerCase();
-        item.hidden = !itemText.includes(inputValue);
-      });
-      if (selectOptions.hidden) {
-        this.selectAction(selectItem);
-      }
     });
   }
-  // Колбек функция
-  selectCallback(selectItem, originalSelect) {
-    document.dispatchEvent(new CustomEvent("selectCallback", {
-      detail: {
-        select: originalSelect
+  function initTabs(tabsBlock) {
+    let tabsTitles = tabsBlock.querySelectorAll("[data-fls-tabs-titles]>*");
+    let tabsContent = tabsBlock.querySelectorAll("[data-fls-tabs-body]>*");
+    const tabsBlockIndex = tabsBlock.dataset.flsTabsIndex;
+    const tabsActiveHashBlock = tabsActiveHash[0] == tabsBlockIndex;
+    if (tabsActiveHashBlock) {
+      const tabsActiveTitle = tabsBlock.querySelector("[data-fls-tabs-titles]>.--tab-active");
+      tabsActiveTitle ? tabsActiveTitle.classList.remove("--tab-active") : null;
+    }
+    if (tabsContent.length) {
+      tabsContent.forEach((tabsContentItem, index) => {
+        tabsTitles[index].setAttribute("data-fls-tabs-title", "");
+        tabsContentItem.setAttribute("data-fls-tabs-item", "");
+        if (tabsActiveHashBlock && index == tabsActiveHash[1]) {
+          tabsTitles[index].classList.add("--tab-active");
+        }
+        tabsContentItem.hidden = !tabsTitles[index].classList.contains("--tab-active");
+      });
+    }
+  }
+  function setTabsStatus(tabsBlock) {
+    let tabsTitles = tabsBlock.querySelectorAll("[data-fls-tabs-title]");
+    let tabsContent = tabsBlock.querySelectorAll("[data-fls-tabs-item]");
+    const tabsBlockIndex = tabsBlock.dataset.flsTabsIndex;
+    function isTabsAnamate(tabsBlock2) {
+      if (tabsBlock2.hasAttribute("data-fls-tabs-animate")) {
+        return tabsBlock2.dataset.flsTabsAnimate > 0 ? Number(tabsBlock2.dataset.flsTabsAnimate) : 500;
       }
-    }));
+    }
+    const tabsBlockAnimate = isTabsAnamate(tabsBlock);
+    if (tabsContent.length > 0) {
+      const isHash = tabsBlock.hasAttribute("data-fls-tabs-hash");
+      tabsContent = Array.from(tabsContent).filter((item) => item.closest("[data-fls-tabs]") === tabsBlock);
+      tabsTitles = Array.from(tabsTitles).filter((item) => item.closest("[data-fls-tabs]") === tabsBlock);
+      tabsContent.forEach((tabsContentItem, index) => {
+        if (tabsTitles[index].classList.contains("--tab-active")) {
+          if (tabsBlockAnimate) {
+            slideDown(tabsContentItem, tabsBlockAnimate);
+          } else {
+            tabsContentItem.hidden = false;
+          }
+          if (isHash && !tabsContentItem.closest(".popup")) {
+            setHash(`tab-${tabsBlockIndex}-${index}`);
+          }
+        } else {
+          if (tabsBlockAnimate) {
+            slideUp(tabsContentItem, tabsBlockAnimate);
+          } else {
+            tabsContentItem.hidden = true;
+          }
+        }
+      });
+    }
+  }
+  function setTabsAction(e) {
+    const el = e.target;
+    if (el.closest("[data-fls-tabs-title]")) {
+      const tabTitle = el.closest("[data-fls-tabs-title]");
+      const tabsBlock = tabTitle.closest("[data-fls-tabs]");
+      if (!tabTitle.classList.contains("--tab-active") && !tabsBlock.querySelector(".--slide")) {
+        let tabActiveTitle = tabsBlock.querySelectorAll("[data-fls-tabs-title].--tab-active");
+        tabActiveTitle.length ? tabActiveTitle = Array.from(tabActiveTitle).filter((item) => item.closest("[data-fls-tabs]") === tabsBlock) : null;
+        tabActiveTitle.length ? tabActiveTitle[0].classList.remove("--tab-active") : null;
+        tabTitle.classList.add("--tab-active");
+        setTabsStatus(tabsBlock);
+      }
+      e.preventDefault();
+    }
   }
 }
-document.querySelector("select[data-fls-select]") ? window.addEventListener("load", () => window.flsSelect = new SelectConstructor({})) : null;
+window.addEventListener("load", tabs);
 function spollers() {
   const spollersArray = document.querySelectorAll("[data-fls-spollers]");
   if (spollersArray.length > 0) {
@@ -1199,9 +744,6 @@ function animateCSSModeScroll(_ref) {
   };
   animate();
 }
-function getSlideTransformEl(slideEl) {
-  return slideEl.querySelector(".swiper-slide-transform") || slideEl.shadowRoot && slideEl.shadowRoot.querySelector(".swiper-slide-transform") || slideEl;
-}
 function elementChildren(element, selector) {
   if (selector === void 0) {
     selector = "";
@@ -1295,24 +837,12 @@ function elementParents(el, selector) {
   const parents = [];
   let parent = el.parentElement;
   while (parent) {
-    if (selector) {
-      if (parent.matches(selector)) parents.push(parent);
-    } else {
+    {
       parents.push(parent);
     }
     parent = parent.parentElement;
   }
   return parents;
-}
-function elementTransitionEnd(el, callback) {
-  function fireCallBack(e) {
-    if (e.target !== el) return;
-    callback.call(el, e);
-    el.removeEventListener("transitionend", fireCallBack);
-  }
-  if (callback) {
-    el.addEventListener("transitionend", fireCallBack);
-  }
 }
 function elementOuterSize(el, size, includeMargins) {
   const window2 = getWindow();
@@ -1322,18 +852,6 @@ function elementOuterSize(el, size, includeMargins) {
 }
 function makeElementsArray(el) {
   return (Array.isArray(el) ? el : [el]).filter((e) => !!e);
-}
-function setInnerHTML(el, html) {
-  if (html === void 0) {
-    html = "";
-  }
-  if (typeof trustedTypes !== "undefined") {
-    el.innerHTML = trustedTypes.createPolicy("html", {
-      createHTML: (s) => s
-    }).createHTML(html);
-  } else {
-    el.innerHTML = html;
-  }
 }
 let support;
 function calcSupport() {
@@ -5256,689 +4774,18 @@ function Navigation(_ref) {
     destroy
   });
 }
-function classesToSelector(classes2) {
-  if (classes2 === void 0) {
-    classes2 = "";
-  }
-  return `.${classes2.trim().replace(/([\.:!+\/()[\]])/g, "\\$1").replace(/ /g, ".")}`;
-}
-function Pagination(_ref) {
-  let {
-    swiper,
-    extendParams,
-    on,
-    emit
-  } = _ref;
-  const pfx = "swiper-pagination";
-  extendParams({
-    pagination: {
-      el: null,
-      bulletElement: "span",
-      clickable: false,
-      hideOnClick: false,
-      renderBullet: null,
-      renderProgressbar: null,
-      renderFraction: null,
-      renderCustom: null,
-      progressbarOpposite: false,
-      type: "bullets",
-      // 'bullets' or 'progressbar' or 'fraction' or 'custom'
-      dynamicBullets: false,
-      dynamicMainBullets: 1,
-      formatFractionCurrent: (number) => number,
-      formatFractionTotal: (number) => number,
-      bulletClass: `${pfx}-bullet`,
-      bulletActiveClass: `${pfx}-bullet-active`,
-      modifierClass: `${pfx}-`,
-      currentClass: `${pfx}-current`,
-      totalClass: `${pfx}-total`,
-      hiddenClass: `${pfx}-hidden`,
-      progressbarFillClass: `${pfx}-progressbar-fill`,
-      progressbarOppositeClass: `${pfx}-progressbar-opposite`,
-      clickableClass: `${pfx}-clickable`,
-      lockClass: `${pfx}-lock`,
-      horizontalClass: `${pfx}-horizontal`,
-      verticalClass: `${pfx}-vertical`,
-      paginationDisabledClass: `${pfx}-disabled`
-    }
-  });
-  swiper.pagination = {
-    el: null,
-    bullets: []
-  };
-  let bulletSize;
-  let dynamicBulletIndex = 0;
-  function isPaginationDisabled() {
-    return !swiper.params.pagination.el || !swiper.pagination.el || Array.isArray(swiper.pagination.el) && swiper.pagination.el.length === 0;
-  }
-  function setSideBullets(bulletEl, position) {
-    const {
-      bulletActiveClass
-    } = swiper.params.pagination;
-    if (!bulletEl) return;
-    bulletEl = bulletEl[`${position === "prev" ? "previous" : "next"}ElementSibling`];
-    if (bulletEl) {
-      bulletEl.classList.add(`${bulletActiveClass}-${position}`);
-      bulletEl = bulletEl[`${position === "prev" ? "previous" : "next"}ElementSibling`];
-      if (bulletEl) {
-        bulletEl.classList.add(`${bulletActiveClass}-${position}-${position}`);
-      }
-    }
-  }
-  function getMoveDirection(prevIndex, nextIndex, length) {
-    prevIndex = prevIndex % length;
-    nextIndex = nextIndex % length;
-    if (nextIndex === prevIndex + 1) {
-      return "next";
-    } else if (nextIndex === prevIndex - 1) {
-      return "previous";
-    }
-    return;
-  }
-  function onBulletClick(e) {
-    const bulletEl = e.target.closest(classesToSelector(swiper.params.pagination.bulletClass));
-    if (!bulletEl) {
-      return;
-    }
-    e.preventDefault();
-    const index = elementIndex(bulletEl) * swiper.params.slidesPerGroup;
-    if (swiper.params.loop) {
-      if (swiper.realIndex === index) return;
-      const moveDirection = getMoveDirection(swiper.realIndex, index, swiper.slides.length);
-      if (moveDirection === "next") {
-        swiper.slideNext();
-      } else if (moveDirection === "previous") {
-        swiper.slidePrev();
-      } else {
-        swiper.slideToLoop(index);
-      }
-    } else {
-      swiper.slideTo(index);
-    }
-  }
-  function update2() {
-    const rtl = swiper.rtl;
-    const params = swiper.params.pagination;
-    if (isPaginationDisabled()) return;
-    let el = swiper.pagination.el;
-    el = makeElementsArray(el);
-    let current;
-    let previousIndex;
-    const slidesLength = swiper.virtual && swiper.params.virtual.enabled ? swiper.virtual.slides.length : swiper.slides.length;
-    const total = swiper.params.loop ? Math.ceil(slidesLength / swiper.params.slidesPerGroup) : swiper.snapGrid.length;
-    if (swiper.params.loop) {
-      previousIndex = swiper.previousRealIndex || 0;
-      current = swiper.params.slidesPerGroup > 1 ? Math.floor(swiper.realIndex / swiper.params.slidesPerGroup) : swiper.realIndex;
-    } else if (typeof swiper.snapIndex !== "undefined") {
-      current = swiper.snapIndex;
-      previousIndex = swiper.previousSnapIndex;
-    } else {
-      previousIndex = swiper.previousIndex || 0;
-      current = swiper.activeIndex || 0;
-    }
-    if (params.type === "bullets" && swiper.pagination.bullets && swiper.pagination.bullets.length > 0) {
-      const bullets = swiper.pagination.bullets;
-      let firstIndex;
-      let lastIndex;
-      let midIndex;
-      if (params.dynamicBullets) {
-        bulletSize = elementOuterSize(bullets[0], swiper.isHorizontal() ? "width" : "height");
-        el.forEach((subEl) => {
-          subEl.style[swiper.isHorizontal() ? "width" : "height"] = `${bulletSize * (params.dynamicMainBullets + 4)}px`;
-        });
-        if (params.dynamicMainBullets > 1 && previousIndex !== void 0) {
-          dynamicBulletIndex += current - (previousIndex || 0);
-          if (dynamicBulletIndex > params.dynamicMainBullets - 1) {
-            dynamicBulletIndex = params.dynamicMainBullets - 1;
-          } else if (dynamicBulletIndex < 0) {
-            dynamicBulletIndex = 0;
-          }
-        }
-        firstIndex = Math.max(current - dynamicBulletIndex, 0);
-        lastIndex = firstIndex + (Math.min(bullets.length, params.dynamicMainBullets) - 1);
-        midIndex = (lastIndex + firstIndex) / 2;
-      }
-      bullets.forEach((bulletEl) => {
-        const classesToRemove = [...["", "-next", "-next-next", "-prev", "-prev-prev", "-main"].map((suffix) => `${params.bulletActiveClass}${suffix}`)].map((s) => typeof s === "string" && s.includes(" ") ? s.split(" ") : s).flat();
-        bulletEl.classList.remove(...classesToRemove);
-      });
-      if (el.length > 1) {
-        bullets.forEach((bullet) => {
-          const bulletIndex = elementIndex(bullet);
-          if (bulletIndex === current) {
-            bullet.classList.add(...params.bulletActiveClass.split(" "));
-          } else if (swiper.isElement) {
-            bullet.setAttribute("part", "bullet");
-          }
-          if (params.dynamicBullets) {
-            if (bulletIndex >= firstIndex && bulletIndex <= lastIndex) {
-              bullet.classList.add(...`${params.bulletActiveClass}-main`.split(" "));
-            }
-            if (bulletIndex === firstIndex) {
-              setSideBullets(bullet, "prev");
-            }
-            if (bulletIndex === lastIndex) {
-              setSideBullets(bullet, "next");
-            }
-          }
-        });
-      } else {
-        const bullet = bullets[current];
-        if (bullet) {
-          bullet.classList.add(...params.bulletActiveClass.split(" "));
-        }
-        if (swiper.isElement) {
-          bullets.forEach((bulletEl, bulletIndex) => {
-            bulletEl.setAttribute("part", bulletIndex === current ? "bullet-active" : "bullet");
-          });
-        }
-        if (params.dynamicBullets) {
-          const firstDisplayedBullet = bullets[firstIndex];
-          const lastDisplayedBullet = bullets[lastIndex];
-          for (let i = firstIndex; i <= lastIndex; i += 1) {
-            if (bullets[i]) {
-              bullets[i].classList.add(...`${params.bulletActiveClass}-main`.split(" "));
-            }
-          }
-          setSideBullets(firstDisplayedBullet, "prev");
-          setSideBullets(lastDisplayedBullet, "next");
-        }
-      }
-      if (params.dynamicBullets) {
-        const dynamicBulletsLength = Math.min(bullets.length, params.dynamicMainBullets + 4);
-        const bulletsOffset = (bulletSize * dynamicBulletsLength - bulletSize) / 2 - midIndex * bulletSize;
-        const offsetProp = rtl ? "right" : "left";
-        bullets.forEach((bullet) => {
-          bullet.style[swiper.isHorizontal() ? offsetProp : "top"] = `${bulletsOffset}px`;
-        });
-      }
-    }
-    el.forEach((subEl, subElIndex) => {
-      if (params.type === "fraction") {
-        subEl.querySelectorAll(classesToSelector(params.currentClass)).forEach((fractionEl) => {
-          fractionEl.textContent = params.formatFractionCurrent(current + 1);
-        });
-        subEl.querySelectorAll(classesToSelector(params.totalClass)).forEach((totalEl) => {
-          totalEl.textContent = params.formatFractionTotal(total);
-        });
-      }
-      if (params.type === "progressbar") {
-        let progressbarDirection;
-        if (params.progressbarOpposite) {
-          progressbarDirection = swiper.isHorizontal() ? "vertical" : "horizontal";
-        } else {
-          progressbarDirection = swiper.isHorizontal() ? "horizontal" : "vertical";
-        }
-        const scale = (current + 1) / total;
-        let scaleX = 1;
-        let scaleY = 1;
-        if (progressbarDirection === "horizontal") {
-          scaleX = scale;
-        } else {
-          scaleY = scale;
-        }
-        subEl.querySelectorAll(classesToSelector(params.progressbarFillClass)).forEach((progressEl) => {
-          progressEl.style.transform = `translate3d(0,0,0) scaleX(${scaleX}) scaleY(${scaleY})`;
-          progressEl.style.transitionDuration = `${swiper.params.speed}ms`;
-        });
-      }
-      if (params.type === "custom" && params.renderCustom) {
-        setInnerHTML(subEl, params.renderCustom(swiper, current + 1, total));
-        if (subElIndex === 0) emit("paginationRender", subEl);
-      } else {
-        if (subElIndex === 0) emit("paginationRender", subEl);
-        emit("paginationUpdate", subEl);
-      }
-      if (swiper.params.watchOverflow && swiper.enabled) {
-        subEl.classList[swiper.isLocked ? "add" : "remove"](params.lockClass);
-      }
-    });
-  }
-  function render() {
-    const params = swiper.params.pagination;
-    if (isPaginationDisabled()) return;
-    const slidesLength = swiper.virtual && swiper.params.virtual.enabled ? swiper.virtual.slides.length : swiper.grid && swiper.params.grid.rows > 1 ? swiper.slides.length / Math.ceil(swiper.params.grid.rows) : swiper.slides.length;
-    let el = swiper.pagination.el;
-    el = makeElementsArray(el);
-    let paginationHTML = "";
-    if (params.type === "bullets") {
-      let numberOfBullets = swiper.params.loop ? Math.ceil(slidesLength / swiper.params.slidesPerGroup) : swiper.snapGrid.length;
-      if (swiper.params.freeMode && swiper.params.freeMode.enabled && numberOfBullets > slidesLength) {
-        numberOfBullets = slidesLength;
-      }
-      for (let i = 0; i < numberOfBullets; i += 1) {
-        if (params.renderBullet) {
-          paginationHTML += params.renderBullet.call(swiper, i, params.bulletClass);
-        } else {
-          paginationHTML += `<${params.bulletElement} ${swiper.isElement ? 'part="bullet"' : ""} class="${params.bulletClass}"></${params.bulletElement}>`;
-        }
-      }
-    }
-    if (params.type === "fraction") {
-      if (params.renderFraction) {
-        paginationHTML = params.renderFraction.call(swiper, params.currentClass, params.totalClass);
-      } else {
-        paginationHTML = `<span class="${params.currentClass}"></span> / <span class="${params.totalClass}"></span>`;
-      }
-    }
-    if (params.type === "progressbar") {
-      if (params.renderProgressbar) {
-        paginationHTML = params.renderProgressbar.call(swiper, params.progressbarFillClass);
-      } else {
-        paginationHTML = `<span class="${params.progressbarFillClass}"></span>`;
-      }
-    }
-    swiper.pagination.bullets = [];
-    el.forEach((subEl) => {
-      if (params.type !== "custom") {
-        setInnerHTML(subEl, paginationHTML || "");
-      }
-      if (params.type === "bullets") {
-        swiper.pagination.bullets.push(...subEl.querySelectorAll(classesToSelector(params.bulletClass)));
-      }
-    });
-    if (params.type !== "custom") {
-      emit("paginationRender", el[0]);
-    }
-  }
-  function init() {
-    swiper.params.pagination = createElementIfNotDefined(swiper, swiper.originalParams.pagination, swiper.params.pagination, {
-      el: "swiper-pagination"
-    });
-    const params = swiper.params.pagination;
-    if (!params.el) return;
-    let el;
-    if (typeof params.el === "string" && swiper.isElement) {
-      el = swiper.el.querySelector(params.el);
-    }
-    if (!el && typeof params.el === "string") {
-      el = [...document.querySelectorAll(params.el)];
-    }
-    if (!el) {
-      el = params.el;
-    }
-    if (!el || el.length === 0) return;
-    if (swiper.params.uniqueNavElements && typeof params.el === "string" && Array.isArray(el) && el.length > 1) {
-      el = [...swiper.el.querySelectorAll(params.el)];
-      if (el.length > 1) {
-        el = el.find((subEl) => {
-          if (elementParents(subEl, ".swiper")[0] !== swiper.el) return false;
-          return true;
-        });
-      }
-    }
-    if (Array.isArray(el) && el.length === 1) el = el[0];
-    Object.assign(swiper.pagination, {
-      el
-    });
-    el = makeElementsArray(el);
-    el.forEach((subEl) => {
-      if (params.type === "bullets" && params.clickable) {
-        subEl.classList.add(...(params.clickableClass || "").split(" "));
-      }
-      subEl.classList.add(params.modifierClass + params.type);
-      subEl.classList.add(swiper.isHorizontal() ? params.horizontalClass : params.verticalClass);
-      if (params.type === "bullets" && params.dynamicBullets) {
-        subEl.classList.add(`${params.modifierClass}${params.type}-dynamic`);
-        dynamicBulletIndex = 0;
-        if (params.dynamicMainBullets < 1) {
-          params.dynamicMainBullets = 1;
-        }
-      }
-      if (params.type === "progressbar" && params.progressbarOpposite) {
-        subEl.classList.add(params.progressbarOppositeClass);
-      }
-      if (params.clickable) {
-        subEl.addEventListener("click", onBulletClick);
-      }
-      if (!swiper.enabled) {
-        subEl.classList.add(params.lockClass);
-      }
-    });
-  }
-  function destroy() {
-    const params = swiper.params.pagination;
-    if (isPaginationDisabled()) return;
-    let el = swiper.pagination.el;
-    if (el) {
-      el = makeElementsArray(el);
-      el.forEach((subEl) => {
-        subEl.classList.remove(params.hiddenClass);
-        subEl.classList.remove(params.modifierClass + params.type);
-        subEl.classList.remove(swiper.isHorizontal() ? params.horizontalClass : params.verticalClass);
-        if (params.clickable) {
-          subEl.classList.remove(...(params.clickableClass || "").split(" "));
-          subEl.removeEventListener("click", onBulletClick);
-        }
-      });
-    }
-    if (swiper.pagination.bullets) swiper.pagination.bullets.forEach((subEl) => subEl.classList.remove(...params.bulletActiveClass.split(" ")));
-  }
-  on("changeDirection", () => {
-    if (!swiper.pagination || !swiper.pagination.el) return;
-    const params = swiper.params.pagination;
-    let {
-      el
-    } = swiper.pagination;
-    el = makeElementsArray(el);
-    el.forEach((subEl) => {
-      subEl.classList.remove(params.horizontalClass, params.verticalClass);
-      subEl.classList.add(swiper.isHorizontal() ? params.horizontalClass : params.verticalClass);
-    });
-  });
-  on("init", () => {
-    if (swiper.params.pagination.enabled === false) {
-      disable();
-    } else {
-      init();
-      render();
-      update2();
-    }
-  });
-  on("activeIndexChange", () => {
-    if (typeof swiper.snapIndex === "undefined") {
-      update2();
-    }
-  });
-  on("snapIndexChange", () => {
-    update2();
-  });
-  on("snapGridLengthChange", () => {
-    render();
-    update2();
-  });
-  on("destroy", () => {
-    destroy();
-  });
-  on("enable disable", () => {
-    let {
-      el
-    } = swiper.pagination;
-    if (el) {
-      el = makeElementsArray(el);
-      el.forEach((subEl) => subEl.classList[swiper.enabled ? "remove" : "add"](swiper.params.pagination.lockClass));
-    }
-  });
-  on("lock unlock", () => {
-    update2();
-  });
-  on("click", (_s, e) => {
-    const targetEl = e.target;
-    const el = makeElementsArray(swiper.pagination.el);
-    if (swiper.params.pagination.el && swiper.params.pagination.hideOnClick && el && el.length > 0 && !targetEl.classList.contains(swiper.params.pagination.bulletClass)) {
-      if (swiper.navigation && (swiper.navigation.nextEl && targetEl === swiper.navigation.nextEl || swiper.navigation.prevEl && targetEl === swiper.navigation.prevEl)) return;
-      const isHidden = el[0].classList.contains(swiper.params.pagination.hiddenClass);
-      if (isHidden === true) {
-        emit("paginationShow");
-      } else {
-        emit("paginationHide");
-      }
-      el.forEach((subEl) => subEl.classList.toggle(swiper.params.pagination.hiddenClass));
-    }
-  });
-  const enable = () => {
-    swiper.el.classList.remove(swiper.params.pagination.paginationDisabledClass);
-    let {
-      el
-    } = swiper.pagination;
-    if (el) {
-      el = makeElementsArray(el);
-      el.forEach((subEl) => subEl.classList.remove(swiper.params.pagination.paginationDisabledClass));
-    }
-    init();
-    render();
-    update2();
-  };
-  const disable = () => {
-    swiper.el.classList.add(swiper.params.pagination.paginationDisabledClass);
-    let {
-      el
-    } = swiper.pagination;
-    if (el) {
-      el = makeElementsArray(el);
-      el.forEach((subEl) => subEl.classList.add(swiper.params.pagination.paginationDisabledClass));
-    }
-    destroy();
-  };
-  Object.assign(swiper.pagination, {
-    enable,
-    disable,
-    render,
-    update: update2,
-    init,
-    destroy
-  });
-}
-function effectInit(params) {
-  const {
-    effect,
-    swiper,
-    on,
-    setTranslate: setTranslate2,
-    setTransition: setTransition2,
-    overwriteParams,
-    perspective,
-    recreateShadows,
-    getEffectParams
-  } = params;
-  on("beforeInit", () => {
-    if (swiper.params.effect !== effect) return;
-    swiper.classNames.push(`${swiper.params.containerModifierClass}${effect}`);
-    if (perspective && perspective()) {
-      swiper.classNames.push(`${swiper.params.containerModifierClass}3d`);
-    }
-    const overwriteParamsResult = overwriteParams ? overwriteParams() : {};
-    Object.assign(swiper.params, overwriteParamsResult);
-    Object.assign(swiper.originalParams, overwriteParamsResult);
-  });
-  on("setTranslate _virtualUpdated", () => {
-    if (swiper.params.effect !== effect) return;
-    setTranslate2();
-  });
-  on("setTransition", (_s, duration) => {
-    if (swiper.params.effect !== effect) return;
-    setTransition2(duration);
-  });
-  on("transitionEnd", () => {
-    if (swiper.params.effect !== effect) return;
-    if (recreateShadows) {
-      if (!getEffectParams || !getEffectParams().slideShadows) return;
-      swiper.slides.forEach((slideEl) => {
-        slideEl.querySelectorAll(".swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left").forEach((shadowEl) => shadowEl.remove());
-      });
-      recreateShadows();
-    }
-  });
-  let requireUpdateOnVirtual;
-  on("virtualUpdate", () => {
-    if (swiper.params.effect !== effect) return;
-    if (!swiper.slides.length) {
-      requireUpdateOnVirtual = true;
-    }
-    requestAnimationFrame(() => {
-      if (requireUpdateOnVirtual && swiper.slides && swiper.slides.length) {
-        setTranslate2();
-        requireUpdateOnVirtual = false;
-      }
-    });
-  });
-}
-function effectTarget(effectParams, slideEl) {
-  const transformEl = getSlideTransformEl(slideEl);
-  if (transformEl !== slideEl) {
-    transformEl.style.backfaceVisibility = "hidden";
-    transformEl.style["-webkit-backface-visibility"] = "hidden";
-  }
-  return transformEl;
-}
-function effectVirtualTransitionEnd(_ref) {
-  let {
-    swiper,
-    duration,
-    transformElements
-  } = _ref;
-  const {
-    activeIndex
-  } = swiper;
-  if (swiper.params.virtualTranslate && duration !== 0) {
-    let eventTriggered = false;
-    let transitionEndTarget;
-    {
-      transitionEndTarget = transformElements;
-    }
-    transitionEndTarget.forEach((el) => {
-      elementTransitionEnd(el, () => {
-        if (eventTriggered) return;
-        if (!swiper || swiper.destroyed) return;
-        eventTriggered = true;
-        swiper.animating = false;
-        const evt = new window.CustomEvent("transitionend", {
-          bubbles: true,
-          cancelable: true
-        });
-        swiper.wrapperEl.dispatchEvent(evt);
-      });
-    });
-  }
-}
-function EffectFade(_ref) {
-  let {
-    swiper,
-    extendParams,
-    on
-  } = _ref;
-  extendParams({
-    fadeEffect: {
-      crossFade: false
-    }
-  });
-  const setTranslate2 = () => {
-    const {
-      slides
-    } = swiper;
-    const params = swiper.params.fadeEffect;
-    for (let i = 0; i < slides.length; i += 1) {
-      const slideEl = swiper.slides[i];
-      const offset = slideEl.swiperSlideOffset;
-      let tx = -offset;
-      if (!swiper.params.virtualTranslate) tx -= swiper.translate;
-      let ty = 0;
-      if (!swiper.isHorizontal()) {
-        ty = tx;
-        tx = 0;
-      }
-      const slideOpacity = swiper.params.fadeEffect.crossFade ? Math.max(1 - Math.abs(slideEl.progress), 0) : 1 + Math.min(Math.max(slideEl.progress, -1), 0);
-      const targetEl = effectTarget(params, slideEl);
-      targetEl.style.opacity = slideOpacity;
-      targetEl.style.transform = `translate3d(${tx}px, ${ty}px, 0px)`;
-    }
-  };
-  const setTransition2 = (duration) => {
-    const transformElements = swiper.slides.map((slideEl) => getSlideTransformEl(slideEl));
-    transformElements.forEach((el) => {
-      el.style.transitionDuration = `${duration}ms`;
-    });
-    effectVirtualTransitionEnd({
-      swiper,
-      duration,
-      transformElements
-    });
-  };
-  effectInit({
-    effect: "fade",
-    swiper,
-    on,
-    setTranslate: setTranslate2,
-    setTransition: setTransition2,
-    overwriteParams: () => ({
-      slidesPerView: 1,
-      slidesPerGroup: 1,
-      watchSlidesProgress: true,
-      spaceBetween: 0,
-      virtualTranslate: !swiper.params.cssMode
-    })
-  });
-}
 function initSliders() {
-  if (document.querySelector(".portofilio__slider")) {
-    new Swiper(".portofilio__slider", {
+  if (document.querySelector(".result__slider")) {
+    new Swiper(".result__slider", {
       // <- Указываем класс нужного слайдера
       // Подключаем модули слайдера
       // для конкретного случая
-      modules: [Navigation, Pagination],
+      modules: [Navigation],
       observer: true,
       observeParents: true,
-      slidesPerView: 1,
-      spaceBetween: 20,
-      autoHeight: true,
-      speed: 800,
-      //touchRatio: 0,
-      //simulateTouch: false,
-      //loop: true,
-      //preloadImages: false,
-      //lazy: true,
-      /*
-      // Эффекты
-      effect: 'fade',
-      autoplay: {
-      	delay: 3000,
-      	disableOnInteraction: false,
-      },
-      */
-      // Пагинация
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true
-      },
-      // Скроллбар
-      /*
-      scrollbar: {
-      	el: '.swiper-scrollbar',
-      	draggable: true,
-      },
-      */
-      // Кнопки "влево/вправо"
-      navigation: {
-        prevEl: ".portofilio-prev",
-        nextEl: ".portofilio-next"
-      },
-      /*
-      // Брейкпоинты
-      breakpoints: {
-      	640: {
-      		slidesPerView: 1,
-      		spaceBetween: 0,
-      		autoHeight: true,
-      	},
-      	768: {
-      		slidesPerView: 2,
-      		spaceBetween: 20,
-      	},
-      	992: {
-      		slidesPerView: 3,
-      		spaceBetween: 20,
-      	},
-      	1268: {
-      		slidesPerView: 4,
-      		spaceBetween: 30,
-      	},
-      },
-      */
-      // События
-      on: {}
-    });
-  }
-  if (document.querySelector(".video__slider")) {
-    new Swiper(".video__slider", {
-      // <- Указываем класс нужного слайдера
-      // Подключаем модули слайдера
-      // для конкретного случая
-      modules: [Navigation, Pagination],
-      observer: true,
-      observeParents: true,
-      slidesPerView: 1.2,
+      slidesPerView: 1.3,
       spaceBetween: 10,
-      autoHeight: true,
+      //autoHeight: true,
       speed: 800,
       //touchRatio: 0,
       //simulateTouch: false,
@@ -5954,10 +4801,12 @@ function initSliders() {
       },
       */
       // Пагинация
+      /*
       pagination: {
-        el: ".swiper-pagination",
-        clickable: true
+      	el: '.swiper-pagination',
+      	clickable: true,
       },
+      */
       // Скроллбар
       /*
       scrollbar: {
@@ -5967,203 +4816,25 @@ function initSliders() {
       */
       // Кнопки "влево/вправо"
       navigation: {
-        prevEl: ".video-prev",
-        nextEl: ".video-next"
+        prevEl: ".result-prev",
+        nextEl: ".result-next"
       },
-      // Брейкпоинты
       breakpoints: {
         640: {
-          slidesPerView: 1,
-          spaceBetween: 0,
+          slidesPerView: 1.5,
+          spaceBetween: 10,
           autoHeight: true
         },
         768: {
-          slidesPerView: 2,
-          spaceBetween: 20
-        },
-        992: {
-          slidesPerView: 3,
+          slidesPerView: 2.5,
           spaceBetween: 20
         }
       },
-      // События
       on: {}
-    });
-  }
-  if (document.querySelector(".calculator__slider")) {
-    new Swiper(".calculator__slider", {
-      modules: [Navigation, Pagination, EffectFade],
-      observer: true,
-      observeParents: true,
-      slidesPerView: 1,
-      spaceBetween: 0,
-      autoHeight: true,
-      speed: 800,
-      pagination: {
-        el: ".calculator__pagination",
-        type: "progressbar",
-        clickable: true
-      },
-      simulateTouch: false,
-      allowTouchMove: false,
-      effect: "fade",
-      fadeEffect: {
-        crossFade: true
-      },
-      navigation: {
-        prevEl: ".calculator__button-prev",
-        nextEl: ".calculator__button-next"
-      },
-      breakpoints: {
-        992: {
-          autoHeight: false
-        }
-      },
-      on: {
-        init: function(swiper) {
-          const allSlides = document.querySelector(".fraction-controll__all");
-          const allSlidesItems = document.querySelectorAll(".slide-main-block:not(.swiper-slide-duplicate)");
-          allSlides.innerHTML = allSlidesItems.length < 10 ? `0${allSlidesItems.length}` : allSlidesItems.length;
-          const progressElement = document.querySelector(".fraction-controll__progress");
-          progressElement.innerHTML = `<span>Готово</span>: 0%`;
-          const progressBarFill = document.querySelector(".swiper-pagination-progressbar-fill");
-          progressBarFill.style.width = "0%";
-        },
-        slideChange: function(swiper) {
-          const currentSlide = document.querySelector(".fraction-controll__current");
-          currentSlide.innerHTML = swiper.realIndex + 1 < 10 ? `0${swiper.realIndex + 1}` : swiper.realIndex + 1;
-          const progress = swiper.realIndex / (swiper.slides.length - 1) * 100;
-          const progressElement = document.querySelector(".fraction-controll__progress");
-          progressElement.innerHTML = `<span>Готово</span>: ${progress.toFixed(2)}%`;
-          const progressBarFill = document.querySelector(".swiper-pagination-progressbar-fill");
-          progressBarFill.style.width = `${progress}%`;
-          if (swiper.realIndex === 0) {
-            progressElement.innerHTML = `<span>Готово</span>: 0%`;
-            progressBarFill.style.width = "0%";
-          }
-        },
-        //дейсвите после последнего сладера
-        reachEnd: function(swiper) {
-          document.getElementById("progress").style.display = "none";
-          document.getElementById("calc").style.display = "none";
-          document.getElementById("banner").style.display = "none";
-          document.getElementById("wrapper-content").classList.add("last");
-        },
-        fromEdge: function(swiper) {
-        }
-      }
     });
   }
 }
 document.querySelector("[data-fls-slider]") ? window.addEventListener("load", initSliders) : null;
-function showMore() {
-  const showMoreBlocks = document.querySelectorAll("[data-fls-showmore]");
-  let showMoreBlocksRegular;
-  let mdQueriesArray;
-  if (showMoreBlocks.length) {
-    showMoreBlocksRegular = Array.from(showMoreBlocks).filter(function(item, index, self2) {
-      return !item.dataset.flsShowmoreMedia;
-    });
-    showMoreBlocksRegular.length ? initItems(showMoreBlocksRegular) : null;
-    document.addEventListener("click", showMoreActions);
-    window.addEventListener("resize", showMoreActions);
-    mdQueriesArray = dataMediaQueries(showMoreBlocks, "flsShowmoreMedia");
-    if (mdQueriesArray && mdQueriesArray.length) {
-      mdQueriesArray.forEach((mdQueriesItem) => {
-        mdQueriesItem.matchMedia.addEventListener("change", function() {
-          initItems(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-        });
-      });
-      initItemsMedia(mdQueriesArray);
-    }
-  }
-  function initItemsMedia(mdQueriesArray2) {
-    mdQueriesArray2.forEach((mdQueriesItem) => {
-      initItems(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-    });
-  }
-  function initItems(showMoreBlocks2, matchMedia) {
-    showMoreBlocks2.forEach((showMoreBlock) => {
-      initItem(showMoreBlock, matchMedia);
-    });
-  }
-  function initItem(showMoreBlock, matchMedia = false) {
-    showMoreBlock = matchMedia ? showMoreBlock.item : showMoreBlock;
-    let showMoreContent = showMoreBlock.querySelectorAll("[data-fls-showmore-content]");
-    let showMoreButton = showMoreBlock.querySelectorAll("[data-fls-showmore-button]");
-    showMoreContent = Array.from(showMoreContent).filter((item) => item.closest("[data-fls-showmore]") === showMoreBlock)[0];
-    showMoreButton = Array.from(showMoreButton).filter((item) => item.closest("[data-fls-showmore]") === showMoreBlock)[0];
-    const hiddenHeight = getHeight(showMoreBlock, showMoreContent);
-    if (matchMedia.matches || !matchMedia) {
-      if (hiddenHeight < getOriginalHeight(showMoreContent)) {
-        slideUp(showMoreContent, 0, showMoreBlock.classList.contains("--showmore-active") ? getOriginalHeight(showMoreContent) : hiddenHeight);
-        showMoreButton.hidden = false;
-      } else {
-        slideDown(showMoreContent, 0, hiddenHeight);
-        showMoreButton.hidden = true;
-      }
-    } else {
-      slideDown(showMoreContent, 0, hiddenHeight);
-      showMoreButton.hidden = true;
-    }
-  }
-  function getHeight(showMoreBlock, showMoreContent) {
-    let hiddenHeight = 0;
-    const showMoreType = showMoreBlock.dataset.flsShowmore ? showMoreBlock.dataset.flsShowmore : "size";
-    const rowGap = parseFloat(getComputedStyle(showMoreContent).rowGap) ? parseFloat(getComputedStyle(showMoreContent).rowGap) : 0;
-    if (showMoreType === "items") {
-      const showMoreTypeValue = showMoreContent.dataset.flsShowmoreContent ? showMoreContent.dataset.flsShowmoreContent : 3;
-      const showMoreItems = showMoreContent.children;
-      for (let index = 1; index < showMoreItems.length; index++) {
-        const showMoreItem = showMoreItems[index - 1];
-        const marginTop = parseFloat(getComputedStyle(showMoreItem).marginTop) ? parseFloat(getComputedStyle(showMoreItem).marginTop) : 0;
-        const marginBottom = parseFloat(getComputedStyle(showMoreItem).marginBottom) ? parseFloat(getComputedStyle(showMoreItem).marginBottom) : 0;
-        hiddenHeight += showMoreItem.offsetHeight + marginTop;
-        if (index == showMoreTypeValue) break;
-        hiddenHeight += marginBottom;
-      }
-      rowGap ? hiddenHeight += (showMoreTypeValue - 1) * rowGap : null;
-    } else {
-      const showMoreTypeValue = showMoreContent.dataset.flsShowmoreContent ? showMoreContent.dataset.flsShowmoreContent : 150;
-      hiddenHeight = showMoreTypeValue;
-    }
-    return hiddenHeight;
-  }
-  function getOriginalHeight(showMoreContent) {
-    let parentHidden;
-    let hiddenHeight = showMoreContent.offsetHeight;
-    showMoreContent.style.removeProperty("height");
-    if (showMoreContent.closest(`[hidden]`)) {
-      parentHidden = showMoreContent.closest(`[hidden]`);
-      parentHidden.hidden = false;
-    }
-    let originalHeight = showMoreContent.offsetHeight;
-    parentHidden ? parentHidden.hidden = true : null;
-    showMoreContent.style.height = `${hiddenHeight}px`;
-    return originalHeight;
-  }
-  function showMoreActions(e) {
-    const targetEvent = e.target;
-    const targetType = e.type;
-    if (targetType === "click") {
-      if (targetEvent.closest("[data-fls-showmore-button]")) {
-        const showMoreButton = targetEvent.closest("[data-fls-showmore-button]");
-        const showMoreBlock = showMoreButton.closest("[data-fls-showmore]");
-        const showMoreContent = showMoreBlock.querySelector("[data-fls-showmore-content]");
-        const showMoreSpeed = showMoreBlock.dataset.flsShowmoreButton ? showMoreBlock.dataset.flsShowmoreButton : "500";
-        const hiddenHeight = getHeight(showMoreBlock, showMoreContent);
-        if (!showMoreContent.classList.contains("--slide")) {
-          showMoreBlock.classList.contains("--showmore-active") ? slideUp(showMoreContent, showMoreSpeed, hiddenHeight) : slideDown(showMoreContent, showMoreSpeed, hiddenHeight);
-          showMoreBlock.classList.toggle("--showmore-active");
-        }
-      }
-    } else if (targetType === "resize") {
-      showMoreBlocksRegular && showMoreBlocksRegular.length ? initItems(showMoreBlocksRegular) : null;
-      mdQueriesArray && mdQueriesArray.length ? initItemsMedia(mdQueriesArray) : null;
-    }
-  }
-}
-window.addEventListener("load", showMore);
 class Popup {
   constructor(options) {
     let config = {
@@ -6475,38 +5146,6 @@ function menuInit() {
   });
 }
 document.querySelector("[data-fls-menu]") ? window.addEventListener("load", menuInit) : null;
-function headerScroll() {
-  const header = document.querySelector("[data-fls-header-scroll]");
-  const headerShow = header.hasAttribute("data-fls-header-scroll-show");
-  const headerShowTimer = header.dataset.flsHeaderScrollShow ? header.dataset.flsHeaderScrollShow : 500;
-  const startPoint = header.dataset.flsHeaderScroll ? header.dataset.flsHeaderScroll : 1;
-  let scrollDirection = 0;
-  let timer;
-  document.addEventListener("scroll", function(e) {
-    const scrollTop = window.scrollY;
-    clearTimeout(timer);
-    if (scrollTop >= startPoint) {
-      !header.classList.contains("--header-scroll") ? header.classList.add("--header-scroll") : null;
-      if (headerShow) {
-        if (scrollTop > scrollDirection) {
-          header.classList.contains("--header-show") ? header.classList.remove("--header-show") : null;
-        } else {
-          !header.classList.contains("--header-show") ? header.classList.add("--header-show") : null;
-        }
-        timer = setTimeout(() => {
-          !header.classList.contains("--header-show") ? header.classList.add("--header-show") : null;
-        }, headerShowTimer);
-      }
-    } else {
-      header.classList.contains("--header-scroll") ? header.classList.remove("--header-scroll") : null;
-      if (headerShow) {
-        header.classList.contains("--header-show") ? header.classList.remove("--header-show") : null;
-      }
-    }
-    scrollDirection = scrollTop <= 0 ? 0 : scrollTop;
-  });
-}
-document.querySelector("[data-fls-header-scroll]") ? window.addEventListener("load", headerScroll) : null;
 /*!
  * lightgallery | 2.9.0-beta.1 | June 15th 2025
  * http://www.lightgalleryjs.com/
@@ -12027,6 +10666,101 @@ function inputMask() {
   });
 }
 document.querySelector("input[data-fls-input-mask]") ? window.addEventListener("load", inputMask) : null;
+let formValidate = {
+  getErrors(form) {
+    let error = 0;
+    let formRequiredItems = form.querySelectorAll("[required]");
+    if (formRequiredItems.length) {
+      formRequiredItems.forEach((formRequiredItem) => {
+        if ((formRequiredItem.offsetParent !== null || formRequiredItem.tagName === "SELECT") && !formRequiredItem.disabled) {
+          error += this.validateInput(formRequiredItem);
+        }
+      });
+    }
+    return error;
+  },
+  validateInput(formRequiredItem) {
+    let error = 0;
+    if (formRequiredItem.type === "email") {
+      formRequiredItem.value = formRequiredItem.value.replace(" ", "");
+      if (this.emailTest(formRequiredItem)) {
+        this.addError(formRequiredItem);
+        this.removeSuccess(formRequiredItem);
+        error++;
+      } else {
+        this.removeError(formRequiredItem);
+        this.addSuccess(formRequiredItem);
+      }
+    } else if (formRequiredItem.type === "checkbox" && !formRequiredItem.checked) {
+      this.addError(formRequiredItem);
+      this.removeSuccess(formRequiredItem);
+      error++;
+    } else {
+      if (!formRequiredItem.value.trim()) {
+        this.addError(formRequiredItem);
+        this.removeSuccess(formRequiredItem);
+        error++;
+      } else {
+        this.removeError(formRequiredItem);
+        this.addSuccess(formRequiredItem);
+      }
+    }
+    return error;
+  },
+  addError(formRequiredItem) {
+    formRequiredItem.classList.add("--form-error");
+    formRequiredItem.parentElement.classList.add("--form-error");
+    let inputError = formRequiredItem.parentElement.querySelector("[data-fls-form-error]");
+    if (inputError) formRequiredItem.parentElement.removeChild(inputError);
+    if (formRequiredItem.dataset.flsFormErrtext) {
+      formRequiredItem.parentElement.insertAdjacentHTML("beforeend", `<div data-fls-form-error>${formRequiredItem.dataset.flsFormErrtext}</div>`);
+    }
+  },
+  removeError(formRequiredItem) {
+    formRequiredItem.classList.remove("--form-error");
+    formRequiredItem.parentElement.classList.remove("--form-error");
+    if (formRequiredItem.parentElement.querySelector("[data-fls-form-error]")) {
+      formRequiredItem.parentElement.removeChild(formRequiredItem.parentElement.querySelector("[data-fls-form-error]"));
+    }
+  },
+  addSuccess(formRequiredItem) {
+    formRequiredItem.classList.add("--form-success");
+    formRequiredItem.parentElement.classList.add("--form-success");
+  },
+  removeSuccess(formRequiredItem) {
+    formRequiredItem.classList.remove("--form-success");
+    formRequiredItem.parentElement.classList.remove("--form-success");
+  },
+  formClean(form) {
+    form.reset();
+    setTimeout(() => {
+      let inputs = form.querySelectorAll("input,textarea");
+      for (let index = 0; index < inputs.length; index++) {
+        const el = inputs[index];
+        el.parentElement.classList.remove("--form-focus");
+        el.classList.remove("--form-focus");
+        formValidate.removeError(el);
+      }
+      let checkboxes = form.querySelectorAll('input[type="checkbox"]');
+      if (checkboxes.length) {
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = false;
+        });
+      }
+      if (window["flsSelect"]) {
+        let selects = form.querySelectorAll("select[data-fls-select]");
+        if (selects.length) {
+          selects.forEach((select) => {
+            window["flsSelect"].selectBuild(select);
+          });
+        }
+      }
+    }, 0);
+  },
+  emailTest(formRequiredItem) {
+    return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
+  }
+};
 function formInit() {
   function formSubmit() {
     const forms = document.forms;
@@ -12180,319 +10914,118 @@ function pageNavigation() {
   }
 }
 document.querySelector("[data-fls-scrollto]") ? window.addEventListener("load", pageNavigation) : null;
-function rippleEffect() {
-  document.addEventListener("click", function(e) {
-    const targetItem = e.target;
-    if (targetItem.closest("[data-fls-ripple]")) {
-      let getAnimationDuration2 = function() {
-        const aDuration = window.getComputedStyle(ripple).animationDuration;
-        return aDuration.includes("ms") ? aDuration.replace("ms", "") : aDuration.replace("s", "") * 1e3;
-      };
-      var getAnimationDuration = getAnimationDuration2;
-      const button = targetItem.closest("[data-fls-ripple]");
-      const ripple = document.createElement("span");
-      const diameter = Math.max(button.clientWidth, button.clientHeight);
-      const radius = diameter / 2;
-      ripple.style.width = ripple.style.height = `${diameter}px`;
-      ripple.style.left = `${e.pageX - (button.getBoundingClientRect().left + scrollX) - radius}px`;
-      ripple.style.top = `${e.pageY - (button.getBoundingClientRect().top + scrollY) - radius}px`;
-      ripple.classList.add("--ripple");
-      button.dataset.ripple === "once" && button.querySelector("--ripple") ? button.querySelector("--ripple").remove() : null;
-      button.appendChild(ripple);
-      const timeOut = getAnimationDuration2();
-      setTimeout(() => {
-        ripple ? ripple.remove() : null;
-      }, timeOut);
+document.addEventListener("DOMContentLoaded", function() {
+  const allForms = document.querySelectorAll("form");
+  allForms.forEach((form) => {
+    const submitBtn = form.querySelector(".estimate-form__submit");
+    const consentCheckbox = form.querySelector("#consentCheckbox");
+    if (submitBtn && consentCheckbox) {
+      submitBtn.disabled = !consentCheckbox.checked;
+      consentCheckbox.addEventListener("change", function() {
+        submitBtn.disabled = !this.checked;
+      });
     }
+    initFileUpload(form);
   });
-}
-document.querySelector("[data-fls-ripple]") ? window.addEventListener("load", rippleEffect) : null;
-const marquee = () => {
-  const $marqueeArray = document.querySelectorAll("[data-fls-marquee]");
-  const ATTR_NAMES = {
-    inner: "data-fls-marquee-inner",
-    item: "data-fls-marquee-item"
-  };
-  if (!$marqueeArray.length) return;
-  const { head } = document;
-  const debounce = (delay, fn) => {
-    let timerId;
-    return (...args) => {
-      if (timerId) {
-        clearTimeout(timerId);
-      }
-      timerId = setTimeout(() => {
-        fn(...args);
-        timerId = null;
-      }, delay);
-    };
-  };
-  const onWindowWidthResize = (cb) => {
-    if (!cb && !isFunction(cb)) return;
-    let prevWidth = 0;
-    const handleResize = () => {
-      const currentWidth = window.innerWidth;
-      if (prevWidth !== currentWidth) {
-        prevWidth = currentWidth;
-        cb();
-      }
-    };
-    window.addEventListener("resize", debounce(50, handleResize));
-    handleResize();
-  };
-  const buildMarquee = (marqueeNode) => {
-    if (!marqueeNode) return;
-    const $marquee = marqueeNode;
-    const $childElements = $marquee.children;
-    if (!$childElements.length) return;
-    Array.from($childElements).forEach(($childItem) => $childItem.setAttribute(ATTR_NAMES.item, ""));
-    const htmlStructure = `<div ${ATTR_NAMES.inner}>${$marquee.innerHTML}</div>`;
-    $marquee.innerHTML = htmlStructure;
-  };
-  const getElSize = ($el, isVertical) => {
-    if (isVertical) return $el.offsetHeight;
-    return $el.offsetWidth;
-  };
-  $marqueeArray.forEach(($wrapper) => {
-    if (!$wrapper) return;
-    buildMarquee($wrapper);
-    const $marqueeInner = $wrapper.firstElementChild;
-    let cacheArray = [];
-    if (!$marqueeInner) return;
-    const dataMarqueeSpace = parseFloat($wrapper.getAttribute("data-fls-marquee-space"));
-    const $items = $wrapper.querySelectorAll(`[${ATTR_NAMES.item}]`);
-    const speed = parseFloat($wrapper.getAttribute("data-fls-marquee-speed")) / 10 || 100;
-    const isMousePaused = $wrapper.hasAttribute("data-fls-marquee-pause-mouse-enter");
-    const direction = $wrapper.getAttribute("data-fls-marquee-direction");
-    const isVertical = direction === "bottom" || direction === "top";
-    const animName = `marqueeAnimation-${Math.floor(Math.random() * 1e7)}`;
-    let spaceBetweenItem = parseFloat(window.getComputedStyle($items[0])?.getPropertyValue("margin-right"));
-    let spaceBetween = spaceBetweenItem ? spaceBetweenItem : !isNaN(dataMarqueeSpace) ? dataMarqueeSpace : 30;
-    let startPosition = parseFloat($wrapper.getAttribute("data-fls-marquee-start")) || 0;
-    let sumSize = 0;
-    let firstScreenVisibleSize = 0;
-    let initialSizeElements = 0;
-    let initialElementsLength = $marqueeInner.children.length;
-    let index = 0;
-    let counterDuplicateElements = 0;
-    const initEvents = () => {
-      if (startPosition) $marqueeInner.addEventListener("animationiteration", onChangeStartPosition);
-      if (!isMousePaused) return;
-      $marqueeInner.removeEventListener("mouseenter", onChangePaused);
-      $marqueeInner.removeEventListener("mouseleave", onChangePaused);
-      $marqueeInner.addEventListener("mouseenter", onChangePaused);
-      $marqueeInner.addEventListener("mouseleave", onChangePaused);
-    };
-    const onChangeStartPosition = () => {
-      startPosition = 0;
-      $marqueeInner.removeEventListener("animationiteration", onChangeStartPosition);
-      onResize2();
-    };
-    const setBaseStyles = (firstScreenVisibleSize2) => {
-      let baseStyle = "display: flex; flex-wrap: nowrap;";
-      if (isVertical) {
-        baseStyle += `
-				flex-direction: column;
-				position: relative;
-				will-change: transform;`;
-        if (direction === "bottom") {
-          baseStyle += `top: -${firstScreenVisibleSize2}px;`;
-        }
-      } else {
-        baseStyle += `
-				position: relative;
-				will-change: transform;`;
-        if (direction === "right") {
-          baseStyle += `inset-inline-start: -${firstScreenVisibleSize2}px;;`;
-        }
-      }
-      $marqueeInner.style.cssText = baseStyle;
-    };
-    const setdirectionAnim = (totalWidth) => {
-      switch (direction) {
-        case "right":
-        case "bottom":
-          return totalWidth;
-        default:
-          return -totalWidth;
-      }
-    };
-    const animation = () => {
-      const keyFrameCss = `@keyframes ${animName} {
-					 0% {
-						 transform: translate${isVertical ? "Y" : "X"}(${!isVertical && window.stateRtl ? -startPosition : startPosition}%);
-					 }
-					 100% {
-						 transform: translate${isVertical ? "Y" : "X"}(${setdirectionAnim(
-        !isVertical && window.stateRtl ? -firstScreenVisibleSize : firstScreenVisibleSize
-      )}px);
-					 }
-				 }`;
-      const $style = document.createElement("style");
-      $style.classList.add(animName);
-      $style.innerHTML = keyFrameCss;
-      head.append($style);
-      $marqueeInner.style.animation = `${animName} ${(firstScreenVisibleSize + startPosition * firstScreenVisibleSize / 100) / speed}s infinite linear`;
-    };
-    const addDublicateElements = () => {
-      sumSize = firstScreenVisibleSize = initialSizeElements = counterDuplicateElements = index = 0;
-      const $parentNodeWidth = getElSize($wrapper, isVertical);
-      let $childrenEl = Array.from($marqueeInner.children);
-      if (!$childrenEl.length) return;
-      if (!cacheArray.length) {
-        cacheArray = $childrenEl.map(($item) => $item);
-      } else {
-        $childrenEl = [...cacheArray];
-      }
-      $marqueeInner.style.display = "flex";
-      if (isVertical) $marqueeInner.style.flexDirection = "column";
-      $marqueeInner.innerHTML = "";
-      $childrenEl.forEach(($item) => {
-        $marqueeInner.append($item);
-      });
-      $childrenEl.forEach(($item) => {
-        if (isVertical) {
-          $item.style.marginBottom = `${spaceBetween}px`;
-        } else {
-          $item.style.marginRight = `${spaceBetween}px`;
-          $item.style.flexShrink = 0;
-        }
-        const sizeEl = getElSize($item, isVertical);
-        sumSize += sizeEl + spaceBetween;
-        firstScreenVisibleSize += sizeEl + spaceBetween;
-        initialSizeElements += sizeEl + spaceBetween;
-        counterDuplicateElements += 1;
-        return sizeEl;
-      });
-      const $multiplyWidth = $parentNodeWidth * 2 + initialSizeElements;
-      for (; sumSize < $multiplyWidth; index += 1) {
-        if (!$childrenEl[index]) index = 0;
-        const $cloneNone = $childrenEl[index].cloneNode(true);
-        const $lastElement = $marqueeInner.children[index];
-        $marqueeInner.append($cloneNone);
-        sumSize += getElSize($lastElement, isVertical) + spaceBetween;
-        if (firstScreenVisibleSize < $parentNodeWidth || counterDuplicateElements % initialElementsLength !== 0) {
-          counterDuplicateElements += 1;
-          firstScreenVisibleSize += getElSize($lastElement, isVertical) + spaceBetween;
-        }
-      }
-      setBaseStyles(firstScreenVisibleSize);
-    };
-    const correctSpaceBetween = () => {
-      if (spaceBetweenItem) {
-        $items.forEach(($item) => $item.style.removeProperty("margin-right"));
-        spaceBetweenItem = parseFloat(window.getComputedStyle($items[0]).getPropertyValue("margin-right"));
-        spaceBetween = spaceBetweenItem ? spaceBetweenItem : !isNaN(dataMarqueeSpace) ? dataMarqueeSpace : 30;
-      }
-    };
-    const init = () => {
-      correctSpaceBetween();
-      addDublicateElements();
-      animation();
-      initEvents();
-    };
-    const onResize2 = () => {
-      head.querySelector(`.${animName}`)?.remove();
-      init();
-    };
-    const onChangePaused = (e) => {
-      const { type, target } = e;
-      target.style.animationPlayState = type === "mouseenter" ? "paused" : "running";
-    };
-    onWindowWidthResize(onResize2);
-  });
-};
-marquee();
-document.addEventListener("DOMContentLoaded", function() {
-  window.addEventListener("load", handlePageLoad);
-  let fallbackTimer = setTimeout(() => {
-    handlePageLoad(true);
-  }, 3e3);
-  window.addEventListener("load", () => {
-    clearTimeout(fallbackTimer);
-  });
-});
-function handlePageLoad(isFallback = false) {
-  const preloader = document.getElementById("preloader");
-  const content = document.getElementById("content");
-  if (isFallback) {
-    console.log("Fallback: показываем контент по таймауту");
-  }
-  if (content) {
-    content.style.display = "block";
-    content.style.opacity = "1";
-  } else {
-    document.body.style.opacity = "1";
-    document.body.style.visibility = "visible";
-  }
-  if (preloader) {
-    preloader.classList.add("preloader-hidden");
-    setTimeout(() => {
-      if (preloader.parentNode) {
-        preloader.remove();
-      }
-    }, 500);
-  }
-}
-document.addEventListener("DOMContentLoaded", function() {
-  const navButton = document.querySelector(".nav");
-  const pageHeight = document.body.scrollHeight;
-  const triggerPoint = pageHeight * 0.5;
-  window.addEventListener("scroll", function() {
-    const scrollProgress = window.scrollY / triggerPoint;
-    if (scrollProgress >= 1) {
-      navButton.style.opacity = "1";
-      navButton.style.visibility = "visible";
-    } else {
-      navButton.style.opacity = "0";
-      navButton.style.visibility = "hidden";
-    }
-  });
-});
-document.querySelectorAll(".video-block").forEach((block) => {
-  const poster = block.querySelector(".video-poster");
-  const realVideo = block.querySelector(".real-video");
-  poster.addEventListener("click", () => {
-    poster.classList.add("hide");
-    realVideo.classList.add("show");
-    realVideo.play();
-  });
-  realVideo.addEventListener("ended", () => {
-    poster.classList.remove("hide");
-    realVideo.classList.remove("show");
-  });
-});
-document.addEventListener("DOMContentLoaded", function() {
-  const markers = document.querySelectorAll(".interactive-house__marker");
-  if (window.innerWidth <= 991) {
-    markers.forEach((marker) => {
-      marker.addEventListener("click", function(e) {
-        e.stopPropagation();
-        markers.forEach((m) => {
-          const tooltip2 = m.querySelector(".interactive-house__tooltip");
-          if (m !== marker) {
-            tooltip2.classList.remove("active");
-          }
-        });
-        const tooltip = this.querySelector(".interactive-house__tooltip");
-        tooltip.classList.toggle("active");
-      });
+  function initFileUpload(form) {
+    const fileInput = form.querySelector("#fileInput");
+    const dropzone = form.querySelector("#dropzone");
+    const fileBrowseBtn = form.querySelector("#fileBrowseBtn");
+    const fileList = form.querySelector("#fileList");
+    const fileCount = form.querySelector("#fileCount");
+    if (!fileInput || !dropzone || !fileBrowseBtn || !fileList || !fileCount) return;
+    let selectedFiles = [];
+    const MAX_FILES = 10;
+    const MAX_SIZE = 10 * 1024 * 1024;
+    fileBrowseBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      fileInput.click();
     });
-    document.addEventListener("click", function(e) {
-      if (!e.target.closest(".interactive-house__marker")) {
-        markers.forEach((marker) => {
-          const tooltip = marker.querySelector(".interactive-house__tooltip");
-          tooltip.classList.remove("active");
+    dropzone.addEventListener("click", function(e) {
+      if (!e.target.closest(".file-upload__button")) {
+        fileInput.click();
+      }
+    });
+    dropzone.addEventListener("dragover", function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.classList.add("file-upload__dropzone--active");
+    });
+    dropzone.addEventListener("dragleave", function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.classList.remove("file-upload__dropzone--active");
+    });
+    dropzone.addEventListener("drop", function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.classList.remove("file-upload__dropzone--active");
+      addFiles(e.dataTransfer.files);
+    });
+    fileInput.addEventListener("change", function(e) {
+      addFiles(e.target.files);
+      this.value = "";
+    });
+    function addFiles(files) {
+      const fileArray = Array.from(files);
+      fileArray.forEach((file) => {
+        if (selectedFiles.length >= MAX_FILES) {
+          console.log(`Можно загрузить не более ${MAX_FILES} файлов`);
+          return;
+        }
+        if (file.size > MAX_SIZE) {
+          console.log(`Файл "${file.name}" слишком большой. Максимальный размер 10MB`);
+          return;
+        }
+        const isDuplicate = selectedFiles.some(
+          (f) => f.name === file.name && f.size === file.size
+        );
+        if (isDuplicate) {
+          console.log(`Файл "${file.name}" уже добавлен`);
+          return;
+        }
+        selectedFiles.push(file);
+      });
+      updateFileList();
+      updateFileCounter();
+    }
+    function removeFile(index) {
+      selectedFiles.splice(index, 1);
+      updateFileList();
+      updateFileCounter();
+    }
+    function updateFileList() {
+      fileList.innerHTML = "";
+      selectedFiles.forEach((file, index) => {
+        const fileItem = document.createElement("div");
+        fileItem.className = "file-item";
+        const formattedSize = file.size > 1024 * 1024 ? (file.size / 1024 / 1024).toFixed(2) + " MB" : (file.size / 1024).toFixed(1) + " KB";
+        fileItem.innerHTML = `
+                    <div class="file-item__info">
+                        <span class="file-item__name">${file.name}</span>
+                        <span class="file-item__size">(${formattedSize})</span>
+                    </div>
+                    <button type="button" class="file-item__remove" data-index="${index}">×</button>
+                `;
+        fileList.appendChild(fileItem);
+      });
+      fileList.querySelectorAll(".file-item__remove").forEach((btn) => {
+        btn.addEventListener("click", function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          removeFile(parseInt(this.dataset.index));
         });
+      });
+    }
+    function updateFileCounter() {
+      fileCount.textContent = selectedFiles.length;
+    }
+    window.addEventListener("beforeunload", function(e) {
+      if (selectedFiles.length > 0) {
+        e.preventDefault();
+        e.returnValue = "";
       }
     });
   }
-  function adjustMarkersPosition() {
-    const container = document.querySelector(".interactive-house__area");
-    if (!container) return;
-    container.offsetWidth;
-    container.offsetHeight;
-  }
-  window.addEventListener("resize", adjustMarkersPosition);
-  adjustMarkersPosition();
 });

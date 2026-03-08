@@ -5,120 +5,95 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1772562863052"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1772562863052">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1773005224311"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1773005224311">
 	</head>
 	<body>
 		<div class="wrapper">
-			<header data-fls-header-scroll="" data-fls-header-scroll-show="" data-fls-header="" class="header">
+			<header data-fls-header="" class="header">
 				<div class="header__container">
-					<div class="header__top top-header">
-						<div class="top-header__logo">
-							<a href="#">
-								<img alt="Image" src="./assets/img/header/logo.webp">
-							</a>
-							<p data-fls-dynamic=".menu__body, 1200">Выполняем ремонтные работы в Москве и Московской области</p>
+					<div class="header__top">
+						<div class="header__menu menu">
+							<nav class="menu__body">
+								<ul class="menu__list">
+									<li class="menu__item">
+										<a href="#" class="menu__link">Главная</a>
+									</li>
+									<li class="menu__item">
+										<a href="#" class="menu__link menu__link--icon-chevron-down">
+											Услуги
+											<!-- <i class="menu__link menu__link--icon-chevron-down"></i> -->
+										</a>
+										<ul class="sub-list">
+											<li>
+												<a href="#">Установка свай (цена, заказ)</a>
+											</li>
+											<li>
+												<a href="#">Поднять дом на сваи</a>
+											</li>
+											<li>
+												<a href="#">Ремонт винтового фундамента</a>
+											</li>
+											<li>
+												<a href="#">Замена фундамента</a>
+											</li>
+											<li>
+												<a href="#">Расчёт количества свай</a>
+											</li>
+											<!--
+<li><a href="#">Установка </a></li>
+<li><a href="#">Поднять </a></li>
+<li><a href="#">Ремонт </a></li>
+<li><a href="#">Замена </a></li>
+<li><a href="#">Расчёт</a></li>
+-->
+										</ul>
+									</li>
+									<li class="menu__item">
+										<a href="" class="menu__link">Сваи</a>
+									</li>
+									<li class="menu__item">
+										<a href="" class="menu__link">Сваи под объекты</a>
+									</li>
+									<li class="menu__item">
+										<a href="" class="menu__link">Виды фундаментов</a>
+									</li>
+									<li class="menu__item">
+										<a href="" class="menu__link">Контакты</a>
+									</li>
+								</ul>
+							</nav>
+							<button type="button" data-fls-menu="" class="menu__icon icon-menu">
+								<span></span>
+							</button>
 						</div>
-						<div data-fls-dynamic=".menu__body, 930" class="top-header__address">
-							<svg width="20" height="24" viewbox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M19.9579 11.2388C19.6212 13.5056 18.6111 15.4365 17.0117 17.0317C16.0857 17.8713 15.244 18.7948 14.318 19.6343C12.9712 21.0616 11.6243 22.5728 10.2775 24C7.41545 21.0616 4.6376 18.5429 2.02809 15.7724C0.512897 14.0933 -0.0763465 11.9104 0.00783105 9.64361C0.0920086 4.77419 3.88 0.576418 8.59394 0.0726849C13.8971 -0.515004 18.4427 2.50739 19.7896 7.46077C20.1263 8.46823 19.9579 11.0709 19.9579 11.2388ZM10.025 13.2537C11.7927 13.2537 13.3079 11.8265 13.3079 10.0634C13.3079 8.30032 11.7927 6.78912 10.1091 6.78912C8.42559 6.78912 6.82621 8.30032 6.82621 9.97943C6.82621 11.7425 8.25723 13.2537 10.025 13.2537Z" fill="#31B939"></path>
-							</svg>
-							<p>Москва и МО</p>
-						</div>
-						<a data-fls-scrollto=".block-form" href="#" data-fls-dynamic=".menu__body, 1200" class="top-header__dowload">
-							<img alt="Image" src="./assets/img/header/download.webp">
-							<span>Скачать каталог</span>
-						</a>
-						<div data-fls-dynamic=".menu__body, 600" class="top-header__social">
-							<p>
-								Мы онлайн,
-								<b>пишите</b>
-							</p>
-							<div class="top-header__social-links">
-								<a class="top-header__social-link" target="_blank" href="#">
-									<img alt="" src="./assets/img/icon-social/telegram.png">
+						<div class="header__item">
+							<a data-fls-dynamic=".menu__body, 500" class="header__email" href="malito:info@svaiprofi.ru">info@svaiprofi.ru</a>
+							<a class="header__phone" href="tel:89675551811">8 (967) 555-18-11</a>
+							<div class="header__socials">
+								<a class="header__social-link" href="#">
+									<img alt="Image" src="./assets/img/icon-social/viber.png">
 								</a>
-								<a class="top-header__social-link" target="_blank" href="#">
-									<img alt="" src="./assets/img/icon-social/vk.png">
+								<a class="header__social-link" href="#">
+									<img alt="Image" src="./assets/img/icon-social/telegram.png">
 								</a>
-								<a class="top-header__social-link" target="_blank" href="#">
-									<img alt="" src="./assets/img/icon-social/instagram.png">
+								<a class="header__social-link" href="#">
+									<img alt="Image" src="./assets/img/icon-social/vk.png">
 								</a>
 							</div>
 						</div>
-						<div class="top-header__contacts">
-							<p>
-								Звоните
-								<b>
-									Пн-Вс:
-									<span>9:00 - 22:00</span>
-								</b>
-							</p>
-							<a href="tel:+74992399090">+7 (499) 239-90-90</a>
-							<a href="tel:+79686509090">+7 (968) 650-90-90</a>
-							<a data-fls-dynamic=".menu__body, 600" href="#" data-fls-popup-link="#popup" class="top-header__link">Заказать звонок сейчас</a>
-						</div>
-						<button type="button" data-fls-menu="" class="menu__icon icon-menu">
-							<span></span>
-						</button>
 					</div>
-					<div class="header__menu menu">
-						<nav class="menu__body">
-							<ul class="menu__list">
-								<li class="menu__item">
-									<a data-fls-scrollto=".portofilio" href="#" class="menu__link">
-										Портфолио
-										<span>420+</span>
-									</a>
-								</li>
-								<li data-fls-scrollto=".examples" class="menu__item">
-									<a href="#" class="menu__link">Видео</a>
-								</li>
-								<li class="menu__item">
-									<a data-fls-scrollto=".services" href="#" class="menu__link">
-										Услуги
-										<span>9+</span>
-										<i class="menu__arrow menu__arrow--icon-chevron-down"></i>
-									</a>
-									<ul class="sub-list">
-										<li>
-											<a href="#">Комплексный ремонт</a>
-											<span></span>
-										</li>
-										<li>
-											<a href="#">Косметический ремонт</a>
-										</li>
-										<li>
-											<a href="#">Ремонт в новостройке</a>
-										</li>
-										<li>
-											<a href="#">Черновой ремонт</a>
-										</li>
-										<li>
-											<a href="#">Ремонт домов и коттеджей</a>
-										</li>
-									</ul>
-								</li>
-								<li class="menu__item">
-									<a data-fls-scrollto=".questions" href="#" class="menu__link">
-										Вопросы
-										<span>10+</span>
-									</a>
-								</li>
-								<li class="menu__item">
-									<a data-fls-scrollto=".portofilio" href="#" class="menu__link">
-										Наша команда
-										<span>12+</span>
-									</a>
-								</li>
-								<li class="menu__item">
-									<a data-fls-scrollto=".contacts" href="#" class="menu__link">Контакты</a>
-								</li>
-								<li class="menu__item">
-									<a data-fls-scrollto=".calculator" href="#" class="menu__link">Расчет ремонта</a>
-								</li>
-							</ul>
-						</nav>
+					<div class="header__main">
+						<div class="header__logo-body">
+							<a href="#" class="header__logo">
+								<img src="./assets/img/header/logo.svg" alt="logo">
+							</a>
+							<p data-fls-dynamic=".menu__body, 1000" class="header__text">
+								Производство и монтаж винтовых свай в Москве и Московской области с
+          установкой под ключ. Мы производители!
+							</p>
+						</div>
+						<a data-fls-button="" class="header__button button button--50" data-fls-popup-link="popup" href="#">Заявка на замер</a>
 					</div>
 				</div>
 			</header>
@@ -132,1797 +107,1164 @@
 							</svg>
 						</button>
 						<div data-fls-popup-content="" class="popup__box">
-							<h2 class="popup__title">Перезвоните мне</h2>
-							<p class="popup__text">Только телефон и мы в деле. Перезвоним через пару минут</p>
-							<form data-fls-form="ajax" data-fls-form-popup="popup" method="POST" action="sendmail\sendmail.php" class="popup__form">
-								<input required type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="popup__input input">
-								<input required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+375(29) ___-__-__" class="popup__input input">
-								<select data-fls-select="" name="select-popup" data-fls-select-modif="popup__select">
-									<!-- 🏠 Тип объекта (Группа) -->
-									<option selected data-fls-select-class="select__option--disabled">Выбрать Услугу</option>
-									<option disabled data-fls-select-class="custom-select__group select__option--disabled">🏠 Тип объекта</option>
-									<option value="repair-1-room">Ремонт 1-комн. квартиры</option>
-									<option value="repair-2-room">Ремонт 2-комн. квартиры</option>
-									<option value="repair-3-room">Ремонт 3-комн. квартиры</option>
-									<option value="repair-4-room">Ремонт 4-комн. квартиры</option>
-									<option value="repair-studio">Ремонт студии</option>
-									<option value="repair-new-building">Ремонт кв. в новостройке</option>
-									<option value="repair-secondary">Ремонт вторичного жилья</option>
-									<option value="repair-house">Ремонт частного дома</option>
-									<option value="repair-cottage">Ремонт коттеджа</option>
-									<option value="repair-townhouse">Ремонт таунхауса</option>
-									<option value="repair-office">Ремонт офиса</option>
-									<option value="repair-other">Ремонт другого помещения</option>
-									<option value="repair-non-residential">Ремонт нежилого помещения</option>
-									<!-- 🧱 Вид ремонта (Группа) -->
-									<option data-fls-select-class="custom-select__group select__option--disabled">🧱 Вид ремонта</option>
-									<option value="cosmetic">Косметический ремонт</option>
-									<option value="major">Капитальный ремонт</option>
-									<option value="euro">Евроремонт</option>
-									<option value="turnkey">Ремонт под ключ</option>
-									<option value="budget">Бюджетный ремонт</option>
-									<option value="premium">Премиальный ремонт</option>
-									<option value="design-project">Ремонт по дизайн-проекту</option>
-									<!-- 🛠️ Отдельные работы (Группа) -->
-									<option data-fls-select-class="custom-select__group select__option--disabled">🛠️ Отдельные работы</option>
-									<option value="demolition">Демонтажные работы</option>
-									<option value="rough-finish">Черновая отделка</option>
-									<option value="final-finish">Чистовая отделка</option>
-									<option value="leveling">Выравнивание стен и полов</option>
-									<option value="tiling">Плиточные работы</option>
-									<option value="laminate">Укладка ламината и паркета</option>
-									<option value="stretch-ceilings">Монтаж натяжных потолков</option>
-									<option value="painting">Покраска стен и потолков</option>
-									<option value="wallpaper">Обои (поклейка)</option>
-									<option value="putty">Шпаклевка и штукатурка</option>
-									<option value="plumbing">Сантехнические работы</option>
-									<option value="electrical">Электромонтажные работы</option>
-									<option value="windows-doors">Замена окон и дверей</option>
-									<!-- 🎨 Дополнительные опции (Группа) -->
-									<option data-fls-select-class="custom-select__group select__option--disabled">🎨 Дополнительные опции</option>
-									<option value="design-interior">Дизайн-проект интерьера</option>
-									<option value="supervision">Авторский надзор</option>
-									<option value="materials">Закупка материалов</option>
-									<option value="estimate">Смета и расчет стоимости</option>
-									<option value="measurement">Выезд замерщика</option>
-									<option value="consultation">Консультация по ремонту</option>
-								</select>
-								<button data-fls-button="" type="submit" class="popup__button button">
-									Заказать звонок
-									<img alt="Image" src="./assets/img/hero/arrow.webp">
-								</button>
-								<label data-fls-checkbox="" class="checkbox">
-									<input checked data-error="Ошибка" class="checkbox__input" type="checkbox" value="согласен" name="check">
-									<span class="checkbox__text">Cогласен с условиями политики конфиденциальности данных</span>
-								</label>
+							<h3 class="popup__title">Оставить заявку</h3>
+							<p class="popup__text">
+								Оставьте контакты, чтобы мы связались с вами, уточнили ваш запрос и
+          назвали стоимость. Или воспользуйтесь калькулятором расчета цены на
+          сайте
+							</p>
+							<form data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail\sendmail.php" class="popup__form">
+								<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="discount__input input">
+								<input data-fls-input="" data-fls-input-mask="+375(99)-999-99-99" data-fls-form-errtext="Заполните поле" autocomplete="off" type="text" name="phone" placeholder="+375(__)-___-__-__" class="discount__input input">
+								<button disabled type="submit" class="estimate-form__submit" id="submitBtn">Отправить заявку</button>
+								<div class="estimate-form__consent">
+									<label class="consent-label">
+										<input type="checkbox" class="consent-label__checkbox" id="consentCheckbox" checked>
+										<span class="consent-label__text">
+											Нажимая кнопку «Рассчитать стоимость», я принимаю условия
+											<a href="/politika-konfidentsialnosti/" class="consent-label__link">Политики конфиденциальности</a>
+											и даю
+											<a href="#" class="consent-label__link">Согласие на обработку персональных данных</a>
+											.
+										</span>
+									</label>
+								</div>
 							</form>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div data-fls-mypreloader="" id="preloader">
-				<div class="spinner"></div>
 			</div>
 			<main class="page page--home">
 				<section class="hero">
-					<img class="hero__img-bg" alt="Image" src="./assets/img/hero/bg.avif">
 					<div class="hero__container">
 						<div class="hero__content">
-							<div class="hero__subtitle">
-								<span>№1</span>
-								по соотношению цена=качество в Москве
+							<h1 class="hero__title">Винтовые сваи для фундамента в Москве</h1>
+							<div class="hero__buttons">
+								<a data-fls-popup-link="popup" class="hero__button button button--yellow" href="#">Бесплатная консультация</a>
+								<a data-fls-scrollto=".price" class="hero__button button" href="#">Цены под ключ</a>
 							</div>
-							<h1 class="hero__title">Ремонт и дизайн квартир и домов</h1>
-							<p class="hero__text">
-								Сделаем ремонт любой сложности. Цены от 2.990 ₽ за м². На комплексный
-          ремонт скидка 20%.
-							</p>
 							<div class="hero__items">
-								<div class="hero__item">
-									<img class="hero__item-icon" src="./assets/img/hero/icon-1.svg" alt="Image">
-									<p class="hero__item-text">
-										<b>Поэтапная оплата. Без предоплат.</b>
-									</p>
-								</div>
-								<div class="hero__item">
-									<img class="hero__item-icon" src="./assets/img/hero/icon-2.svg" alt="Image">
-									<p class="hero__item-text">
-										<b>Поэтапная оплата. Без предоплат.</b>
-									</p>
-								</div>
-								<div class="hero__item">
-									<img class="hero__item-icon" src="./assets/img/hero/icon-3.svg" alt="Image">
-									<p class="hero__item-text">
-										<b>Поэтапная оплата. Без предоплат.</b>
-									</p>
-								</div>
+								<p class="hero__text">Реализуем винтовые сваи от надёжного завода-производителя</p>
+								<p class="hero__text">Предоставляем гарантию на винтовые сваи сроком до 10 лет</p>
+								<p class="hero__text">Антикоррозийное покрытие свай продлевает срок службы</p>
 							</div>
-							<a data-fls-popup-link="popup" class="button button--start" href="#" data-fls-button="">
-								<span>Обсудить ремонт</span>
-								<img alt="Image" src="./assets/img/hero/arrow.webp">
-							</a>
 						</div>
-						<div class="hero__form form-hero">
-							<h2 class="form-hero__title">Смета в 1 клик</h2>
-							<p class="form-hero__text">Отправьте заявку и мы в деле</p>
-							<form data-fls-form="ajax" data-fls-form-popup="popup" method="POST" action="sendmail\sendmail.php" class="form-hero__form">
-								<input required type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="input">
-								<input required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+375(29) ___-__-__" class="input">
-								<button data-fls-button="" type="submit" class="button">
-									Получить смету
-									<img alt="Image" src="./assets/img/hero/arrow.webp">
-								</button>
-								<label data-fls-checkbox="" class="checkbox">
-									<input checked data-error="Ошибка" class="checkbox__input" type="checkbox" value="1" name="check">
-									<span class="checkbox__text">Cогласен с условиями политики конфиденциальности данных</span>
-								</label>
-							</form>
-						</div>
+						<picture class="hero__image">
+							<img alt="Image" src="./assets/img/hero/01.jpg">
+						</picture>
 					</div>
 				</section>
-				<section id="portofilio" class="portofilio">
-					<div class="portofilio__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<h2 class="blockheader__title">Посмотрите наши работы</h2>
-							<p class="blockheader__text">Фото последних выполненных объектов</p>
-						</div>
-						<div class="portofilio__slider-container">
-							<div data-fls-slider="" class="portofilio__slider swiper">
-								<!-- Часть слайдера, которая двигается -->
-								<div class="portofilio__wrapper swiper-wrapper">
-									<!-- Слайд -->
-									<div class="portofilio__slide swiper-slide">
-										<div data-fls-gallery="" class="portofilio__images">
-											<a href="./assets/img/portofilio/01.jpg">
-												<img alt="Image" src="./assets/img/portofilio/01.jpg">
-											</a>
-											<a href="./assets/img/portofilio/02.jpg">
-												<img alt="Image" src="./assets/img/portofilio/02.jpg">
-											</a>
-											<a href="./assets/img/portofilio/03.jpg">
-												<img alt="Image" src="./assets/img/portofilio/03.jpg">
-											</a>
-											<a href="./assets/img/portofilio/04.jpg">
-												<img alt="Image" src="./assets/img/portofilio/04.jpg">
-											</a>
-											<a href="./assets/img/portofilio/05.jpg">
-												<img alt="Image" src="./assets/img/portofilio/05.jpg">
-											</a>
-										</div>
-										<div class="portofilio__content">
-											<h2 class="portofilio__slide-title">Дизайнерский ремонт в апартаментах 120 м2 в ЖК ВТБ Арена Парк</h2>
-											<div class="portofilio__items">
-												<div class="portofilio__item">
-													<h3 class="portofilio__item-title">Площадь:</h3>
-													<p class="portofilio__item-text">120 м2</p>
-												</div>
-												<div class="portofilio__item">
-													<h3 class="portofilio__item-title">Сроки:</h3>
-													<p class="portofilio__item-text">3,5 месяца</p>
-												</div>
-												<div class="portofilio__item">
-													<h3 class="portofilio__item-title">Адрес:</h3>
-													<p class="portofilio__item-text">ЖК ВТБ Арена Парк</p>
-												</div>
-											</div>
-											<p class="portofilio__description">Описание:</p>
-											<p class="portofilio__text">
-												Клиент хотел стильный интерьер с четким контролем всех
-                  процессов и без задержек.
-											</p>
-											<ul class="portofilio__list">
-												<li>Разработка дизайн-проекта с подбором материалов</li>
-												<li>Демонтаж старых покрытий, выравнивание стен и полов</li>
-												<li>
-													Полная замена инженерных систем и разводка электрики под
-                    умный дом
-												</li>
-												<li>
-													Монтаж встроенной мебели и освещения по индивидуальному
-                    заказу
-												</li>
-											</ul>
-											<p class="portofilio__text">
-												Итог — апартаменты с продуманным дизайном, готовые к заселению
-                  без лишних хлопот.
-											</p>
-										</div>
-									</div>
-									<div class="portofilio__slide swiper-slide">
-										<div data-fls-gallery="" class="portofilio__images">
-											<a href="./assets/img/portofilio/01.jpg">
-												<img alt="Image" src="./assets/img/portofilio/01.jpg">
-											</a>
-											<a href="./assets/img/portofilio/02.jpg">
-												<img alt="Image" src="./assets/img/portofilio/02.jpg">
-											</a>
-											<a href="./assets/img/portofilio/03.jpg">
-												<img alt="Image" src="./assets/img/portofilio/03.jpg">
-											</a>
-											<a href="./assets/img/portofilio/04.jpg">
-												<img alt="Image" src="./assets/img/portofilio/04.jpg">
-											</a>
-											<a href="./assets/img/portofilio/05.jpg">
-												<img alt="Image" src="./assets/img/portofilio/05.jpg">
-											</a>
-										</div>
-										<div class="portofilio__content">
-											<h2 class="portofilio__slide-title">Дизайнерский ремонт в апартаментах 120 м2 в ЖК ВТБ Арена Парк</h2>
-											<div class="portofilio__items">
-												<div class="portofilio__item">
-													<h3 class="portofilio__item-title">Площадь:</h3>
-													<p class="portofilio__item-text">120 м2</p>
-												</div>
-												<div class="portofilio__item">
-													<h3 class="portofilio__item-title">Сроки:</h3>
-													<p class="portofilio__item-text">3,5 месяца</p>
-												</div>
-												<div class="portofilio__item">
-													<h3 class="portofilio__item-title">Адрес:</h3>
-													<p class="portofilio__item-text">ЖК ВТБ Арена Парк</p>
-												</div>
-											</div>
-											<p class="portofilio__description">Описание:</p>
-											<p class="portofilio__text">
-												Клиент хотел стильный интерьер с четким контролем всех
-                  процессов и без задержек.
-											</p>
-											<ul class="portofilio__list">
-												<li>Разработка дизайн-проекта с подбором материалов</li>
-												<li>Демонтаж старых покрытий, выравнивание стен и полов</li>
-												<li>
-													Полная замена инженерных систем и разводка электрики под
-                    умный дом
-												</li>
-												<li>
-													Монтаж встроенной мебели и освещения по индивидуальному
-                    заказу
-												</li>
-											</ul>
-											<p class="portofilio__text">
-												Итог — апартаменты с продуманным дизайном, готовые к заселению
-                  без лишних хлопот.
-											</p>
-										</div>
-									</div>
+				<section class="metal">
+					<div class="metal__container">
+						<h2 data-fls-title="" class="title">Металлические винтовые сваи с установкой</h2>
+						<div class="metal__items">
+							<div class="metal__item">
+								<div class="metal__img">
+									<img alt="Image" src="./assets/img/metal/01.jpg">
 								</div>
-								<!-- Если нужна пагинация -->
-								<div class="swiper-pagination"></div>
-							</div>
-							<div class="portofilio__navigacions">
-								<button type="button" class="portofilio-prev swiper-button-prev"></button>
-								<button type="button" class="portofilio-next swiper-button-next"></button>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section id="examples" class="examples">
-					<div class="examples__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<h2 class="blockheader__title">Посмотрите наши работы</h2>
-						</div>
-						<div class="examples__body">
-							<!-- Блок с видео -->
-							<div class="video-block">
-								<div class="video-container">
-									<div class="video-poster">
-										<img alt="Video 1" src="./assets/img/examples/01.jpg">
-										<button class="video-play">
-											<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" width="30" height="30">
-												<path d="M8 5v14l11-7z" fill="white"></path>
-											</svg>
-										</button>
-										<span class="video-time">03:25</span>
-									</div>
-									<video class="real-video" controls>
-										<source src="./assets/img/video/01.mp4" type="video/mp4">
-									</video>
-								</div>
-							</div>
-							<div class="video-block">
-								<div class="video-container">
-									<div class="video-poster">
-										<img alt="Video 1" src="./assets/img/examples/01.jpg">
-										<button class="video-play">
-											<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" width="30" height="30">
-												<path d="M8 5v14l11-7z" fill="white"></path>
-											</svg>
-										</button>
-										<span class="video-time">03:25</span>
-									</div>
-									<video class="real-video" controls>
-										<source src="./assets/img/video/01.mp4" type="video/mp4">
-									</video>
-								</div>
-							</div>
-							<div class="video-block">
-								<div class="video-container">
-									<div class="video-poster">
-										<img alt="Video 1" src="./assets/img/examples/01.jpg">
-										<button class="video-play">
-											<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" width="30" height="30">
-												<path d="M8 5v14l11-7z" fill="white"></path>
-											</svg>
-										</button>
-										<span class="video-time">03:25</span>
-									</div>
-									<video class="real-video" controls>
-										<source src="./assets/img/video/01.mp4" type="video/mp4">
-									</video>
-								</div>
-							</div>
-							<div class="video-block">
-								<div class="video-container">
-									<div class="video-poster">
-										<img alt="Video 1" src="./assets/img/examples/01.jpg">
-										<button class="video-play">
-											<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" width="30" height="30">
-												<path d="M8 5v14l11-7z" fill="white"></path>
-											</svg>
-										</button>
-										<span class="video-time">03:25</span>
-									</div>
-									<video class="real-video" controls>
-										<source src="./assets/img/video/01.mp4" type="video/mp4">
-									</video>
-								</div>
-							</div>
-							<div class="video-block">
-								<div class="video-container">
-									<div class="video-poster">
-										<img alt="Video 1" src="./assets/img/examples/01.jpg">
-										<button class="video-play">
-											<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" width="30" height="30">
-												<path d="M8 5v14l11-7z" fill="white"></path>
-											</svg>
-										</button>
-										<span class="video-time">03:25</span>
-									</div>
-									<video class="real-video" controls>
-										<source src="./assets/img/video/01.mp4" type="video/mp4">
-									</video>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section id="video" class="video">
-					<div class="video__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<h2 class="blockheader__title">Посмотрите видео, как ведутся работы на объектах</h2>
-							<p class="blockheader__text">Мы фиксируем на видео весь ремонт на каждом этапе и отправляем вам</p>
-						</div>
-						<div class="video__slider-container">
-							<div data-fls-slider="" class="video__slider swiper">
-								<div class="video__wrapper swiper-wrapper">
-									<div class="video__slide swiper-slide">
-										<div class="video-block video-block--slide">
-											<div class="video-container">
-												<div class="video-poster">
-													<img alt="Video 1" src="./assets/img/video/01.jpeg">
-													<button class="video-play">
-														<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" width="30" height="30">
-															<path d="M8 5v14l11-7z" fill="white"></path>
-														</svg>
-													</button>
-													<span class="video-time">03:25</span>
-												</div>
-												<video class="real-video" controls>
-													<source src="./assets/img/video/01.mp4" type="video/mp4">
-												</video>
-											</div>
-										</div>
-										<h3 class="video__slide-title">Ремонт в ЖК "Зиларт</h3>
-										<p class="video__slide-text">
-											Комплексный ремонт в «Зиларт»: реализация дизайн-проекта с
-                заменой инженерных систем, разводкой электрики под умный дом,
-                выравниванием стен и полов. Индивидуальный подбор материалов,
-                встроенная мебель и продуманное освещение.
-										</p>
-									</div>
-									<div class="video__slide swiper-slide">
-										<div class="video-block video-block--slide">
-											<div class="video-container">
-												<div class="video-poster">
-													<img alt="Video 1" src="./assets/img/video/01.jpeg">
-													<button class="video-play">
-														<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" width="30" height="30">
-															<path d="M8 5v14l11-7z" fill="white"></path>
-														</svg>
-													</button>
-													<span class="video-time">03:25</span>
-												</div>
-												<video class="real-video" controls>
-													<source src="./assets/img/video/01.mp4" type="video/mp4">
-												</video>
-											</div>
-										</div>
-										<h3 class="video__slide-title">Ремонт в ЖК "Зиларт</h3>
-										<p class="video__slide-text">
-											Комплексный ремонт в «Зиларт»: реализация дизайн-проекта с
-                заменой инженерных систем, разводкой электрики под умный дом,
-                выравниванием стен и полов. Индивидуальный подбор материалов,
-                встроенная мебель и продуманное освещение.
-										</p>
-									</div>
-									<div class="video__slide swiper-slide">
-										<div class="video-block video-block--slide">
-											<div class="video-container">
-												<div class="video-poster">
-													<img alt="Video 1" src="./assets/img/video/01.jpeg">
-													<button class="video-play">
-														<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" width="30" height="30">
-															<path d="M8 5v14l11-7z" fill="white"></path>
-														</svg>
-													</button>
-													<span class="video-time">03:25</span>
-												</div>
-												<video class="real-video" controls>
-													<source src="./assets/img/video/01.mp4" type="video/mp4">
-												</video>
-											</div>
-										</div>
-										<h3 class="video__slide-title">Ремонт в ЖК "Зиларт</h3>
-										<p class="video__slide-text">
-											Комплексный ремонт в «Зиларт»: реализация дизайн-проекта с
-                заменой инженерных систем, разводкой электрики под умный дом,
-                выравниванием стен и полов. Индивидуальный подбор материалов,
-                встроенная мебель и продуманное освещение.
-										</p>
-									</div>
-									<div class="video__slide swiper-slide">
-										<div class="video-block video-block--slide">
-											<div class="video-container">
-												<div class="video-poster">
-													<img alt="Video 1" src="./assets/img/video/01.jpeg">
-													<button class="video-play">
-														<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" width="30" height="30">
-															<path d="M8 5v14l11-7z" fill="white"></path>
-														</svg>
-													</button>
-													<span class="video-time">03:25</span>
-												</div>
-												<video class="real-video" controls>
-													<source src="./assets/img/video/01.mp4" type="video/mp4">
-												</video>
-											</div>
-										</div>
-										<h3 class="video__slide-title">Ремонт в ЖК "Зиларт</h3>
-										<p class="video__slide-text">
-											Комплексный ремонт в «Зиларт»: реализация дизайн-проекта с
-                заменой инженерных систем, разводкой электрики под умный дом,
-                выравниванием стен и полов. Индивидуальный подбор материалов,
-                встроенная мебель и продуманное освещение.
-										</p>
-									</div>
-									<div class="video__slide swiper-slide">
-										<div class="video-block video-block--slide">
-											<div class="video-container">
-												<div class="video-poster">
-													<img alt="Video 1" src="./assets/img/video/01.jpeg">
-													<button class="video-play">
-														<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" width="30" height="30">
-															<path d="M8 5v14l11-7z" fill="white"></path>
-														</svg>
-													</button>
-													<span class="video-time">03:25</span>
-												</div>
-												<video class="real-video" controls>
-													<source src="./assets/img/video/01.mp4" type="video/mp4">
-												</video>
-											</div>
-										</div>
-										<h3 class="video__slide-title">Ремонт в ЖК "Зиларт</h3>
-										<p class="video__slide-text">
-											Комплексный ремонт в «Зиларт»: реализация дизайн-проекта с
-                заменой инженерных систем, разводкой электрики под умный дом,
-                выравниванием стен и полов. Индивидуальный подбор материалов,
-                встроенная мебель и продуманное освещение.
-										</p>
-									</div>
-									<div class="video__slide swiper-slide">
-										<div class="video-block video-block--slide">
-											<div class="video-container">
-												<div class="video-poster">
-													<img alt="Video 1" src="./assets/img/video/01.jpeg">
-													<button class="video-play">
-														<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" width="30" height="30">
-															<path d="M8 5v14l11-7z" fill="white"></path>
-														</svg>
-													</button>
-													<span class="video-time">03:25</span>
-												</div>
-												<video class="real-video" controls>
-													<source src="./assets/img/video/01.mp4" type="video/mp4">
-												</video>
-											</div>
-										</div>
-										<h3 class="video__slide-title">Ремонт в ЖК "Зиларт</h3>
-										<p class="video__slide-text">
-											Комплексный ремонт в «Зиларт»: реализация дизайн-проекта с
-                заменой инженерных систем, разводкой электрики под умный дом,
-                выравниванием стен и полов. Индивидуальный подбор материалов,
-                встроенная мебель и продуманное освещение.
-										</p>
-									</div>
-								</div>
-								<div class="swiper-pagination"></div>
-							</div>
-							<div class="video__navigacions">
-								<button type="button" class="video-prev swiper-button-prev"></button>
-								<button type="button" class="video-next swiper-button-next"></button>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section data-fls-calc="" class="page__calculator calculator">
-					<img class="calculator__img-bg" alt="Image" src="./assets/img/calculator/bg-sections.jpg">
-					<div class="calculator__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<h2 class="blockheader__title">Рассчитайте стоимость за 45 секунд, ответив всего на 5 вопросов</h2>
-							<p class="blockheader__text">Предложим самое лучшее решение исходя из вашего бюджета и потребностей</p>
-						</div>
-						<div class="calculator__body">
-							<!-- верх квиза -->
-							<div id="calc" class="calculator__top">
-								<h4 data-watch="" data-watch-once="" class="calculator__top-title title">
-									<!-- Подберите подходящие пластиковые окна с помощью нашей программы и узнайте -->
-								</h4>
-								<!--
-<div style="text-align: center" class="calculator__top-subtitle">
-и получите подарок
-</div>
--->
-							</div>
-							<!-- Оболонка слайдера -->
-							<div id="wrapper-content" class="calculator__wrapper-content">
-								<div class="calculator__slider swiper swiper-container">
-									<!-- Частина слайдера, що рухається -->
-									<form data-fls-form-popup="popup-message" data-fls-form="ajax" action="sendmail\sendmail.php" method="POST" data-fls-slider="" class="calculator__wrapper swiper-wrapper">
-										<!-- 1 Слайд -->
-										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-											<div class="slide-calculator__body">
-												<div class="slide-calculator__title">
-													<p>Вопрос 1</p>
-													<h4>Выберите, где необходимо сделать ремонт?</h4>
-												</div>
-												<div class="options">
-													<div class="options__item">
-														<input data-required="" id="o_1" class="options__input input" checked type="radio" value="Новостройка" name="step_1">
-														<label for="o_1" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/01.png">
-															</div>
-														</label>
-														<h3 class="options__title">Новостройка</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_2" class="options__input input" type="radio" value="Вторичка" name="step_1">
-														<label for="o_2" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/02.png">
-															</div>
-														</label>
-														<h3 class="options__title">Вторичка</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_3" class="options__input input" type="radio" value="Дом, коттедж" name="step_1">
-														<label for="o_3" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/03.jpeg">
-															</div>
-														</label>
-														<h3 class="options__title">Дом, коттедж</h3>
-													</div>
-													<div class="options__item">
-														<input data-required="" id="o_4" class="options__input input" type="radio" value="Офис или другое коммерческое помещение" name="step_1">
-														<label for="o_4" class="options__label">
-															<div class="options__text options__text-ibg">
-																<img alt="#" src="./assets/img/calculator/04.png">
-															</div>
-														</label>
-														<h3 class="options__title">Офис или другое коммерческое помещение</h3>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- 2 слайд -->
-										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-											<div class="slide-calculator__body">
-												<div class="slide-calculator__title">
-													<p>Вопрос 2</p>
-													<h4>Укажите площадь</h4>
-												</div>
-												<div class="radio">
-													<div class="radio__item">
-														<input data-required="" id="o_5" class="radio__input" checked type="radio" value="До 50 кв.м." name="step_2">
-														<label for="o_5" class="radio__label">
-															<span class="radio__text">До 50 кв.м.с</span>
-														</label>
-													</div>
-													<div class="radio__item">
-														<input id="o_6" class="radio__input" type="radio" value="До 50-75 кв.м." name="step_2">
-														<label for="o_6" class="radio__label">
-															<span class="radio__text">До 50-75 кв.м.</span>
-														</label>
-													</div>
-													<div class="radio__item">
-														<input id="o_7" class="radio__input" type="radio" value="До 75-100 кв.м." name="step_2">
-														<label for="o_7" class="radio__label">
-															<span class="radio__text">До 75-100 кв.м.</span>
-														</label>
-													</div>
-													<div class="radio__item">
-														<input data-required="" id="o_8" class="radio__input" checked type="radio" value="До 100-120 кв.м." name="step_2">
-														<label for="o_8" class="radio__label">
-															<span class="radio__text">До 100-120 кв.м.</span>
-														</label>
-													</div>
-													<div class="radio__item">
-														<input id="o_9" class="radio__input" type="radio" value="Более 120 кв.м." name="step_2">
-														<label for="o_9" class="radio__label">
-															<span class="radio__text">Более 120 кв.м.</span>
-														</label>
-													</div>
-													<div class="radio__item">
-														<input data-required="" id="o_10" class="radio__input" checked type="radio" value="Не знаю, нужен замер" name="step_2">
-														<label for="o_10" class="radio__label">
-															<span class="radio__text">Не знаю, нужен замер</span>
-														</label>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- 3 слайд -->
-										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-											<div class="slide-calculator__body">
-												<div class="slide-calculator__title">
-													<p>Вопрос 3</p>
-													<h4>Какое текущее состояние объекта?</h4>
-												</div>
-												<div class="radio">
-													<!-- Первый вариант отделки -->
-													<div class="radio__item">
-														<input data-required="" id="o_11" class="radio__input" checked type="radio" value="Без отделки" name="step_3">
-														<label for="o_11" class="radio__label">
-															<span class="radio__text">Без отделки</span>
-														</label>
-													</div>
-													<!-- Второй вариант отделки -->
-													<div class="radio__item">
-														<input id="o_12" class="radio__input" type="radio" value="Черновая отделка (штукатурка, стяжка)" name="step_3">
-														<label for="o_12" class="radio__label">
-															<span class="radio__text">Черновая отделка (штукатурка, стяжка)</span>
-														</label>
-													</div>
-													<!-- Третий вариант отделки -->
-													<div class="radio__item">
-														<input id="o_13" class="radio__input" type="radio" value="Получистовая отделка “White Box”" name="step_3">
-														<label for="o_13" class="radio__label">
-															<span class="radio__text">Получистовая отделка “White Box”</span>
-														</label>
-													</div>
-													<!-- Четвертый вариант отделки -->
-													<div class="radio__item">
-														<input id="o_14" class="radio__input" type="radio" value="Чистовая отделка от застройщика" name="step_3">
-														<label for="o_14" class="radio__label">
-															<span class="radio__text">Чистовая отделка от застройщика</span>
-														</label>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- 4 слайд -->
-										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-											<div class="slide-calculator__body">
-												<div class="slide-calculator__title">
-													<p>Вопрос 4</p>
-													<h4>Есть ли дизайн-проект?</h4>
-												</div>
-												<div class="radio">
-													<!-- Первый вариант: Да, есть -->
-													<div class="radio__item">
-														<input data-required="" id="o_15" class="radio__input" checked type="radio" value="Да, есть" name="step_4">
-														<label for="o_15" class="radio__label">
-															<span class="radio__text">Да, есть</span>
-														</label>
-													</div>
-													<!-- Второй вариант: Будет, пока разрабатываем -->
-													<div class="radio__item">
-														<input id="o_16" class="radio__input" type="radio" value="Будет, пока разрабатываем" name="step_4">
-														<label for="o_16" class="radio__label">
-															<span class="radio__text">Будет, пока разрабатываем</span>
-														</label>
-													</div>
-													<!-- Третий вариант: Нет, но понадобится -->
-													<div class="radio__item">
-														<input id="o_17" class="radio__input" type="radio" value="Нет, но понадобится" name="step_4">
-														<label for="o_17" class="radio__label">
-															<span class="radio__text">Нет, но понадобится</span>
-														</label>
-													</div>
-													<!-- Четвертый вариант: Еще не определились -->
-													<div class="radio__item">
-														<input id="o_18" class="radio__input" type="radio" value="Еще не определились" name="step_4">
-														<label for="o_18" class="radio__label">
-															<span class="radio__text">Еще не определились</span>
-														</label>
-													</div>
-													<!-- Пятый вариант: Нет, он не нужен (с иконкой видео) -->
-													<div class="radio__item" style="position: relative;">
-														<input id="o_19" class="radio__input" type="radio" value="Нет, он не нужен" name="step_4">
-														<label for="o_19" class="radio__label">
-															<span class="radio__text">Нет, он не нужен</span>
-														</label>
-														<a href="" data-fancybox="" class="answers-wrap__video" style="position: absolute; right: -30px; top: 50%; transform: translateY(-50%);">
-															<img src="https://xn-----7kcbhcq1apepggniuibwjf.xn--p1ai/wp-content/themes/theme/assets/img/general/video-icon.svg" alt="">
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- 5 слайд -->
-										<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-											<div class="slide-calculator__body">
-												<div class="slide-calculator__title">
-													<p>Вопрос 5</p>
-													<h4>Когда хотите приступить к ремонту?</h4>
-												</div>
-												<div class="radio">
-													<!-- Первый вариант: Как можно скорее -->
-													<div class="radio__item">
-														<input data-required="" id="o_20" class="radio__input" checked type="radio" value="Как можно скорее" name="step_5">
-														<label for="o_20" class="radio__label">
-															<span class="radio__text">Как можно скорее</span>
-														</label>
-													</div>
-													<!-- Второй вариант: В течение месяца -->
-													<div class="radio__item">
-														<input id="o_21" class="radio__input" type="radio" value="В течение месяца" name="step_5">
-														<label for="o_21" class="radio__label">
-															<span class="radio__text">В течение месяца</span>
-														</label>
-													</div>
-													<!-- Третий вариант: В течение 3 месяцев -->
-													<div class="radio__item">
-														<input id="o_22" class="radio__input" type="radio" value="В течение 3 месяцев" name="step_5">
-														<label for="o_22" class="radio__label">
-															<span class="radio__text">В течение 3 месяцев</span>
-														</label>
-													</div>
-													<!-- Четвертый вариант: Ждем ключи от квартиры -->
-													<div class="radio__item">
-														<input id="o_23" class="radio__input" type="radio" value="Ждем ключи от квартиры" name="step_5">
-														<label for="o_23" class="radio__label">
-															<span class="radio__text">Ждем ключи от квартиры</span>
-														</label>
-													</div>
-													<!-- Пятый вариант: Просто интересуюсь -->
-													<div class="radio__item">
-														<input id="o_24" class="radio__input" type="radio" value="Просто интересуюсь" name="step_5">
-														<label for="o_24" class="radio__label">
-															<span class="radio__text">Просто интересуюсь</span>
-														</label>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- Конечная страница !форма! -->
-										<div class="calculator__slide swiper-slide slide-calculator slide-calculator-block slide-main-block">
-											<div class="slide-calculator-block__content">
-												<div class="slide-calculator__title slide-calculator__title--last">
-													<p>Расчет готов</p>
-													<h4>Выберите удобный для вас способ получения предварительного расчета</h4>
-												</div>
-												<div class="slide-calculator-block__body">
-													<div class="slide-calculator-block__form">
-														<select data-fls-select="" name="select" data-fls-select-modif="calculator">
-															<option data-fls-select-asset="assets/img/icon-social/viber.png" value="viber" selected>viber</option>
-															<option data-fls-select-asset="assets/img/icon-social/telegram.png" value="Telegram">Telegram</option>
-															<option data-fls-select-asset="assets/img/icon-social/vk.png" value="vk">vk</option>
-															<option data-fls-select-asset="assets/img/icon-social/instagram.png" value="Email">instagram</option>
-														</select>
-														<input data-fls-form-errtext="Заполните поле" required type="text" name="name" data-error="заполните поле" placeholder="Ваше имя" class="slide-calculator-block__input input">
-														<input data-fls-form-errtext="Заполните поле" required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" placeholder="+375(__) ___-__-__" id="phone" type="text" name="phone" data-error="заполните поле" class="slide-calculator-block__input input input input-form">
-														<button class="slide-calculator-block__button button" type="submit">Получить расчет</button>
-													</div>
-													<div class="slide-calculator-block__image">
-														<img alt="Image" src="./assets/img/calculator/telefon.png">
-													</div>
-												</div>
-											</div>
-											<div class="slide-calculator-block__info">
-												<div class="banner-calculator__circle">
-													<img src="./assets/img/calculator/pdf-circle.svg" alt="">
-													<div>
-														<p>Засекайте</p>
-														<span>45</span>
-														<p>минут</p>
-													</div>
-												</div>
-												<div class="banner-calculator__bottom">
-													<h4 class="banner-calculator__bottom-title">В конце получите:</h4>
-													<div class="banner-calculator__items">
-														<div class="banner-calculator__item">
-															<p class="banner-calculator__item-text">Прайс-лист на все услуги</p>
-															<div class="banner-calculator__item-icon">
-																<img src="./assets/img/calculator/banner/locker.svg" alt="Image">
-															</div>
-														</div>
-														<div class="banner-calculator__item">
-															<p class="banner-calculator__item-text">Прайс-лист на все услуги</p>
-															<div class="banner-calculator__item-icon">
-																<img src="./assets/img/calculator/banner/locker.svg" alt="Image">
-															</div>
-														</div>
-														<div class="banner-calculator__item">
-															<p class="banner-calculator__item-text">Прайс-лист на все услуги</p>
-															<div class="banner-calculator__item-icon">
-																<img src="./assets/img/calculator/banner/locker.svg" alt="Image">
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</form>
-									<div id="progress" class="calculator__progress">
-										<div class="calculator__progress-body">
-											<div class="calculator__pagination swiper-pagination"></div>
-											<div class="fraction-controll">
-												<span class="fraction-controll__current">01</span>
-												<span class="fraction-controll__all">10</span>
-												<div class="fraction-controll__progress">
-													<span>Готово:</span>
-													0%
-												</div>
-											</div>
-										</div>
-										<div class="calculator__button-body">
-											<div data-fls-ripple="" class="calculator__button-next">
-												Далее
-												<svg class="mdi-icon mdi-24px" viewbox="0 0 24 24">
-													<path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" stroke-width="0" fill-rule="nonzero"></path>
-												</svg>
-											</div>
-											<div class="calculator__button-prev">
-												<svg class="mdi-icon mdi-24px" viewbox="0 0 24 24">
-													<path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" stroke-width="0" fill-rule="nonzero"></path>
-												</svg>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div id="banner" class="calculator__banner banner-calculator">
-									<img class="banner-calculator__img-bg" alt="Image" src="./assets/img/calculator/banner/info-bg.jpg">
-									<div class="banner-calculator__body">
-										<div class="banner-calculator__top">
-											<div class="banner-calculator__online">Онлайн</div>
-											<img class="banner-calculator__avatat" alt="Image" src="./assets/img/calculator/banner/man.png">
-											<div class="banner-calculator__name">Дмитрий - инженер компании</div>
-										</div>
-										<div class="banner-calculator__main">
-											<b>Отвечайте на вопросы и получите</b>
-											подробную смету по ремонту
-										</div>
-										<div class="banner-calculator__bottom">
-											<h4 class="banner-calculator__bottom-title">В конце получите:</h4>
-											<div class="banner-calculator__items">
-												<div class="banner-calculator__item">
-													<p class="banner-calculator__item-text">Прайс-лист на все услуги</p>
-													<div class="banner-calculator__item-icon">
-														<img src="./assets/img/calculator/banner/locker.svg" alt="Image">
-													</div>
-												</div>
-												<div class="banner-calculator__item">
-													<p class="banner-calculator__item-text">Прайс-лист на все услуги</p>
-													<div class="banner-calculator__item-icon">
-														<img src="./assets/img/calculator/banner/locker.svg" alt="Image">
-													</div>
-												</div>
-												<div class="banner-calculator__item">
-													<p class="banner-calculator__item-text">Прайс-лист на все услуги</p>
-													<div class="banner-calculator__item-icon">
-														<img src="./assets/img/calculator/banner/locker.svg" alt="Image">
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="fraud">
-					<div class="fraud__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<h2 class="blockheader__title">Знаем, как вас уже пытались обмануть.</h2>
-						</div>
-						<div class="fraud__items">
-							<div class="fraud__item">
-								<h3 class="fraud__title">Одни компании накручивают цены без причины.</h3>
-								<p class="fraud__text">
-									Огромное количество рейтинговых строительных компаний предлагают
-            неоправданно дорогие услуги
+								<p class="metal__text">
+									Продажа винтовых свай любых размеров: диаметр – от 57 до 133мм,
+            длина – от 1,5 до 6 м
 								</p>
 							</div>
-							<div class="fraud__item">
-								<h3 class="fraud__title">Частники работают дешево, но без гарантий.</h3>
-								<p class="fraud__text">
-									Многие частники делают ремонт дешево, но без гарантий — на ваш страх
-            и риск.
+							<div class="metal__item">
+								<div class="metal__img">
+									<img alt="Image" src="./assets/img/metal/02.jpg">
+								</div>
+								<p class="metal__text">
+									Продажа винтовых свай любых размеров: диаметр – от 57 до 133мм,
+            длина – от 1,5 до 6 м
 								</p>
 							</div>
-							<div class="fraud__item">
-								<h3 class="fraud__title">Фирмы-однодневки исчезают после предоплаты.</h3>
-								<p class="fraud__text">
-									Такое же большое число заманчивых предложений от фирм-однодневок с
-            неподтвержденной историей
+							<div class="metal__item">
+								<div class="metal__img">
+									<img alt="Image" src="./assets/img/metal/03.jpg">
+								</div>
+								<p class="metal__text">
+									Продажа винтовых свай любых размеров: диаметр – от 57 до 133мм,
+            длина – от 1,5 до 6 м
+								</p>
+							</div>
+							<div class="metal__item">
+								<div class="metal__img">
+									<img alt="Image" src="./assets/img/metal/04.jpg">
+								</div>
+								<p class="metal__text">
+									Продажа винтовых свай любых размеров: диаметр – от 57 до 133мм,
+            длина – от 1,5 до 6 м
 								</p>
 							</div>
 						</div>
 					</div>
 				</section>
-				<div data-fls-marquee-space="50" data-fls-marquee-speed="800" data-fls-marquee="">
-					<div>
-						<img alt="Image" src="./assets/img/marquee/01.webp">
+				<section class="screw">
+					<div class="screw__container">
+						<div class="screw__content">
+							<h2 data-fls-title="" class="title">Винтовые сваи от производителя</h2>
+							<p class="screw__text">
+								Компания «Фундамент –PRO» реализует железные винтовые сваи от завода
+          производителя, занимается установкой фундаментов на любой грунт в
+          Москве. У нас вы можете купить и заказать монтаж свай под ключ.
+							</p>
+							<p class="screw__text">Применение свайно-винтовых фундаментов:</p>
+							<ul class="screw__list">
+								<li>дом (каркасный, из бруса, оцилиндрованного бревна, пеноблока);</li>
+								<li>веранда, навес;</li>
+								<li>гараж;</li>
+								<li>баня;</li>
+								<li>терраса;</li>
+								<li>теплица;</li>
+								<li>забор;</li>
+								<li>причал.</li>
+							</ul>
+							<div class="screw__items">
+								<div class="screw__item">
+									<div class="screw__number">3 дня</div>
+									<p class="screw__item-text">Доставка винтов в Московской области</p>
+								</div>
+								<div class="screw__item">
+									<div class="screw__number">2 дня</div>
+									<p class="screw__item-text">Доставка винтов в Московской области</p>
+								</div>
+								<div class="screw__item">
+									<div class="screw__number">15 лет</div>
+									<p class="screw__item-text">Доставка винтов в Московской области</p>
+								</div>
+								<div class="screw__item">
+									<div class="screw__number">2000</div>
+									<p class="screw__item-text">Доставка винтов в Московской области</p>
+								</div>
+							</div>
+						</div>
+						<picture class="screw__image">
+							<img alt="Image" src="./assets/img/screw/01.jpg">
+						</picture>
 					</div>
-					<div>
-						<img alt="Image" src="./assets/img/marquee/02.jpg">
+				</section>
+				<section class="interpreter">
+					<div class="interpreter__container">
+						<h2 data-fls-title="" class="title">
+							Прайс-лист на железные винтовые сваи: стоимость с монтажом под ключ в
+        Москве
+						</h2>
+						<div class="interpreter__items">
+							<div class="interpreter__item">
+								<picture>
+									<img class="interpreter__img" alt="Image" src="./assets/img/interpreter/01.jpg">
+								</picture>
+								<div class="interpreter__info">
+									<h3 class="interpreter__item-title">Фундамент под дом из бруса 6х6</h3>
+									<div class="interpreter__price">от 50000 руб.</div>
+									<ul class="interpreter__list">
+										<li>сваи (диаметр – 133 мм, длина – 2500 мм)</li>
+										<li>оголовок 200х200</li>
+										<li>монтаж</li>
+									</ul>
+								</div>
+							</div>
+							<div class="interpreter__item">
+								<picture>
+									<img class="interpreter__img" alt="Image" src="./assets/img/interpreter/01.jpg">
+								</picture>
+								<div class="interpreter__info">
+									<h3 class="interpreter__item-title">Фундамент под баню 4х4</h3>
+									<div class="interpreter__price">от 50000 руб.</div>
+									<ul class="interpreter__list">
+										<li>сваи (диаметр – 133 мм, длина – 2500 мм)</li>
+										<li>оголовок 200х200</li>
+										<li>монтаж</li>
+									</ul>
+								</div>
+							</div>
+							<div class="interpreter__item">
+								<picture>
+									<img class="interpreter__img" alt="Image" src="./assets/img/interpreter/01.jpg">
+								</picture>
+								<div class="interpreter__info">
+									<h3 class="interpreter__item-title">Фундамент под дом из бруса 6х6</h3>
+									<div class="interpreter__price">от 50000 руб.</div>
+									<ul class="interpreter__list">
+										<li>сваи (диаметр – 133 мм, длина – 2500 мм)</li>
+										<li>оголовок 200х200</li>
+										<li>монтаж</li>
+									</ul>
+								</div>
+							</div>
+							<div class="interpreter__item">
+								<picture>
+									<img class="interpreter__img" alt="Image" src="./assets/img/interpreter/01.jpg">
+								</picture>
+								<div class="interpreter__info">
+									<h3 class="interpreter__item-title">Фундамент под дом из бруса 6х6</h3>
+									<div class="interpreter__price">от 50000 руб.</div>
+									<ul class="interpreter__list">
+										<li>сваи (диаметр – 133 мм, длина – 2500 мм)</li>
+										<li>оголовок 200х200</li>
+										<li>монтаж</li>
+									</ul>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div>
-						<img src="./assets/img/marquee/03.svg" alt="Image">
+				</section>
+				<section class="consider">
+					<div class="consider__container">
+						<h2 data-fls-title="" class="title">Металлические винтовые сваи с установкой</h2>
+						<div class="consider__items">
+							<div class="consider__item">
+								<img class="consider__icon" src="./assets/img/consider/06.svg" alt="Image">
+								<h3 class="consider__item-title">Тип грунта</h3>
+								<p class="consider__text">
+									Сваи закручивают до несущих слоёв почвы, чтобы не допустить
+            проседания опор. Каждый грунт имеет свой уровень залегания твёрдого
+            слоя. Этот показатель учитывается при выборе длины свай.
+								</p>
+							</div>
+							<div class="consider__item">
+								<img class="consider__icon" src="./assets/img/consider/02.svg" alt="Image">
+								<h3 class="consider__item-title">Тип грунта</h3>
+								<p class="consider__text">
+									Для равномерного распределения весовой нагрузки от конструкции
+            свайное поле выравнивают под ноль. При строительстве на неровных
+            участках в Москве используются винты разной длины.
+								</p>
+							</div>
+							<div class="consider__item">
+								<img class="consider__icon" src="./assets/img/consider/06.svg" alt="Image">
+								<h3 class="consider__item-title">Тип грунта</h3>
+								<p class="consider__text">
+									Сваи закручивают до несущих слоёв почвы, чтобы не допустить
+            проседания опор. Каждый грунт имеет свой уровень залегания твёрдого
+            слоя. Этот показатель учитывается при выборе длины свай.
+								</p>
+							</div>
+						</div>
 					</div>
-					<div>
-						<img alt="Image" src="./assets/img/marquee/01.webp">
+				</section>
+				<section class="result">
+					<div class="result__container">
+						<div class="result__top">
+							<h2 data-fls-title="" class="title">Наши работы - Примеры готового фундамента</h2>
+							<div class="result__navigacions">
+								<button type="button" class="result-prev swiper-button-prev"></button>
+								<a href="#">Смотреть все</a>
+								<button type="button" class="result-next swiper-button-next"></button>
+							</div>
+						</div>
+						<!-- Оболочка слайдера -->
+						<div data-fls-slider="" class="result__slider swiper">
+							<!-- Часть слайдера, которая двигается -->
+							<div class="result__wrapper swiper-wrapper">
+								<!-- Слайд -->
+								<div data-fls-gallery="" class="result__slide swiper-slide">
+									<a href="./assets/img/result/01.jpg" class="result__slide swiper-slide">
+										<img class="result__img" alt="Image" src="./assets/img/result/01.jpg">
+										<!-- <div class="result__name">Грамотная подготовка</div> -->
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/02.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/02.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/02.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/02.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/01.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/01.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/01.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/01.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/01.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/01.jpg">
+									</a>
+								</div>
+								<div data-fls-gallery="" class="result__slide swiper-slide">
+									<a href="./assets/img/result/02.jpg" class="result__slide swiper-slide">
+										<img class="result__img" alt="Image" src="./assets/img/result/02.jpg">
+										<!-- <div class="result__name">Грамотная подготовка</div> -->
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/02.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/02.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/02.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/02.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/01.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/01.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/01.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/01.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/01.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/01.jpg">
+									</a>
+								</div>
+								<div data-fls-gallery="" class="result__slide swiper-slide">
+									<a href="./assets/img/result/01.jpg" class="result__slide swiper-slide">
+										<img class="result__img" alt="Image" src="./assets/img/result/01.jpg">
+										<!-- <div class="result__name">Грамотная подготовка</div> -->
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/02.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/02.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/02.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/02.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/01.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/01.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/01.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/01.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/01.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/01.jpg">
+									</a>
+								</div>
+								<div data-fls-gallery="" class="result__slide swiper-slide">
+									<a href="./assets/img/result/01.jpg" class="result__slide swiper-slide">
+										<img class="result__img" alt="Image" src="./assets/img/result/01.jpg">
+										<!-- <div class="result__name">Грамотная подготовка</div> -->
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/02.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/02.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/02.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/02.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/01.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/01.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/01.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/01.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/01.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/01.jpg">
+									</a>
+								</div>
+								<div data-fls-gallery="" class="result__slide swiper-slide">
+									<a href="./assets/img/result/01.jpg" class="result__slide swiper-slide">
+										<img class="result__img" alt="Image" src="./assets/img/result/01.jpg">
+										<!-- <div class="result__name">Грамотная подготовка</div> -->
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/02.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/02.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/02.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/02.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/01.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/01.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/01.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/01.jpg">
+									</a>
+									<a slide-img-hidden="" href="./assets/img/result/01.jpg">
+										<img class="result__img" alt="#" src="./assets/img/result/01.jpg">
+									</a>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div>
-						<img alt="Image" src="./assets/img/marquee/05.png">
-					</div>
-				</div>
+				</section>
 				<section class="steps">
 					<div class="steps__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<h2 class="blockheader__title">Как начинается работа с нами</h2>
-						</div>
+						<h2 data-fls-title="" class="title">Винтовые сваи для фундамента: как мы работаем</h2>
 						<div class="steps__items">
 							<div class="steps__item">
-								<h2 class="steps__title">ЗАПОЛНЯЕТЕ ЗАЯВКУ</h2>
-								<p class="steps__text">
-									Вы заполняете заявку, указывая имя, контактный телефон, вид ремонта,
-            площадь и ориентировочный бюджет
-								</p>
-								<img class="steps__img-bg steps__img-bg--contain" alt="Image" src="./assets/img/steps/01.png">
-							</div>
-							<div class="steps__item">
-								<h2 class="steps__title">ПОЛУЧАЕТЕ ПОДРОБНУЮ СМЕТУ НА РЕМОНТ</h2>
-								<p class="steps__text">
-									К Вам бесплатно выезжает замерщик, проводит обмеры помещения,
-            готовит подробную смету на ремонт квартиры с материалами, обсуждает
-            и согласовывает с Вами все детали.
-								</p>
-								<img class="steps__img-bg" alt="Image" src="./assets/img/steps/02.png">
-							</div>
-							<div class="steps__item">
-								<img class="steps__img-bg" alt="Image" src="./assets/img/steps/03.jpg">
-								<h2 class="steps__title">ПОДПИСЫВАЕМ ДОГОВОР</h2>
-								<p class="steps__text">
-									Подписываем договор, где указаны сроки выполнения работ, гарантии,
-            ответственность, окончательная цена
-								</p>
-							</div>
-							<div class="steps__item">
-								<h2 class="steps__title">ПРИВОЗИМ МАТЕРИАЛЫ</h2>
-								<p class="steps__text">
-									Закупаем и привозим материалы, а также оказываем помощь в их выборе.
-            Сотрудничаем с проверенными поставщиками и предлагаем скидки
-								</p>
-								<img class="steps__img-bg" alt="Image" src="./assets/img/steps/04.png">
-							</div>
-							<div class="steps__item">
-								<img class="steps__img-bg" alt="Image" src="./assets/img/examples/01.jpg">
-								<h2 class="steps__title">ЗАПОЛНЯЕТЕ ЗАЯВКУ</h2>
-								<p class="steps__text">
-									Вы заполняете заявку, указывая имя, контактный телефон, вид ремонта,
-            площадь и ориентировочный бюджет
-								</p>
-							</div>
-							<div class="steps__item">
-								<h2 class="steps__title">ЗАПОЛНЯЕТЕ ЗАЯВКУ</h2>
-								<p class="steps__text">
-									Вы заполняете заявку, указывая имя, контактный телефон, вид ремонта,
-            площадь и ориентировочный бюджет
-								</p>
-								<img class="steps__img-bg" alt="Image" src="./assets/img/steps/06.png">
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="trust">
-					<div class="trust__container">
-						<div class="trust__wrapper">
-							<img class="trust__img-bg" alt="Image" src="./assets/img/block-form/bg-1.jpg">
-							<div class="trust__body">
-								<div class="trust__content">
-									<h2 class="trust__title">Как начинается работа с нами</h2>
-									<div class="trust__items">
-										<div class="trust__item">
-											<div class="trust__icon">
-												<img alt="Image" src="./assets/img/trust/62976fd89388f24d90070264_check.png">
-											</div>
-											<p class="trust__text">
-												<b>
-													Экономим ваш бюджет. Покупаем материалы по лучшим ценам у
-                    проверенных поставщиков
-												</b>
-											</p>
-										</div>
-										<div class="trust__item">
-											<div class="trust__icon">
-												<img alt="Image" src="./assets/img/trust/62976fd89388f24d90070264_check.png">
-											</div>
-											<p class="trust__text">
-												<b>
-													Экономим ваш бюджет. Покупаем материалы по лучшим ценам у
-                    проверенных поставщиков
-												</b>
-											</p>
-										</div>
-										<div class="trust__item">
-											<div class="trust__icon">
-												<img alt="Image" src="./assets/img/trust/62976fd89388f24d90070264_check.png">
-											</div>
-											<p class="trust__text">
-												<b>
-													Экономим ваш бюджет. Покупаем материалы по лучшим ценам у
-                    проверенных поставщиков
-												</b>
-											</p>
-										</div>
-										<div class="trust__item">
-											<div class="trust__icon">
-												<img alt="Image" src="./assets/img/trust/62976fd89388f24d90070264_check.png">
-											</div>
-											<p class="trust__text">
-												<b>
-													Экономим ваш бюджет. Покупаем материалы по лучшим ценам у
-                    проверенных поставщиков
-												</b>
-											</p>
-										</div>
-										<div class="trust__item">
-											<div class="trust__icon">
-												<img alt="Image" src="./assets/img/trust/62976fd89388f24d90070264_check.png">
-											</div>
-											<p class="trust__text">
-												<b>
-													Экономим ваш бюджет. Покупаем материалы по лучшим ценам у
-                    проверенных поставщиков
-												</b>
-											</p>
-										</div>
-										<div class="trust__item">
-											<div class="trust__icon">
-												<img alt="Image" src="./assets/img/trust/62976fd89388f24d90070264_check.png">
-											</div>
-											<p class="trust__text">
-												<b>
-													Экономим ваш бюджет. Покупаем материалы по лучшим ценам у
-                    проверенных поставщиков
-												</b>
-											</p>
-										</div>
-									</div>
-								</div>
-								<div class="trust__image">
-									<img alt="Image" src="./assets/img/trust/warranty-dogovor.png">
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="legal">
-					<div class="legal__container">
-						<picture class="legal__image">
-							<img alt="Image" src="./assets/img/legal/01.png">
-						</picture>
-						<div class="legal__content">
-							<div data-fls-blockheader="" class="blockheader">
-								<h2 class="blockheader__title">Вы защищены юридически</h2>
-								<p class="blockheader__text">Все гарантии зафиксированы в договоре</p>
-							</div>
-							<div class="legal__items">
-								<div class="legal__item">
-									<h3 class="legal__title">Договор с четкими условиями</h3>
-									<p class="legal__text">
-										Все работы, сроки и цены фиксируются в договоре. Никаких скрытых
-              доплат и внезапных изменений.
-									</p>
-								</div>
-								<div class="legal__item">
-									<h3 class="legal__title">Защита от роста цен</h3>
-									<p class="legal__text">
-										Стоимость ремонта останется неизменной – мы фиксируем расценки в
-              договоре, чтобы вы не столкнулись с неожиданными расходами.
-									</p>
-								</div>
-								<div class="legal__item">
-									<h3 class="legal__title">Гарантия без лишних условий</h3>
-									<p class="legal__text">
-										Мы отвечаем за качество ремонта. Если что-то сломается по нашей
-              вине, устраним бесплатно – без скрытых условий и сложных процедур.
-              За последние 300 ремонтов гарантия потребовалась всего один раз.
+								<picture class="steps__image">
+									<img alt="Image" src="./assets/img/steps/01.jpg">
+								</picture>
+								<div class="steps__content">
+									<h3 class="steps__item-title">Расчёт свай</h3>
+									<p class="steps__text">
+										Воспользуйтесь нашим бесплатным онлайн калькулятором, чтобы
+              получить предварительный расчёт количества свай под ваш объект.
+              Для более детальной консультации оставьте заказ на сайте, и наши
+              менеджеры свяжутся с Вами.
 									</p>
 								</div>
 							</div>
-						</div>
-					</div>
-				</section>
-				<section class="services">
-					<div class="services__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<h2 class="blockheader__title">Наши услуги</h2>
-						</div>
-						<div class="services__items">
-							<article class="services__item">
-								<img class="services__img-bg" alt="Image" src="./assets/img/services/01.jpg">
-								<h3 class="services__title">Косметический ремонт</h3>
-								<p class="services__text">Освежим интерьер за 5 дней</p>
-								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
-							</article>
-							<article class="services__item">
-								<img class="services__img-bg" alt="Image" src="./assets/img/services/02.jpg">
-								<h3 class="services__title">Капитальный ремонт</h3>
-								<p class="services__text">Полное обновление квартиры под ключ</p>
-								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
-							</article>
-							<article class="services__item">
-								<img class="services__img-bg" alt="Image" src="./assets/img/services/03.jpg">
-								<h3 class="services__title">Косметический ремонт</h3>
-								<p class="services__text">Освежим интерьер за 5 дней</p>
-								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
-							</article>
-							<article class="services__item">
-								<img class="services__img-bg" alt="Image" src="./assets/img/services/04.jpg">
-								<h3 class="services__title">Разработка технического проекта</h3>
-								<p class="services__text">Точный план работ — чтобы всё было под контролем</p>
-								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
-							</article>
-							<article class="services__item">
-								<img class="services__img-bg" alt="Image" src="./assets/img/services/01.jpg">
-								<h3 class="services__title">Косметический ремонт</h3>
-								<p class="services__text">Освежим интерьер за 5 дней</p>
-								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
-							</article>
-							<article class="services__item">
-								<img class="services__img-bg" alt="Image" src="./assets/img/services/02.jpg">
-								<h3 class="services__title">Капитальный ремонт</h3>
-								<p class="services__text">Полное обновление квартиры под ключ</p>
-								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
-							</article>
-							<article class="services__item">
-								<img class="services__img-bg" alt="Image" src="./assets/img/services/03.jpg">
-								<h3 class="services__title">Косметический ремонт</h3>
-								<p class="services__text">Освежим интерьер за 5 дней</p>
-								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
-							</article>
-							<article class="services__item">
-								<img class="services__img-bg" alt="Image" src="./assets/img/services/04.jpg">
-								<h3 class="services__title">Разработка технического проекта</h3>
-								<p class="services__text">Точный план работ — чтобы всё было под контролем</p>
-								<div class="services__price">от 2.990 руб/м²</div>
-								<a data-fls-popup-link="popup" class="services__button button" href="#">Заказать звонок</a>
-							</article>
+							<div class="steps__item">
+								<picture class="steps__image">
+									<img alt="Image" src="./assets/img/steps/02.jpg">
+								</picture>
+								<div class="steps__content">
+									<h3 class="steps__item-title">Расчёт свай</h3>
+									<p class="steps__text">
+										Воспользуйтесь нашим бесплатным онлайн калькулятором, чтобы
+              получить предварительный расчёт количества свай под ваш объект.
+              Для более детальной консультации оставьте заказ на сайте, и наши
+              менеджеры свяжутся с Вами.
+									</p>
+								</div>
+							</div>
+							<div class="steps__item">
+								<picture class="steps__image">
+									<img alt="Image" src="./assets/img/steps/03.jpg">
+								</picture>
+								<div class="steps__content">
+									<h3 class="steps__item-title">Расчёт свай</h3>
+									<p class="steps__text">
+										Воспользуйтесь нашим бесплатным онлайн калькулятором, чтобы
+              получить предварительный расчёт количества свай под ваш объект.
+              Для более детальной консультации оставьте заказ на сайте, и наши
+              менеджеры свяжутся с Вами.
+									</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</section>
 				<section class="block-form">
-					<img class="block-form__img-bg" alt="Image" src="./assets/img/block-form/bg-1.jpg">
-					<img class="block-form__img-r" alt="Image" src="./assets/img/block-form/catalog.png">
 					<div class="block-form__container">
-						<h2 class="block-form__title">Скачайте полный прайс-лист на все услуги</h2>
-						<p class="block-form__text">Скачайте полный прайс-лист на все услуги</p>
-						<form data-fls-form="ajax" data-fls-form-popup="popup" method="POST" action="sendmail\sendmail.php" class="block-form__form">
-							<div class="block-form__items">
-								<select data-fls-select="" name="select" data-fls-select-modif="calculator">
-									<option data-fls-select-asset="assets/img/icon-social/viber.png" value="viber" selected>viber</option>
-									<option data-fls-select-asset="assets/img/icon-social/telegram.png" value="Telegram">Telegram</option>
-									<option data-fls-select-asset="assets/img/icon-social/vk.png" value="vk">vk</option>
-									<option data-fls-select-asset="assets/img/icon-social/instagram.png" value="Email">instagram</option>
-								</select>
-								<input required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+375(29) ___-__-__" class="block-form__input input">
-								<button data-fls-button="" type="submit" class="block-form__button button">
-									Получить прайс-лист сейчас
-									<img alt="Image" src="./assets/img/hero/arrow.webp">
-								</button>
+						<div class="block-form__body">
+							<h2 class="block-form__title">Ответим на любой вопрос в WhatsApp, Viber, Telegram</h2>
+							<div class="block-form__socials">
+								<a href="#">
+									<img alt="Image" src="./assets/img/icon-social/viber.png">
+								</a>
+								<a href="#">
+									<img alt="Image" src="./assets/img/icon-social/telegram.png">
+								</a>
 							</div>
-							<label data-fls-checkbox="" class="checkbox">
-								<input checked data-error="Ошибка" class="checkbox__input" type="checkbox" value="согласен" name="check">
-								<span class="checkbox__text checkbox__text--white">Cогласен с условиями политики конфиденциальности данных</span>
-							</label>
-						</form>
-					</div>
-				</section>
-				<section class="honestly">
-					<div class="honestly__container">
-						<div class="honestly__content">
-							<div data-fls-blockheader="" class="blockheader">
-								<h2 class="blockheader__title">Работаем честно. Уважительно относимся к каждому клиенту.</h2>
-								<p class="blockheader__text">Что вы получите, обратившись к нам:</p>
-							</div>
-							<a data-fls-popup-link="#popup" class="honestly__button button" href="#">Вызывать замерщика бесплатно</a>
-						</div>
-						<div class="honestly__items">
-							<div class="honestly__item">
-								<picture class="honestly__image">
-									<img alt="Image" src="./assets/img/honestly/01.jpg">
-								</picture>
-								<div class="honestly__block">
-									<h3 class="honestly__item-title">Личный инженер-сметчик</h3>
-									<p class="honestly__item-text">
-										Поможем спланировать пространство, подобрать материалы и
-              контролировать ремонт, чтобы результат был безупречным.
-									</p>
-									<a data-fls-popup-link="#popup" class="honestly__item-button" href="#">Обсудить ремонт</a>
-								</div>
-							</div>
-							<div class="honestly__item">
-								<picture class="honestly__image">
-									<img alt="Image" src="./assets/img/honestly/02.jpg">
-								</picture>
-								<div class="honestly__block">
-									<h3 class="honestly__item-title">Личный инженер-сметчик</h3>
-									<p class="honestly__item-text">
-										Поможем спланировать пространство, подобрать материалы и
-              контролировать ремонт, чтобы результат был безупречным.
-									</p>
-									<a data-fls-popup-link="#popup" class="honestly__item-button" href="#">Обсудить ремонт</a>
-								</div>
-							</div>
-							<div class="honestly__item">
-								<picture class="honestly__image">
-									<img alt="Image" src="./assets/img/honestly/03.jpg">
-								</picture>
-								<div class="honestly__block">
-									<h3 class="honestly__item-title">Личный инженер-сметчик</h3>
-									<p class="honestly__item-text">
-										Поможем спланировать пространство, подобрать материалы и
-              контролировать ремонт, чтобы результат был безупречным.
-									</p>
-									<a data-fls-popup-link="#popup" class="honestly__item-button" href="#">Обсудить ремонт</a>
-								</div>
-							</div>
-							<div class="honestly__item">
-								<picture class="honestly__image">
-									<img alt="Image" src="./assets/img/honestly/04.jpg">
-								</picture>
-								<div class="honestly__block">
-									<h3 class="honestly__item-title">Личный инженер-сметчик</h3>
-									<p class="honestly__item-text">
-										Поможем спланировать пространство, подобрать материалы и
-              контролировать ремонт, чтобы результат был безупречным.
-									</p>
-									<a data-fls-popup-link="#popup" class="honestly__item-button" href="#">Обсудить ремонт</a>
-								</div>
-							</div>
+							<a data-fls-button="" data-fls-popup-link="popup" class="block-form__button button button--black" href="#">Бесплатная консультация</a>
 						</div>
 					</div>
 				</section>
-				<section class="consultation">
-					<img class="consultation__img-bg" alt="Image" src="./assets/img/block-form/bg-1.jpg">
-					<img class="consultation__img-r" alt="Image" src="./assets/img/consultation/dogovor-1.png">
-					<div class="consultation__container">
-						<h2 class="consultation__title">Получите консультацию нашего мастера</h2>
-						<form data-fls-form="ajax" data-fls-form-popup="popup" method="POST" action="sendmail\sendmail.php" class="block-form__form">
-							<div class="block-form__items">
-								<input required data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Ваше имя" class="block-form__input input">
-								<input required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+375(29) ___-__-__" class="block-form__input input">
-								<button data-fls-button="" type="submit" class="block-form__button button">
-									Перезвоните мне
-									<img alt="Image" src="./assets/img/hero/arrow.webp">
-								</button>
-							</div>
-							<label data-fls-checkbox="" class="checkbox">
-								<input checked data-error="Ошибка" class="checkbox__input" type="checkbox" value="согласен" name="check">
-								<span class="checkbox__text checkbox__text--white">Cогласен с условиями политики конфиденциальности данных</span>
-							</label>
-						</form>
-						<div class="consultation__links">
-							<p>
-								или напишите,
-								<b>мы отвечаем за 5 минут</b>
-							</p>
-							<a href="#">
-								<img alt="Image" src="./assets/img/icon-social/viber.png">
-							</a>
-							<a href="#">
-								<img alt="Image" src="./assets/img/icon-social/instagram.png">
-							</a>
-						</div>
+				<section id="price" class="price">
+					<div class="price__container">
+						<h2 data-fls-title="" class="title">Прайс-лист винтовых свай – цена под ключ в Москве</h2>
+						<table>
+							<thead>
+								<tr>
+									<th>Наименование сваи (диаметр, длина в мм)</th>
+									<th>Толщина стенки, мм</th>
+									<th>Диаметр лопасти, мм</th>
+									<th>Наконечник</th>
+									<th>Оголовки для свай, мм (за шт. /рублей)</th>
+									<th>Цена за штуку винтовой сваи/ рублей</th>
+									<th>Стоимость монтажа под ключ, 1 штука/ рублей</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="7">
+										<strong>Сваи для теплиц, беседок, заборов, бытовок, настилов</strong>
+									</td>
+								</tr>
+								<tr>
+									<td data-label="Свая">СВСН -57- 1500 (57 мм, 1500 мм)</td>
+									<td data-label="Стенка">3,5 мм</td>
+									<td data-label="Лопасть">200 мм</td>
+									<td data-label="Наконечник">Сварной</td>
+									<td data-label="Оголовок">150х150 мм (280 рублей)</td>
+									<td data-label="Цена">1080 рублей</td>
+									<td data-label="Монтаж">840 рублей</td>
+								</tr>
+								<tr>
+									<td data-label="Свая">СВСН-76-1500 (76 мм, 1500 мм)</td>
+									<td data-label="Стенка">3 мм</td>
+									<td data-label="Лопасть">250 мм</td>
+									<td data-label="Наконечник">Литой</td>
+									<td data-label="Оголовок">150х150 мм (280 рублей)</td>
+									<td data-label="Цена">2160 рублей</td>
+									<td data-label="Монтаж">950 рублей</td>
+								</tr>
+								<tr>
+									<td colspan="7">
+										<strong>Сваи для бань, каркасных домов, причалов</strong>
+									</td>
+								</tr>
+								<tr>
+									<td data-label="Свая">СВСН-89-2000 (89 мм, 2000 мм)</td>
+									<td data-label="Стенка">3 мм</td>
+									<td data-label="Лопасть">250 мм</td>
+									<td data-label="Наконечник">Сварной</td>
+									<td data-label="Оголовок">200х200 мм (410 рублей)</td>
+									<td data-label="Цена">1953 рубля</td>
+									<td data-label="Монтаж">1150 рублей</td>
+								</tr>
+								<tr>
+									<td colspan="7">
+										<strong>Сваи для домов, ангаров, усиления фундаментов</strong>
+									</td>
+								</tr>
+								<tr>
+									<td data-label="Свая">СВСН-108-2500 (108 мм, 2500 мм)</td>
+									<td data-label="Стенка">4 мм</td>
+									<td data-label="Лопасть">300 мм</td>
+									<td data-label="Наконечник">Литой</td>
+									<td data-label="Оголовок">200х200 мм (420 рублей)</td>
+									<td data-label="Цена">7533 рубля</td>
+									<td data-label="Монтаж">1250 рублей</td>
+								</tr>
+								<tr>
+									<td colspan="7">
+										<strong>
+											Сваи для кирпичных, брусовых, газобетонных домов, промышленных
+                строений
+										</strong>
+									</td>
+								</tr>
+								<tr>
+									<td data-label="Свая">СВСН-133-3000 (133 мм, 3000 мм)</td>
+									<td data-label="Стенка">4 мм</td>
+									<td data-label="Лопасть">350 мм</td>
+									<td data-label="Наконечник">Сварной</td>
+									<td data-label="Оголовок">200х200 мм</td>
+									<td data-label="Цена">4770 рублей</td>
+									<td data-label="Монтаж">1650 рублей</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</section>
-				<section class="interactive-house" id="interactive-house">
-					<div class="interactive-house__bg">
-						<img src="https://xn-----7kcbhcq1apepggniuibwjf.xn--p1ai/wp-content/uploads/2025/02/build-1.png" alt="Дом с зонами ремонта">
-					</div>
-					<div class="interactive-house__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<h2 class="blockheader__title">Посмотрите наши работы</h2>
-							<p class="blockheader__text">Фото последних выполненных объектов</p>
-						</div>
-						<div class="interactive-house__area">
-							<!-- Маркер 1 - Кровля/крыша -->
-							<div class="interactive-house__marker marker-1" data-marker="1">
-								<div class="interactive-house__plus">+</div>
-								<div class="interactive-house__tooltip">
-									<div class="interactive-house__tooltip-title">Без хаоса и нервов</div>
-									<div class="interactive-house__tooltip-text">Рабочие не пропадают, ремонт не затягивается, цена не меняется.</div>
-								</div>
-							</div>
-							<!-- Маркер 2 - Окно/Фасад -->
-							<div class="interactive-house__marker marker-2" data-marker="2">
-								<div class="interactive-house__plus">+</div>
-								<div class="interactive-house__tooltip">
-									<div class="interactive-house__tooltip-title">Материалы, которые не придется менять</div>
-									<div class="interactive-house__tooltip-text">
-										Безопасные, прочные, проверенные временем. Не экономим на вашем
-              комфорте.
-									</div>
-								</div>
-							</div>
-							<!-- Маркер 3 - Стена/Фундамент -->
-							<div class="interactive-house__marker marker-3" data-marker="3">
-								<div class="interactive-house__plus">+</div>
-								<div class="interactive-house__tooltip">
-									<div class="interactive-house__tooltip-title">Сроки — не пустые обещания</div>
-									<div class="interactive-house__tooltip-text">
-										Делаем в оговоренные даты. Без «погодных условий» и
-              «форс-мажоров».
-									</div>
-								</div>
-							</div>
-							<!-- Маркер 4 - Дверь -->
-							<div class="interactive-house__marker marker-4" data-marker="4">
-								<div class="interactive-house__plus">+</div>
-								<div class="interactive-house__tooltip">
-									<div class="interactive-house__tooltip-title">Ровно, чисто, красиво</div>
-									<div class="interactive-house__tooltip-text">Стены не кривые, стыки не заметны, дизайн как на визуализации.</div>
-								</div>
-							</div>
-							<!-- Маркер 5 - Труба -->
-							<div class="interactive-house__marker marker-5" data-marker="5">
-								<div class="interactive-house__plus">+</div>
-								<div class="interactive-house__tooltip">
-									<div class="interactive-house__tooltip-title">Смета не растет, как гриб после дождя</div>
-									<div class="interactive-house__tooltip-text">Цена фиксируется в договоре. Сюрпризов не будет.</div>
-								</div>
-							</div>
-							<!-- Маркер 6 - Окно второе -->
-							<div class="interactive-house__marker marker-6" data-marker="6">
-								<div class="interactive-house__plus">+</div>
-								<div class="interactive-house__tooltip">
-									<div class="interactive-house__tooltip-title">На связи даже после сдачи</div>
-									<div class="interactive-house__tooltip-text">Если что-то случится — разберемся и исправим. Без оправданий.</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="estimate">
-					<div class="estimate__container">
-						<div class="estimate__content">
-							<div data-fls-blockheader="" class="blockheader">
-								<h2 class="blockheader__title">Уже есть смета от другой компании? Проведем аудит!</h2>
-								<p class="blockheader__text">
-									Некоторые компании занижают стоимость в смете: убирают часть работ,
-            скрывают важные детали. В итоге реальная цена оказывается выше. Мы
-            бесплатно проверим вашу смету: найдем скрытые расходы, убедимся, что
-            учтены все работы, и покажем, как сократить расходы до 30% без
-            потери качества.
+				<section class="cost">
+					<div class="cost__container">
+						<h2 data-fls-title="" class="title">Что входит в стоимость</h2>
+						<div class="cost__items">
+							<div class="cost__item">
+								<picture>
+									<img class="cost__img" alt="Image" src="./assets/img/cost/01.jpg">
+								</picture>
+								<h3 class="cost__item-title">Подготовка к работе</h3>
+								<p class="cost__text">
+									Для определения типа почвы и уклона участка выполняется пробное
+            бурение. Мастер рассчитывает необходимую длину и диаметр опорных
+            стержней. По результату расчета изготавливаются сваи.
 								</p>
 							</div>
-							<form data-fls-form="ajax" data-fls-form-popup="popup" method="POST" action="sendmail\sendmail.php" class="estimate__form">
-								<input required data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Ваше имя" class="block-form__input input">
-								<input required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+375(29) ___-__-__" class="block-form__input input">
-								<button data-fls-button="" type="submit" class="block-form__button button">
-									Перезвоните мне
-									<img alt="Image" src="./assets/img/hero/arrow.webp">
-								</button>
-								<label data-fls-checkbox="" class="checkbox">
-									<input checked data-error="Ошибка" class="checkbox__input" type="checkbox" value="согласен" name="check">
-									<span class="checkbox__text">Cогласен с условиями политики конфиденциальности данных</span>
-								</label>
-							</form>
+							<div class="cost__item">
+								<picture>
+									<img class="cost__img" alt="Image" src="./assets/img/cost/02.jpg">
+								</picture>
+								<h3 class="cost__item-title">Подготовка к работе</h3>
+								<p class="cost__text">
+									Для определения типа почвы и уклона участка выполняется пробное
+            бурение. Мастер рассчитывает необходимую длину и диаметр опорных
+            стержней. По результату расчета изготавливаются сваи.
+								</p>
+							</div>
+							<div class="cost__item">
+								<picture>
+									<img class="cost__img" alt="Image" src="./assets/img/cost/03.jpg">
+								</picture>
+								<h3 class="cost__item-title">Подготовка к работе</h3>
+								<p class="cost__text">
+									Для определения типа почвы и уклона участка выполняется пробное
+            бурение. Мастер рассчитывает необходимую длину и диаметр опорных
+            стержней. По результату расчета изготавливаются сваи.
+								</p>
+							</div>
 						</div>
-						<picture class="estimate__image">
-							<img alt="Image" src="./assets/img/estimate/01.png">
-						</picture>
+					</div>
+				</section>
+				<section class="type">
+					<div class="type__container">
+						<h2 data-fls-title="" class="title">Все виды винтовых свай</h2>
+						<div class="type__items">
+							<article class="type__item">
+								<picture class="type__image">
+									<img alt="Image" src="./assets/img/type/01.jpg">
+									<a class="type__button" href="#">Подробнее</a>
+								</picture>
+								<h3 class="type__item-title">Сваи 57 мм</h3>
+								<p class="type__text">
+									Сваи 57 мм выдерживают нагрузку 800-1500 кг и подходят для установки
+            на пучинистом грунте с неровностями. Используются для возведения
+            заборов и небольших построек: гаражей, беседок, гаражей, бань и т.д.
+								</p>
+								<div class="type__price-montage">
+									<div class="type__montage-text">Цена с монтажом:</div>
+									<div class="type__montage-number">от 1850 руб.</div>
+								</div>
+								<div class="type__price-not-montage">
+									<div class="type__not-montage-text">Цена без монтажа:</div>
+									<div class="type__not-montage-number">от 1100 руб..</div>
+								</div>
+							</article>
+							<article class="type__item">
+								<picture class="type__image">
+									<img alt="Image" src="./assets/img/type/01.jpg">
+									<a class="type__button" href="#">Подробнее</a>
+								</picture>
+								<h3 class="type__item-title">Сваи 57 мм</h3>
+								<p class="type__text">
+									Сваи 57 мм выдерживают нагрузку 800-1500 кг и подходят для установки
+            на пучинистом грунте с неровностями. Используются для возведения
+            заборов и небольших построек: гаражей, беседок, гаражей, бань и т.д.
+								</p>
+								<div class="type__price-montage">
+									<div class="type__montage-text">Цена с монтажом:</div>
+									<div class="type__montage-number">от 1850 руб.</div>
+								</div>
+								<div class="type__price-not-montage">
+									<div class="type__not-montage-text">Цена без монтажа:</div>
+									<div class="type__not-montage-number">от 1100 руб..</div>
+								</div>
+							</article>
+							<article class="type__item">
+								<picture class="type__image">
+									<img alt="Image" src="./assets/img/type/01.jpg">
+									<a class="type__button" href="#">Подробнее</a>
+								</picture>
+								<h3 class="type__item-title">Сваи 57 мм</h3>
+								<p class="type__text">
+									Сваи 57 мм выдерживают нагрузку 800-1500 кг и подходят для установки
+            на пучинистом грунте с неровностями. Используются для возведения
+            заборов и небольших построек: гаражей, беседок, гаражей, бань и т.д.
+								</p>
+								<div class="type__price-montage">
+									<div class="type__montage-text">Цена с монтажом:</div>
+									<div class="type__montage-number">от 1850 руб.</div>
+								</div>
+								<div class="type__price-not-montage">
+									<div class="type__not-montage-text">Цена без монтажа:</div>
+									<div class="type__not-montage-number">от 1100 руб..</div>
+								</div>
+							</article>
+							<article class="type__item">
+								<picture class="type__image">
+									<img alt="Image" src="./assets/img/type/01.jpg">
+									<a class="type__button" href="#">Подробнее</a>
+								</picture>
+								<h3 class="type__item-title">Сваи 57 мм</h3>
+								<p class="type__text">
+									Сваи 57 мм выдерживают нагрузку 800-1500 кг и подходят для установки
+            на пучинистом грунте с неровностями. Используются для возведения
+            заборов и небольших построек: гаражей, беседок, гаражей, бань и т.д.
+								</p>
+								<div class="type__price-montage">
+									<div class="type__montage-text">Цена с монтажом:</div>
+									<div class="type__montage-number">от 1850 руб.</div>
+								</div>
+								<div class="type__price-not-montage">
+									<div class="type__not-montage-text">Цена без монтажа:</div>
+									<div class="type__not-montage-number">от 1100 руб..</div>
+								</div>
+							</article>
+							<article class="type__item">
+								<picture class="type__image">
+									<img alt="Image" src="./assets/img/type/01.jpg">
+									<a class="type__button" href="#">Подробнее</a>
+								</picture>
+								<h3 class="type__item-title">Сваи 57 мм</h3>
+								<p class="type__text">
+									Сваи 57 мм выдерживают нагрузку 800-1500 кг и подходят для установки
+            на пучинистом грунте с неровностями. Используются для возведения
+            заборов и небольших построек: гаражей, беседок, гаражей, бань и т.д.
+								</p>
+								<div class="type__price-montage">
+									<div class="type__montage-text">Цена с монтажом:</div>
+									<div class="type__montage-number">от 1850 руб.</div>
+								</div>
+								<div class="type__price-not-montage">
+									<div class="type__not-montage-text">Цена без монтажа:</div>
+									<div class="type__not-montage-number">от 1100 руб..</div>
+								</div>
+							</article>
+							<article class="type__item">
+								<picture class="type__image">
+									<img alt="Image" src="./assets/img/type/01.jpg">
+									<a class="type__button" href="#">Подробнее</a>
+								</picture>
+								<h3 class="type__item-title">Сваи 57 мм</h3>
+								<p class="type__text">
+									Сваи 57 мм выдерживают нагрузку 800-1500 кг и подходят для установки
+            на пучинистом грунте с неровностями. Используются для возведения
+            заборов и небольших построек: гаражей, беседок, гаражей, бань и т.д.
+								</p>
+								<div class="type__price-montage">
+									<div class="type__montage-text">Цена с монтажом:</div>
+									<div class="type__montage-number">от 1850 руб.</div>
+								</div>
+								<div class="type__price-not-montage">
+									<div class="type__not-montage-text">Цена без монтажа:</div>
+									<div class="type__not-montage-number">от 1100 руб..</div>
+								</div>
+							</article>
+						</div>
+					</div>
+				</section>
+				<section class="cap">
+					<div class="cap__container">
+						<h2 data-fls-title="" class="title">Виды оголовков для свай</h2>
+						<div class="cap__items">
+							<div class="cap__item">
+								<img class="cap__img" alt="Image" src="./assets/img/cap/01.jpg">
+								<h3 class="cap__item-title">П-образный</h3>
+								<p class="cap__text">
+									Надевается поверх опоры и закрепляется с наружной стороны стержня.
+            Внешний размер сваи должен совпадать с внутренним размером оголовка,
+            чтобы обеспечить конструкции необходимую прочность и неподвижность.
+            На оголовок можно установить балку, опалубку, ЖБИ.
+								</p>
+							</div>
+							<div class="cap__item">
+								<img class="cap__img" alt="Image" src="./assets/img/interpreter/01.jpg">
+								<h3 class="cap__item-title">П-образный</h3>
+								<p class="cap__text">
+									Надевается поверх опоры и закрепляется с наружной стороны стержня.
+            Внешний размер сваи должен совпадать с внутренним размером оголовка,
+            чтобы обеспечить конструкции необходимую прочность и неподвижность.
+            На оголовок можно установить балку, опалубку, ЖБИ.
+								</p>
+							</div>
+							<div class="cap__item">
+								<img class="cap__img" alt="Image" src="./assets/img/cost/01.jpg">
+								<h3 class="cap__item-title">П-образный</h3>
+								<p class="cap__text">
+									Надевается поверх опоры и закрепляется с наружной стороны стержня.
+            Внешний размер сваи должен совпадать с внутренним размером оголовка,
+            чтобы обеспечить конструкции необходимую прочность и неподвижность.
+            На оголовок можно установить балку, опалубку, ЖБИ.
+								</p>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="strapping">
+					<div class="strapping__container">
+						<h2 data-fls-title="" class="title">Варианты обвязки винтовых свай</h2>
+						<div class="strapping__items">
+							<div class="strapping__item">
+								<img class="strapping__img" alt="Image" src="./assets/img/cap/01.jpg">
+								<h3 class="strapping__item-title">Деревянная обвязка</h3>
+								<p class="strapping__text">
+									В качестве деревянной обвязки используется доска или брус. На
+            обвязку устанавливаются каркасные стены или бревна. Этот вариант
+            используется, когда нужно придать строению дополнительную жесткость.
+								</p>
+							</div>
+							<div class="strapping__item">
+								<img class="strapping__img" alt="Image" src="./assets/img/strapping/01.jpg">
+								<h3 class="strapping__item-title">Деревянная обвязка</h3>
+								<p class="strapping__text">
+									В качестве деревянной обвязки используется доска или брус. На
+            обвязку устанавливаются каркасные стены или бревна. Этот вариант
+            используется, когда нужно придать строению дополнительную жесткость.
+								</p>
+							</div>
+							<div class="strapping__item">
+								<img class="strapping__img" alt="Image" src="./assets/img/cap/01.jpg">
+								<h3 class="strapping__item-title">Деревянная обвязка</h3>
+								<p class="strapping__text">
+									В качестве деревянной обвязки используется доска или брус. На
+            обвязку устанавливаются каркасные стены или бревна. Этот вариант
+            используется, когда нужно придать строению дополнительную жесткость.
+								</p>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="form">
+					<div class="form__container">
+						<h2 data-fls-title="" class="title">
+							Укажите параметры строения и получите
+							<span>расчет стоимости</span>
+							фундамента
+							<span>бесплатно!</span>
+						</h2>
+						<form class="estimate-form" action="sendmail\sendmail.php" method="post" enctype="multipart/form-data" novalidate data-fls-form="ajax" data-fls-form-popup="popup-message">
+							<!-- Скрытые служебные поля -->
+							<fieldset class="estimate-form__hidden">
+								<input type="hidden" name="form_id" value="134">
+								<input type="hidden" name="form_version" value="1.0">
+							</fieldset>
+							<!-- Поля выбора -->
+							<div class="estimate-form__row estimate-form__row--two-cols">
+								<div class="estimate-form__field">
+									<select class="estimate-form__select" name="building_type">
+										<option value="Дом">Дом</option>
+										<option value="Баня">Баня</option>
+										<option value="Веранда">Веранда</option>
+										<option value="Беседка">Беседка</option>
+										<option value="Терраса">Терраса</option>
+										<option value="Гараж">Гараж</option>
+										<option value="Хозблок">Хозблок</option>
+										<option value="Сарай">Сарай</option>
+										<option value="Ангар">Ангар</option>
+										<option value="Здание">Здание</option>
+										<option value="Замена фундамента">Замена фундамента</option>
+										<option value="Забор">Забор</option>
+										<option value="Другое">Другое</option>
+									</select>
+								</div>
+								<div class="estimate-form__field">
+									<select class="estimate-form__select" name="material">
+										<option value="Брус">Брус</option>
+										<option value="Бревно">Бревно</option>
+										<option value="Sip-панели">Sip-панели</option>
+										<option value="Каркасно-щитовой">Каркасно-щитовой</option>
+										<option value="Газосиликатный блок">Газосиликатный блок</option>
+										<option value="Кирпич">Кирпич</option>
+										<option value="ЛСТК">ЛСТК</option>
+										<option value="Металлоконструкция">Металлоконструкция</option>
+										<option value="Другое">Другое</option>
+									</select>
+								</div>
+							</div>
+							<!-- Размеры -->
+							<div class="estimate-form__row">
+								<div class="estimate-form__field">
+									<input class="estimate-form__input" type="text" name="dimensions" placeholder="РАЗМЕРЫ ПОСТРОЙКИ, м. (например: 8х12)">
+								</div>
+							</div>
+							<!-- Контактные данные -->
+							<div class="estimate-form__row estimate-form__row--three-cols">
+								<div class="estimate-form__field">
+									<input class="estimate-form__input" type="text" name="name" placeholder="Ваше имя">
+								</div>
+								<div class="estimate-form__field">
+									<input class="estimate-form__input" type="email" name="email" placeholder="Email">
+								</div>
+								<div class="estimate-form__field">
+									<input class="estimate-form__input" type="tel" name="phone" data-fls-input="" data-fls-input-mask="+375(99)-999-99-99" placeholder="+375(__)-___-__-__" required>
+								</div>
+							</div>
+							<!-- Загрузка файлов -->
+							<div class="estimate-form__file-section">
+								<label class="estimate-form__file-label">ЕСЛИ У ВАС ЕСТЬ ПЛАН ПОСТРОЙКИ, ПРИКРЕПИТЕ ЕГО...</label>
+								<div class="file-upload">
+									<div class="file-upload__dropzone" id="dropzone">
+										<div class="file-upload__content">
+											<h3 class="file-upload__title">Перетащите файлы сюда</h3>
+											<span class="file-upload__or">или</span>
+											<button type="button" class="file-upload__button" id="fileBrowseBtn">Просмотр файлов</button>
+										</div>
+									</div>
+									<input type="file" class="file-upload__input" id="fileInput" name="plan[]" multiple accept=".pdf,.jpg,.jpeg,.png,.dwg,.doc,.docx">
+									<div class="file-upload__counter">
+										<span id="fileCount">0</span>
+										из 10
+									</div>
+									<div class="file-upload__list" id="fileList"></div>
+								</div>
+							</div>
+							<!-- Нижняя часть с кнопкой и согласием -->
+							<div class="estimate-form__footer">
+								<button type="submit" class="estimate-form__submit" id="submitBtn" disabled>Рассчитать стоимость</button>
+								<div class="estimate-form__consent">
+									<label class="consent-label">
+										<input type="checkbox" class="consent-label__checkbox" id="consentCheckbox">
+										<span class="consent-label__text">
+											Нажимая кнопку «Рассчитать стоимость», я принимаю условия
+											<a href="/politika-konfidentsialnosti/" class="consent-label__link">Политики конфиденциальности</a>
+											и даю
+											<a href="/pers/" class="consent-label__link">Согласие на обработку персональных данных</a>
+											.
+										</span>
+									</label>
+								</div>
+							</div>
+							<!-- Антиспам поля -->
+							<div class="estimate-form__antispam" aria-hidden="true">
+								<label>
+									Alternative:
+									<input type="text" name="alt_s" tabindex="-1" autocomplete="off">
+								</label>
+							</div>
+							<div class="estimate-form__antispam estimate-form__antispam--hidden">
+								<label>
+									WPA
+									<input type="text" name="honeypot" value="752987">
+								</label>
+							</div>
+						</form>
+					</div>
+				</section>
+				<section class="tags">
+					<div class="tags__container">
+						<h2 data-fls-title="" class="title">Услуги, которые пользуются спросом</h2>
+						<nav class="tags__nav">
+							<ul class="tags__list">
+								<li>
+									<a href="#">Установка свайно-винтового фундамента под ключ</a>
+								</li>
+								<li>
+									<a href="#">Поднятие дома на сваях</a>
+								</li>
+								<li>
+									<a href="#">Реконструкция винтового фундамента</a>
+								</li>
+								<li>
+									<a href="#">Замена свай в фундаменте</a>
+								</li>
+								<li>
+									<a href="#">Расчёт свай</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</section>
+				<section class="coatings">
+					<div class="coatings__container">
+						<h2 data-fls-title="" class="title">Типы покрытия свай</h2>
+						<div data-fls-tabs="" class="coatings__wrapper">
+							<nav data-fls-tabs-titles="" class="coatings__navigation">
+								<button type="button" class="coatings__title --tab-active">Стандарт</button>
+								<button type="button" class="coatings__title">Премиум</button>
+								<button type="button" class="coatings__title">Цинк</button>
+							</nav>
+							<div data-fls-tabs-body="" class="coatings__content">
+								<div class="coatings__body">
+									<div class="coatings__box">
+										<div class="coatings__content">
+											<h3 data-fls-title="" class="title">Цинкй</h3>
+											<p class="coatings__text">
+												Производство свай с покрытием оцинковка подразумевает
+                  нанесение цинковой краски или погружение труб в ванну с
+                  расплавленным цинком. Обеспечивает защиту от коррозии и
+                  химических элементов.
+											</p>
+										</div>
+										<picture class="coatings__image">
+											<img alt="Image" src="./assets/img/tabs/standart.jpg">
+										</picture>
+									</div>
+								</div>
+								<div class="coatings__body">
+									<div class="coatings__box">
+										<div class="coatings__content">
+											<h3 data-fls-title="" class="title">Цинкй</h3>
+											<p class="coatings__text">
+												Производство свай с покрытием оцинковка подразумевает
+                  нанесение цинковой краски или погружение труб в ванну с
+                  расплавленным цинком. Обеспечивает защиту от коррозии и
+                  химических элементов.
+											</p>
+										</div>
+										<picture class="coatings__image">
+											<img alt="Image" src="./assets/img/tabs/premium.jpg">
+										</picture>
+									</div>
+								</div>
+								<div class="coatings__body">
+									<div class="coatings__box">
+										<div class="coatings__content">
+											<h3 data-fls-title="" class="title">Цинкй</h3>
+											<p class="coatings__text">
+												Производство свай с покрытием оцинковка подразумевает
+                  нанесение цинковой краски или погружение труб в ванну с
+                  расплавленным цинком. Обеспечивает защиту от коррозии и
+                  химических элементов.
+											</p>
+										</div>
+										<picture class="coatings__image">
+											<img alt="Image" src="./assets/img/tabs/tsink.jpg">
+										</picture>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="advantages">
+					<div class="advantages__container">
+						<h2 data-fls-title="" class="title">Преимущества винтовых свай для фундамента</h2>
+						<div class="advantages__items">
+							<div class="advantages__item">
+								<div class="advantages__item-header">
+									<img class="advantages__icon" src="./assets/img/advantages/01.svg" alt="Image">
+									<h3 class="advantages__item-title">Долговечность</h3>
+								</div>
+								<p class="advantages__text">
+									Цена за штуку винтовой сваи зависит от диаметра и толщины стенки
+            трубы, типа покрытия. Финансовые затраты на возведение
+            свайно-винтового фундамента ниже, чем стоимость ленточного
+            фундамента.
+								</p>
+							</div>
+							<div class="advantages__item">
+								<div class="advantages__item-header">
+									<img class="advantages__icon" src="./assets/img/advantages/02.svg" alt="Image">
+									<h3 class="advantages__item-title">Экономичность</h3>
+								</div>
+								<p class="advantages__text">
+									Цена за штуку винтовой сваи зависит от диаметра и толщины стенки
+            трубы, типа покрытия. Финансовые затраты на возведение
+            свайно-винтового фундамента ниже, чем стоимость ленточного
+            фундамента.
+								</p>
+							</div>
+							<div class="advantages__item">
+								<div class="advantages__item-header">
+									<img class="advantages__icon" src="./assets/img/advantages/03.svg" alt="Image">
+									<h3 class="advantages__item-title">Универсальность</h3>
+								</div>
+								<p class="advantages__text">
+									Большой диапазон длины свай позволяет вести строительство на
+            участках с перепадом рельефа. Технические характеристики, технологии
+            закручивания винтов дают возможность строить на любых грунтах в
+            любой сезон.
+								</p>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="licenses">
+					<div class="licenses__container">
+						<h2 data-fls-title="" class="title">Лицензии и сертификаты</h2>
+						<div data-fls-gallery="" class="licenses__items">
+							<a class="licenses__image" href="./assets/img/licenses/01.jpg">
+								<img alt="Image" src="./assets/img/licenses/01.jpg">
+							</a>
+							<a class="licenses__image" href="./assets/img/licenses/02.jpg">
+								<img alt="Image" src="./assets/img/licenses/02.jpg">
+							</a>
+							<a class="licenses__image" href="./assets/img/licenses/01.jpg">
+								<img alt="Image" src="./assets/img/licenses/01.jpg">
+							</a>
+							<a class="licenses__image" href="./assets/img/licenses/01.jpg">
+								<img alt="Image" src="./assets/img/licenses/01.jpg">
+							</a>
+							<a class="licenses__image" href="./assets/img/licenses/01.jpg">
+								<img alt="Image" src="./assets/img/licenses/01.jpg">
+							</a>
+							<a class="licenses__image" href="./assets/img/licenses/01.jpg">
+								<img alt="Image" src="./assets/img/licenses/01.jpg">
+							</a>
+						</div>
 					</div>
 				</section>
 				<section id="questions" class="questions">
 					<div class="questions__container">
 						<div data-fls-blockheader="" class="blockheader">
-							<h2 class="blockheader__title">Популярные вопросы, на которые важно ответить</h2>
+							<h2 class="blockheader__title">Металлические сваи винтовые: что надо знать</h2>
 						</div>
 						<div class="questions__body">
 							<div data-fls-spollers="" class="spollers">
 								<details class="spollers__item">
-									<summary class="spollers__title">что-то сломается?</summary>
+									<summary class="spollers__title">На каких грунтах возводят свайно-винтовые фундаменты</summary>
 									<div class="spollers__body">
 										<p>
-											Мы даем гарантию по договору. Если используем свои материалы — гарантия 3 года. Если ваши — 1 год. В случае проблемы устраняем за свой счет.
+											Фундаменты из винтовых свай возводят на всех типах грунтов:
+              песчаных, глиняных, болотистых, супесчаных, мёрзлых. Тип и состав
+              грунта не влияет на техническую характеристику свай и срок
+              эксплуатации.
 										</p>
 									</div>
 								</details>
 								<details class="spollers__item">
-									<summary class="spollers__title">На какие работы распространяется гарантия?</summary>
-									<div class="spollers__body">
-										На все, что делали мы. Без исключений.
-										<p></p>
-									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">Что делать, если после ремонта что-то сломается?</summary>
+									<summary class="spollers__title">На каких грунтах возводят свайно-винтовые фундаменты</summary>
 									<div class="spollers__body">
 										<p>
-											Мы даем гарантию по договору. Если используем свои материалы — гарантия 3 года. Если ваши — 1 год. В случае проблемы устраняем за свой счет.
+											Фундаменты из винтовых свай возводят на всех типах грунтов:
+              песчаных, глиняных, болотистых, супесчаных, мёрзлых. Тип и состав
+              грунта не влияет на техническую характеристику свай и срок
+              эксплуатации.
 										</p>
 									</div>
 								</details>
 								<details class="spollers__item">
-									<summary class="spollers__title">На какие работы распространяется гарантия?</summary>
-									<div class="spollers__body">
-										На все, что делали мы. Без исключений.
-										<p></p>
-									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">Что делать, если после ремонта что-то сломается?</summary>
+									<summary class="spollers__title">На каких грунтах возводят свайно-винтовые фундаменты</summary>
 									<div class="spollers__body">
 										<p>
-											Мы даем гарантию по договору. Если используем свои материалы — гарантия 3 года. Если ваши — 1 год. В случае проблемы устраняем за свой счет.
+											Фундаменты из винтовых свай возводят на всех типах грунтов:
+              песчаных, глиняных, болотистых, супесчаных, мёрзлых. Тип и состав
+              грунта не влияет на техническую характеристику свай и срок
+              эксплуатации.
 										</p>
 									</div>
 								</details>
 								<details class="spollers__item">
-									<summary class="spollers__title">На какие работы распространяется гарантия?</summary>
-									<div class="spollers__body">
-										На все, что делали мы. Без исключений.
-										<p></p>
-									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">Что делать, если после ремонта что-то сломается?</summary>
+									<summary class="spollers__title">На каких грунтах возводят свайно-винтовые фундаменты</summary>
 									<div class="spollers__body">
 										<p>
-											Мы даем гарантию по договору. Если используем свои материалы — гарантия 3 года. Если ваши — 1 год. В случае проблемы устраняем за свой счет.
+											Фундаменты из винтовых свай возводят на всех типах грунтов:
+              песчаных, глиняных, болотистых, супесчаных, мёрзлых. Тип и состав
+              грунта не влияет на техническую характеристику свай и срок
+              эксплуатации.
 										</p>
-									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">На какие работы распространяется гарантия?</summary>
-									<div class="spollers__body">
-										На все, что делали мы. Без исключений.
-										<p></p>
 									</div>
 								</details>
 							</div>
 						</div>
 					</div>
 				</section>
-				<section class="contacts">
-					<div class="contacts__container">
-						<div class="contacts__info">
-							<div class="contacts__info-title">
-								Наши
-								<b>контакты</b>
-							</div>
-							<div class="contacts__info-body">
-								<div class="contacts__info-address">
-									<svg viewbox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M19.9579 11.2388C19.6212 13.5056 18.6111 15.4365 17.0117 17.0317C16.0857 17.8713 15.244 18.7948 14.318 19.6343C12.9712 21.0616 11.6243 22.5728 10.2775 24C7.41545 21.0616 4.6376 18.5429 2.02809 15.7724C0.512897 14.0933 -0.0763465 11.9104 0.00783105 9.64361C0.0920086 4.77419 3.88 0.576418 8.59394 0.0726849C13.8971 -0.515004 18.4427 2.50739 19.7896 7.46077C20.1263 8.46823 19.9579 11.0709 19.9579 11.2388ZM10.025 13.2537C11.7927 13.2537 13.3079 11.8265 13.3079 10.0634C13.3079 8.30032 11.7927 6.78912 10.1091 6.78912C8.42559 6.78912 6.82621 8.30032 6.82621 9.97943C6.82621 11.7425 8.25723 13.2537 10.025 13.2537Z" fill="#31B939"></path>
-									</svg>
-									<p>г.Москва, Дубининская, д. 57, стр. 2, пом. III, офис 204.116</p>
-								</div>
-								<div class="contacts__info-work-time">
-									<svg viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M10 0C4.48578 0 0 4.48578 0 10C0 15.5142 4.48578 20 10 20C15.5142 20 20 15.5142 20 10C20 4.48578 15.5142 0 10 0ZM14.7559 15.1724C14.5934 15.3349 14.38 15.4167 14.1667 15.4167C13.9534 15.4167 13.7399 15.3349 13.5776 15.1724L9.41086 11.0059C9.25415 10.8501 9.16672 10.6383 9.16672 10.4167V5C9.16672 4.53918 9.53995 4.16672 10 4.16672C10.4601 4.16672 10.8333 4.53918 10.8333 5V10.0717L14.7559 13.9941C15.0816 14.3201 15.0816 14.8466 14.7559 15.1724Z" fill="#31B939"></path>
-									</svg>
-									<p>
-										Пн-Сб: 09:00-21:00
-										<br>
-										Вс: 09:00-15:00
-									</p>
-								</div>
-								<div class="contacts__info-phones">
-									<svg viewbox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M21.0137 15.6172C20.1387 14.7096 19.0013 14.7096 18.09 15.6172C17.4046 16.2997 16.7266 16.9749 16.0412 17.6574C15.8516 17.8462 15.6985 17.8825 15.4725 17.7735C15.0569 17.5122 14.5611 17.3234 14.1455 17.0548C12.1697 15.806 10.5 14.2159 9.01997 12.4081C8.29816 11.5005 7.65656 10.5567 7.19723 9.46035C7.12432 9.23527 7.12432 9.11911 7.31388 8.93034C8.03569 8.28416 8.6773 7.60894 9.36265 6.92646C10.3105 5.9826 10.3105 4.88627 9.36265 3.94242C8.79395 3.3761 8.26171 2.84609 7.72947 2.31608C7.16077 1.74976 6.62853 1.18345 6.05983 0.653439C5.18491 -0.217813 4.04752 -0.217813 3.13614 0.653439C2.45079 1.33592 1.77273 2.01114 1.08738 2.69362C0.438477 3.3398 0.103092 4.09489 0.0228907 4.95888C-0.0937651 6.36014 0.248911 7.71784 0.744699 9.03924C1.77273 11.7982 3.32571 14.1796 5.18491 16.4086C7.72947 19.4362 10.7625 21.8176 14.2987 23.5166C15.8954 24.2716 17.5286 24.8743 19.2711 24.9904C20.5252 25.063 21.5896 24.729 22.4573 23.7779C23.026 23.0954 23.7113 22.5291 24.3165 21.8902C25.2278 20.9464 25.2278 19.8137 24.3165 18.9062C23.2155 17.8098 22.1146 16.7135 21.0137 15.6172Z" fill="#31B939"></path>
-									</svg>
-									<div class="contacts__info-phones-item">
-										<a href="tel:+7 (968) 650-90-90">+7 (968) 650-90-90</a>
-										<a href="tel:+7 (499) 239-90-90">+7 (499) 239-90-90</a>
+				<section class="discount">
+					<div class="discount__container">
+						<img class="discount__img-bg" alt="Image" src="./assets/img/discount/form.jpg">
+						<div class="discount__body">
+							<h2 data-fls-title="" class="title">
+								<span>Скидки 15%</span>
+								на фундамент
+							</h2>
+							<p class="discount__text">Забронируйте на свой номер выгоду. Используйте для любой услуги!</p>
+							<form data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail\sendmail.php" class="discount__form">
+								<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="discount__input input">
+								<input data-fls-input="" data-fls-input-mask="+375(99)-999-99-99" data-fls-form-errtext="Заполните поле" autocomplete="off" type="text" name="phone" placeholder="+375(__)-___-__-__" class="discount__input input">
+								<div class="estimate-form__footer">
+									<button type="submit" class="estimate-form__submit" id="submitBtn" disabled>Рассчитать стоимость</button>
+									<div class="estimate-form__consent">
+										<label class="consent-label">
+											<input type="checkbox" class="consent-label__checkbox" id="consentCheckbox" checked>
+											<span class="consent-label__text">
+												Нажимая кнопку «Рассчитать стоимость», я принимаю условия
+												<a href="/politika-konfidentsialnosti/" class="consent-label__link">Политики конфиденциальности</a>
+												и даю
+												<a href="#" class="consent-label__link">Согласие на обработку персональных данных</a>
+												.
+											</span>
+										</label>
 									</div>
 								</div>
-								<div class="contacts__info-email">
-									<svg viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M19.8239 3.97266L13.7583 9.99918L19.8239 16.0257C19.9335 15.7965 20.0001 15.5432 20.0001 15.2726V4.72574C20.0001 4.45516 19.9335 4.20184 19.8239 3.97266Z" fill="#31B939"></path>
-										<path d="M18.2421 2.96875H1.75772C1.48714 2.96875 1.23382 3.03527 1.00464 3.14492L8.7571 10.8583C9.44257 11.5438 10.5573 11.5438 11.2427 10.8583L18.9952 3.14492C18.766 3.03527 18.5127 2.96875 18.2421 2.96875Z" fill="#31B939"></path>
-										<path d="M0.176172 3.97266C0.0665234 4.20184 0 4.45516 0 4.72574V15.2726C0 15.5432 0.0665234 15.7966 0.176172 16.0257L6.24176 9.99918L0.176172 3.97266Z" fill="#31B939"></path>
-										<path d="M12.9296 10.8281L12.0713 11.6864C10.9291 12.8286 9.07065 12.8286 7.92851 11.6864L7.07022 10.8281L1.00464 16.8546C1.23382 16.9643 1.48714 17.0308 1.75772 17.0308H18.2421C18.5127 17.0308 18.766 16.9643 18.9952 16.8546L12.9296 10.8281Z" fill="#31B939"></path>
-									</svg>
-									<a href="mailto:mosremmsk@mail.ru">mosremmsk@mail.ru</a>
-								</div>
-							</div>
-							<div class="contacts__info-social">
-								<p>
-									Пишите,
-									<b>мы отвечаем 24/7</b>
-								</p>
-								<div class="contacts__info-social-item">
-									<a href="#" target="_blank">
-										<img alt="viber" src="./assets/img/icon-social/viber.png">
-									</a>
-									<a href="#" target="_blank">
-										<img alt="vk" src="./assets/img/icon-social/vk.png">
-									</a>
-								</div>
-							</div>
-							<div class="contacts__info-social">
-								<p>Мы в соц. сетях</p>
-								<div class="contacts__info-social-item">
-									<a href="#" target="_blank">
-										<img alt="instagram" src="./assets/img/icon-social/instagram.png">
-									</a>
-									<a href="#" target="_blank">
-										<img alt="telegram" src="./assets/img/icon-social/telegram.png">
-									</a>
-								</div>
-							</div>
-						</div>
-						<div class="contacts__map map-contacts">
-							<div class="map-contacts__header">
-								<h3 class="map-contacts__title">Наш адрес</h3>
-								<a class="map-contacts__link" href="#">Схема проезда</a>
-							</div>
-							<div class="map-contacts__map">
-								<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Ae341eea60766637d6229388975a5fbd8469a3bccecc82f0fb13ec4f3b2cc10a8&amp;source=constructor" width="100%" height="400" frameborder="0"></iframe>
-							</div>
+							</form>
 						</div>
 					</div>
 				</section>
-				<section class="block-text">
-					<div class="block-text__container">
-						<h2 class="block-text__title">Ремонт квартир в Москве: качественные услуги по доступной цене</h2>
-						<div data-fls-showmore="" class="block-text__body">
-							<div data-fls-showmore-content="" class="block-text__content">
-								<h2>Качественный ремонт квартир: надежность, комфорт, доступность</h2>
-								<p>
-									Ремонт под ключ квартир – это не только обновление интерьера, но и
-            повышение уровня комфорта, улучшение технических характеристик
-            помещения и увеличение его стоимости. Особенно в Москве, где рынок
-            недвижимости постоянно растет, профессиональный ремонт помогает
-            создать современные и функциональные условия для проживания.
-								</p>
-								<h2>Почему важно доверять ремонт квартир профессионалам?</h2>
-								<p>
-									От качества ремонта зависит не только внешний вид квартир, но и ее
-            долговечность, энергоэффективность, безопасность. Современные
-            технологии и строительные материалы позволяют создавать стильные и
-            практичные интерьеры, но без профессионального подхода результат
-            может оказаться далёким от ожидаемого. Работая с опытными мастерами,
-            можно избежать типичных ошибок и получить качественное жилье без
-            переплат и переделок.
-								</p>
-								<h2>Виды ремонта квартир: от косметики до капитального обновления</h2>
-								<h3>Косметический ремонт квартир</h3>
-								<p>
-									Идеальное решение для квартир, где не требуется значительных
-            изменений. Подходит для освежения интерьера, улучшения внешнего вида
-            без серьезного вмешательства в конструкции и инженерные системы.
-								</p>
-								<p>Включает:</p>
-								<ul>
-									<li>Покраску стен и потолков;</li>
-									<li>Оклейку обоями;</li>
-									<li>Замену напольного покрытия;</li>
-									<li>Обновление дверных проемов и плинтусов;</li>
-									<li>Установку розеток, выключателей.</li>
-								</ul>
-								<h3>Капитальный ремонт квартир</h3>
-								<p>
-									Этот вид ремонта предполагает полное обновление квартир, включая
-            замену инженерных коммуникаций и материалов отделки.
-								</p>
-								<p>Включает:</p>
-								<ul>
-									<li>Демонтаж старых покрытий;</li>
-									<li>Выравнивание стен, пола, потолка;</li>
-									<li>Полную замену электропроводки и сантехники;</li>
-									<li>Монтаж новых дверей, окон, перегородок;</li>
-									<li>Улучшение звуко- и теплоизоляции.</li>
-								</ul>
-								<h3>Евроремонт квартир</h3>
-								<p>
-									Более сложный вид ремонта с использованием современных технологий и
-            премиальных материалов.
-								</p>
-								<p>Включает:</p>
-								<ul>
-									<li>Установку многоуровневых потолков;</li>
-									<li>Зонирование пространства освещением и перегородками;</li>
-									<li>Использование эксклюзивных отделочных материалов;</li>
-									<li>Монтаж систем «умный дом»;</li>
-									<li>Встроенную мебель и элементы декора.</li>
-								</ul>
-								<h3>Дизайнерский ремонт квартир</h3>
-								<p>
-									Создание уникального интерьера по индивидуальному проекту с
-            применением нестандартных решений.
-								</p>
-								<p>Включает:</p>
-								<ul>
-									<li>Разработку эксклюзивного дизайн-проекта;</li>
-									<li>Подбор материалов, мебели и освещения;</li>
-									<li>Уникальные архитектурные решения;</li>
-									<li>Контроль выполнения работ дизайнером.</li>
-								</ul>
-								<h2>Основные этапы ремонта квартир</h2>
-								<h3>Подготовка</h3>
-								<ul>
-									<li>Составление проекта и сметы.</li>
-									<li>Согласование с клиентом всех деталей.</li>
-									<li>Закупка материалов.</li>
-								</ul>
-								<h3>Черновые работы</h3>
-								<ul>
-									<li>Демонтаж старых покрытий.</li>
-									<li>Выравнивание стен и пола.</li>
-									<li>Замена труб, электропроводки.</li>
-									<li>Монтаж перегородок.</li>
-									<li>Гидроизоляция помещений.</li>
-								</ul>
-								<h3>Отделка</h3>
-								<ul>
-									<li>Укладка плитки, ламината, паркета.</li>
-									<li>Покраска стен, поклейка обоев.</li>
-									<li>Монтаж натяжных или подвесных потолков.</li>
-									<li>Установка дверей, декоративных элементов.</li>
-								</ul>
-								<h3>Финальный этап</h3>
-								<ul>
-									<li>Установка розеток, освещения.</li>
-									<li>Подключение сантехники.</li>
-									<li>Генеральная уборка.</li>
-									<li>Приемка работ клиентом.</li>
-								</ul>
-								<h2>Сколько стоит ремонт квартир в Москве?</h2>
-								<p>Цена ремонта зависит от нескольких факторов:</p>
-								<ul>
-									<li>Вид ремонта (косметический, капитальный, дизайнерский);</li>
-									<li>Площадь помещения;</li>
-									<li>Используемые материалы;</li>
-									<li>Сложность работ.</li>
-								</ul>
-								<h3>Ориентировочные расценки:</h3>
-								<ul>
-									<li>
-										<strong>Эконом-ремонт</strong>
-										– доступный вариант с базовыми
-              материалами.
-									</li>
-									<li>
-										<strong>Стандарт</strong>
-										– оптимальное сочетание цены и качества.
-									</li>
-									<li>
-										<strong>Премиум</strong>
-										– дизайнерский ремонт с элитными
-              материалами.
-									</li>
-								</ul>
-								<p>
-									Для точного расчета стоимости можно заказать бесплатную консультацию
-            у наших специалистов.
-								</p>
-								<h2>Почему клиенты выбирают нас?</h2>
-								<ul>
-									<li>
-										<strong>Опытные мастера</strong>
-										– команда специалистов с большим
-              стажем работы.
-									</li>
-									<li>
-										<strong>Прозрачная смета</strong>
-										– фиксированные цены без скрытых
-              доплат.
-									</li>
-									<li>
-										<strong>Соблюдение сроков</strong>
-										– работы выполняются в
-              указанный срок.
-									</li>
-									<li>
-										<strong>Гарантия качества</strong>
-										– используем сертифицированные
-              материалы.
-									</li>
-									<li>
-										<strong>Индивидуальный подход</strong>
-										– адаптируем ремонт под
-              потребности клиента.
-									</li>
-									<li>
-										<strong>Современные технологии</strong>
-										– применяем инновационные
-              решения.
-									</li>
-									<li>
-										<strong>Официальный договор</strong>
-										– юридические гарантии
-              выполнения обязательств.
-									</li>
-								</ul>
-								<address>
-									📞
-									<strong>Свяжитесь с нами:</strong>
-									<a href="tel:+79686509090">+7 (968) 650-90-90</a>
-								</address>
-								<p>Мы поможем создать квартиру мечты!</p>
-							</div>
-							<button hidden data-fls-showmore-button="" type="button" class="block-text__more">
-								<span>Показать ещё</span>
-								<span>Скрыть</span>
-							</button>
-						</div>
-					</div>
-				</section>
-				<div data-fls-arrowup="" class="nav">
-					<a class="nav__button" href="#">
-						<svg version="1.1" id="icons_1_" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewbox="0 0 128 128" style="enable-background: new 0 0 128 128" xml:space="preserve">
-							<g id="row1_1_">
-								<g id="_x31__3_">
-									<path class="st2" d="M64 0C28.7 0 0 28.7 0 64s28.7 64 64 64 64-28.7 64-64S99.3 0 64 0zm0 121.6C32.2 121.6 6.4 95.8 6.4 64S32.2 6.4 64 6.4s57.6 25.8 57.6 57.6-25.8 57.6-57.6 57.6zM49.2 38.4 73.6 64 49.2 89.6h13.5L86.4 64 62.7 38.4H49.2z" id="_x32__2_"></path>
-								</g>
-							</g>
-						</svg>
-					</a>
-				</div>
 			</main>
 			<footer data-fls-footer="" class="footer">
 				<div class="footer__container">
-					<div class="footer__item">
-						<img class="footer__item-img" alt="Image" src="./assets/img/footer/molotok.png">
+					<div class="footer__top">
+						<div class="footer__logo-body">
+							<a class="footer__logo" href="#">
+								<img src="./assets/img/header/logo.svg" alt="Image">
+							</a>
+							<p>
+								Продажа винтовых свай в Москве и Московской области с установкой
+          свайно-винтового фундамента за 1 день.
+							</p>
+						</div>
 						<nav class="footer__nav">
-							<ul>
+							<h3 class="footer__title">Навигация</h3>
+							<ul class="footer__menu">
 								<li>
-									<a data-fls-scrollto=".steps" href="#">Процесс работы</a>
+									<a href="#">Сваи под объекты</a>
 								</li>
 								<li>
-									<a data-fls-scrollto=".services" href="#">Все услуги</a>
+									<a href="#">Виды фундаментов</a>
 								</li>
 								<li>
-									<a href="#">Сданные объекты</a>
+									<a href="#">Услуги</a>
+								</li>
+								<li>
+									<a href="#">Сваи</a>
 								</li>
 							</ul>
 						</nav>
-						<div class="footer__bottom">
-							<div class="footer__policy">Политика конфиденциальности</div>
-							<div class="footer__copyright">© Мосрем 2026. Все права защищены.</div>
+						<p class="footer__copy-text">
+							УНП 691816554. ООО «Петрович СТД» Copyright © 2012 - 2026 - Все права
+        защищены. Информация на данном интернет-сайте носит исключительно
+        ознакомительный характер и ни при каких условиях не является публичной
+        офертой.
+						</p>
+						<div class="footer__info">
+							<p class="footer__clock">Ежедневно с 09.00 до 21.00</p>
+							<a class="footer__phone" href="+375293505205">+375 (29) 350-52-05</a>
+							<!--
+<a
+class="footer__smart-link"
+href="https://t.me/pandas_web"
+target="_blank"
+><img class="logo-scg" src="@img/footer/pandasb.svg" />
+<p class="p-scg">Продвижение сайта<br />Pandas.web</p></a
+>
+-->
 						</div>
 					</div>
-					<div class="footer__item footer__item--info">
-						<a class="footer__phone" href="#">+7 (968) 650-90-90</a>
-						<a class="footer__mail" href="malito:">mosremmsk@mail.ru</a>
-						<p class="footer__text">Выполняем ремонт в Москве и Московской области</p>
-						<a data-fls-popup-link="popup" class="footer__button" href="#">Обратный звонок</a>
+					<div class="footer__bottom">
+						Все материалы сайта защищены законом Республики Беларусь от 17 мая 2011
+      года №262-З "Об авторском праве и смежных правах"
 					</div>
 				</div>
 			</footer>

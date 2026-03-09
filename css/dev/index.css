@@ -1096,6 +1096,7 @@ button.swiper-pagination-bullet {
 }
 [data-fls-header-scroll].--header-scroll .header__top {
   padding-bottom: 0rem;
+  border-bottom: 0rem solid rgba(102, 51, 153, 0);
 }
 [data-fls-header-scroll].--header-scroll .header__main {
   display: none;

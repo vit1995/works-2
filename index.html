@@ -5,12 +5,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1773005224311"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1773005224311">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1773061611424"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1773061611424">
 	</head>
 	<body>
 		<div class="wrapper">
-			<header data-fls-header="" class="header">
+			<header data-fls-header-scroll="" data-fls-header-scroll-show="" data-fls-header="" class="header">
 				<div class="header__container">
 					<div class="header__top">
 						<div class="header__menu menu">
@@ -50,16 +50,17 @@
 										</ul>
 									</li>
 									<li class="menu__item">
-										<a href="" class="menu__link">Сваи</a>
+										<!-- data-fls-scrollto=".price" price имя класса блока (навигация по сайту) -->
+										<a data-fls-scrollto=".price" href="#" class="menu__link">Сваи</a>
 									</li>
 									<li class="menu__item">
-										<a href="" class="menu__link">Сваи под объекты</a>
+										<a data-fls-scrollto=".price" href="#" class="menu__link">Сваи под объекты</a>
 									</li>
 									<li class="menu__item">
-										<a href="" class="menu__link">Виды фундаментов</a>
+										<a data-fls-scrollto=".price" href="#" class="menu__link">Виды фундаментов</a>
 									</li>
 									<li class="menu__item">
-										<a href="" class="menu__link">Контакты</a>
+										<a data-fls-scrollto=".price" href="#" class="menu__link">Контакты</a>
 									</li>
 								</ul>
 							</nav>
@@ -114,8 +115,8 @@
           сайте
 							</p>
 							<form data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail\sendmail.php" class="popup__form">
-								<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="discount__input input">
-								<input data-fls-input="" data-fls-input-mask="+375(99)-999-99-99" data-fls-form-errtext="Заполните поле" autocomplete="off" type="text" name="phone" placeholder="+375(__)-___-__-__" class="discount__input input">
+								<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="discount__input input" required>
+								<input data-fls-input="" data-fls-input-mask="+375(99)-999-99-99" data-fls-form-errtext="Заполните поле" autocomplete="off" type="text" name="phone" placeholder="+375(__)-___-__-__" class="discount__input input" required>
 								<button disabled type="submit" class="estimate-form__submit" id="submitBtn">Отправить заявку</button>
 								<div class="estimate-form__consent">
 									<label class="consent-label">
@@ -133,6 +134,24 @@
 						</div>
 					</div>
 				</div>
+			</div>
+			<div data-fls-popup="popup-message" aria-hidden="true" class="popup">
+				<div data-fls-popup-wrapper="" class="popup__wrapper">
+					<div data-fls-popup-body="" class="popup__body">
+						<button data-fls-popup-close="" type="button" class="popup__close">
+							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
+								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
+							</svg>
+						</button>
+						<div data-fls-popup-content="" class="popup__box">
+							<h3 class="popup__title popup__title--spasibo">Спасибо, ваше сообщение отправлено!</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div data-fls-mypreloader="" id="preloader">
+				<div class="spinner"></div>
 			</div>
 			<main class="page page--home">
 				<section class="hero">
@@ -864,7 +883,7 @@
 							фундамента
 							<span>бесплатно!</span>
 						</h2>
-						<form class="estimate-form" action="sendmail\sendmail.php" method="post" enctype="multipart/form-data" novalidate data-fls-form="ajax" data-fls-form-popup="popup-message">
+						<form class="estimate-form" action="sendmail\sendmail.php" method="POST" data-fls-form="ajax" data-fls-form-popup="popup-message">
 							<!-- Скрытые служебные поля -->
 							<fieldset class="estimate-form__hidden">
 								<input type="hidden" name="form_id" value="134">
@@ -906,19 +925,19 @@
 							<!-- Размеры -->
 							<div class="estimate-form__row">
 								<div class="estimate-form__field">
-									<input class="estimate-form__input" type="text" name="dimensions" placeholder="РАЗМЕРЫ ПОСТРОЙКИ, м. (например: 8х12)">
+									<input required class="estimate-form__input input" type="text" name="dimensions" placeholder="РАЗМЕРЫ ПОСТРОЙКИ, м. (например: 8х12)">
 								</div>
 							</div>
 							<!-- Контактные данные -->
 							<div class="estimate-form__row estimate-form__row--three-cols">
 								<div class="estimate-form__field">
-									<input class="estimate-form__input" type="text" name="name" placeholder="Ваше имя">
+									<input class="estimate-form__input input" type="text" name="name" placeholder="Ваше имя" required>
 								</div>
 								<div class="estimate-form__field">
-									<input class="estimate-form__input" type="email" name="email" placeholder="Email">
+									<input class="estimate-form__input input" type="email" name="email" placeholder="Email" required>
 								</div>
 								<div class="estimate-form__field">
-									<input class="estimate-form__input" type="tel" name="phone" data-fls-input="" data-fls-input-mask="+375(99)-999-99-99" placeholder="+375(__)-___-__-__" required>
+									<input class="estimate-form__input input" type="tel" name="phone" data-fls-input="" data-fls-input-mask="+375(99)-999-99-99" placeholder="+375(__)-___-__-__" required>
 								</div>
 							</div>
 							<!-- Загрузка файлов -->
@@ -1191,8 +1210,8 @@
 							</h2>
 							<p class="discount__text">Забронируйте на свой номер выгоду. Используйте для любой услуги!</p>
 							<form data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail\sendmail.php" class="discount__form">
-								<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="discount__input input">
-								<input data-fls-input="" data-fls-input-mask="+375(99)-999-99-99" data-fls-form-errtext="Заполните поле" autocomplete="off" type="text" name="phone" placeholder="+375(__)-___-__-__" class="discount__input input">
+								<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="discount__input input" required>
+								<input data-fls-input="" data-fls-input-mask="+375(99)-999-99-99" data-fls-form-errtext="Заполните поле" autocomplete="off" type="text" name="phone" placeholder="+375(__)-___-__-__" class="discount__input input" required>
 								<div class="estimate-form__footer">
 									<button type="submit" class="estimate-form__submit" id="submitBtn" disabled>Рассчитать стоимость</button>
 									<div class="estimate-form__consent">
@@ -1212,6 +1231,48 @@
 						</div>
 					</div>
 				</section>
+				<div class="btn-wrapper">
+					<div class="btn-wrapper__viber">
+						<button class="btn-wrapper__viber-button">+</button>
+						<button class="btn-wrapper__viber-close">+</button>
+						<ul class="btn-wrapper__list">
+							<li class="btn-wrapper__item">
+								<a class="btn-wrapper__link" href="#">
+									<img alt="#" src="./assets/img/icon-social/instagram.png">
+								</a>
+							</li>
+							<li class="btn-wrapper__item">
+								<a class="btn-wrapper__link" href="#">
+									<img alt="#" src="./assets/img/icon-social/viber.png">
+								</a>
+							</li>
+							<li class="btn-wrapper__item">
+								<a class="btn-wrapper__link" href="#">
+									<img alt="#" src="./assets/img/icon-social/w.png">
+								</a>
+							</li>
+						</ul>
+					</div>
+					<!--
+<div class="btn-wrapper__chat">
+<a data-popup="#popup-opros" href="#" class="btn-wrapper__chat-button">
+<svg role="presentation" class="t708__icon" width="28px" xmlns="http://www.w3.org/2000/svg"
+viewBox="0 0 18.6 17.5">
+<path
+d="M3.7 17.5v-4.8H2c-1.1 0-2-.9-2-2V2C0 .9.9 0 2 0h14.6c1.1 0 2 .9 2 2v8.8c0 1.1-.9 2-2 2H9l-5.3 4.7zM2 1c-.6 0-1 .4-1 1v8.8c0 .5.4 1 1 1h2.8v3.5l3.8-3.5h8c.5 0 1-.4 1-1V2c0-.5-.4-1-1-1H2z">
+</path>
+</svg>
+</a>
+<button class="btn-wrapper__chat-close"><svg role="presentation" xmlns="http://www.w3.org/2000/svg"
+width="16" height="16" class="t898__icon t898__icon-close" viewBox="0 0 23 23">
+<g fillrule="evenodd">
+<path d="M10.314 -3.686H12.314V26.314H10.314z" transform="rotate(-45 11.314 11.314)"></path>
+<path d="M10.314 -3.686H12.314V26.314H10.314z" transform="rotate(45 11.314 11.314)"></path>
+</g>
+</svg></button>
+</div>
+-->
+				</div>
 			</main>
 			<footer data-fls-footer="" class="footer">
 				<div class="footer__container">
@@ -1229,16 +1290,16 @@
 							<h3 class="footer__title">Навигация</h3>
 							<ul class="footer__menu">
 								<li>
-									<a href="#">Сваи под объекты</a>
+									<a data-fls-scrollto=".price" href="#">Сваи под объекты</a>
 								</li>
 								<li>
-									<a href="#">Виды фундаментов</a>
+									<a data-fls-scrollto=".price" href="#">Виды фундаментов</a>
 								</li>
 								<li>
-									<a href="#">Услуги</a>
+									<a data-fls-scrollto=".price" href="#">Услуги</a>
 								</li>
 								<li>
-									<a href="#">Сваи</a>
+									<a data-fls-scrollto=".price" href="#">Сваи</a>
 								</li>
 							</ul>
 						</nav>

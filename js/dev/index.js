@@ -5146,6 +5146,38 @@ function menuInit() {
   });
 }
 document.querySelector("[data-fls-menu]") ? window.addEventListener("load", menuInit) : null;
+function headerScroll() {
+  const header = document.querySelector("[data-fls-header-scroll]");
+  const headerShow = header.hasAttribute("data-fls-header-scroll-show");
+  const headerShowTimer = header.dataset.flsHeaderScrollShow ? header.dataset.flsHeaderScrollShow : 500;
+  const startPoint = header.dataset.flsHeaderScroll ? header.dataset.flsHeaderScroll : 1;
+  let scrollDirection = 0;
+  let timer;
+  document.addEventListener("scroll", function(e) {
+    const scrollTop = window.scrollY;
+    clearTimeout(timer);
+    if (scrollTop >= startPoint) {
+      !header.classList.contains("--header-scroll") ? header.classList.add("--header-scroll") : null;
+      if (headerShow) {
+        if (scrollTop > scrollDirection) {
+          header.classList.contains("--header-show") ? header.classList.remove("--header-show") : null;
+        } else {
+          !header.classList.contains("--header-show") ? header.classList.add("--header-show") : null;
+        }
+        timer = setTimeout(() => {
+          !header.classList.contains("--header-show") ? header.classList.add("--header-show") : null;
+        }, headerShowTimer);
+      }
+    } else {
+      header.classList.contains("--header-scroll") ? header.classList.remove("--header-scroll") : null;
+      if (headerShow) {
+        header.classList.contains("--header-show") ? header.classList.remove("--header-show") : null;
+      }
+    }
+    scrollDirection = scrollTop <= 0 ? 0 : scrollTop;
+  });
+}
+document.querySelector("[data-fls-header-scroll]") ? window.addEventListener("load", headerScroll) : null;
 /*!
  * lightgallery | 2.9.0-beta.1 | June 15th 2025
  * http://www.lightgalleryjs.com/
@@ -10915,6 +10947,37 @@ function pageNavigation() {
 }
 document.querySelector("[data-fls-scrollto]") ? window.addEventListener("load", pageNavigation) : null;
 document.addEventListener("DOMContentLoaded", function() {
+  window.addEventListener("load", handlePageLoad);
+  let fallbackTimer = setTimeout(() => {
+    handlePageLoad(true);
+  }, 3e3);
+  window.addEventListener("load", () => {
+    clearTimeout(fallbackTimer);
+  });
+});
+function handlePageLoad(isFallback = false) {
+  const preloader = document.getElementById("preloader");
+  const content = document.getElementById("content");
+  if (isFallback) {
+    console.log("Fallback: показываем контент по таймауту");
+  }
+  if (content) {
+    content.style.display = "block";
+    content.style.opacity = "1";
+  } else {
+    document.body.style.opacity = "1";
+    document.body.style.visibility = "visible";
+  }
+  if (preloader) {
+    preloader.classList.add("preloader-hidden");
+    setTimeout(() => {
+      if (preloader.parentNode) {
+        preloader.remove();
+      }
+    }, 500);
+  }
+}
+document.addEventListener("DOMContentLoaded", function() {
   const allForms = document.querySelectorAll("form");
   allForms.forEach((form) => {
     const submitBtn = form.querySelector(".estimate-form__submit");
@@ -11027,5 +11090,26 @@ document.addEventListener("DOMContentLoaded", function() {
         e.returnValue = "";
       }
     });
+  }
+});
+document.addEventListener("click", function(e) {
+  const viberButton = document.querySelector(".btn-wrapper__viber-button");
+  const btnList = document.querySelector(".btn-wrapper__list");
+  const viberClose = document.querySelector(".btn-wrapper__viber-close");
+  const target = e.target;
+  if (viberButton && btnList && viberClose) {
+    if (target.closest(".btn-wrapper__viber-button")) {
+      btnList.classList.add("social-active");
+      viberButton.classList.add("social-block");
+      viberButton.classList.remove("social-block-active");
+      viberClose.classList.add("social-block-active");
+      viberClose.classList.remove("social-block");
+    } else if (target.closest(".btn-wrapper__viber-close")) {
+      btnList.classList.remove("social-active");
+      viberClose.classList.add("social-block");
+      viberClose.classList.remove("social-block-active");
+      viberButton.classList.add("social-block-active");
+      viberButton.classList.remove("social-block");
+    }
   }
 });

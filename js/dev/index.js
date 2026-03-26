@@ -27,15 +27,6 @@
     fetch(link.href, fetchOpts);
   }
 })();
-function getHash() {
-  if (location.hash) {
-    return location.hash.replace("#", "");
-  }
-}
-function setHash(hash) {
-  hash = hash ? `#${hash}` : window.location.href.split("#")[0];
-  history.pushState("", "", hash);
-}
 let slideUp = (target, duration = 500, showmore = 0) => {
   if (!target.classList.contains("--slide")) {
     target.classList.add("--slide");
@@ -148,6 +139,12 @@ let bodyLock = (delay = 500) => {
     }, delay);
   }
 };
+function getDigFormat(item, sepp = " ") {
+  return item.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, `$1${sepp}`);
+}
+function uniqArray(array) {
+  return array.filter((item, index, self2) => self2.indexOf(item) === index);
+}
 function dataMediaQueries(array, dataSetValue) {
   const media = Array.from(array).filter((item) => item.dataset[dataSetValue]).map((item) => {
     const [value, type = "max"] = item.dataset[dataSetValue].split(",");
@@ -196,122 +193,673 @@ const gotoBlock = (targetBlock, noHeader = false, speed = 500, offsetTop = 0) =>
     });
   }
 };
-function tabs() {
-  const tabs2 = document.querySelectorAll("[data-fls-tabs]");
-  let tabsActiveHash = [];
-  if (tabs2.length > 0) {
-    const hash = getHash();
-    if (hash && hash.startsWith("tab-")) {
-      tabsActiveHash = hash.replace("tab-", "").split("-");
+let formValidate = {
+  getErrors(form) {
+    let error = 0;
+    let formRequiredItems = form.querySelectorAll("[required]");
+    if (formRequiredItems.length) {
+      formRequiredItems.forEach((formRequiredItem) => {
+        if ((formRequiredItem.offsetParent !== null || formRequiredItem.tagName === "SELECT") && !formRequiredItem.disabled) {
+          error += this.validateInput(formRequiredItem);
+        }
+      });
     }
-    tabs2.forEach((tabsBlock, index) => {
-      tabsBlock.classList.add("--tab-init");
-      tabsBlock.setAttribute("data-fls-tabs-index", index);
-      tabsBlock.addEventListener("click", setTabsAction);
-      initTabs(tabsBlock);
-    });
-    let mdQueriesArray = dataMediaQueries(tabs2, "flsTabs");
-    if (mdQueriesArray && mdQueriesArray.length) {
-      mdQueriesArray.forEach((mdQueriesItem) => {
-        mdQueriesItem.matchMedia.addEventListener("change", function() {
-          setTitlePosition(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
+    return error;
+  },
+  validateInput(formRequiredItem) {
+    let error = 0;
+    if (formRequiredItem.type === "email") {
+      formRequiredItem.value = formRequiredItem.value.replace(" ", "");
+      if (this.emailTest(formRequiredItem)) {
+        this.addError(formRequiredItem);
+        this.removeSuccess(formRequiredItem);
+        error++;
+      } else {
+        this.removeError(formRequiredItem);
+        this.addSuccess(formRequiredItem);
+      }
+    } else if (formRequiredItem.type === "checkbox" && !formRequiredItem.checked) {
+      this.addError(formRequiredItem);
+      this.removeSuccess(formRequiredItem);
+      error++;
+    } else {
+      if (!formRequiredItem.value.trim()) {
+        this.addError(formRequiredItem);
+        this.removeSuccess(formRequiredItem);
+        error++;
+      } else {
+        this.removeError(formRequiredItem);
+        this.addSuccess(formRequiredItem);
+      }
+    }
+    return error;
+  },
+  addError(formRequiredItem) {
+    formRequiredItem.classList.add("--form-error");
+    formRequiredItem.parentElement.classList.add("--form-error");
+    let inputError = formRequiredItem.parentElement.querySelector("[data-fls-form-error]");
+    if (inputError) formRequiredItem.parentElement.removeChild(inputError);
+    if (formRequiredItem.dataset.flsFormErrtext) {
+      formRequiredItem.parentElement.insertAdjacentHTML("beforeend", `<div data-fls-form-error>${formRequiredItem.dataset.flsFormErrtext}</div>`);
+    }
+  },
+  removeError(formRequiredItem) {
+    formRequiredItem.classList.remove("--form-error");
+    formRequiredItem.parentElement.classList.remove("--form-error");
+    if (formRequiredItem.parentElement.querySelector("[data-fls-form-error]")) {
+      formRequiredItem.parentElement.removeChild(formRequiredItem.parentElement.querySelector("[data-fls-form-error]"));
+    }
+  },
+  addSuccess(formRequiredItem) {
+    formRequiredItem.classList.add("--form-success");
+    formRequiredItem.parentElement.classList.add("--form-success");
+  },
+  removeSuccess(formRequiredItem) {
+    formRequiredItem.classList.remove("--form-success");
+    formRequiredItem.parentElement.classList.remove("--form-success");
+  },
+  formClean(form) {
+    form.reset();
+    setTimeout(() => {
+      let inputs = form.querySelectorAll("input,textarea");
+      for (let index = 0; index < inputs.length; index++) {
+        const el = inputs[index];
+        el.parentElement.classList.remove("--form-focus");
+        el.classList.remove("--form-focus");
+        formValidate.removeError(el);
+      }
+      let checkboxes = form.querySelectorAll('input[type="checkbox"]');
+      if (checkboxes.length) {
+        checkboxes.forEach((checkbox) => {
+          checkbox.checked = false;
         });
-        setTitlePosition(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
+      }
+      if (window["flsSelect"]) {
+        let selects = form.querySelectorAll("select[data-fls-select]");
+        if (selects.length) {
+          selects.forEach((select) => {
+            window["flsSelect"].selectBuild(select);
+          });
+        }
+      }
+    }, 0);
+  },
+  emailTest(formRequiredItem) {
+    return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
+  }
+};
+class SelectConstructor {
+  constructor(props, data = null) {
+    let defaultConfig = {
+      init: true,
+      speed: 150
+    };
+    this.config = Object.assign(defaultConfig, props);
+    this.selectClasses = {
+      classSelect: "select",
+      // Основной блок
+      classSelectBody: "select__body",
+      // Тело селекта
+      classSelectTitle: "select__title",
+      // Заголовок
+      classSelectValue: "select__value",
+      // Значения у заголовка
+      classSelectLabel: "select__label",
+      // Лабел
+      classSelectInput: "select__input",
+      // Поле ввода
+      classSelectText: "select__text",
+      // Оболочка текстовых данных
+      classSelectLink: "select__link",
+      // Ссылка в элементе
+      classSelectOptions: "select__options",
+      // Выпадающий список
+      classSelectOptionsScroll: "select__scroll",
+      // Оболочка при скролле
+      classSelectOption: "select__option",
+      // Пункт
+      classSelectContent: "select__content",
+      // Оболочка контента в заголовке
+      classSelectRow: "select__row",
+      // Ряд
+      classSelectData: "select__asset",
+      // Дополнительные данные
+      classSelectDisabled: "--select-disabled",
+      // Запрещено
+      classSelectTag: "--select-tag",
+      // Класс тега
+      classSelectOpen: "--select-open",
+      // Список открыт
+      classSelectActive: "--select-active",
+      // Список выбран
+      classSelectFocus: "--select-focus",
+      // Список в фокусе
+      classSelectMultiple: "--select-multiple",
+      // Мультивыбор
+      classSelectCheckBox: "--select-checkbox",
+      // Стиль чекбокса
+      classSelectOptionSelected: "--select-selected",
+      // Вибраный пункт
+      classSelectPseudoLabel: "--select-pseudo-label"
+      // Псевдолейбл
+    };
+    this._this = this;
+    if (this.config.init) {
+      const selectItems = data ? document.querySelectorAll(data) : document.querySelectorAll("select[data-fls-select]");
+      if (selectItems.length) {
+        this.selectsInit(selectItems);
+      }
+    }
+  }
+  // Конструктор CSS класcа
+  getSelectClass(className) {
+    return `.${className}`;
+  }
+  // Геттер элементов псевдоселекта
+  getSelectElement(selectItem, className) {
+    return {
+      originalSelect: selectItem.querySelector("select"),
+      selectElement: selectItem.querySelector(this.getSelectClass(className))
+    };
+  }
+  // Функция инициализации всех селектов
+  selectsInit(selectItems) {
+    selectItems.forEach((originalSelect, index) => {
+      this.selectInit(originalSelect, index + 1);
+    });
+    document.addEventListener("click", (function(e) {
+      this.selectsActions(e);
+    }).bind(this));
+    document.addEventListener("keydown", (function(e) {
+      this.selectsActions(e);
+    }).bind(this));
+    document.addEventListener("focusin", (function(e) {
+      this.selectsActions(e);
+    }).bind(this));
+    document.addEventListener("focusout", (function(e) {
+      this.selectsActions(e);
+    }).bind(this));
+  }
+  // Функция инициализации конкретного селекта
+  selectInit(originalSelect, index) {
+    index ? originalSelect.dataset.flsSelectId = index : null;
+    if (originalSelect.options.length) {
+      const _this = this;
+      let selectItem = document.createElement("div");
+      selectItem.classList.add(this.selectClasses.classSelect);
+      originalSelect.parentNode.insertBefore(selectItem, originalSelect);
+      selectItem.appendChild(originalSelect);
+      originalSelect.hidden = true;
+      if (this.getSelectPlaceholder(originalSelect)) {
+        originalSelect.dataset.placeholder = this.getSelectPlaceholder(originalSelect).value;
+        if (this.getSelectPlaceholder(originalSelect).label.show) {
+          const selectItemTitle = this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement;
+          selectItemTitle.insertAdjacentHTML("afterbegin", `<span class="${this.selectClasses.classSelectLabel}">${this.getSelectPlaceholder(originalSelect).label.text ? this.getSelectPlaceholder(originalSelect).label.text : this.getSelectPlaceholder(originalSelect).value}</span>`);
+        }
+      }
+      selectItem.insertAdjacentHTML("beforeend", `<div class="${this.selectClasses.classSelectBody}"><div hidden class="${this.selectClasses.classSelectOptions}"></div></div>`);
+      this.selectBuild(originalSelect);
+      originalSelect.dataset.flsSelectSpeed = originalSelect.dataset.flsSelectSpeed ? originalSelect.dataset.flsSelectSpeed : this.config.speed;
+      this.config.speed = +originalSelect.dataset.flsSelectSpeed;
+      originalSelect.addEventListener("change", function(e) {
+        _this.selectChange(e);
       });
     }
   }
-  function setTitlePosition(tabsMediaArray, matchMedia) {
-    tabsMediaArray.forEach((tabsMediaItem) => {
-      tabsMediaItem = tabsMediaItem.item;
-      let tabsTitles = tabsMediaItem.querySelector("[data-fls-tabs-titles]");
-      let tabsTitleItems = tabsMediaItem.querySelectorAll("[data-fls-tabs-title]");
-      let tabsContent = tabsMediaItem.querySelector("[data-fls-tabs-body]");
-      let tabsContentItems = tabsMediaItem.querySelectorAll("[data-fls-tabs-item]");
-      tabsTitleItems = Array.from(tabsTitleItems).filter((item) => item.closest("[data-fls-tabs]") === tabsMediaItem);
-      tabsContentItems = Array.from(tabsContentItems).filter((item) => item.closest("[data-fls-tabs]") === tabsMediaItem);
-      tabsContentItems.forEach((tabsContentItem, index) => {
-        if (matchMedia.matches) {
-          tabsContent.append(tabsTitleItems[index]);
-          tabsContent.append(tabsContentItem);
-          tabsMediaItem.classList.add("--tab-spoller");
-        } else {
-          tabsTitles.append(tabsTitleItems[index]);
-          tabsMediaItem.classList.remove("--tab-spoller");
-        }
+  // Конструктор псевдоселекта
+  selectBuild(originalSelect) {
+    const selectItem = originalSelect.parentElement;
+    if (originalSelect.id) {
+      selectItem.id = originalSelect.id;
+      originalSelect.removeAttribute("id");
+    }
+    selectItem.dataset.flsSelectId = originalSelect.dataset.flsSelectId;
+    originalSelect.dataset.flsSelectModif ? selectItem.classList.add(`select--${originalSelect.dataset.flsSelectModif}`) : null;
+    originalSelect.multiple ? selectItem.classList.add(this.selectClasses.classSelectMultiple) : selectItem.classList.remove(this.selectClasses.classSelectMultiple);
+    originalSelect.hasAttribute("data-fls-select-checkbox") && originalSelect.multiple ? selectItem.classList.add(this.selectClasses.classSelectCheckBox) : selectItem.classList.remove(this.selectClasses.classSelectCheckBox);
+    this.setSelectTitleValue(selectItem, originalSelect);
+    this.setOptions(selectItem, originalSelect);
+    originalSelect.hasAttribute("data-fls-select-search") ? this.searchActions(selectItem) : null;
+    originalSelect.hasAttribute("data-fls-select-open") ? this.selectAction(selectItem) : null;
+    this.selectDisabled(selectItem, originalSelect);
+  }
+  // Функция реакций на события
+  selectsActions(e) {
+    const t = e.target, type = e.type;
+    const isSelect = t.closest(this.getSelectClass(this.selectClasses.classSelect));
+    const isTag = t.closest(this.getSelectClass(this.selectClasses.classSelectTag));
+    if (!isSelect && !isTag) return this.selectsСlose();
+    const selectItem = isSelect || document.querySelector(`.${this.selectClasses.classSelect}[data-fls-select-id="${isTag.dataset.flsSelectId}"]`);
+    const originalSelect = this.getSelectElement(selectItem).originalSelect;
+    if (originalSelect.disabled) return;
+    if (type === "click") {
+      const tag = t.closest(this.getSelectClass(this.selectClasses.classSelectTag));
+      const title = t.closest(this.getSelectClass(this.selectClasses.classSelectTitle));
+      const option = t.closest(this.getSelectClass(this.selectClasses.classSelectOption));
+      if (tag) {
+        const optionItem = document.querySelector(`.${this.selectClasses.classSelect}[data-fls-select-id="${tag.dataset.flsSelectId}"] .select__option[data-fls-select-value="${tag.dataset.flsSelectValue}"]`);
+        this.optionAction(selectItem, originalSelect, optionItem);
+      } else if (title) {
+        this.selectAction(selectItem);
+      } else if (option) {
+        this.optionAction(selectItem, originalSelect, option);
+      }
+    } else if (type === "focusin" || type === "focusout") {
+      if (isSelect) selectItem.classList.toggle(this.selectClasses.classSelectFocus, type === "focusin");
+    } else if (type === "keydown" && e.code === "Escape") {
+      this.selectsСlose();
+    }
+  }
+  // Функция закрытия всех селектов
+  selectsСlose(selectOneGroup) {
+    const selectsGroup = selectOneGroup ? selectOneGroup : document;
+    const selectActiveItems = selectsGroup.querySelectorAll(`${this.getSelectClass(this.selectClasses.classSelect)}${this.getSelectClass(this.selectClasses.classSelectOpen)}`);
+    if (selectActiveItems.length) {
+      selectActiveItems.forEach((selectActiveItem) => {
+        this.selectСlose(selectActiveItem);
       });
+    }
+  }
+  // Функция закрытия конкретного селекта
+  selectСlose(selectItem) {
+    const originalSelect = this.getSelectElement(selectItem).originalSelect;
+    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
+    if (!selectOptions.classList.contains("_slide")) {
+      selectItem.classList.remove(this.selectClasses.classSelectOpen);
+      slideUp(selectOptions, originalSelect.dataset.flsSelectSpeed);
+      setTimeout(() => {
+        selectItem.style.zIndex = "";
+      }, originalSelect.dataset.flsSelectSpeed);
+    }
+  }
+  // Функция открытия / закрытия конкретного селекта
+  selectAction(selectItem) {
+    const originalSelect = this.getSelectElement(selectItem).originalSelect;
+    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
+    selectOptions.querySelectorAll(`.${this.selectClasses.classSelectOption}`);
+    const selectOpenzIndex = originalSelect.dataset.flsSelectZIndex ? originalSelect.dataset.flsSelectZIndex : 3;
+    this.setOptionsPosition(selectItem);
+    if (originalSelect.closest("[data-fls-select-one]")) {
+      const selectOneGroup = originalSelect.closest("[data-fls-select-one]");
+      this.selectsСlose(selectOneGroup);
+    }
+    setTimeout(() => {
+      if (!selectOptions.classList.contains("--slide")) {
+        selectItem.classList.toggle(this.selectClasses.classSelectOpen);
+        slideToggle(selectOptions, originalSelect.dataset.flsSelectSpeed);
+        if (selectItem.classList.contains(this.selectClasses.classSelectOpen)) {
+          selectItem.style.zIndex = selectOpenzIndex;
+        } else {
+          setTimeout(() => {
+            selectItem.style.zIndex = "";
+          }, originalSelect.dataset.flsSelectSpeed);
+        }
+      }
+    }, 0);
+  }
+  // Сеттер значение заголовка селекта
+  setSelectTitleValue(selectItem, originalSelect) {
+    const selectItemBody = this.getSelectElement(selectItem, this.selectClasses.classSelectBody).selectElement;
+    const selectItemTitle = this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement;
+    if (selectItemTitle) selectItemTitle.remove();
+    selectItemBody.insertAdjacentHTML("afterbegin", this.getSelectTitleValue(selectItem, originalSelect));
+    originalSelect.hasAttribute("data-fls-select-search") ? this.searchActions(selectItem) : null;
+  }
+  // Конструктор значения заголовка
+  getSelectTitleValue(selectItem, originalSelect) {
+    let selectTitleValue = this.getSelectedOptionsData(originalSelect, 2).html;
+    if (originalSelect.multiple && originalSelect.hasAttribute("data-fls-select-tags")) {
+      selectTitleValue = this.getSelectedOptionsData(originalSelect).elements.map((option) => `<span role="button" data-fls-select-id="${selectItem.dataset.flsSelectId}" data-fls-select-value="${option.value}" class="--select-tag">${this.getSelectElementContent(option)}</span>`).join("");
+      if (originalSelect.dataset.flsSelectTags && document.querySelector(originalSelect.dataset.flsSelectTags)) {
+        document.querySelector(originalSelect.dataset.flsSelectTags).innerHTML = selectTitleValue;
+        if (originalSelect.hasAttribute("data-fls-select-search")) selectTitleValue = false;
+      }
+    }
+    selectTitleValue = selectTitleValue.length ? selectTitleValue : originalSelect.dataset.flsSelectPlaceholder || "";
+    if (!originalSelect.hasAttribute("data-fls-select-tags")) {
+      selectTitleValue = selectTitleValue ? selectTitleValue.map((item) => item.replace(/"/g, "&quot;")) : "";
+    }
+    let pseudoAttribute = "";
+    let pseudoAttributeClass = "";
+    if (originalSelect.hasAttribute("data-fls-select-pseudo-label")) {
+      pseudoAttribute = originalSelect.dataset.flsSelectPseudoLabel ? ` data-fls-select-pseudo-label="${originalSelect.dataset.flsSelectPseudoLabel}"` : ` data-fls-select-pseudo-label="Заповніть атрибут"`;
+      pseudoAttributeClass = ` ${this.selectClasses.classSelectPseudoLabel}`;
+    }
+    this.getSelectedOptionsData(originalSelect).values.length ? selectItem.classList.add(this.selectClasses.classSelectActive) : selectItem.classList.remove(this.selectClasses.classSelectActive);
+    if (originalSelect.hasAttribute("data-fls-select-search")) {
+      return `<div class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}"><input autocomplete="off" type="text" placeholder="${selectTitleValue}" data-fls-select-placeholder="${selectTitleValue}" class="${this.selectClasses.classSelectInput}"></span></div>`;
+    } else {
+      const customClass = this.getSelectedOptionsData(originalSelect).elements.length && this.getSelectedOptionsData(originalSelect).elements[0].dataset.flsSelectClass ? ` ${this.getSelectedOptionsData(originalSelect).elements[0].dataset.flsSelectClass}` : "";
+      return `<button type="button" class="${this.selectClasses.classSelectTitle}"><span${pseudoAttribute} class="${this.selectClasses.classSelectValue}${pseudoAttributeClass}"><span class="${this.selectClasses.classSelectContent}${customClass}">${selectTitleValue}</span></span></button>`;
+    }
+  }
+  // Конструктор данных для значения заголовка
+  getSelectElementContent(selectOption) {
+    const selectOptionData = selectOption.dataset.flsSelectAsset ? `${selectOption.dataset.flsSelectAsset}` : "";
+    const selectOptionDataHTML = selectOptionData.indexOf("img") >= 0 ? `<img src="${selectOptionData}" alt="">` : selectOptionData;
+    let selectOptionContentHTML = ``;
+    selectOptionContentHTML += selectOptionData ? `<span class="${this.selectClasses.classSelectRow}">` : "";
+    selectOptionContentHTML += selectOptionData ? `<span class="${this.selectClasses.classSelectData}">` : "";
+    selectOptionContentHTML += selectOptionData ? selectOptionDataHTML : "";
+    selectOptionContentHTML += selectOptionData ? `</span>` : "";
+    selectOptionContentHTML += selectOptionData ? `<span class="${this.selectClasses.classSelectText}">` : "";
+    selectOptionContentHTML += selectOption.textContent;
+    selectOptionContentHTML += selectOptionData ? `</span>` : "";
+    selectOptionContentHTML += selectOptionData ? `</span>` : "";
+    return selectOptionContentHTML;
+  }
+  // Получение данных плейсхолдера
+  getSelectPlaceholder(originalSelect) {
+    const selectPlaceholder = Array.from(originalSelect.options).find((option) => !option.value);
+    if (selectPlaceholder) {
+      return {
+        value: selectPlaceholder.textContent,
+        show: selectPlaceholder.hasAttribute("data-fls-select-show"),
+        label: {
+          show: selectPlaceholder.hasAttribute("data-fls-select-label"),
+          text: selectPlaceholder.dataset.flsSelectLabel
+        }
+      };
+    }
+  }
+  // Получение данных из выбранных элементов
+  getSelectedOptionsData(originalSelect, type) {
+    let selectedOptions = [];
+    if (originalSelect.multiple) {
+      selectedOptions = Array.from(originalSelect.options).filter((option) => option.value).filter((option) => option.selected);
+    } else {
+      selectedOptions.push(originalSelect.options[originalSelect.selectedIndex]);
+    }
+    return {
+      elements: selectedOptions.map((option) => option),
+      values: selectedOptions.filter((option) => option.value).map((option) => option.value),
+      html: selectedOptions.map((option) => this.getSelectElementContent(option))
+    };
+  }
+  // Конструктор элементов списка
+  getOptions(originalSelect) {
+    const selectOptionsScroll = originalSelect.hasAttribute("data-fls-select-scroll") ? `` : "";
+    +originalSelect.dataset.flsSelectScroll ? +originalSelect.dataset.flsSelectScroll : null;
+    let selectOptions = Array.from(originalSelect.options);
+    if (selectOptions.length > 0) {
+      let selectOptionsHTML = ``;
+      if (this.getSelectPlaceholder(originalSelect) && !this.getSelectPlaceholder(originalSelect).show || originalSelect.multiple) {
+        selectOptions = selectOptions.filter((option) => option.value);
+      }
+      selectOptionsHTML += `<div ${selectOptionsScroll} ${""} class="${this.selectClasses.classSelectOptionsScroll}">`;
+      selectOptions.forEach((selectOption) => {
+        selectOptionsHTML += this.getOption(selectOption, originalSelect);
+      });
+      selectOptionsHTML += `</div>`;
+      return selectOptionsHTML;
+    }
+  }
+  // Конструктор конкретного элемента списка
+  getOption(selectOption, originalSelect) {
+    const selectOptionSelected = selectOption.selected && originalSelect.multiple ? ` ${this.selectClasses.classSelectOptionSelected}` : "";
+    const selectOptionHide = selectOption.selected && !originalSelect.hasAttribute("data-fls-select-show-selected") && !originalSelect.multiple ? `hidden` : ``;
+    const selectOptionClass = selectOption.dataset.flsSelectClass ? ` ${selectOption.dataset.flsSelectClass}` : "";
+    const selectOptionLink = selectOption.dataset.flsSelectHref ? selectOption.dataset.flsSelectHref : false;
+    const selectOptionLinkTarget = selectOption.hasAttribute("data-fls-select-href-blank") ? `target="_blank"` : "";
+    let selectOptionHTML = ``;
+    selectOptionHTML += selectOptionLink ? `<a ${selectOptionLinkTarget} ${selectOptionHide} href="${selectOptionLink}" data-fls-select-value="${selectOption.value}" class="${this.selectClasses.classSelectOption}${selectOptionClass}${selectOptionSelected}">` : `<button ${selectOptionHide} class="${this.selectClasses.classSelectOption}${selectOptionClass}${selectOptionSelected}" data-fls-select-value="${selectOption.value}" type="button">`;
+    selectOptionHTML += this.getSelectElementContent(selectOption);
+    selectOptionHTML += selectOptionLink ? `</a>` : `</button>`;
+    return selectOptionHTML;
+  }
+  // Сеттер элементов списка (options)
+  setOptions(selectItem, originalSelect) {
+    const selectItemOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
+    selectItemOptions.innerHTML = this.getOptions(originalSelect);
+  }
+  // Определяем, где отобразить выпадающий список
+  setOptionsPosition(selectItem) {
+    const originalSelect = this.getSelectElement(selectItem).originalSelect;
+    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
+    const selectItemScroll = this.getSelectElement(selectItem, this.selectClasses.classSelectOptionsScroll).selectElement;
+    const customMaxHeightValue = +originalSelect.dataset.flsSelectScroll ? `${+originalSelect.dataset.flsSelectScroll}px` : ``;
+    const selectOptionsPosMargin = +originalSelect.dataset.flsSelectOptionsMargin ? +originalSelect.dataset.flsSelectOptionsMargin : 10;
+    if (!selectItem.classList.contains(this.selectClasses.classSelectOpen)) {
+      selectOptions.hidden = false;
+      const selectItemScrollHeight = selectItemScroll.offsetHeight ? selectItemScroll.offsetHeight : parseInt(window.getComputedStyle(selectItemScroll).getPropertyValue("max-height"));
+      const selectOptionsHeight = selectOptions.offsetHeight > selectItemScrollHeight ? selectOptions.offsetHeight : selectItemScrollHeight + selectOptions.offsetHeight;
+      const selectOptionsScrollHeight = selectOptionsHeight - selectItemScrollHeight;
+      selectOptions.hidden = true;
+      const selectItemHeight = selectItem.offsetHeight;
+      const selectItemPos = selectItem.getBoundingClientRect().top;
+      const selectItemTotal = selectItemPos + selectOptionsHeight + selectItemHeight + selectOptionsScrollHeight;
+      const selectItemResult = window.innerHeight - (selectItemTotal + selectOptionsPosMargin);
+      if (selectItemResult < 0) {
+        const newMaxHeightValue = selectOptionsHeight + selectItemResult;
+        if (newMaxHeightValue < 100) {
+          selectItem.classList.add("select--show-top");
+          selectItemScroll.style.maxHeight = selectItemPos < selectOptionsHeight ? `${selectItemPos - (selectOptionsHeight - selectItemPos)}px` : customMaxHeightValue;
+        } else {
+          selectItem.classList.remove("select--show-top");
+          selectItemScroll.style.maxHeight = `${newMaxHeightValue}px`;
+        }
+      }
+    } else {
+      setTimeout(() => {
+        selectItem.classList.remove("select--show-top");
+        selectItemScroll.style.maxHeight = customMaxHeightValue;
+      }, +originalSelect.dataset.flsSelectSpeed);
+    }
+  }
+  // Обработчик клика на пункт списка
+  optionAction(selectItem, originalSelect, optionItem) {
+    const optionsBox = selectItem.querySelector(this.getSelectClass(this.selectClasses.classSelectOptions));
+    if (optionsBox.classList.contains("--slide")) return;
+    if (originalSelect.multiple) {
+      optionItem.classList.toggle(this.selectClasses.classSelectOptionSelected);
+      const selectedEls = this.getSelectedOptionsData(originalSelect).elements;
+      for (const el of selectedEls) {
+        el.removeAttribute("selected");
+      }
+      const selectedUI = selectItem.querySelectorAll(this.getSelectClass(this.selectClasses.classSelectOptionSelected));
+      for (const el of selectedUI) {
+        const val = el.dataset.flsSelectValue;
+        const opt = originalSelect.querySelector(`option[value="${val}"]`);
+        if (opt) opt.setAttribute("selected", "selected");
+      }
+    } else {
+      if (!originalSelect.hasAttribute("data-fls-select-show-selected")) {
+        setTimeout(() => {
+          const hiddenOpt = selectItem.querySelector(`${this.getSelectClass(this.selectClasses.classSelectOption)}[hidden]`);
+          if (hiddenOpt) hiddenOpt.hidden = false;
+          optionItem.hidden = true;
+        }, this.config.speed);
+      }
+      originalSelect.value = optionItem.dataset.flsSelectValue || optionItem.textContent;
+      this.selectAction(selectItem);
+    }
+    this.setSelectTitleValue(selectItem, originalSelect);
+    this.setSelectChange(originalSelect);
+  }
+  // Реакция на изменение исходного select
+  selectChange(e) {
+    const originalSelect = e.target;
+    this.selectBuild(originalSelect);
+    this.setSelectChange(originalSelect);
+  }
+  // Обработчик изменения в селекте
+  setSelectChange(originalSelect) {
+    if (originalSelect.hasAttribute("data-fls-select-validate")) {
+      formValidate.validateInput(originalSelect);
+    }
+    if (originalSelect.hasAttribute("data-fls-select-submit") && originalSelect.value) {
+      let tempButton = document.createElement("button");
+      tempButton.type = "submit";
+      originalSelect.closest("form").append(tempButton);
+      tempButton.click();
+      tempButton.remove();
+    }
+    const selectItem = originalSelect.parentElement;
+    this.selectCallback(selectItem, originalSelect);
+  }
+  // Обработчик disabled
+  selectDisabled(selectItem, originalSelect) {
+    if (originalSelect.disabled) {
+      selectItem.classList.add(this.selectClasses.classSelectDisabled);
+      this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement.disabled = true;
+    } else {
+      selectItem.classList.remove(this.selectClasses.classSelectDisabled);
+      this.getSelectElement(selectItem, this.selectClasses.classSelectTitle).selectElement.disabled = false;
+    }
+  }
+  // Обработчик поиска по элементам списка
+  searchActions(selectItem) {
+    const selectInput = this.getSelectElement(selectItem, this.selectClasses.classSelectInput).selectElement;
+    const selectOptions = this.getSelectElement(selectItem, this.selectClasses.classSelectOptions).selectElement;
+    selectInput.addEventListener("input", () => {
+      const inputValue = selectInput.value.toLowerCase();
+      const selectOptionsItems = selectOptions.querySelectorAll(`.${this.selectClasses.classSelectOption}`);
+      selectOptionsItems.forEach((item) => {
+        const itemText = item.textContent.toLowerCase();
+        item.hidden = !itemText.includes(inputValue);
+      });
+      if (selectOptions.hidden) {
+        this.selectAction(selectItem);
+      }
     });
   }
-  function initTabs(tabsBlock) {
-    let tabsTitles = tabsBlock.querySelectorAll("[data-fls-tabs-titles]>*");
-    let tabsContent = tabsBlock.querySelectorAll("[data-fls-tabs-body]>*");
-    const tabsBlockIndex = tabsBlock.dataset.flsTabsIndex;
-    const tabsActiveHashBlock = tabsActiveHash[0] == tabsBlockIndex;
-    if (tabsActiveHashBlock) {
-      const tabsActiveTitle = tabsBlock.querySelector("[data-fls-tabs-titles]>.--tab-active");
-      tabsActiveTitle ? tabsActiveTitle.classList.remove("--tab-active") : null;
-    }
-    if (tabsContent.length) {
-      tabsContent.forEach((tabsContentItem, index) => {
-        tabsTitles[index].setAttribute("data-fls-tabs-title", "");
-        tabsContentItem.setAttribute("data-fls-tabs-item", "");
-        if (tabsActiveHashBlock && index == tabsActiveHash[1]) {
-          tabsTitles[index].classList.add("--tab-active");
-        }
-        tabsContentItem.hidden = !tabsTitles[index].classList.contains("--tab-active");
-      });
-    }
-  }
-  function setTabsStatus(tabsBlock) {
-    let tabsTitles = tabsBlock.querySelectorAll("[data-fls-tabs-title]");
-    let tabsContent = tabsBlock.querySelectorAll("[data-fls-tabs-item]");
-    const tabsBlockIndex = tabsBlock.dataset.flsTabsIndex;
-    function isTabsAnamate(tabsBlock2) {
-      if (tabsBlock2.hasAttribute("data-fls-tabs-animate")) {
-        return tabsBlock2.dataset.flsTabsAnimate > 0 ? Number(tabsBlock2.dataset.flsTabsAnimate) : 500;
+  // Колбек функция
+  selectCallback(selectItem, originalSelect) {
+    document.dispatchEvent(new CustomEvent("selectCallback", {
+      detail: {
+        select: originalSelect
       }
-    }
-    const tabsBlockAnimate = isTabsAnamate(tabsBlock);
-    if (tabsContent.length > 0) {
-      const isHash = tabsBlock.hasAttribute("data-fls-tabs-hash");
-      tabsContent = Array.from(tabsContent).filter((item) => item.closest("[data-fls-tabs]") === tabsBlock);
-      tabsTitles = Array.from(tabsTitles).filter((item) => item.closest("[data-fls-tabs]") === tabsBlock);
-      tabsContent.forEach((tabsContentItem, index) => {
-        if (tabsTitles[index].classList.contains("--tab-active")) {
-          if (tabsBlockAnimate) {
-            slideDown(tabsContentItem, tabsBlockAnimate);
-          } else {
-            tabsContentItem.hidden = false;
-          }
-          if (isHash && !tabsContentItem.closest(".popup")) {
-            setHash(`tab-${tabsBlockIndex}-${index}`);
-          }
-        } else {
-          if (tabsBlockAnimate) {
-            slideUp(tabsContentItem, tabsBlockAnimate);
-          } else {
-            tabsContentItem.hidden = true;
-          }
-        }
-      });
-    }
-  }
-  function setTabsAction(e) {
-    const el = e.target;
-    if (el.closest("[data-fls-tabs-title]")) {
-      const tabTitle = el.closest("[data-fls-tabs-title]");
-      const tabsBlock = tabTitle.closest("[data-fls-tabs]");
-      if (!tabTitle.classList.contains("--tab-active") && !tabsBlock.querySelector(".--slide")) {
-        let tabActiveTitle = tabsBlock.querySelectorAll("[data-fls-tabs-title].--tab-active");
-        tabActiveTitle.length ? tabActiveTitle = Array.from(tabActiveTitle).filter((item) => item.closest("[data-fls-tabs]") === tabsBlock) : null;
-        tabActiveTitle.length ? tabActiveTitle[0].classList.remove("--tab-active") : null;
-        tabTitle.classList.add("--tab-active");
-        setTabsStatus(tabsBlock);
-      }
-      e.preventDefault();
-    }
+    }));
   }
 }
-window.addEventListener("load", tabs);
+document.querySelector("select[data-fls-select]") ? window.addEventListener("load", () => window.flsSelect = new SelectConstructor({})) : null;
+class ReviewsYouTubeLoader {
+  constructor(swiperInstance, configElement) {
+    this.API_KEY = configElement.dataset.youtubeApiKey;
+    this.TYPE = configElement.dataset.youtubeType || "channel";
+    this.CHANNEL_ID = configElement.dataset.youtubeChannelId;
+    this.PLAYLIST_ID = configElement.dataset.youtubePlaylistId;
+    this.MAX_RESULTS = parseInt(configElement.dataset.youtubeMaxResults) || 20;
+    if (!this.API_KEY) {
+      console.error("❌ YouTube API ключ не указан! Добавьте атрибут data-youtube-api-key");
+      return;
+    }
+    if (this.TYPE === "channel" && !this.CHANNEL_ID) {
+      console.error("❌ ID канала не указан! Добавьте атрибут data-youtube-channel-id");
+      return;
+    }
+    if (this.TYPE === "playlist" && !this.PLAYLIST_ID) {
+      console.error("❌ ID плейлиста не указан! Добавьте атрибут data-youtube-playlist-id");
+      return;
+    }
+    this.swiper = swiperInstance;
+    this.videos = [];
+    this.swiperWrapper = document.querySelector(".reviews-slider .swiper-wrapper");
+    console.log("📺 YouTube загрузчик инициализирован:", {
+      type: this.TYPE,
+      id: this.TYPE === "channel" ? this.CHANNEL_ID : this.PLAYLIST_ID,
+      maxResults: this.MAX_RESULTS
+    });
+    this.init();
+  }
+  async init() {
+    await this.loadVideosFromYouTube();
+    this.renderSlides();
+    this.updateSwiper();
+  }
+  async loadVideosFromYouTube() {
+    try {
+      let url;
+      if (this.TYPE === "playlist") {
+        url = `https://www.googleapis.com/youtube/v3/playlistItems?key=${this.API_KEY}&playlistId=${this.PLAYLIST_ID}&part=snippet&maxResults=${this.MAX_RESULTS}`;
+      } else {
+        url = `https://www.googleapis.com/youtube/v3/search?key=${this.API_KEY}&channelId=${this.CHANNEL_ID}&part=snippet,id&order=date&maxResults=${this.MAX_RESULTS}&type=video`;
+      }
+      const response = await fetch(url);
+      const data = await response.json();
+      if (data.error) {
+        console.error("YouTube API ошибка:", data.error.message);
+        return;
+      }
+      if (data.items && data.items.length > 0) {
+        if (this.TYPE === "playlist") {
+          this.videos = data.items.map((item) => ({
+            id: item.snippet.resourceId.videoId,
+            title: item.snippet.title,
+            thumbnail: item.snippet.thumbnails.high.url,
+            description: item.snippet.description,
+            publishedAt: item.snippet.publishedAt
+          }));
+        } else {
+          this.videos = data.items.map((item) => ({
+            id: item.id.videoId,
+            title: item.snippet.title,
+            thumbnail: item.snippet.thumbnails.high.url,
+            description: item.snippet.description,
+            publishedAt: item.snippet.publishedAt
+          }));
+        }
+        console.log(`✅ Загружено видео: ${this.videos.length}`);
+      } else {
+        console.warn("⚠️ Видео не найдены");
+      }
+    } catch (error) {
+      console.error("Ошибка загрузки YouTube:", error);
+    }
+  }
+  renderSlides() {
+    if (!this.swiperWrapper) return;
+    if (this.videos.length === 0) {
+      this.swiperWrapper.innerHTML = `
+				<div class="swiper-slide">
+					<div class="reviews-empty">
+						<p>📹 Видео не найдены</p>
+						<p>Проверьте настройки YouTube</p>
+					</div>
+				</div>
+			`;
+      return;
+    }
+    this.swiperWrapper.innerHTML = this.videos.map((video) => `
+			<div class="swiper-slide">
+				<div class="reviews-video-wrapper">
+					<iframe 
+						src="https://www.youtube.com/embed/${video.id}?rel=0&modestbranding=1"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen>
+					</iframe>
+				</div>
+				<div class="reviews-video-info">
+					<h4 class="reviews-video-title">${this.escapeHtml(video.title)}</h4>
+					<p class="reviews-video-date">${this.formatDate(video.publishedAt)}</p>
+				</div>
+			</div>
+		`).join("");
+  }
+  updateSwiper() {
+    if (this.swiper) {
+      this.swiper.update();
+      this.swiper.updateSlides();
+      this.swiper.updateSlidesClasses();
+    }
+  }
+  formatDate(dateString) {
+    const date = new Date(dateString);
+    const now2 = /* @__PURE__ */ new Date();
+    const diffDays = Math.floor((now2 - date) / (1e3 * 60 * 60 * 24));
+    if (diffDays < 1) return "сегодня";
+    if (diffDays === 1) return "вчера";
+    if (diffDays < 7) return `${diffDays} дня назад`;
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)} недели назад`;
+    if (diffDays < 365) return `${Math.floor(diffDays / 30)} месяца назад`;
+    return `${Math.floor(diffDays / 365)} года назад`;
+  }
+  escapeHtml(str) {
+    if (!str) return "";
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+}
 function spollers() {
   const spollersArray = document.querySelectorAll("[data-fls-spollers]");
   if (spollersArray.length > 0) {
@@ -744,6 +1292,9 @@ function animateCSSModeScroll(_ref) {
   };
   animate();
 }
+function getSlideTransformEl(slideEl) {
+  return slideEl.querySelector(".swiper-slide-transform") || slideEl.shadowRoot && slideEl.shadowRoot.querySelector(".swiper-slide-transform") || slideEl;
+}
 function elementChildren(element, selector) {
   if (selector === void 0) {
     selector = "";
@@ -795,6 +1346,20 @@ function createElement(tag, classes2) {
   el.classList.add(...Array.isArray(classes2) ? classes2 : classesToTokens(classes2));
   return el;
 }
+function elementOffset(el) {
+  const window2 = getWindow();
+  const document2 = getDocument();
+  const box = el.getBoundingClientRect();
+  const body = document2.body;
+  const clientTop = el.clientTop || body.clientTop || 0;
+  const clientLeft = el.clientLeft || body.clientLeft || 0;
+  const scrollTop = el === window2 ? window2.scrollY : el.scrollTop;
+  const scrollLeft = el === window2 ? window2.scrollX : el.scrollLeft;
+  return {
+    top: box.top + scrollTop - clientTop,
+    left: box.left + scrollLeft - clientLeft
+  };
+}
 function elementPrevAll(el, selector) {
   const prevEls = [];
   while (el.previousElementSibling) {
@@ -837,12 +1402,24 @@ function elementParents(el, selector) {
   const parents = [];
   let parent = el.parentElement;
   while (parent) {
-    {
+    if (selector) {
+      if (parent.matches(selector)) parents.push(parent);
+    } else {
       parents.push(parent);
     }
     parent = parent.parentElement;
   }
   return parents;
+}
+function elementTransitionEnd(el, callback) {
+  function fireCallBack(e) {
+    if (e.target !== el) return;
+    callback.call(el, e);
+    el.removeEventListener("transitionend", fireCallBack);
+  }
+  if (callback) {
+    el.addEventListener("transitionend", fireCallBack);
+  }
 }
 function elementOuterSize(el, size, includeMargins) {
   const window2 = getWindow();
@@ -852,6 +1429,18 @@ function elementOuterSize(el, size, includeMargins) {
 }
 function makeElementsArray(el) {
   return (Array.isArray(el) ? el : [el]).filter((e) => !!e);
+}
+function setInnerHTML(el, html) {
+  if (html === void 0) {
+    html = "";
+  }
+  if (typeof trustedTypes !== "undefined") {
+    el.innerHTML = trustedTypes.createPolicy("html", {
+      createHTML: (s) => s
+    }).createHTML(html);
+  } else {
+    el.innerHTML = html;
+  }
 }
 let support;
 function calcSupport() {
@@ -4774,67 +5363,1383 @@ function Navigation(_ref) {
     destroy
   });
 }
-function initSliders() {
-  if (document.querySelector(".result__slider")) {
-    new Swiper(".result__slider", {
-      // <- Указываем класс нужного слайдера
-      // Подключаем модули слайдера
-      // для конкретного случая
-      modules: [Navigation],
-      observer: true,
-      observeParents: true,
-      slidesPerView: 1.3,
-      spaceBetween: 10,
-      //autoHeight: true,
-      speed: 800,
-      //touchRatio: 0,
-      //simulateTouch: false,
-      //loop: true,
-      //preloadImages: false,
-      //lazy: true,
-      /*
-      // Эффекты
-      effect: 'fade',
-      autoplay: {
-      	delay: 3000,
-      	disableOnInteraction: false,
-      },
-      */
-      // Пагинация
-      /*
-      pagination: {
-      	el: '.swiper-pagination',
-      	clickable: true,
-      },
-      */
-      // Скроллбар
-      /*
-      scrollbar: {
-      	el: '.swiper-scrollbar',
-      	draggable: true,
-      },
-      */
-      // Кнопки "влево/вправо"
-      navigation: {
-        prevEl: ".result-prev",
-        nextEl: ".result-next"
-      },
-      breakpoints: {
-        640: {
-          slidesPerView: 1.5,
-          spaceBetween: 10,
-          autoHeight: true
-        },
-        768: {
-          slidesPerView: 2.5,
-          spaceBetween: 20
+function classesToSelector(classes2) {
+  if (classes2 === void 0) {
+    classes2 = "";
+  }
+  return `.${classes2.trim().replace(/([\.:!+\/()[\]])/g, "\\$1").replace(/ /g, ".")}`;
+}
+function Pagination(_ref) {
+  let {
+    swiper,
+    extendParams,
+    on,
+    emit
+  } = _ref;
+  const pfx = "swiper-pagination";
+  extendParams({
+    pagination: {
+      el: null,
+      bulletElement: "span",
+      clickable: false,
+      hideOnClick: false,
+      renderBullet: null,
+      renderProgressbar: null,
+      renderFraction: null,
+      renderCustom: null,
+      progressbarOpposite: false,
+      type: "bullets",
+      // 'bullets' or 'progressbar' or 'fraction' or 'custom'
+      dynamicBullets: false,
+      dynamicMainBullets: 1,
+      formatFractionCurrent: (number) => number,
+      formatFractionTotal: (number) => number,
+      bulletClass: `${pfx}-bullet`,
+      bulletActiveClass: `${pfx}-bullet-active`,
+      modifierClass: `${pfx}-`,
+      currentClass: `${pfx}-current`,
+      totalClass: `${pfx}-total`,
+      hiddenClass: `${pfx}-hidden`,
+      progressbarFillClass: `${pfx}-progressbar-fill`,
+      progressbarOppositeClass: `${pfx}-progressbar-opposite`,
+      clickableClass: `${pfx}-clickable`,
+      lockClass: `${pfx}-lock`,
+      horizontalClass: `${pfx}-horizontal`,
+      verticalClass: `${pfx}-vertical`,
+      paginationDisabledClass: `${pfx}-disabled`
+    }
+  });
+  swiper.pagination = {
+    el: null,
+    bullets: []
+  };
+  let bulletSize;
+  let dynamicBulletIndex = 0;
+  function isPaginationDisabled() {
+    return !swiper.params.pagination.el || !swiper.pagination.el || Array.isArray(swiper.pagination.el) && swiper.pagination.el.length === 0;
+  }
+  function setSideBullets(bulletEl, position) {
+    const {
+      bulletActiveClass
+    } = swiper.params.pagination;
+    if (!bulletEl) return;
+    bulletEl = bulletEl[`${position === "prev" ? "previous" : "next"}ElementSibling`];
+    if (bulletEl) {
+      bulletEl.classList.add(`${bulletActiveClass}-${position}`);
+      bulletEl = bulletEl[`${position === "prev" ? "previous" : "next"}ElementSibling`];
+      if (bulletEl) {
+        bulletEl.classList.add(`${bulletActiveClass}-${position}-${position}`);
+      }
+    }
+  }
+  function getMoveDirection(prevIndex, nextIndex, length) {
+    prevIndex = prevIndex % length;
+    nextIndex = nextIndex % length;
+    if (nextIndex === prevIndex + 1) {
+      return "next";
+    } else if (nextIndex === prevIndex - 1) {
+      return "previous";
+    }
+    return;
+  }
+  function onBulletClick(e) {
+    const bulletEl = e.target.closest(classesToSelector(swiper.params.pagination.bulletClass));
+    if (!bulletEl) {
+      return;
+    }
+    e.preventDefault();
+    const index = elementIndex(bulletEl) * swiper.params.slidesPerGroup;
+    if (swiper.params.loop) {
+      if (swiper.realIndex === index) return;
+      const moveDirection = getMoveDirection(swiper.realIndex, index, swiper.slides.length);
+      if (moveDirection === "next") {
+        swiper.slideNext();
+      } else if (moveDirection === "previous") {
+        swiper.slidePrev();
+      } else {
+        swiper.slideToLoop(index);
+      }
+    } else {
+      swiper.slideTo(index);
+    }
+  }
+  function update2() {
+    const rtl = swiper.rtl;
+    const params = swiper.params.pagination;
+    if (isPaginationDisabled()) return;
+    let el = swiper.pagination.el;
+    el = makeElementsArray(el);
+    let current;
+    let previousIndex;
+    const slidesLength = swiper.virtual && swiper.params.virtual.enabled ? swiper.virtual.slides.length : swiper.slides.length;
+    const total = swiper.params.loop ? Math.ceil(slidesLength / swiper.params.slidesPerGroup) : swiper.snapGrid.length;
+    if (swiper.params.loop) {
+      previousIndex = swiper.previousRealIndex || 0;
+      current = swiper.params.slidesPerGroup > 1 ? Math.floor(swiper.realIndex / swiper.params.slidesPerGroup) : swiper.realIndex;
+    } else if (typeof swiper.snapIndex !== "undefined") {
+      current = swiper.snapIndex;
+      previousIndex = swiper.previousSnapIndex;
+    } else {
+      previousIndex = swiper.previousIndex || 0;
+      current = swiper.activeIndex || 0;
+    }
+    if (params.type === "bullets" && swiper.pagination.bullets && swiper.pagination.bullets.length > 0) {
+      const bullets = swiper.pagination.bullets;
+      let firstIndex;
+      let lastIndex;
+      let midIndex;
+      if (params.dynamicBullets) {
+        bulletSize = elementOuterSize(bullets[0], swiper.isHorizontal() ? "width" : "height");
+        el.forEach((subEl) => {
+          subEl.style[swiper.isHorizontal() ? "width" : "height"] = `${bulletSize * (params.dynamicMainBullets + 4)}px`;
+        });
+        if (params.dynamicMainBullets > 1 && previousIndex !== void 0) {
+          dynamicBulletIndex += current - (previousIndex || 0);
+          if (dynamicBulletIndex > params.dynamicMainBullets - 1) {
+            dynamicBulletIndex = params.dynamicMainBullets - 1;
+          } else if (dynamicBulletIndex < 0) {
+            dynamicBulletIndex = 0;
+          }
         }
-      },
-      on: {}
+        firstIndex = Math.max(current - dynamicBulletIndex, 0);
+        lastIndex = firstIndex + (Math.min(bullets.length, params.dynamicMainBullets) - 1);
+        midIndex = (lastIndex + firstIndex) / 2;
+      }
+      bullets.forEach((bulletEl) => {
+        const classesToRemove = [...["", "-next", "-next-next", "-prev", "-prev-prev", "-main"].map((suffix) => `${params.bulletActiveClass}${suffix}`)].map((s) => typeof s === "string" && s.includes(" ") ? s.split(" ") : s).flat();
+        bulletEl.classList.remove(...classesToRemove);
+      });
+      if (el.length > 1) {
+        bullets.forEach((bullet) => {
+          const bulletIndex = elementIndex(bullet);
+          if (bulletIndex === current) {
+            bullet.classList.add(...params.bulletActiveClass.split(" "));
+          } else if (swiper.isElement) {
+            bullet.setAttribute("part", "bullet");
+          }
+          if (params.dynamicBullets) {
+            if (bulletIndex >= firstIndex && bulletIndex <= lastIndex) {
+              bullet.classList.add(...`${params.bulletActiveClass}-main`.split(" "));
+            }
+            if (bulletIndex === firstIndex) {
+              setSideBullets(bullet, "prev");
+            }
+            if (bulletIndex === lastIndex) {
+              setSideBullets(bullet, "next");
+            }
+          }
+        });
+      } else {
+        const bullet = bullets[current];
+        if (bullet) {
+          bullet.classList.add(...params.bulletActiveClass.split(" "));
+        }
+        if (swiper.isElement) {
+          bullets.forEach((bulletEl, bulletIndex) => {
+            bulletEl.setAttribute("part", bulletIndex === current ? "bullet-active" : "bullet");
+          });
+        }
+        if (params.dynamicBullets) {
+          const firstDisplayedBullet = bullets[firstIndex];
+          const lastDisplayedBullet = bullets[lastIndex];
+          for (let i = firstIndex; i <= lastIndex; i += 1) {
+            if (bullets[i]) {
+              bullets[i].classList.add(...`${params.bulletActiveClass}-main`.split(" "));
+            }
+          }
+          setSideBullets(firstDisplayedBullet, "prev");
+          setSideBullets(lastDisplayedBullet, "next");
+        }
+      }
+      if (params.dynamicBullets) {
+        const dynamicBulletsLength = Math.min(bullets.length, params.dynamicMainBullets + 4);
+        const bulletsOffset = (bulletSize * dynamicBulletsLength - bulletSize) / 2 - midIndex * bulletSize;
+        const offsetProp = rtl ? "right" : "left";
+        bullets.forEach((bullet) => {
+          bullet.style[swiper.isHorizontal() ? offsetProp : "top"] = `${bulletsOffset}px`;
+        });
+      }
+    }
+    el.forEach((subEl, subElIndex) => {
+      if (params.type === "fraction") {
+        subEl.querySelectorAll(classesToSelector(params.currentClass)).forEach((fractionEl) => {
+          fractionEl.textContent = params.formatFractionCurrent(current + 1);
+        });
+        subEl.querySelectorAll(classesToSelector(params.totalClass)).forEach((totalEl) => {
+          totalEl.textContent = params.formatFractionTotal(total);
+        });
+      }
+      if (params.type === "progressbar") {
+        let progressbarDirection;
+        if (params.progressbarOpposite) {
+          progressbarDirection = swiper.isHorizontal() ? "vertical" : "horizontal";
+        } else {
+          progressbarDirection = swiper.isHorizontal() ? "horizontal" : "vertical";
+        }
+        const scale = (current + 1) / total;
+        let scaleX = 1;
+        let scaleY = 1;
+        if (progressbarDirection === "horizontal") {
+          scaleX = scale;
+        } else {
+          scaleY = scale;
+        }
+        subEl.querySelectorAll(classesToSelector(params.progressbarFillClass)).forEach((progressEl) => {
+          progressEl.style.transform = `translate3d(0,0,0) scaleX(${scaleX}) scaleY(${scaleY})`;
+          progressEl.style.transitionDuration = `${swiper.params.speed}ms`;
+        });
+      }
+      if (params.type === "custom" && params.renderCustom) {
+        setInnerHTML(subEl, params.renderCustom(swiper, current + 1, total));
+        if (subElIndex === 0) emit("paginationRender", subEl);
+      } else {
+        if (subElIndex === 0) emit("paginationRender", subEl);
+        emit("paginationUpdate", subEl);
+      }
+      if (swiper.params.watchOverflow && swiper.enabled) {
+        subEl.classList[swiper.isLocked ? "add" : "remove"](params.lockClass);
+      }
+    });
+  }
+  function render() {
+    const params = swiper.params.pagination;
+    if (isPaginationDisabled()) return;
+    const slidesLength = swiper.virtual && swiper.params.virtual.enabled ? swiper.virtual.slides.length : swiper.grid && swiper.params.grid.rows > 1 ? swiper.slides.length / Math.ceil(swiper.params.grid.rows) : swiper.slides.length;
+    let el = swiper.pagination.el;
+    el = makeElementsArray(el);
+    let paginationHTML = "";
+    if (params.type === "bullets") {
+      let numberOfBullets = swiper.params.loop ? Math.ceil(slidesLength / swiper.params.slidesPerGroup) : swiper.snapGrid.length;
+      if (swiper.params.freeMode && swiper.params.freeMode.enabled && numberOfBullets > slidesLength) {
+        numberOfBullets = slidesLength;
+      }
+      for (let i = 0; i < numberOfBullets; i += 1) {
+        if (params.renderBullet) {
+          paginationHTML += params.renderBullet.call(swiper, i, params.bulletClass);
+        } else {
+          paginationHTML += `<${params.bulletElement} ${swiper.isElement ? 'part="bullet"' : ""} class="${params.bulletClass}"></${params.bulletElement}>`;
+        }
+      }
+    }
+    if (params.type === "fraction") {
+      if (params.renderFraction) {
+        paginationHTML = params.renderFraction.call(swiper, params.currentClass, params.totalClass);
+      } else {
+        paginationHTML = `<span class="${params.currentClass}"></span> / <span class="${params.totalClass}"></span>`;
+      }
+    }
+    if (params.type === "progressbar") {
+      if (params.renderProgressbar) {
+        paginationHTML = params.renderProgressbar.call(swiper, params.progressbarFillClass);
+      } else {
+        paginationHTML = `<span class="${params.progressbarFillClass}"></span>`;
+      }
+    }
+    swiper.pagination.bullets = [];
+    el.forEach((subEl) => {
+      if (params.type !== "custom") {
+        setInnerHTML(subEl, paginationHTML || "");
+      }
+      if (params.type === "bullets") {
+        swiper.pagination.bullets.push(...subEl.querySelectorAll(classesToSelector(params.bulletClass)));
+      }
+    });
+    if (params.type !== "custom") {
+      emit("paginationRender", el[0]);
+    }
+  }
+  function init() {
+    swiper.params.pagination = createElementIfNotDefined(swiper, swiper.originalParams.pagination, swiper.params.pagination, {
+      el: "swiper-pagination"
+    });
+    const params = swiper.params.pagination;
+    if (!params.el) return;
+    let el;
+    if (typeof params.el === "string" && swiper.isElement) {
+      el = swiper.el.querySelector(params.el);
+    }
+    if (!el && typeof params.el === "string") {
+      el = [...document.querySelectorAll(params.el)];
+    }
+    if (!el) {
+      el = params.el;
+    }
+    if (!el || el.length === 0) return;
+    if (swiper.params.uniqueNavElements && typeof params.el === "string" && Array.isArray(el) && el.length > 1) {
+      el = [...swiper.el.querySelectorAll(params.el)];
+      if (el.length > 1) {
+        el = el.find((subEl) => {
+          if (elementParents(subEl, ".swiper")[0] !== swiper.el) return false;
+          return true;
+        });
+      }
+    }
+    if (Array.isArray(el) && el.length === 1) el = el[0];
+    Object.assign(swiper.pagination, {
+      el
+    });
+    el = makeElementsArray(el);
+    el.forEach((subEl) => {
+      if (params.type === "bullets" && params.clickable) {
+        subEl.classList.add(...(params.clickableClass || "").split(" "));
+      }
+      subEl.classList.add(params.modifierClass + params.type);
+      subEl.classList.add(swiper.isHorizontal() ? params.horizontalClass : params.verticalClass);
+      if (params.type === "bullets" && params.dynamicBullets) {
+        subEl.classList.add(`${params.modifierClass}${params.type}-dynamic`);
+        dynamicBulletIndex = 0;
+        if (params.dynamicMainBullets < 1) {
+          params.dynamicMainBullets = 1;
+        }
+      }
+      if (params.type === "progressbar" && params.progressbarOpposite) {
+        subEl.classList.add(params.progressbarOppositeClass);
+      }
+      if (params.clickable) {
+        subEl.addEventListener("click", onBulletClick);
+      }
+      if (!swiper.enabled) {
+        subEl.classList.add(params.lockClass);
+      }
+    });
+  }
+  function destroy() {
+    const params = swiper.params.pagination;
+    if (isPaginationDisabled()) return;
+    let el = swiper.pagination.el;
+    if (el) {
+      el = makeElementsArray(el);
+      el.forEach((subEl) => {
+        subEl.classList.remove(params.hiddenClass);
+        subEl.classList.remove(params.modifierClass + params.type);
+        subEl.classList.remove(swiper.isHorizontal() ? params.horizontalClass : params.verticalClass);
+        if (params.clickable) {
+          subEl.classList.remove(...(params.clickableClass || "").split(" "));
+          subEl.removeEventListener("click", onBulletClick);
+        }
+      });
+    }
+    if (swiper.pagination.bullets) swiper.pagination.bullets.forEach((subEl) => subEl.classList.remove(...params.bulletActiveClass.split(" ")));
+  }
+  on("changeDirection", () => {
+    if (!swiper.pagination || !swiper.pagination.el) return;
+    const params = swiper.params.pagination;
+    let {
+      el
+    } = swiper.pagination;
+    el = makeElementsArray(el);
+    el.forEach((subEl) => {
+      subEl.classList.remove(params.horizontalClass, params.verticalClass);
+      subEl.classList.add(swiper.isHorizontal() ? params.horizontalClass : params.verticalClass);
+    });
+  });
+  on("init", () => {
+    if (swiper.params.pagination.enabled === false) {
+      disable();
+    } else {
+      init();
+      render();
+      update2();
+    }
+  });
+  on("activeIndexChange", () => {
+    if (typeof swiper.snapIndex === "undefined") {
+      update2();
+    }
+  });
+  on("snapIndexChange", () => {
+    update2();
+  });
+  on("snapGridLengthChange", () => {
+    render();
+    update2();
+  });
+  on("destroy", () => {
+    destroy();
+  });
+  on("enable disable", () => {
+    let {
+      el
+    } = swiper.pagination;
+    if (el) {
+      el = makeElementsArray(el);
+      el.forEach((subEl) => subEl.classList[swiper.enabled ? "remove" : "add"](swiper.params.pagination.lockClass));
+    }
+  });
+  on("lock unlock", () => {
+    update2();
+  });
+  on("click", (_s, e) => {
+    const targetEl = e.target;
+    const el = makeElementsArray(swiper.pagination.el);
+    if (swiper.params.pagination.el && swiper.params.pagination.hideOnClick && el && el.length > 0 && !targetEl.classList.contains(swiper.params.pagination.bulletClass)) {
+      if (swiper.navigation && (swiper.navigation.nextEl && targetEl === swiper.navigation.nextEl || swiper.navigation.prevEl && targetEl === swiper.navigation.prevEl)) return;
+      const isHidden = el[0].classList.contains(swiper.params.pagination.hiddenClass);
+      if (isHidden === true) {
+        emit("paginationShow");
+      } else {
+        emit("paginationHide");
+      }
+      el.forEach((subEl) => subEl.classList.toggle(swiper.params.pagination.hiddenClass));
+    }
+  });
+  const enable = () => {
+    swiper.el.classList.remove(swiper.params.pagination.paginationDisabledClass);
+    let {
+      el
+    } = swiper.pagination;
+    if (el) {
+      el = makeElementsArray(el);
+      el.forEach((subEl) => subEl.classList.remove(swiper.params.pagination.paginationDisabledClass));
+    }
+    init();
+    render();
+    update2();
+  };
+  const disable = () => {
+    swiper.el.classList.add(swiper.params.pagination.paginationDisabledClass);
+    let {
+      el
+    } = swiper.pagination;
+    if (el) {
+      el = makeElementsArray(el);
+      el.forEach((subEl) => subEl.classList.add(swiper.params.pagination.paginationDisabledClass));
+    }
+    destroy();
+  };
+  Object.assign(swiper.pagination, {
+    enable,
+    disable,
+    render,
+    update: update2,
+    init,
+    destroy
+  });
+}
+function Scrollbar(_ref) {
+  let {
+    swiper,
+    extendParams,
+    on,
+    emit
+  } = _ref;
+  const document2 = getDocument();
+  let isTouched = false;
+  let timeout = null;
+  let dragTimeout = null;
+  let dragStartPos;
+  let dragSize;
+  let trackSize;
+  let divider;
+  extendParams({
+    scrollbar: {
+      el: null,
+      dragSize: "auto",
+      hide: false,
+      draggable: false,
+      snapOnRelease: true,
+      lockClass: "swiper-scrollbar-lock",
+      dragClass: "swiper-scrollbar-drag",
+      scrollbarDisabledClass: "swiper-scrollbar-disabled",
+      horizontalClass: `swiper-scrollbar-horizontal`,
+      verticalClass: `swiper-scrollbar-vertical`
+    }
+  });
+  swiper.scrollbar = {
+    el: null,
+    dragEl: null
+  };
+  function setTranslate2() {
+    if (!swiper.params.scrollbar.el || !swiper.scrollbar.el) return;
+    const {
+      scrollbar,
+      rtlTranslate: rtl
+    } = swiper;
+    const {
+      dragEl,
+      el
+    } = scrollbar;
+    const params = swiper.params.scrollbar;
+    const progress = swiper.params.loop ? swiper.progressLoop : swiper.progress;
+    let newSize = dragSize;
+    let newPos = (trackSize - dragSize) * progress;
+    if (rtl) {
+      newPos = -newPos;
+      if (newPos > 0) {
+        newSize = dragSize - newPos;
+        newPos = 0;
+      } else if (-newPos + dragSize > trackSize) {
+        newSize = trackSize + newPos;
+      }
+    } else if (newPos < 0) {
+      newSize = dragSize + newPos;
+      newPos = 0;
+    } else if (newPos + dragSize > trackSize) {
+      newSize = trackSize - newPos;
+    }
+    if (swiper.isHorizontal()) {
+      dragEl.style.transform = `translate3d(${newPos}px, 0, 0)`;
+      dragEl.style.width = `${newSize}px`;
+    } else {
+      dragEl.style.transform = `translate3d(0px, ${newPos}px, 0)`;
+      dragEl.style.height = `${newSize}px`;
+    }
+    if (params.hide) {
+      clearTimeout(timeout);
+      el.style.opacity = 1;
+      timeout = setTimeout(() => {
+        el.style.opacity = 0;
+        el.style.transitionDuration = "400ms";
+      }, 1e3);
+    }
+  }
+  function setTransition2(duration) {
+    if (!swiper.params.scrollbar.el || !swiper.scrollbar.el) return;
+    swiper.scrollbar.dragEl.style.transitionDuration = `${duration}ms`;
+  }
+  function updateSize2() {
+    if (!swiper.params.scrollbar.el || !swiper.scrollbar.el) return;
+    const {
+      scrollbar
+    } = swiper;
+    const {
+      dragEl,
+      el
+    } = scrollbar;
+    dragEl.style.width = "";
+    dragEl.style.height = "";
+    trackSize = swiper.isHorizontal() ? el.offsetWidth : el.offsetHeight;
+    divider = swiper.size / (swiper.virtualSize + swiper.params.slidesOffsetBefore - (swiper.params.centeredSlides ? swiper.snapGrid[0] : 0));
+    if (swiper.params.scrollbar.dragSize === "auto") {
+      dragSize = trackSize * divider;
+    } else {
+      dragSize = parseInt(swiper.params.scrollbar.dragSize, 10);
+    }
+    if (swiper.isHorizontal()) {
+      dragEl.style.width = `${dragSize}px`;
+    } else {
+      dragEl.style.height = `${dragSize}px`;
+    }
+    if (divider >= 1) {
+      el.style.display = "none";
+    } else {
+      el.style.display = "";
+    }
+    if (swiper.params.scrollbar.hide) {
+      el.style.opacity = 0;
+    }
+    if (swiper.params.watchOverflow && swiper.enabled) {
+      scrollbar.el.classList[swiper.isLocked ? "add" : "remove"](swiper.params.scrollbar.lockClass);
+    }
+  }
+  function getPointerPosition(e) {
+    return swiper.isHorizontal() ? e.clientX : e.clientY;
+  }
+  function setDragPosition(e) {
+    const {
+      scrollbar,
+      rtlTranslate: rtl
+    } = swiper;
+    const {
+      el
+    } = scrollbar;
+    let positionRatio;
+    positionRatio = (getPointerPosition(e) - elementOffset(el)[swiper.isHorizontal() ? "left" : "top"] - (dragStartPos !== null ? dragStartPos : dragSize / 2)) / (trackSize - dragSize);
+    positionRatio = Math.max(Math.min(positionRatio, 1), 0);
+    if (rtl) {
+      positionRatio = 1 - positionRatio;
+    }
+    const position = swiper.minTranslate() + (swiper.maxTranslate() - swiper.minTranslate()) * positionRatio;
+    swiper.updateProgress(position);
+    swiper.setTranslate(position);
+    swiper.updateActiveIndex();
+    swiper.updateSlidesClasses();
+  }
+  function onDragStart(e) {
+    const params = swiper.params.scrollbar;
+    const {
+      scrollbar,
+      wrapperEl
+    } = swiper;
+    const {
+      el,
+      dragEl
+    } = scrollbar;
+    isTouched = true;
+    dragStartPos = e.target === dragEl ? getPointerPosition(e) - e.target.getBoundingClientRect()[swiper.isHorizontal() ? "left" : "top"] : null;
+    e.preventDefault();
+    e.stopPropagation();
+    wrapperEl.style.transitionDuration = "100ms";
+    dragEl.style.transitionDuration = "100ms";
+    setDragPosition(e);
+    clearTimeout(dragTimeout);
+    el.style.transitionDuration = "0ms";
+    if (params.hide) {
+      el.style.opacity = 1;
+    }
+    if (swiper.params.cssMode) {
+      swiper.wrapperEl.style["scroll-snap-type"] = "none";
+    }
+    emit("scrollbarDragStart", e);
+  }
+  function onDragMove(e) {
+    const {
+      scrollbar,
+      wrapperEl
+    } = swiper;
+    const {
+      el,
+      dragEl
+    } = scrollbar;
+    if (!isTouched) return;
+    if (e.preventDefault && e.cancelable) e.preventDefault();
+    else e.returnValue = false;
+    setDragPosition(e);
+    wrapperEl.style.transitionDuration = "0ms";
+    el.style.transitionDuration = "0ms";
+    dragEl.style.transitionDuration = "0ms";
+    emit("scrollbarDragMove", e);
+  }
+  function onDragEnd(e) {
+    const params = swiper.params.scrollbar;
+    const {
+      scrollbar,
+      wrapperEl
+    } = swiper;
+    const {
+      el
+    } = scrollbar;
+    if (!isTouched) return;
+    isTouched = false;
+    if (swiper.params.cssMode) {
+      swiper.wrapperEl.style["scroll-snap-type"] = "";
+      wrapperEl.style.transitionDuration = "";
+    }
+    if (params.hide) {
+      clearTimeout(dragTimeout);
+      dragTimeout = nextTick(() => {
+        el.style.opacity = 0;
+        el.style.transitionDuration = "400ms";
+      }, 1e3);
+    }
+    emit("scrollbarDragEnd", e);
+    if (params.snapOnRelease) {
+      swiper.slideToClosest();
+    }
+  }
+  function events2(method) {
+    const {
+      scrollbar,
+      params
+    } = swiper;
+    const el = scrollbar.el;
+    if (!el) return;
+    const target = el;
+    const activeListener = params.passiveListeners ? {
+      passive: false,
+      capture: false
+    } : false;
+    const passiveListener = params.passiveListeners ? {
+      passive: true,
+      capture: false
+    } : false;
+    if (!target) return;
+    const eventMethod = method === "on" ? "addEventListener" : "removeEventListener";
+    target[eventMethod]("pointerdown", onDragStart, activeListener);
+    document2[eventMethod]("pointermove", onDragMove, activeListener);
+    document2[eventMethod]("pointerup", onDragEnd, passiveListener);
+  }
+  function enableDraggable() {
+    if (!swiper.params.scrollbar.el || !swiper.scrollbar.el) return;
+    events2("on");
+  }
+  function disableDraggable() {
+    if (!swiper.params.scrollbar.el || !swiper.scrollbar.el) return;
+    events2("off");
+  }
+  function init() {
+    const {
+      scrollbar,
+      el: swiperEl
+    } = swiper;
+    swiper.params.scrollbar = createElementIfNotDefined(swiper, swiper.originalParams.scrollbar, swiper.params.scrollbar, {
+      el: "swiper-scrollbar"
+    });
+    const params = swiper.params.scrollbar;
+    if (!params.el) return;
+    let el;
+    if (typeof params.el === "string" && swiper.isElement) {
+      el = swiper.el.querySelector(params.el);
+    }
+    if (!el && typeof params.el === "string") {
+      el = document2.querySelectorAll(params.el);
+      if (!el.length) return;
+    } else if (!el) {
+      el = params.el;
+    }
+    if (swiper.params.uniqueNavElements && typeof params.el === "string" && el.length > 1 && swiperEl.querySelectorAll(params.el).length === 1) {
+      el = swiperEl.querySelector(params.el);
+    }
+    if (el.length > 0) el = el[0];
+    el.classList.add(swiper.isHorizontal() ? params.horizontalClass : params.verticalClass);
+    let dragEl;
+    if (el) {
+      dragEl = el.querySelector(classesToSelector(swiper.params.scrollbar.dragClass));
+      if (!dragEl) {
+        dragEl = createElement("div", swiper.params.scrollbar.dragClass);
+        el.append(dragEl);
+      }
+    }
+    Object.assign(scrollbar, {
+      el,
+      dragEl
+    });
+    if (params.draggable) {
+      enableDraggable();
+    }
+    if (el) {
+      el.classList[swiper.enabled ? "remove" : "add"](...classesToTokens(swiper.params.scrollbar.lockClass));
+    }
+  }
+  function destroy() {
+    const params = swiper.params.scrollbar;
+    const el = swiper.scrollbar.el;
+    if (el) {
+      el.classList.remove(...classesToTokens(swiper.isHorizontal() ? params.horizontalClass : params.verticalClass));
+    }
+    disableDraggable();
+  }
+  on("changeDirection", () => {
+    if (!swiper.scrollbar || !swiper.scrollbar.el) return;
+    const params = swiper.params.scrollbar;
+    let {
+      el
+    } = swiper.scrollbar;
+    el = makeElementsArray(el);
+    el.forEach((subEl) => {
+      subEl.classList.remove(params.horizontalClass, params.verticalClass);
+      subEl.classList.add(swiper.isHorizontal() ? params.horizontalClass : params.verticalClass);
+    });
+  });
+  on("init", () => {
+    if (swiper.params.scrollbar.enabled === false) {
+      disable();
+    } else {
+      init();
+      updateSize2();
+      setTranslate2();
+    }
+  });
+  on("update resize observerUpdate lock unlock changeDirection", () => {
+    updateSize2();
+  });
+  on("setTranslate", () => {
+    setTranslate2();
+  });
+  on("setTransition", (_s, duration) => {
+    setTransition2(duration);
+  });
+  on("enable disable", () => {
+    const {
+      el
+    } = swiper.scrollbar;
+    if (el) {
+      el.classList[swiper.enabled ? "remove" : "add"](...classesToTokens(swiper.params.scrollbar.lockClass));
+    }
+  });
+  on("destroy", () => {
+    destroy();
+  });
+  const enable = () => {
+    swiper.el.classList.remove(...classesToTokens(swiper.params.scrollbar.scrollbarDisabledClass));
+    if (swiper.scrollbar.el) {
+      swiper.scrollbar.el.classList.remove(...classesToTokens(swiper.params.scrollbar.scrollbarDisabledClass));
+    }
+    init();
+    updateSize2();
+    setTranslate2();
+  };
+  const disable = () => {
+    swiper.el.classList.add(...classesToTokens(swiper.params.scrollbar.scrollbarDisabledClass));
+    if (swiper.scrollbar.el) {
+      swiper.scrollbar.el.classList.add(...classesToTokens(swiper.params.scrollbar.scrollbarDisabledClass));
+    }
+    destroy();
+  };
+  Object.assign(swiper.scrollbar, {
+    enable,
+    disable,
+    updateSize: updateSize2,
+    setTranslate: setTranslate2,
+    init,
+    destroy
+  });
+}
+function Autoplay(_ref) {
+  let {
+    swiper,
+    extendParams,
+    on,
+    emit,
+    params
+  } = _ref;
+  swiper.autoplay = {
+    running: false,
+    paused: false,
+    timeLeft: 0
+  };
+  extendParams({
+    autoplay: {
+      enabled: false,
+      delay: 3e3,
+      waitForTransition: true,
+      disableOnInteraction: false,
+      stopOnLastSlide: false,
+      reverseDirection: false,
+      pauseOnMouseEnter: false
+    }
+  });
+  let timeout;
+  let raf;
+  let autoplayDelayTotal = params && params.autoplay ? params.autoplay.delay : 3e3;
+  let autoplayDelayCurrent = params && params.autoplay ? params.autoplay.delay : 3e3;
+  let autoplayTimeLeft;
+  let autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
+  let wasPaused;
+  let isTouched;
+  let pausedByTouch;
+  let touchStartTimeout;
+  let slideChanged;
+  let pausedByInteraction;
+  let pausedByPointerEnter;
+  function onTransitionEnd(e) {
+    if (!swiper || swiper.destroyed || !swiper.wrapperEl) return;
+    if (e.target !== swiper.wrapperEl) return;
+    swiper.wrapperEl.removeEventListener("transitionend", onTransitionEnd);
+    if (pausedByPointerEnter || e.detail && e.detail.bySwiperTouchMove) {
+      return;
+    }
+    resume();
+  }
+  const calcTimeLeft = () => {
+    if (swiper.destroyed || !swiper.autoplay.running) return;
+    if (swiper.autoplay.paused) {
+      wasPaused = true;
+    } else if (wasPaused) {
+      autoplayDelayCurrent = autoplayTimeLeft;
+      wasPaused = false;
+    }
+    const timeLeft = swiper.autoplay.paused ? autoplayTimeLeft : autoplayStartTime + autoplayDelayCurrent - (/* @__PURE__ */ new Date()).getTime();
+    swiper.autoplay.timeLeft = timeLeft;
+    emit("autoplayTimeLeft", timeLeft, timeLeft / autoplayDelayTotal);
+    raf = requestAnimationFrame(() => {
+      calcTimeLeft();
+    });
+  };
+  const getSlideDelay = () => {
+    let activeSlideEl;
+    if (swiper.virtual && swiper.params.virtual.enabled) {
+      activeSlideEl = swiper.slides.find((slideEl) => slideEl.classList.contains("swiper-slide-active"));
+    } else {
+      activeSlideEl = swiper.slides[swiper.activeIndex];
+    }
+    if (!activeSlideEl) return void 0;
+    const currentSlideDelay = parseInt(activeSlideEl.getAttribute("data-swiper-autoplay"), 10);
+    return currentSlideDelay;
+  };
+  const run = (delayForce) => {
+    if (swiper.destroyed || !swiper.autoplay.running) return;
+    cancelAnimationFrame(raf);
+    calcTimeLeft();
+    let delay = typeof delayForce === "undefined" ? swiper.params.autoplay.delay : delayForce;
+    autoplayDelayTotal = swiper.params.autoplay.delay;
+    autoplayDelayCurrent = swiper.params.autoplay.delay;
+    const currentSlideDelay = getSlideDelay();
+    if (!Number.isNaN(currentSlideDelay) && currentSlideDelay > 0 && typeof delayForce === "undefined") {
+      delay = currentSlideDelay;
+      autoplayDelayTotal = currentSlideDelay;
+      autoplayDelayCurrent = currentSlideDelay;
+    }
+    autoplayTimeLeft = delay;
+    const speed = swiper.params.speed;
+    const proceed = () => {
+      if (!swiper || swiper.destroyed) return;
+      if (swiper.params.autoplay.reverseDirection) {
+        if (!swiper.isBeginning || swiper.params.loop || swiper.params.rewind) {
+          swiper.slidePrev(speed, true, true);
+          emit("autoplay");
+        } else if (!swiper.params.autoplay.stopOnLastSlide) {
+          swiper.slideTo(swiper.slides.length - 1, speed, true, true);
+          emit("autoplay");
+        }
+      } else {
+        if (!swiper.isEnd || swiper.params.loop || swiper.params.rewind) {
+          swiper.slideNext(speed, true, true);
+          emit("autoplay");
+        } else if (!swiper.params.autoplay.stopOnLastSlide) {
+          swiper.slideTo(0, speed, true, true);
+          emit("autoplay");
+        }
+      }
+      if (swiper.params.cssMode) {
+        autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
+        requestAnimationFrame(() => {
+          run();
+        });
+      }
+    };
+    if (delay > 0) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        proceed();
+      }, delay);
+    } else {
+      requestAnimationFrame(() => {
+        proceed();
+      });
+    }
+    return delay;
+  };
+  const start = () => {
+    autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
+    swiper.autoplay.running = true;
+    run();
+    emit("autoplayStart");
+  };
+  const stop = () => {
+    swiper.autoplay.running = false;
+    clearTimeout(timeout);
+    cancelAnimationFrame(raf);
+    emit("autoplayStop");
+  };
+  const pause = (internal, reset) => {
+    if (swiper.destroyed || !swiper.autoplay.running) return;
+    clearTimeout(timeout);
+    if (!internal) {
+      pausedByInteraction = true;
+    }
+    const proceed = () => {
+      emit("autoplayPause");
+      if (swiper.params.autoplay.waitForTransition) {
+        swiper.wrapperEl.addEventListener("transitionend", onTransitionEnd);
+      } else {
+        resume();
+      }
+    };
+    swiper.autoplay.paused = true;
+    if (reset) {
+      if (slideChanged) {
+        autoplayTimeLeft = swiper.params.autoplay.delay;
+      }
+      slideChanged = false;
+      proceed();
+      return;
+    }
+    const delay = autoplayTimeLeft || swiper.params.autoplay.delay;
+    autoplayTimeLeft = delay - ((/* @__PURE__ */ new Date()).getTime() - autoplayStartTime);
+    if (swiper.isEnd && autoplayTimeLeft < 0 && !swiper.params.loop) return;
+    if (autoplayTimeLeft < 0) autoplayTimeLeft = 0;
+    proceed();
+  };
+  const resume = () => {
+    if (swiper.isEnd && autoplayTimeLeft < 0 && !swiper.params.loop || swiper.destroyed || !swiper.autoplay.running) return;
+    autoplayStartTime = (/* @__PURE__ */ new Date()).getTime();
+    if (pausedByInteraction) {
+      pausedByInteraction = false;
+      run(autoplayTimeLeft);
+    } else {
+      run();
+    }
+    swiper.autoplay.paused = false;
+    emit("autoplayResume");
+  };
+  const onVisibilityChange = () => {
+    if (swiper.destroyed || !swiper.autoplay.running) return;
+    const document2 = getDocument();
+    if (document2.visibilityState === "hidden") {
+      pausedByInteraction = true;
+      pause(true);
+    }
+    if (document2.visibilityState === "visible") {
+      resume();
+    }
+  };
+  const onPointerEnter = (e) => {
+    if (e.pointerType !== "mouse") return;
+    pausedByInteraction = true;
+    pausedByPointerEnter = true;
+    if (swiper.animating || swiper.autoplay.paused) return;
+    pause(true);
+  };
+  const onPointerLeave = (e) => {
+    if (e.pointerType !== "mouse") return;
+    pausedByPointerEnter = false;
+    if (swiper.autoplay.paused) {
+      resume();
+    }
+  };
+  const attachMouseEvents = () => {
+    if (swiper.params.autoplay.pauseOnMouseEnter) {
+      swiper.el.addEventListener("pointerenter", onPointerEnter);
+      swiper.el.addEventListener("pointerleave", onPointerLeave);
+    }
+  };
+  const detachMouseEvents = () => {
+    if (swiper.el && typeof swiper.el !== "string") {
+      swiper.el.removeEventListener("pointerenter", onPointerEnter);
+      swiper.el.removeEventListener("pointerleave", onPointerLeave);
+    }
+  };
+  const attachDocumentEvents = () => {
+    const document2 = getDocument();
+    document2.addEventListener("visibilitychange", onVisibilityChange);
+  };
+  const detachDocumentEvents = () => {
+    const document2 = getDocument();
+    document2.removeEventListener("visibilitychange", onVisibilityChange);
+  };
+  on("init", () => {
+    if (swiper.params.autoplay.enabled) {
+      attachMouseEvents();
+      attachDocumentEvents();
+      start();
+    }
+  });
+  on("destroy", () => {
+    detachMouseEvents();
+    detachDocumentEvents();
+    if (swiper.autoplay.running) {
+      stop();
+    }
+  });
+  on("_freeModeStaticRelease", () => {
+    if (pausedByTouch || pausedByInteraction) {
+      resume();
+    }
+  });
+  on("_freeModeNoMomentumRelease", () => {
+    if (!swiper.params.autoplay.disableOnInteraction) {
+      pause(true, true);
+    } else {
+      stop();
+    }
+  });
+  on("beforeTransitionStart", (_s, speed, internal) => {
+    if (swiper.destroyed || !swiper.autoplay.running) return;
+    if (internal || !swiper.params.autoplay.disableOnInteraction) {
+      pause(true, true);
+    } else {
+      stop();
+    }
+  });
+  on("sliderFirstMove", () => {
+    if (swiper.destroyed || !swiper.autoplay.running) return;
+    if (swiper.params.autoplay.disableOnInteraction) {
+      stop();
+      return;
+    }
+    isTouched = true;
+    pausedByTouch = false;
+    pausedByInteraction = false;
+    touchStartTimeout = setTimeout(() => {
+      pausedByInteraction = true;
+      pausedByTouch = true;
+      pause(true);
+    }, 200);
+  });
+  on("touchEnd", () => {
+    if (swiper.destroyed || !swiper.autoplay.running || !isTouched) return;
+    clearTimeout(touchStartTimeout);
+    clearTimeout(timeout);
+    if (swiper.params.autoplay.disableOnInteraction) {
+      pausedByTouch = false;
+      isTouched = false;
+      return;
+    }
+    if (pausedByTouch && swiper.params.cssMode) resume();
+    pausedByTouch = false;
+    isTouched = false;
+  });
+  on("slideChange", () => {
+    if (swiper.destroyed || !swiper.autoplay.running) return;
+    slideChanged = true;
+  });
+  Object.assign(swiper.autoplay, {
+    start,
+    stop,
+    pause,
+    resume
+  });
+}
+function effectInit(params) {
+  const {
+    effect,
+    swiper,
+    on,
+    setTranslate: setTranslate2,
+    setTransition: setTransition2,
+    overwriteParams,
+    perspective,
+    recreateShadows,
+    getEffectParams
+  } = params;
+  on("beforeInit", () => {
+    if (swiper.params.effect !== effect) return;
+    swiper.classNames.push(`${swiper.params.containerModifierClass}${effect}`);
+    if (perspective && perspective()) {
+      swiper.classNames.push(`${swiper.params.containerModifierClass}3d`);
+    }
+    const overwriteParamsResult = overwriteParams ? overwriteParams() : {};
+    Object.assign(swiper.params, overwriteParamsResult);
+    Object.assign(swiper.originalParams, overwriteParamsResult);
+  });
+  on("setTranslate _virtualUpdated", () => {
+    if (swiper.params.effect !== effect) return;
+    setTranslate2();
+  });
+  on("setTransition", (_s, duration) => {
+    if (swiper.params.effect !== effect) return;
+    setTransition2(duration);
+  });
+  on("transitionEnd", () => {
+    if (swiper.params.effect !== effect) return;
+    if (recreateShadows) {
+      if (!getEffectParams || !getEffectParams().slideShadows) return;
+      swiper.slides.forEach((slideEl) => {
+        slideEl.querySelectorAll(".swiper-slide-shadow-top, .swiper-slide-shadow-right, .swiper-slide-shadow-bottom, .swiper-slide-shadow-left").forEach((shadowEl) => shadowEl.remove());
+      });
+      recreateShadows();
+    }
+  });
+  let requireUpdateOnVirtual;
+  on("virtualUpdate", () => {
+    if (swiper.params.effect !== effect) return;
+    if (!swiper.slides.length) {
+      requireUpdateOnVirtual = true;
+    }
+    requestAnimationFrame(() => {
+      if (requireUpdateOnVirtual && swiper.slides && swiper.slides.length) {
+        setTranslate2();
+        requireUpdateOnVirtual = false;
+      }
+    });
+  });
+}
+function effectTarget(effectParams, slideEl) {
+  const transformEl = getSlideTransformEl(slideEl);
+  if (transformEl !== slideEl) {
+    transformEl.style.backfaceVisibility = "hidden";
+    transformEl.style["-webkit-backface-visibility"] = "hidden";
+  }
+  return transformEl;
+}
+function effectVirtualTransitionEnd(_ref) {
+  let {
+    swiper,
+    duration,
+    transformElements
+  } = _ref;
+  const {
+    activeIndex
+  } = swiper;
+  if (swiper.params.virtualTranslate && duration !== 0) {
+    let eventTriggered = false;
+    let transitionEndTarget;
+    {
+      transitionEndTarget = transformElements;
+    }
+    transitionEndTarget.forEach((el) => {
+      elementTransitionEnd(el, () => {
+        if (eventTriggered) return;
+        if (!swiper || swiper.destroyed) return;
+        eventTriggered = true;
+        swiper.animating = false;
+        const evt = new window.CustomEvent("transitionend", {
+          bubbles: true,
+          cancelable: true
+        });
+        swiper.wrapperEl.dispatchEvent(evt);
+      });
     });
   }
 }
-document.querySelector("[data-fls-slider]") ? window.addEventListener("load", initSliders) : null;
+function EffectFade(_ref) {
+  let {
+    swiper,
+    extendParams,
+    on
+  } = _ref;
+  extendParams({
+    fadeEffect: {
+      crossFade: false
+    }
+  });
+  const setTranslate2 = () => {
+    const {
+      slides
+    } = swiper;
+    const params = swiper.params.fadeEffect;
+    for (let i = 0; i < slides.length; i += 1) {
+      const slideEl = swiper.slides[i];
+      const offset = slideEl.swiperSlideOffset;
+      let tx = -offset;
+      if (!swiper.params.virtualTranslate) tx -= swiper.translate;
+      let ty = 0;
+      if (!swiper.isHorizontal()) {
+        ty = tx;
+        tx = 0;
+      }
+      const slideOpacity = swiper.params.fadeEffect.crossFade ? Math.max(1 - Math.abs(slideEl.progress), 0) : 1 + Math.min(Math.max(slideEl.progress, -1), 0);
+      const targetEl = effectTarget(params, slideEl);
+      targetEl.style.opacity = slideOpacity;
+      targetEl.style.transform = `translate3d(${tx}px, ${ty}px, 0px)`;
+    }
+  };
+  const setTransition2 = (duration) => {
+    const transformElements = swiper.slides.map((slideEl) => getSlideTransformEl(slideEl));
+    transformElements.forEach((el) => {
+      el.style.transitionDuration = `${duration}ms`;
+    });
+    effectVirtualTransitionEnd({
+      swiper,
+      duration,
+      transformElements
+    });
+  };
+  effectInit({
+    effect: "fade",
+    swiper,
+    on,
+    setTranslate: setTranslate2,
+    setTransition: setTransition2,
+    overwriteParams: () => ({
+      slidesPerView: 1,
+      slidesPerGroup: 1,
+      watchSlidesProgress: true,
+      spaceBetween: 0,
+      virtualTranslate: !swiper.params.cssMode
+    })
+  });
+}
+function initSliders() {
+  if (document.querySelector(".hero__slider")) {
+    new Swiper(".hero__slider", {
+      modules: [Autoplay, EffectFade],
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1,
+      spaceBetween: 0,
+      speed: 800,
+      loop: true,
+      autoplay: {
+        delay: 5e3,
+        disableOnInteraction: false
+      },
+      effect: "fade",
+      fadeEffect: {
+        crossFade: true
+      },
+      autoHeight: false,
+      watchOverflow: true
+    });
+  }
+  if (document.querySelector(".portfolio__slider")) {
+    new Swiper(".portfolio__slider", {
+      modules: [EffectFade, Navigation, Pagination],
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1,
+      spaceBetween: 0,
+      speed: 800,
+      effect: "fade",
+      fadeEffect: {
+        crossFade: true
+      },
+      autoHeight: false,
+      watchOverflow: true,
+      pagination: {
+        el: ".portfolio-pagination",
+        clickable: true
+      },
+      navigation: {
+        prevEl: ".portfolio-button-prev",
+        nextEl: ".portfolio-button-next"
+      }
+    });
+  }
+  if (document.querySelector(".steaps__slider")) {
+    new Swiper(".steaps__slider", {
+      modules: [Pagination, Scrollbar],
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1,
+      spaceBetween: 10,
+      speed: 800,
+      scrollbar: {
+        el: ".swiper-scrollbar",
+        draggable: true
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 0,
+          autoHeight: true
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 20
+        },
+        992: {
+          slidesPerView: 3,
+          spaceBetween: 20
+        }
+      }
+    });
+  }
+  const youtubeContainer = document.querySelector("[data-fls-youtube]");
+  if (youtubeContainer && document.querySelector(".reviews-slider")) {
+    const reviewsSwiper = new Swiper(".reviews-slider", {
+      modules: [Navigation, Pagination, Scrollbar],
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1,
+      spaceBetween: 20,
+      speed: 800,
+      loop: false,
+      pagination: {
+        el: ".reviews-pagination",
+        clickable: true,
+        dynamicBullets: true
+      },
+      navigation: {
+        nextEl: ".reviews-button-next",
+        prevEl: ".reviews-button-prev"
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 10
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 20
+        },
+        992: {
+          slidesPerView: 3,
+          spaceBetween: 20
+        }
+      }
+    });
+    new ReviewsYouTubeLoader(reviewsSwiper, youtubeContainer);
+  }
+}
+if (document.querySelector("[data-fls-slider]")) {
+  window.addEventListener("load", initSliders);
+} else {
+  if (document.querySelector(".hero__slider, .portfolio__slider, .steaps__slider, .reviews-slider")) {
+    window.addEventListener("load", initSliders);
+  }
+}
 class Popup {
   constructor(options) {
     let config = {
@@ -5146,38 +7051,6 @@ function menuInit() {
   });
 }
 document.querySelector("[data-fls-menu]") ? window.addEventListener("load", menuInit) : null;
-function headerScroll() {
-  const header = document.querySelector("[data-fls-header-scroll]");
-  const headerShow = header.hasAttribute("data-fls-header-scroll-show");
-  const headerShowTimer = header.dataset.flsHeaderScrollShow ? header.dataset.flsHeaderScrollShow : 500;
-  const startPoint = header.dataset.flsHeaderScroll ? header.dataset.flsHeaderScroll : 1;
-  let scrollDirection = 0;
-  let timer;
-  document.addEventListener("scroll", function(e) {
-    const scrollTop = window.scrollY;
-    clearTimeout(timer);
-    if (scrollTop >= startPoint) {
-      !header.classList.contains("--header-scroll") ? header.classList.add("--header-scroll") : null;
-      if (headerShow) {
-        if (scrollTop > scrollDirection) {
-          header.classList.contains("--header-show") ? header.classList.remove("--header-show") : null;
-        } else {
-          !header.classList.contains("--header-show") ? header.classList.add("--header-show") : null;
-        }
-        timer = setTimeout(() => {
-          !header.classList.contains("--header-show") ? header.classList.add("--header-show") : null;
-        }, headerShowTimer);
-      }
-    } else {
-      header.classList.contains("--header-scroll") ? header.classList.remove("--header-scroll") : null;
-      if (headerShow) {
-        header.classList.contains("--header-show") ? header.classList.remove("--header-show") : null;
-      }
-    }
-    scrollDirection = scrollTop <= 0 ? 0 : scrollTop;
-  });
-}
-document.querySelector("[data-fls-header-scroll]") ? window.addEventListener("load", headerScroll) : null;
 /*!
  * lightgallery | 2.9.0-beta.1 | June 15th 2025
  * http://www.lightgalleryjs.com/
@@ -7904,6 +9777,7 @@ if (galleries.length) {
     });
   });
 }
+window.addEventListener("load", initGallery());
 class DynamicAdapt {
   constructor() {
     this.type = "max";
@@ -8023,6 +9897,48 @@ class DynamicAdapt {
 if (document.querySelector("[data-fls-dynamic]")) {
   window.addEventListener("load", () => new DynamicAdapt());
 }
+function digitsCounter() {
+  function digitsCountersInit(digitsCountersItems) {
+    let digitsCounters = digitsCountersItems ? digitsCountersItems : document.querySelectorAll("[data-fls-digcounter]");
+    if (digitsCounters.length) {
+      digitsCounters.forEach((digitsCounter2) => {
+        if (digitsCounter2.hasAttribute("data-fls-digcounter-go")) return;
+        digitsCounter2.setAttribute("data-fls-digcounter-go", "");
+        digitsCounter2.dataset.flsDigcounter = digitsCounter2.innerHTML;
+        digitsCounter2.innerHTML = `0`;
+        digitsCountersAnimate(digitsCounter2);
+      });
+    }
+  }
+  function digitsCountersAnimate(digitsCounter2) {
+    let startTimestamp = null;
+    const duration = parseFloat(digitsCounter2.dataset.flsDigcounterSpeed) ? parseFloat(digitsCounter2.dataset.flsDigcounterSpeed) : 1e3;
+    const startValue = parseFloat(digitsCounter2.dataset.flsDigcounter);
+    const format = digitsCounter2.dataset.flsDigcounterFormat ? digitsCounter2.dataset.flsDigcounterFormat : " ";
+    const startPosition = 0;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const value = Math.floor(progress * (startPosition + startValue));
+      digitsCounter2.innerHTML = typeof digitsCounter2.dataset.flsDigcounterFormat !== "undefined" ? getDigFormat(value, format) : value;
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        digitsCounter2.removeAttribute("data-fls-digcounter-go");
+      }
+    };
+    window.requestAnimationFrame(step);
+  }
+  function digitsCounterAction(e) {
+    const entry = e.detail.entry;
+    const targetElement = entry.target;
+    if (targetElement.querySelectorAll("[data-fls-digcounter]").length && !targetElement.querySelectorAll("[data-fls-watcher]").length && entry.isIntersecting) {
+      digitsCountersInit(targetElement.querySelectorAll("[data-fls-digcounter]"));
+    }
+  }
+  document.addEventListener("watcherCallback", digitsCounterAction);
+}
+document.querySelector("[data-fls-digcounter]") ? window.addEventListener("load", digitsCounter) : null;
 var inputmask_min$1 = { exports: {} };
 /*!
  * dist/inputmask.min
@@ -10698,101 +12614,6 @@ function inputMask() {
   });
 }
 document.querySelector("input[data-fls-input-mask]") ? window.addEventListener("load", inputMask) : null;
-let formValidate = {
-  getErrors(form) {
-    let error = 0;
-    let formRequiredItems = form.querySelectorAll("[required]");
-    if (formRequiredItems.length) {
-      formRequiredItems.forEach((formRequiredItem) => {
-        if ((formRequiredItem.offsetParent !== null || formRequiredItem.tagName === "SELECT") && !formRequiredItem.disabled) {
-          error += this.validateInput(formRequiredItem);
-        }
-      });
-    }
-    return error;
-  },
-  validateInput(formRequiredItem) {
-    let error = 0;
-    if (formRequiredItem.type === "email") {
-      formRequiredItem.value = formRequiredItem.value.replace(" ", "");
-      if (this.emailTest(formRequiredItem)) {
-        this.addError(formRequiredItem);
-        this.removeSuccess(formRequiredItem);
-        error++;
-      } else {
-        this.removeError(formRequiredItem);
-        this.addSuccess(formRequiredItem);
-      }
-    } else if (formRequiredItem.type === "checkbox" && !formRequiredItem.checked) {
-      this.addError(formRequiredItem);
-      this.removeSuccess(formRequiredItem);
-      error++;
-    } else {
-      if (!formRequiredItem.value.trim()) {
-        this.addError(formRequiredItem);
-        this.removeSuccess(formRequiredItem);
-        error++;
-      } else {
-        this.removeError(formRequiredItem);
-        this.addSuccess(formRequiredItem);
-      }
-    }
-    return error;
-  },
-  addError(formRequiredItem) {
-    formRequiredItem.classList.add("--form-error");
-    formRequiredItem.parentElement.classList.add("--form-error");
-    let inputError = formRequiredItem.parentElement.querySelector("[data-fls-form-error]");
-    if (inputError) formRequiredItem.parentElement.removeChild(inputError);
-    if (formRequiredItem.dataset.flsFormErrtext) {
-      formRequiredItem.parentElement.insertAdjacentHTML("beforeend", `<div data-fls-form-error>${formRequiredItem.dataset.flsFormErrtext}</div>`);
-    }
-  },
-  removeError(formRequiredItem) {
-    formRequiredItem.classList.remove("--form-error");
-    formRequiredItem.parentElement.classList.remove("--form-error");
-    if (formRequiredItem.parentElement.querySelector("[data-fls-form-error]")) {
-      formRequiredItem.parentElement.removeChild(formRequiredItem.parentElement.querySelector("[data-fls-form-error]"));
-    }
-  },
-  addSuccess(formRequiredItem) {
-    formRequiredItem.classList.add("--form-success");
-    formRequiredItem.parentElement.classList.add("--form-success");
-  },
-  removeSuccess(formRequiredItem) {
-    formRequiredItem.classList.remove("--form-success");
-    formRequiredItem.parentElement.classList.remove("--form-success");
-  },
-  formClean(form) {
-    form.reset();
-    setTimeout(() => {
-      let inputs = form.querySelectorAll("input,textarea");
-      for (let index = 0; index < inputs.length; index++) {
-        const el = inputs[index];
-        el.parentElement.classList.remove("--form-focus");
-        el.classList.remove("--form-focus");
-        formValidate.removeError(el);
-      }
-      let checkboxes = form.querySelectorAll('input[type="checkbox"]');
-      if (checkboxes.length) {
-        checkboxes.forEach((checkbox) => {
-          checkbox.checked = false;
-        });
-      }
-      if (window["flsSelect"]) {
-        let selects = form.querySelectorAll("select[data-fls-select]");
-        if (selects.length) {
-          selects.forEach((select) => {
-            window["flsSelect"].selectBuild(select);
-          });
-        }
-      }
-    }, 0);
-  },
-  emailTest(formRequiredItem) {
-    return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
-  }
-};
 function formInit() {
   function formSubmit() {
     const forms = document.forms;
@@ -10883,233 +12704,302 @@ function formInit() {
   formFieldsInit();
 }
 document.querySelector("[data-fls-form]") ? window.addEventListener("load", formInit) : null;
-function pageNavigation() {
-  document.addEventListener("click", pageNavigationAction);
-  document.addEventListener("watcherCallback", pageNavigationAction);
-  function pageNavigationAction(e) {
-    if (e.type === "click") {
-      const targetElement = e.target;
-      if (targetElement.closest("[data-fls-scrollto]")) {
-        const gotoLink = targetElement.closest("[data-fls-scrollto]");
-        const gotoLinkSelector = gotoLink.dataset.flsScrollto ? gotoLink.dataset.flsScrollto : "";
-        const noHeader = gotoLink.hasAttribute("data-fls-scrollto-header") ? true : false;
-        const gotoSpeed = gotoLink.dataset.flsScrolltoSpeed ? gotoLink.dataset.flsScrolltoSpeed : 500;
-        const offsetTop = gotoLink.dataset.flsScrolltoTop ? parseInt(gotoLink.dataset.flsScrolltoTop) : 0;
-        if (window.fullpage) {
-          const fullpageSection = document.querySelector(`${gotoLinkSelector}`).closest("[data-fls-fullpage-section]");
-          const fullpageSectionId = fullpageSection ? +fullpageSection.dataset.flsFullpageId : null;
-          if (fullpageSectionId !== null) {
-            window.fullpage.switchingSection(fullpageSectionId);
-            if (document.documentElement.hasAttribute("data-fls-menu-open")) {
-              bodyUnlock();
-              document.documentElement.removeAttribute("data-fls-menu-open");
+class ScrollWatcher {
+  constructor(props) {
+    let defaultConfig = {
+      logging: true
+    };
+    this.config = Object.assign(defaultConfig, props);
+    this.observer;
+    !document.documentElement.hasAttribute("data-fls-watch") ? this.scrollWatcherRun() : null;
+  }
+  // Обновляем конструктор
+  scrollWatcherUpdate() {
+    this.scrollWatcherRun();
+  }
+  // Запускаем конструктор
+  scrollWatcherRun() {
+    document.documentElement.setAttribute("data-fls-watch", "");
+    this.scrollWatcherConstructor(document.querySelectorAll("[data-fls-watcher]"));
+  }
+  // Конструктор наблюдателей
+  scrollWatcherConstructor(items) {
+    if (items.length) {
+      let uniqParams = uniqArray(Array.from(items).map(function(item) {
+        if (item.dataset.flsWatcher === "navigator" && !item.dataset.flsWatcherThreshold) {
+          let valueOfThreshold;
+          if (item.clientHeight > 2) {
+            valueOfThreshold = window.innerHeight / 2 / (item.clientHeight - 1);
+            if (valueOfThreshold > 1) {
+              valueOfThreshold = 1;
             }
+          } else {
+            valueOfThreshold = 1;
           }
-        } else {
-          gotoBlock(gotoLinkSelector, noHeader, gotoSpeed, offsetTop);
+          item.setAttribute(
+            "data-fls-watcher-threshold",
+            valueOfThreshold.toFixed(2)
+          );
         }
-        e.preventDefault();
-      }
-    } else if (e.type === "watcherCallback" && e.detail) {
-      const entry = e.detail.entry;
-      const targetElement = entry.target;
-      if (targetElement.dataset.flsWatcher === "navigator") {
-        document.querySelector(`[data-fls-scrollto].--navigator-active`);
-        let navigatorCurrentItem;
-        if (targetElement.id && document.querySelector(`[data-fls-scrollto="#${targetElement.id}"]`)) {
-          navigatorCurrentItem = document.querySelector(`[data-fls-scrollto="#${targetElement.id}"]`);
-        } else if (targetElement.classList.length) {
-          for (let index = 0; index < targetElement.classList.length; index++) {
-            const element = targetElement.classList[index];
-            if (document.querySelector(`[data-fls-scrollto=".${element}"]`)) {
-              navigatorCurrentItem = document.querySelector(`[data-fls-scrollto=".${element}"]`);
-              break;
-            }
+        return `${item.dataset.flsWatcherRoot ? item.dataset.flsWatcherRoot : null}|${item.dataset.flsWatcherMargin ? item.dataset.flsWatcherMargin : "0px"}|${item.dataset.flsWatcherThreshold ? item.dataset.flsWatcherThreshold : 0}`;
+      }));
+      uniqParams.forEach((uniqParam) => {
+        let uniqParamArray = uniqParam.split("|");
+        let paramsWatch = {
+          root: uniqParamArray[0],
+          margin: uniqParamArray[1],
+          threshold: uniqParamArray[2]
+        };
+        let groupItems = Array.from(items).filter(function(item) {
+          let watchRoot = item.dataset.flsWatcherRoot ? item.dataset.flsWatcherRoot : null;
+          let watchMargin = item.dataset.flsWatcherMargin ? item.dataset.flsWatcherMargin : "0px";
+          let watchThreshold = item.dataset.flsWatcherThreshold ? item.dataset.flsWatcherThreshold : 0;
+          if (String(watchRoot) === paramsWatch.root && String(watchMargin) === paramsWatch.margin && String(watchThreshold) === paramsWatch.threshold) {
+            return item;
           }
-        }
-        if (entry.isIntersecting) {
-          navigatorCurrentItem ? navigatorCurrentItem.classList.add("--navigator-active") : null;
-        } else {
-          navigatorCurrentItem ? navigatorCurrentItem.classList.remove("--navigator-active") : null;
-        }
-      }
-    }
-  }
-  if (getHash()) {
-    let goToHash;
-    if (document.querySelector(`#${getHash()}`)) {
-      goToHash = `#${getHash()}`;
-    } else if (document.querySelector(`.${getHash()}`)) {
-      goToHash = `.${getHash()}`;
-    }
-    goToHash ? gotoBlock(goToHash) : null;
-  }
-}
-document.querySelector("[data-fls-scrollto]") ? window.addEventListener("load", pageNavigation) : null;
-document.addEventListener("DOMContentLoaded", function() {
-  window.addEventListener("load", handlePageLoad);
-  let fallbackTimer = setTimeout(() => {
-    handlePageLoad(true);
-  }, 3e3);
-  window.addEventListener("load", () => {
-    clearTimeout(fallbackTimer);
-  });
-});
-function handlePageLoad(isFallback = false) {
-  const preloader = document.getElementById("preloader");
-  const content = document.getElementById("content");
-  if (isFallback) {
-    console.log("Fallback: показываем контент по таймауту");
-  }
-  if (content) {
-    content.style.display = "block";
-    content.style.opacity = "1";
-  } else {
-    document.body.style.opacity = "1";
-    document.body.style.visibility = "visible";
-  }
-  if (preloader) {
-    preloader.classList.add("preloader-hidden");
-    setTimeout(() => {
-      if (preloader.parentNode) {
-        preloader.remove();
-      }
-    }, 500);
-  }
-}
-document.addEventListener("DOMContentLoaded", function() {
-  const allForms = document.querySelectorAll("form");
-  allForms.forEach((form) => {
-    const submitBtn = form.querySelector(".estimate-form__submit");
-    const consentCheckbox = form.querySelector("#consentCheckbox");
-    if (submitBtn && consentCheckbox) {
-      submitBtn.disabled = !consentCheckbox.checked;
-      consentCheckbox.addEventListener("change", function() {
-        submitBtn.disabled = !this.checked;
-      });
-    }
-    initFileUpload(form);
-  });
-  function initFileUpload(form) {
-    const fileInput = form.querySelector("#fileInput");
-    const dropzone = form.querySelector("#dropzone");
-    const fileBrowseBtn = form.querySelector("#fileBrowseBtn");
-    const fileList = form.querySelector("#fileList");
-    const fileCount = form.querySelector("#fileCount");
-    if (!fileInput || !dropzone || !fileBrowseBtn || !fileList || !fileCount) return;
-    let selectedFiles = [];
-    const MAX_FILES = 10;
-    const MAX_SIZE = 10 * 1024 * 1024;
-    fileBrowseBtn.addEventListener("click", function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      fileInput.click();
-    });
-    dropzone.addEventListener("click", function(e) {
-      if (!e.target.closest(".file-upload__button")) {
-        fileInput.click();
-      }
-    });
-    dropzone.addEventListener("dragover", function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      this.classList.add("file-upload__dropzone--active");
-    });
-    dropzone.addEventListener("dragleave", function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      this.classList.remove("file-upload__dropzone--active");
-    });
-    dropzone.addEventListener("drop", function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      this.classList.remove("file-upload__dropzone--active");
-      addFiles(e.dataTransfer.files);
-    });
-    fileInput.addEventListener("change", function(e) {
-      addFiles(e.target.files);
-      this.value = "";
-    });
-    function addFiles(files) {
-      const fileArray = Array.from(files);
-      fileArray.forEach((file) => {
-        if (selectedFiles.length >= MAX_FILES) {
-          console.log(`Можно загрузить не более ${MAX_FILES} файлов`);
-          return;
-        }
-        if (file.size > MAX_SIZE) {
-          console.log(`Файл "${file.name}" слишком большой. Максимальный размер 10MB`);
-          return;
-        }
-        const isDuplicate = selectedFiles.some(
-          (f) => f.name === file.name && f.size === file.size
-        );
-        if (isDuplicate) {
-          console.log(`Файл "${file.name}" уже добавлен`);
-          return;
-        }
-        selectedFiles.push(file);
-      });
-      updateFileList();
-      updateFileCounter();
-    }
-    function removeFile(index) {
-      selectedFiles.splice(index, 1);
-      updateFileList();
-      updateFileCounter();
-    }
-    function updateFileList() {
-      fileList.innerHTML = "";
-      selectedFiles.forEach((file, index) => {
-        const fileItem = document.createElement("div");
-        fileItem.className = "file-item";
-        const formattedSize = file.size > 1024 * 1024 ? (file.size / 1024 / 1024).toFixed(2) + " MB" : (file.size / 1024).toFixed(1) + " KB";
-        fileItem.innerHTML = `
-                    <div class="file-item__info">
-                        <span class="file-item__name">${file.name}</span>
-                        <span class="file-item__size">(${formattedSize})</span>
-                    </div>
-                    <button type="button" class="file-item__remove" data-index="${index}">×</button>
-                `;
-        fileList.appendChild(fileItem);
-      });
-      fileList.querySelectorAll(".file-item__remove").forEach((btn) => {
-        btn.addEventListener("click", function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          removeFile(parseInt(this.dataset.index));
         });
+        let configWatcher = this.getScrollWatcherConfig(paramsWatch);
+        this.scrollWatcherInit(groupItems, configWatcher);
       });
     }
-    function updateFileCounter() {
-      fileCount.textContent = selectedFiles.length;
+  }
+  // Функция создания настроек
+  getScrollWatcherConfig(paramsWatch) {
+    let configWatcher = {};
+    if (document.querySelector(paramsWatch.root)) {
+      configWatcher.root = document.querySelector(paramsWatch.root);
+    } else if (paramsWatch.root !== "null") ;
+    configWatcher.rootMargin = paramsWatch.margin;
+    if (paramsWatch.margin.indexOf("px") < 0 && paramsWatch.margin.indexOf("%") < 0) {
+      return;
     }
-    window.addEventListener("beforeunload", function(e) {
-      if (selectedFiles.length > 0) {
+    if (paramsWatch.threshold === "prx") {
+      paramsWatch.threshold = [];
+      for (let i = 0; i <= 1; i += 5e-3) {
+        paramsWatch.threshold.push(i);
+      }
+    } else {
+      paramsWatch.threshold = paramsWatch.threshold.split(",");
+    }
+    configWatcher.threshold = paramsWatch.threshold;
+    return configWatcher;
+  }
+  // Функция создания нового наблюдателя с вашими настройками
+  scrollWatcherCreate(configWatcher) {
+    this.observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        this.scrollWatcherCallback(entry, observer);
+      });
+    }, configWatcher);
+  }
+  // Функция инициализации наблюдателя с его настройками
+  scrollWatcherInit(items, configWatcher) {
+    this.scrollWatcherCreate(configWatcher);
+    items.forEach((item) => this.observer.observe(item));
+  }
+  // Функция обработки базовых действий точек срабатывания
+  scrollWatcherIntersecting(entry, targetElement) {
+    if (entry.isIntersecting) {
+      !targetElement.classList.contains("--watcher-view") ? targetElement.classList.add("--watcher-view") : null;
+    } else {
+      targetElement.classList.contains("--watcher-view") ? targetElement.classList.remove("--watcher-view") : null;
+    }
+  }
+  // Функция отключения слежения за объектом
+  scrollWatcherOff(targetElement, observer) {
+    observer.unobserve(targetElement);
+  }
+  // Функция обработки наблюдения
+  scrollWatcherCallback(entry, observer) {
+    const targetElement = entry.target;
+    this.scrollWatcherIntersecting(entry, targetElement);
+    targetElement.hasAttribute("data-fls-watcher-once") && entry.isIntersecting ? this.scrollWatcherOff(targetElement, observer) : null;
+    document.dispatchEvent(new CustomEvent("watcherCallback", {
+      detail: {
+        entry
+      }
+    }));
+  }
+}
+document.querySelector("[data-fls-watcher]") ? window.addEventListener("load", () => new ScrollWatcher({})) : null;
+function rippleEffect() {
+  document.addEventListener("click", function(e) {
+    const targetItem = e.target;
+    if (targetItem.closest("[data-fls-ripple]")) {
+      let getAnimationDuration2 = function() {
+        const aDuration = window.getComputedStyle(ripple).animationDuration;
+        return aDuration.includes("ms") ? aDuration.replace("ms", "") : aDuration.replace("s", "") * 1e3;
+      };
+      var getAnimationDuration = getAnimationDuration2;
+      const button = targetItem.closest("[data-fls-ripple]");
+      const ripple = document.createElement("span");
+      const diameter = Math.max(button.clientWidth, button.clientHeight);
+      const radius = diameter / 2;
+      ripple.style.width = ripple.style.height = `${diameter}px`;
+      ripple.style.left = `${e.pageX - (button.getBoundingClientRect().left + scrollX) - radius}px`;
+      ripple.style.top = `${e.pageY - (button.getBoundingClientRect().top + scrollY) - radius}px`;
+      ripple.classList.add("--ripple");
+      button.dataset.ripple === "once" && button.querySelector("--ripple") ? button.querySelector("--ripple").remove() : null;
+      button.appendChild(ripple);
+      const timeOut = getAnimationDuration2();
+      setTimeout(() => {
+        ripple ? ripple.remove() : null;
+      }, timeOut);
+    }
+  });
+}
+document.querySelector("[data-fls-ripple]") ? window.addEventListener("load", rippleEffect) : null;
+(function() {
+  const calculator = document.querySelector("[data-fls-calc]");
+  if (!calculator) return;
+  const shapeRadios = document.querySelectorAll('input[name="kitchen-shape"]');
+  const sizeInputs = document.querySelectorAll(".calculator__size-item input");
+  const materialRadios = document.querySelectorAll('input[name="material"]');
+  const totalSpan = document.getElementById("totalPrice");
+  function getPriceFromData(priceKey, defaultValue = 4e4) {
+    if (!calculator) return defaultValue;
+    const priceAttr = `data-price-${priceKey}`;
+    const priceValue = calculator.getAttribute(priceAttr);
+    if (priceValue && !isNaN(parseFloat(priceValue))) {
+      return parseFloat(priceValue);
+    }
+    return defaultValue;
+  }
+  function formatNumber(value) {
+    return Math.round(value).toLocaleString("ru-RU");
+  }
+  function getCurrentShape() {
+    let selected = null;
+    shapeRadios.forEach((radio) => {
+      if (radio.checked) selected = radio.value;
+    });
+    return selected;
+  }
+  function getShapeCoefficient() {
+    const shape = getCurrentShape();
+    const coefficient = getPriceFromData(shape, 1);
+    return coefficient;
+  }
+  function updateSizeFieldsVisibility() {
+    const shape = getCurrentShape();
+    const side1Item = document.querySelector('.calculator__size-item[data-side="1"]');
+    const side2Item = document.querySelector('.calculator__size-item[data-side="2"]');
+    const side3Item = document.querySelector('.calculator__size-item[data-side="3"]');
+    side1Item.classList.remove("disabled");
+    side2Item.classList.remove("disabled");
+    side3Item.classList.remove("disabled");
+    switch (shape) {
+      case "pryamaya":
+        side2Item.classList.add("disabled");
+        side3Item.classList.add("disabled");
+        break;
+      case "uglovaya":
+        side3Item.classList.add("disabled");
+        break;
+    }
+  }
+  function getActiveSizes() {
+    const sizes = [];
+    const sideItems = document.querySelectorAll(".calculator__size-item");
+    sideItems.forEach((item) => {
+      if (!item.classList.contains("disabled")) {
+        const input = item.querySelector("input");
+        let val = parseInt(input.value, 10);
+        if (isNaN(val) || val < 500) val = 500;
+        sizes.push(val);
+      }
+    });
+    return sizes;
+  }
+  function getMaterialPrice() {
+    let selectedMaterial = null;
+    materialRadios.forEach((radio) => {
+      if (radio.checked) selectedMaterial = radio;
+    });
+    if (!selectedMaterial) return getPriceFromData("pvh", 4e4);
+    const priceKey = selectedMaterial.getAttribute("data-price-key");
+    const pricePerMeter = getPriceFromData(priceKey, 4e4);
+    return pricePerMeter;
+  }
+  function calculateTotal() {
+    const sizes = getActiveSizes();
+    const pricePerMeter = getMaterialPrice();
+    const shapeCoefficient = getShapeCoefficient();
+    let totalLengthMeters = sizes.reduce((sum, val) => sum + val, 0) / 1e3;
+    let total = totalLengthMeters * pricePerMeter;
+    total *= shapeCoefficient;
+    total = Math.round(total);
+    totalSpan.innerText = formatNumber(total);
+    return total;
+  }
+  function recalc() {
+    calculateTotal();
+  }
+  function onShapeChange() {
+    updateSizeFieldsVisibility();
+    recalc();
+  }
+  function setupSteppers() {
+    const minusBtns = document.querySelectorAll(".calculator__size-minus");
+    const plusBtns = document.querySelectorAll(".calculator__size-plus");
+    function updateInput(input, delta) {
+      let val = parseInt(input.value, 10);
+      if (isNaN(val)) val = 1e3;
+      let newVal = val + delta;
+      if (newVal < 500) newVal = 500;
+      if (newVal > 5e3) newVal = 5e3;
+      input.value = newVal;
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+    minusBtns.forEach((btn) => {
+      btn.removeEventListener("click", minusHandler);
+      btn.addEventListener("click", minusHandler);
+      function minusHandler(e) {
         e.preventDefault();
-        e.returnValue = "";
+        const wrapper = btn.closest(".calculator__size-input-wrapper");
+        const input = wrapper.querySelector("input");
+        if (input) updateInput(input, -10);
+      }
+    });
+    plusBtns.forEach((btn) => {
+      btn.removeEventListener("click", plusHandler);
+      btn.addEventListener("click", plusHandler);
+      function plusHandler(e) {
+        e.preventDefault();
+        const wrapper = btn.closest(".calculator__size-input-wrapper");
+        const input = wrapper.querySelector("input");
+        if (input) updateInput(input, 10);
       }
     });
   }
-});
-document.addEventListener("click", function(e) {
-  const viberButton = document.querySelector(".btn-wrapper__viber-button");
-  const btnList = document.querySelector(".btn-wrapper__list");
-  const viberClose = document.querySelector(".btn-wrapper__viber-close");
-  const target = e.target;
-  if (viberButton && btnList && viberClose) {
-    if (target.closest(".btn-wrapper__viber-button")) {
-      btnList.classList.add("social-active");
-      viberButton.classList.add("social-block");
-      viberButton.classList.remove("social-block-active");
-      viberClose.classList.add("social-block-active");
-      viberClose.classList.remove("social-block");
-    } else if (target.closest(".btn-wrapper__viber-close")) {
-      btnList.classList.remove("social-active");
-      viberClose.classList.add("social-block");
-      viberClose.classList.remove("social-block-active");
-      viberButton.classList.add("social-block-active");
-      viberButton.classList.remove("social-block");
-    }
+  function initEvents() {
+    shapeRadios.forEach((radio) => {
+      radio.addEventListener("change", onShapeChange);
+    });
+    sizeInputs.forEach((input) => {
+      input.addEventListener("change", recalc);
+      input.addEventListener("input", recalc);
+    });
+    materialRadios.forEach((radio) => {
+      radio.addEventListener("change", recalc);
+    });
+  }
+  function init() {
+    updateSizeFieldsVisibility();
+    setupSteppers();
+    initEvents();
+    recalc();
+  }
+  init();
+})();
+const fileInput = document.getElementById("file");
+const attachBtn = document.querySelector(".attach-btn");
+const fileNameSpan = document.querySelector(".file-name");
+attachBtn.addEventListener("click", () => fileInput.click());
+fileInput.addEventListener("change", () => {
+  if (fileInput.files.length > 0) {
+    fileNameSpan.textContent = fileInput.files[0].name;
+  } else {
+    fileNameSpan.textContent = "";
   }
 });

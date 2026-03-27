@@ -5,8 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1774532390057"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1774532390057">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1774595923650"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1774595923650">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -377,7 +377,7 @@ data-price-massiv="70000"      цена массива
 				</div>
 				<section class="portfolio">
 					<div class="portfolio__container">
-						<h2 data-fls-title="" class="title">НАШИ РАБОТЫ</h2>
+						<h2 data-fls-title="" class="title">Наши работы</h2>
 						<div class="portfolio__items">
 							<article class="portfolio__item">
 								<div data-fls-slider="" class="portfolio__slider swiper">
@@ -671,7 +671,7 @@ data-price-massiv="70000"      цена массива
 									<button type="submit" class="free-design__button button">Вызвать дизайнера</button>
 								</div>
 								<label data-fls-checkbox="" class="checkbox">
-									<input class="checkbox__input" type="checkbox" value="согласен" name="check">
+									<input checked class="checkbox__input" type="checkbox" value="согласен" name="check">
 									<span class="checkbox__text">
 										Я согласен на обработку персональных данных и получение
               информационных сообщений
@@ -716,10 +716,95 @@ data-price-massiv="70000"      цена массива
 								</div>
 							</div>
 							<div class="advantages__bottom">
-								<img class="advantages__bottom-img" alt="Image" src="./assets/img/advantages/01.webp">
-								<img class="advantages__bottom-img" alt="Image" src="./assets/img/advantages/02.webp">
-								<img class="advantages__bottom-img" alt="Image" src="./assets/img/advantages/03.webp">
+								<picture>
+									<img class="advantages__bottom-img" alt="Image" src="./assets/img/advantages/01.webp">
+								</picture>
+								<picture>
+									<img class="advantages__bottom-img" alt="Image" src="./assets/img/advantages/02.webp">
+								</picture>
+								<picture>
+									<img class="advantages__bottom-img" alt="Image" src="./assets/img/advantages/03.webp">
+								</picture>
 							</div>
+						</div>
+					</div>
+				</section>
+				<section class="block-form">
+					<img class="block-form__img-bg" alt="Image" src="./assets/img/block-form/bg.webp">
+					<div class="block-form__container">
+						<div class="block-form__content">
+							<h2 class="block-form__title">
+								Хотите увидеть качество наших кухонь вживую? протестировать фурнитуру
+          и получить персональную консультацию?
+							</h2>
+							<div class="block-form__text">
+								<p>
+									Приходите в наш шоу-рум и получите
+									<span>20 000 руб!</span>
+								</p>
+								<small>*Условия акции уточняйте у менеджера</small>
+							</div>
+							<form class="free-design__form" data-fls-form="ajax" data-fls-form-popup="popup" method="POST" action="sendmail/sendmail.php">
+								<h4 class="block-form__form-title">
+									Запишитесь на удобное время, и мы подготовим для вас индивидуальную
+            экскурсию + подарки от нашей компании
+								</h4>
+								<div class="free-design__item">
+									<input required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+375(__) ___-__-__" class="free-design__input input">
+									<select name="select" data-fls-select="" data-fls-select-modif="form">
+										<option value="1" selected>Когда хотите посетить?</option>
+										<option value="10:00 - 14:00">10:00 - 14:00</option>
+										<option value="14:00 - 18:00">14:00 - 18:00</option>
+										<option value="18:00 - 21:00">18:00 - 21:00</option>
+									</select>
+									<button type="submit" class="free-design__button button">ОСТАВИТЬ ЗАЯВКУ</button>
+								</div>
+								<label data-fls-checkbox="" class="checkbox">
+									<input checked class="checkbox__input" type="checkbox" value="согласен" name="check">
+									<span class="checkbox__text">
+										Я согласен на обработку персональных данных и получение
+              информационных сообщений
+									</span>
+								</label>
+							</form>
+						</div>
+						<div class="block-form__video">
+							<video controls muted preload="auto" autoplay loop playsinline="" poster="preview.jpg">
+								<source src="./assets/img/advantages/video.mp4" type="video/mp4">
+								<source src="assets/img/block-form/01.webm" type="video/webm">
+								<source src="assets/img/block-form/01.ogv" type="video/ogg">
+								Ваш браузер не поддерживает тег video.
+							</video>
+							<div class="block-form__video-text">
+								<svg width="20" height="24" viewbox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M19.9579 11.2388C19.6212 13.5056 18.6111 15.4365 17.0117 17.0317C16.0857 17.8713 15.244 18.7948 14.318 19.6343C12.9712 21.0616 11.6243 22.5728 10.2775 24C7.41545 21.0616 4.6376 18.5429 2.02809 15.7724C0.512897 14.0933 -0.0763465 11.9104 0.00783105 9.64361C0.0920086 4.77419 3.88 0.576418 8.59394 0.0726849C13.8971 -0.515004 18.4427 2.50739 19.7896 7.46077C20.1263 8.46823 19.9579 11.0709 19.9579 11.2388ZM10.025 13.2537C11.7927 13.2537 13.3079 11.8265 13.3079 10.0634C13.3079 8.30032 11.7927 6.78912 10.1091 6.78912C8.42559 6.78912 6.82621 8.30032 6.82621 9.97943C6.82621 11.7425 8.25723 13.2537 10.025 13.2537Z" fill="#31B939"></path>
+								</svg>
+								<p>
+									в 10 минутах ходьбы от станции метро
+									<strong>"Потапово"</strong>
+								</p>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!-- Слайдер отзывов с YouTube видео -->
+				<!--
+data-youtube-type	Тип: channel или playlist	channel
+data-youtube-channel-id	ID канала	UCIJCc5BpDp2AbrqIwbempnw
+data-youtube-playlist-id	ID плейлиста (если тип playlist)	PLxxxxxxxxxxxxx
+data-youtube-api-key	Ваш API ключ	AIzaSyAwFqajMVpq2pGUIWBspFYUClEhI6CeTPU
+data-youtube-max-results	Максимум видео	20
+-->
+				<section data-fls-youtube="" data-youtube-type="channel" data-youtube-channel-id="UCIJCc5BpDp2AbrqIwbempnw" data-youtube-playlist-id="" data-youtube-api-key="AIzaSyAwFqajMVpq2pGUIWBspFYUClEhI6CeTPU" data-youtube-max-results="20" class="reviews">
+					<div class="reviews__container">
+						<h2 data-fls-title="" class="title">Наши отзывы</h2>
+						<div data-fls-slider="" class="reviews-slider swiper">
+							<div class="reviews-wrapper swiper-wrapper"><!-- Сюда автоматически добавятся видео --></div>
+							<!-- Пагинация -->
+							<div class="reviews-pagination swiper-pagination"></div>
+							<!-- Навигация -->
+							<button class="reviews-button-prev swiper-button-prev"></button>
+							<button class="reviews-button-next swiper-button-next"></button>
 						</div>
 					</div>
 				</section>
@@ -979,7 +1064,7 @@ data-price-massiv="70000"      цена массива
 								</svg>
 								<div class="info-contacts__phone-link">
 									<a href="tel:79999999999">+7 999 999 99 99</a>
-									<a href="tel:79999999999">+7 999 999 99 99</a>
+									<!-- <a href="tel:79999999999">+7 999 999 99 99</a> -->
 								</div>
 							</div>
 							<div class="info-contacts__email">
@@ -1062,85 +1147,6 @@ data-price-massiv="70000"      цена массива
 							<div class="map-contacts__map">
 								<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Ae18004ae92bb614be3f2b92f4c57b72463d2de7c618febdf732c9fd8148f480f&amp;source=constructor" width="500" height="300" frameborder="0"></iframe>
 							</div>
-						</div>
-					</div>
-				</section>
-				<section class="block-form">
-					<img class="block-form__img-bg" alt="Image" src="./assets/img/block-form/bg.webp">
-					<div class="block-form__container">
-						<div class="block-form__content">
-							<h2 class="block-form__title">
-								Хотите увидеть качество наших кухонь вживую? протестировать фурнитуру
-          и получить персональную консультацию?
-							</h2>
-							<div class="block-form__text">
-								<p>
-									Приходите в наш шоу-рум и получите
-									<span>20 000 руб!</span>
-								</p>
-								<small>*Условия акции уточняйте у менеджера</small>
-							</div>
-							<form class="free-design__form" data-fls-form="ajax" data-fls-form-popup="popup" method="POST" action="sendmail/sendmail.php">
-								<h4 class="block-form__form-title">
-									Запишитесь на удобное время, и мы подготовим для вас индивидуальную
-            экскурсию + подарки от нашей компании
-								</h4>
-								<div class="free-design__item">
-									<input required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+375(__) ___-__-__" class="free-design__input input">
-									<select name="select" data-fls-select="" data-fls-select-modif="form">
-										<option value="1" selected>Когда хотите посетить?</option>
-										<option value="10:00 - 14:00">10:00 - 14:00</option>
-										<option value="14:00 - 18:00">14:00 - 18:00</option>
-										<option value="18:00 - 21:00">18:00 - 21:00</option>
-									</select>
-									<button type="submit" class="free-design__button button">ОСТАВИТЬ ЗАЯВКУ</button>
-								</div>
-								<label data-fls-checkbox="" class="checkbox">
-									<input checked class="checkbox__input" type="checkbox" value="согласен" name="check">
-									<span class="checkbox__text">
-										Я согласен на обработку персональных данных и получение
-              информационных сообщений
-									</span>
-								</label>
-							</form>
-						</div>
-						<div class="block-form__video">
-							<video controls muted preload="auto" autoplay loop playsinline="" poster="preview.jpg">
-								<source src="./assets/img/advantages/video.mp4" type="video/mp4">
-								<source src="assets/img/block-form/01.webm" type="video/webm">
-								<source src="assets/img/block-form/01.ogv" type="video/ogg">
-								Ваш браузер не поддерживает тег video.
-							</video>
-							<div class="block-form__video-text">
-								<svg width="20" height="24" viewbox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M19.9579 11.2388C19.6212 13.5056 18.6111 15.4365 17.0117 17.0317C16.0857 17.8713 15.244 18.7948 14.318 19.6343C12.9712 21.0616 11.6243 22.5728 10.2775 24C7.41545 21.0616 4.6376 18.5429 2.02809 15.7724C0.512897 14.0933 -0.0763465 11.9104 0.00783105 9.64361C0.0920086 4.77419 3.88 0.576418 8.59394 0.0726849C13.8971 -0.515004 18.4427 2.50739 19.7896 7.46077C20.1263 8.46823 19.9579 11.0709 19.9579 11.2388ZM10.025 13.2537C11.7927 13.2537 13.3079 11.8265 13.3079 10.0634C13.3079 8.30032 11.7927 6.78912 10.1091 6.78912C8.42559 6.78912 6.82621 8.30032 6.82621 9.97943C6.82621 11.7425 8.25723 13.2537 10.025 13.2537Z" fill="#31B939"></path>
-								</svg>
-								<p>
-									в 10 минутах ходьбы от станции метро
-									<strong>"Потапово"</strong>
-								</p>
-							</div>
-						</div>
-					</div>
-				</section>
-				<!-- Слайдер отзывов с YouTube видео -->
-				<!--
-data-youtube-type	Тип: channel или playlist	channel
-data-youtube-channel-id	ID канала	UCIJCc5BpDp2AbrqIwbempnw
-data-youtube-playlist-id	ID плейлиста (если тип playlist)	PLxxxxxxxxxxxxx
-data-youtube-api-key	Ваш API ключ	AIzaSyAwFqajMVpq2pGUIWBspFYUClEhI6CeTPU
-data-youtube-max-results	Максимум видео	20
--->
-				<section data-fls-youtube="" data-youtube-type="channel" data-youtube-channel-id="UCIJCc5BpDp2AbrqIwbempnw" data-youtube-playlist-id="" data-youtube-api-key="AIzaSyAwFqajMVpq2pGUIWBspFYUClEhI6CeTPU" data-youtube-max-results="20" class="reviews">
-					<div class="reviews__container">
-						<h2 data-fls-title="" class="title">Наши отзывы</h2>
-						<div data-fls-slider="" class="reviews-slider swiper">
-							<div class="reviews-wrapper swiper-wrapper"><!-- Сюда автоматически добавятся видео --></div>
-							<!-- Пагинация -->
-							<div class="reviews-pagination swiper-pagination"></div>
-							<!-- Навигация -->
-							<button class="reviews-button-prev swiper-button-prev"></button>
-							<button class="reviews-button-next swiper-button-next"></button>
 						</div>
 					</div>
 				</section>

@@ -9777,7 +9777,6 @@ if (galleries.length) {
     });
   });
 }
-window.addEventListener("load", initGallery());
 class DynamicAdapt {
   constructor() {
     this.type = "max";

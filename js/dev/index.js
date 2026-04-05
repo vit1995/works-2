@@ -13044,14 +13044,19 @@ document.addEventListener("DOMContentLoaded", preloader);
   }
   init();
 })();
-const fileInput = document.getElementById("file");
-const attachBtn = document.querySelector(".attach-btn");
-const fileNameSpan = document.querySelector(".file-name");
-attachBtn.addEventListener("click", () => fileInput.click());
-fileInput.addEventListener("change", () => {
-  if (fileInput.files.length > 0) {
-    fileNameSpan.textContent = fileInput.files[0].name;
-  } else {
-    fileNameSpan.textContent = "";
-  }
+document.getElementById("file");
+document.querySelector(".attach-btn");
+document.querySelector(".file-name");
+document.querySelectorAll(".file-input-wrapper").forEach((wrapper) => {
+  const attachBtn = wrapper.querySelector(".attach-btn");
+  const fileInput = wrapper.querySelector('input[type="file"]');
+  const fileNameSpan = wrapper.querySelector(".file-name");
+  attachBtn.addEventListener("click", () => fileInput.click());
+  fileInput.addEventListener("change", () => {
+    if (fileInput.files.length > 0) {
+      fileNameSpan.textContent = fileInput.files[0].name;
+    } else {
+      fileNameSpan.textContent = "";
+    }
+  });
 });

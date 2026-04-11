@@ -16,8 +16,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1775414211995"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1775414211995">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1775909407022"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1775909407022">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -65,6 +65,9 @@
 						</a>
 						<a href="#">
 							<img alt="Image" src="./assets/img/icon-social/vk.png">
+						</a>
+						<a href="#">
+							<img alt="Image" src="./assets/img/icon-social/instagram.png">
 						</a>
 					</div>
 					<!--
@@ -135,7 +138,7 @@
 					</div>
 				</div>
 			</div>
-			<div data-fls-popup="popup-messge" aria-hidden="true" class="popup">
+			<div data-fls-popup="popup-message" aria-hidden="true" class="popup">
 				<div data-fls-popup-wrapper="" class="popup__wrapper">
 					<div data-fls-popup-body="" class="popup__body">
 						<button data-fls-popup-close="" type="button" class="popup__close">
@@ -167,6 +170,10 @@
 					</div>
 					<div class="hero__container">
 						<h1 class="hero__title">кухни на заказ по честной цене от производителя</h1>
+						<p class="hero__text">
+							Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt
+        beatae totam harum alias eos sapiente!
+						</p>
 						<div class="hero__buttons">
 							<a data-fls-button="" data-fls-ripple="" data-fls-popup-link="popup" class="hero__button button" href="#">Рассчитать стоимость со скидкой</a>
 							<a data-fls-button="" data-fls-ripple="" class="hero__button button button--transparent" href="#">Наши работы</a>
@@ -709,13 +716,26 @@ data-price-massiv="70000"      цена массива
 						<h2 data-fls-title="" class="title">Почему нас выбирают</h2>
 						<div class="advantages__body">
 							<div class="advantages__items">
+								<!--
+<div class="advantages__item">
+<video
+autoplay
+muted
+loop
+playsinline
+class="advantages__video"
+poster="preview.jpg"
+>
+<source src="@img/advantages/video.mp4" type="video/mp4" />
+<source src="@img/advantages/video.webm" type="video/webm" />
+<source src="@img/advantages/video.ogv" type="video/ogg" />
+Ваш браузер не поддерживает тег video.
+</video>
+</div>
+-->
 								<div class="advantages__item">
-									<video autoplay muted loop playsinline="" class="advantages__video" poster="preview.jpg">
-										<source src="./assets/img/advantages/video.mp4" type="video/mp4">
-										<source src="assets/img/advantages/video.webm" type="video/webm">
-										<source src="assets/img/advantages/video.ogv" type="video/ogg">
-										Ваш браузер не поддерживает тег video.
-									</video>
+									<h3 class="advantages__item-title">Бесплатная доставка</h3>
+									<p class="advantages__item-text">Доставка по Москве и области — за наш счёт.</p>
 								</div>
 								<div class="advantages__item">
 									<h3 class="advantages__item-title">Бесплатная доставка</h3>
@@ -1122,7 +1142,7 @@ data-youtube-max-results	Максимум видео	20
 										<img alt="#" src="./assets/img/icon-social/vk.png">
 									</a>
 									<a href="#">
-										<img alt="#" src="./assets/img/icon-social/youtube.webp">
+										<img alt="#" src="./assets/img/icon-social/instagram.png">
 									</a>
 								</div>
 							</div>
@@ -1144,22 +1164,27 @@ data-youtube-max-results	Максимум видео	20
 									</div>
 								</div>
 							</div>
-							<div class="images-contacts__body">
-								<h3 class="images-contacts__title">До встречи у вас на замере:</h3>
-								<div class="images-contacts__items">
-									<div data-fls-gallery="" class="images-contacts__item">
-										<a href="./assets/img/contacts/04.png" class="images-contacts__image images-contacts__image--bg">
-											<img src="./assets/img/contacts/04.png">
-										</a>
-										<a href="./assets/img/contacts/05.jpg" class="images-contacts__image">
-											<img src="./assets/img/contacts/05.jpg">
-										</a>
-										<a href="./assets/img/contacts/06.webp" class="images-contacts__image">
-											<img src="./assets/img/contacts/06.webp">
-										</a>
-									</div>
-								</div>
-							</div>
+							<!--
+<div class="images-contacts__body">
+<h3 class="images-contacts__title">До встречи у вас на замере:</h3>
+<div class="images-contacts__items">
+<div data-fls-gallery class="images-contacts__item">
+<a
+href="@img/contacts/04.png"
+class="images-contacts__image images-contacts__image--bg"
+>
+<img src="@img/contacts/04.png" />
+</a>
+<a href="@img/contacts/05.jpg" class="images-contacts__image"
+><img src="@img/contacts/05.jpg"
+/></a>
+<a href="@img/contacts/06.webp" class="images-contacts__image"
+><img src="@img/contacts/06.webp"
+/></a>
+</div>
+</div>
+</div>
+-->
 						</div>
 						<div class="contacts__map map-contacts">
 							<div class="map-contacts__top">
@@ -1210,24 +1235,38 @@ data-youtube-max-results	Максимум видео	20
 								</nav>
 							</details>
 						</div>
-						<div class="footer__item">
-							<div data-fls-spollers="768,max" class="footer__block">
-								<details class="footer__nav">
-									<summary class="footer__title" aria-expanded="false">Партнеры</summary>
-									<div class="footer__item-img">
-										<img alt="Image" src="./assets/img/footer/partner.webp">
-									</div>
-								</details>
-							</div>
-							<div data-fls-spollers="768,max" class="footer__block">
-								<details class="footer__nav">
-									<summary class="footer__title" aria-expanded="false">Способы оплаты</summary>
-									<div class="footer__item-img">
-										<img alt="Image" src="./assets/img/footer/pay.webp">
-									</div>
-								</details>
-							</div>
-						</div>
+						<!--
+<div class="footer__item">
+<div
+data-fls-spollers="768,max"
+data-fls-spollers
+class="footer__block"
+>
+<details class="footer__nav">
+<summary class="footer__title" aria-expanded="false">
+Партнеры
+</summary>
+<div class="footer__item-img">
+<img src="@img/footer/partner.webp" alt="Image" />
+</div>
+</details>
+</div>
+<div
+data-fls-spollers="768,max"
+data-fls-spollers
+class="footer__block"
+>
+<details class="footer__nav">
+<summary class="footer__title" aria-expanded="false">
+Способы оплаты
+</summary>
+<div class="footer__item-img">
+<img src="@img/footer/pay.webp" alt="Image" />
+</div>
+</details>
+</div>
+</div>
+-->
 					</div>
 					<div class="footer__main">
 						<a href="#">Политика обработки куки</a>

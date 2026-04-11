@@ -4525,7 +4525,7 @@ body::after {
     font-size: clamp( 1rem , 0.8636363636375rem  +  0.6818181818vw , 1.375rem );
   }
   .hero {
-    padding-top: clamp( 9.375rem , 8.2386363636375rem  +  5.6818181818vw , 12.5rem );
+    padding-top: clamp( 9.375rem , 7.102272727275rem  +  11.3636363636vw , 15.625rem );
   }
   .hero__container {
     gap: clamp( 0.625rem , 0.397727272725rem  +  1.1363636364vw , 1.25rem );
@@ -4928,7 +4928,7 @@ body::after {
     font-size: 1.375rem;
   }
   .hero {
-    padding-top: 12.5rem;
+    padding-top: 15.625rem;
   }
   .hero__slide img {
     object-fit: cover;

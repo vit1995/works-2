@@ -16,8 +16,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1777628580751"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1777628580751">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1777628865695"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1777628865695">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -684,12 +684,15 @@ poster="preview.jpg"
 								</h4>
 								<div class="free-design__item">
 									<input required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+375(__) ___-__-__" class="free-design__input input">
-									<select name="select" data-fls-select="" data-fls-select-modif="form">
-										<option value="1" selected>Когда хотите посетить?</option>
-										<option value="10:00 - 14:00">10:00 - 14:00</option>
-										<option value="14:00 - 18:00">14:00 - 18:00</option>
-										<option value="18:00 - 21:00">18:00 - 21:00</option>
-									</select>
+									<!--
+<select name="select" data-fls-select data-fls-select-modif="form">
+<option value="1" selected>Когда хотите посетить?</option>
+<option value="10:00 - 14:00">10:00 - 14:00</option>
+<option value="14:00 - 18:00">14:00 - 18:00</option>
+<option value="18:00 - 21:00">18:00 - 21:00</option>
+</select>
+-->
+									<input data-fls-datepicker="" autocomplete="off" type="text" name="clock" data-error="Ошибка" placeholder="Когда хотите посетить?" class="input">
 									<button type="submit" class="free-design__button button">ОСТАВИТЬ ЗАЯВКУ</button>
 								</div>
 								<label data-fls-checkbox="" class="checkbox">

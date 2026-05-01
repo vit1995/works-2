@@ -13088,6 +13088,22 @@ document.addEventListener("DOMContentLoaded", preloader);
   }
   init();
 })();
+document.getElementById("file");
+document.querySelector(".attach-btn");
+document.querySelector(".file-name");
+document.querySelectorAll(".file-input-wrapper").forEach((wrapper) => {
+  const attachBtn = wrapper.querySelector(".attach-btn");
+  const fileInput = wrapper.querySelector('input[type="file"]');
+  const fileNameSpan = wrapper.querySelector(".file-name");
+  attachBtn.addEventListener("click", () => fileInput.click());
+  fileInput.addEventListener("change", () => {
+    if (fileInput.files.length > 0) {
+      fileNameSpan.textContent = fileInput.files[0].name;
+    } else {
+      fileNameSpan.textContent = "";
+    }
+  });
+});
 function startPersistentCountdown() {
   let endTime;
   const savedEndTime = localStorage.getItem("countdown_end_time");
@@ -13135,19 +13151,3 @@ function startPersistentCountdown() {
   setInterval(updateCountdown, 1e3);
 }
 document.addEventListener("DOMContentLoaded", startPersistentCountdown);
-document.getElementById("file");
-document.querySelector(".attach-btn");
-document.querySelector(".file-name");
-document.querySelectorAll(".file-input-wrapper").forEach((wrapper) => {
-  const attachBtn = wrapper.querySelector(".attach-btn");
-  const fileInput = wrapper.querySelector('input[type="file"]');
-  const fileNameSpan = wrapper.querySelector(".file-name");
-  attachBtn.addEventListener("click", () => fileInput.click());
-  fileInput.addEventListener("change", () => {
-    if (fileInput.files.length > 0) {
-      fileNameSpan.textContent = fileInput.files[0].name;
-    } else {
-      fileNameSpan.textContent = "";
-    }
-  });
-});

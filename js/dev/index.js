@@ -7086,6 +7086,53 @@ document.querySelector("[data-fls-popup]") ? window.addEventListener("load", () 
   window.flsPopup = new Popup({});
   initAutoPopup();
 }) : null;
+function startPersistentCountdown() {
+  let endTime;
+  const savedEndTime = localStorage.getItem("countdown_end_time");
+  if (savedEndTime && new Date(savedEndTime) > /* @__PURE__ */ new Date()) {
+    endTime = new Date(savedEndTime);
+  } else {
+    endTime = /* @__PURE__ */ new Date();
+    endTime.setHours(endTime.getHours() + 9);
+    localStorage.setItem("countdown_end_time", endTime);
+  }
+  function updateCountdown() {
+    const now2 = /* @__PURE__ */ new Date();
+    const difference = endTime - now2;
+    if (difference <= 0) {
+      localStorage.removeItem("countdown_end_time");
+      document.getElementById("countdown-timer").innerHTML = `
+        <div class="timer-block" style="background: #28a745;">
+          <div class="timer-number">Акция</div>
+          <div class="timer-label">Завершена!</div>
+        </div>
+      `;
+      return;
+    }
+    const hours = Math.floor(difference / (1e3 * 60 * 60));
+    const minutes = Math.floor(difference % (1e3 * 60 * 60) / (1e3 * 60));
+    const seconds = Math.floor(difference % (1e3 * 60) / 1e3);
+    document.getElementById("countdown-timer").innerHTML = `
+      <div class="timer-block">
+        <div class="timer-number">${hours.toString().padStart(2, "0")}</div>
+        <div class="timer-label">Часов</div>
+      </div>
+      <div class="timer-separator">:</div>
+      <div class="timer-block">
+        <div class="timer-number">${minutes.toString().padStart(2, "0")}</div>
+        <div class="timer-label">Минут</div>
+      </div>
+      <div class="timer-separator">:</div>
+      <div class="timer-block">
+        <div class="timer-number">${seconds.toString().padStart(2, "0")}</div>
+        <div class="timer-label">Секунд</div>
+      </div>
+    `;
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1e3);
+}
+document.addEventListener("DOMContentLoaded", startPersistentCountdown);
 function menuInit() {
   document.addEventListener("click", function(e) {
     if (bodyLockStatus && e.target.closest("[data-fls-menu]")) {
@@ -13104,50 +13151,3 @@ document.querySelectorAll(".file-input-wrapper").forEach((wrapper) => {
     }
   });
 });
-function startPersistentCountdown() {
-  let endTime;
-  const savedEndTime = localStorage.getItem("countdown_end_time");
-  if (savedEndTime && new Date(savedEndTime) > /* @__PURE__ */ new Date()) {
-    endTime = new Date(savedEndTime);
-  } else {
-    endTime = /* @__PURE__ */ new Date();
-    endTime.setHours(endTime.getHours() + 9);
-    localStorage.setItem("countdown_end_time", endTime);
-  }
-  function updateCountdown() {
-    const now2 = /* @__PURE__ */ new Date();
-    const difference = endTime - now2;
-    if (difference <= 0) {
-      localStorage.removeItem("countdown_end_time");
-      document.getElementById("countdown-timer").innerHTML = `
-        <div class="timer-block" style="background: #28a745;">
-          <div class="timer-number">Акция</div>
-          <div class="timer-label">Завершена!</div>
-        </div>
-      `;
-      return;
-    }
-    const hours = Math.floor(difference / (1e3 * 60 * 60));
-    const minutes = Math.floor(difference % (1e3 * 60 * 60) / (1e3 * 60));
-    const seconds = Math.floor(difference % (1e3 * 60) / 1e3);
-    document.getElementById("countdown-timer").innerHTML = `
-      <div class="timer-block">
-        <div class="timer-number">${hours.toString().padStart(2, "0")}</div>
-        <div class="timer-label">Часов</div>
-      </div>
-      <div class="timer-separator">:</div>
-      <div class="timer-block">
-        <div class="timer-number">${minutes.toString().padStart(2, "0")}</div>
-        <div class="timer-label">Минут</div>
-      </div>
-      <div class="timer-separator">:</div>
-      <div class="timer-block">
-        <div class="timer-number">${seconds.toString().padStart(2, "0")}</div>
-        <div class="timer-label">Секунд</div>
-      </div>
-    `;
-  }
-  updateCountdown();
-  setInterval(updateCountdown, 1e3);
-}
-document.addEventListener("DOMContentLoaded", startPersistentCountdown);

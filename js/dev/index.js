@@ -6971,13 +6971,16 @@ class Popup {
         popup: this
       }
     }));
-    if (this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`)) {
+    if (this.targetOpen.element && this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`)) {
       setTimeout(() => {
-        this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`).innerHTML = "";
+        const youtubePlace = this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`);
+        if (youtubePlace) youtubePlace.innerHTML = "";
       }, 500);
     }
-    this.previousOpen.element.removeAttribute(this.options.classes.popupActive);
-    this.previousOpen.element.setAttribute("aria-hidden", "true");
+    if (this.previousOpen.element) {
+      this.previousOpen.element.removeAttribute(this.options.classes.popupActive);
+      this.previousOpen.element.setAttribute("aria-hidden", "true");
+    }
     if (!this._reopen) {
       document.documentElement.removeAttribute(this.options.classes.bodyActive);
       !this.bodyLock ? bodyUnlock() : null;
@@ -7020,6 +7023,7 @@ class Popup {
     history.pushState("", "", window.location.href.split("#")[0]);
   }
   _focusCatch(e) {
+    if (!this.targetOpen.element) return;
     const focusable = this.targetOpen.element.querySelectorAll(this._focusEl);
     const focusArray = Array.prototype.slice.call(focusable);
     const focusedIndex = focusArray.indexOf(document.activeElement);
@@ -7033,10 +7037,11 @@ class Popup {
     }
   }
   _focusTrap() {
+    if (!this.previousOpen.element) return;
     const focusable = this.previousOpen.element.querySelectorAll(this._focusEl);
     if (!this.isOpen && this.lastFocusEl) {
       this.lastFocusEl.focus();
-    } else {
+    } else if (focusable && focusable.length > 0) {
       focusable[0].focus();
     }
   }
@@ -7065,11 +7070,14 @@ function initAutoPopup() {
   let scrollTriggered = false;
   window.addEventListener("scroll", function() {
     if (!popupOpened && !scrollTriggered) {
-      const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
-      if (scrollPercent >= 50) {
-        scrollTriggered = true;
-        clearTimeout(timerId);
-        openPopup();
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollHeight > 0) {
+        const scrollPercent = window.scrollY / scrollHeight * 100;
+        if (scrollPercent >= 50) {
+          scrollTriggered = true;
+          clearTimeout(timerId);
+          openPopup();
+        }
       }
     }
   });
@@ -7082,11 +7090,9 @@ function initAutoPopup() {
     }
   });
 }
-document.querySelector("[data-fls-popup]") ? window.addEventListener("load", () => {
-  window.flsPopup = new Popup({});
-  initAutoPopup();
-}) : null;
 function startPersistentCountdown() {
+  const timerElement = document.getElementById("countdown-timer");
+  if (!timerElement) return;
   let endTime;
   const savedEndTime = localStorage.getItem("countdown_end_time");
   if (savedEndTime && new Date(savedEndTime) > /* @__PURE__ */ new Date()) {
@@ -7094,45 +7100,63 @@ function startPersistentCountdown() {
   } else {
     endTime = /* @__PURE__ */ new Date();
     endTime.setHours(endTime.getHours() + 9);
-    localStorage.setItem("countdown_end_time", endTime);
+    localStorage.setItem("countdown_end_time", endTime.toISOString());
   }
   function updateCountdown() {
     const now2 = /* @__PURE__ */ new Date();
     const difference = endTime - now2;
     if (difference <= 0) {
       localStorage.removeItem("countdown_end_time");
-      document.getElementById("countdown-timer").innerHTML = `
-        <div class="timer-block" style="background: #28a745;">
-          <div class="timer-number">Акция</div>
-          <div class="timer-label">Завершена!</div>
-        </div>
-      `;
+      if (timerElement) {
+        timerElement.innerHTML = `
+					<div class="timer-block" style="background: #28a745;">
+						<div class="timer-number">Акция</div>
+						<div class="timer-label">Завершена!</div>
+					</div>
+				`;
+      }
       return;
     }
     const hours = Math.floor(difference / (1e3 * 60 * 60));
     const minutes = Math.floor(difference % (1e3 * 60 * 60) / (1e3 * 60));
     const seconds = Math.floor(difference % (1e3 * 60) / 1e3);
-    document.getElementById("countdown-timer").innerHTML = `
-      <div class="timer-block">
-        <div class="timer-number">${hours.toString().padStart(2, "0")}</div>
-        <div class="timer-label">Часов</div>
-      </div>
-      <div class="timer-separator">:</div>
-      <div class="timer-block">
-        <div class="timer-number">${minutes.toString().padStart(2, "0")}</div>
-        <div class="timer-label">Минут</div>
-      </div>
-      <div class="timer-separator">:</div>
-      <div class="timer-block">
-        <div class="timer-number">${seconds.toString().padStart(2, "0")}</div>
-        <div class="timer-label">Секунд</div>
-      </div>
-    `;
+    if (timerElement) {
+      timerElement.innerHTML = `
+				<div class="timer-block">
+					<div class="timer-number">${hours.toString().padStart(2, "0")}</div>
+					<div class="timer-label">Часов</div>
+				</div>
+				<div class="timer-separator">:</div>
+				<div class="timer-block">
+					<div class="timer-number">${minutes.toString().padStart(2, "0")}</div>
+					<div class="timer-label">Минут</div>
+				</div>
+				<div class="timer-separator">:</div>
+				<div class="timer-block">
+					<div class="timer-number">${seconds.toString().padStart(2, "0")}</div>
+					<div class="timer-label">Секунд</div>
+				</div>
+			`;
+    }
   }
   updateCountdown();
   setInterval(updateCountdown, 1e3);
 }
-document.addEventListener("DOMContentLoaded", startPersistentCountdown);
+if (document.querySelector("[data-fls-popup]")) {
+  window.addEventListener("load", () => {
+    window.flsPopup = new Popup({});
+    initAutoPopup();
+  });
+}
+if (document.getElementById("countdown-timer")) {
+  document.addEventListener("DOMContentLoaded", startPersistentCountdown);
+} else {
+  document.addEventListener("afterPopupOpen", function(e) {
+    if (e.detail.popup.targetOpen.selector === "popup-clock") {
+      startPersistentCountdown();
+    }
+  });
+}
 function menuInit() {
   document.addEventListener("click", function(e) {
     if (bodyLockStatus && e.target.closest("[data-fls-menu]")) {

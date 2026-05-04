@@ -6674,7 +6674,6 @@ function initSliders() {
       observeParents: true,
       slidesPerView: 1,
       spaceBetween: 10,
-      autoHeight: true,
       speed: 800,
       navigation: {
         prevEl: ".steaps-button-prev",

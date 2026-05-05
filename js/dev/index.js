@@ -735,76 +735,221 @@ class SelectConstructor {
 document.querySelector("select[data-fls-select]") ? window.addEventListener("load", () => window.flsSelect = new SelectConstructor({})) : null;
 class ReviewsYouTubeLoader {
   constructor(swiperInstance, configElement) {
-    this.API_KEY = configElement.dataset.youtubeApiKey;
+    this.API_KEY = configElement.dataset.youtubeApiKey?.trim();
     this.TYPE = configElement.dataset.youtubeType || "channel";
     this.CHANNEL_ID = configElement.dataset.youtubeChannelId;
     this.PLAYLIST_ID = configElement.dataset.youtubePlaylistId;
     this.MAX_RESULTS = parseInt(configElement.dataset.youtubeMaxResults) || 20;
+    this.UPLOADS_PLAYLIST_ID = null;
     if (!this.API_KEY) {
       console.error("❌ YouTube API ключ не указан! Добавьте атрибут data-youtube-api-key");
+      this.showError("API ключ не настроен");
       return;
     }
     if (this.TYPE === "channel" && !this.CHANNEL_ID) {
       console.error("❌ ID канала не указан! Добавьте атрибут data-youtube-channel-id");
+      this.showError("ID канала не указан");
       return;
     }
     if (this.TYPE === "playlist" && !this.PLAYLIST_ID) {
       console.error("❌ ID плейлиста не указан! Добавьте атрибут data-youtube-playlist-id");
+      this.showError("ID плейлиста не указан");
       return;
     }
     this.swiper = swiperInstance;
     this.videos = [];
     this.swiperWrapper = document.querySelector(".reviews-slider .swiper-wrapper");
+    this.cacheKey = `youtube_videos_${this.TYPE}_${this.TYPE === "channel" ? this.CHANNEL_ID : this.PLAYLIST_ID}`;
+    this.cacheTimeKey = `${this.cacheKey}_time`;
+    this.cacheDuration = 36e5;
     console.log("📺 YouTube загрузчик инициализирован:", {
       type: this.TYPE,
       id: this.TYPE === "channel" ? this.CHANNEL_ID : this.PLAYLIST_ID,
-      maxResults: this.MAX_RESULTS
+      maxResults: this.MAX_RESULTS,
+      cacheDuration: `${this.cacheDuration / 36e5} часа(ов)`
     });
     this.init();
   }
-  async init() {
-    await this.loadVideosFromYouTube();
-    this.renderSlides();
-    this.updateSwiper();
+  // Показать ошибку в слайдере
+  showError(message, details = "") {
+    if (this.swiperWrapper) {
+      this.swiperWrapper.innerHTML = `
+				<div class="swiper-slide">
+					<div class="reviews-empty">
+						<p>⚠️ Ошибка загрузки видео</p>
+						<p>${message}</p>
+						${details ? `<p style="font-size: 12px; margin-top: 10px; color: #666;">${details}</p>` : ""}
+					</div>
+				</div>
+			`;
+      this.updateSwiper();
+    }
   }
-  async loadVideosFromYouTube() {
+  // Получить ID плейлиста Uploads из канала
+  async getUploadsPlaylistId() {
+    if (this.UPLOADS_PLAYLIST_ID) return this.UPLOADS_PLAYLIST_ID;
     try {
-      let url;
-      if (this.TYPE === "playlist") {
-        url = `https://www.googleapis.com/youtube/v3/playlistItems?key=${this.API_KEY}&playlistId=${this.PLAYLIST_ID}&part=snippet&maxResults=${this.MAX_RESULTS}`;
-      } else {
-        url = `https://www.googleapis.com/youtube/v3/search?key=${this.API_KEY}&channelId=${this.CHANNEL_ID}&part=snippet,id&order=date&maxResults=${this.MAX_RESULTS}&type=video`;
-      }
+      const url = `https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${this.CHANNEL_ID}&key=${this.API_KEY}`;
       const response = await fetch(url);
       const data = await response.json();
       if (data.error) {
-        console.error("YouTube API ошибка:", data.error.message);
+        console.error("Ошибка получения плейлиста канала:", data.error.message);
+        return null;
+      }
+      if (data.items && data.items[0]) {
+        this.UPLOADS_PLAYLIST_ID = data.items[0].contentDetails.relatedPlaylists.uploads;
+        console.log("📁 Найден плейлист загрузок канала:", this.UPLOADS_PLAYLIST_ID);
+        return this.UPLOADS_PLAYLIST_ID;
+      }
+    } catch (error) {
+      console.error("Ошибка при получении плейлиста канала:", error);
+    }
+    return null;
+  }
+  // Проверить актуальность кеша
+  isCacheValid() {
+    const cached = localStorage.getItem(this.cacheKey);
+    const cacheTime = localStorage.getItem(this.cacheTimeKey);
+    if (!cached || !cacheTime) return false;
+    const timeDiff = Date.now() - parseInt(cacheTime);
+    return timeDiff < this.cacheDuration;
+  }
+  // Загрузить из кеша
+  loadFromCache() {
+    const cached = localStorage.getItem(this.cacheKey);
+    if (cached) {
+      try {
+        this.videos = JSON.parse(cached);
+        console.log(`📦 Видео загружены из кеша (${this.videos.length} шт.)`);
+        return true;
+      } catch (e) {
+        console.error("Ошибка парсинга кеша:", e);
+      }
+    }
+    return false;
+  }
+  // Сохранить в кеш
+  saveToCache() {
+    if (this.videos.length > 0) {
+      localStorage.setItem(this.cacheKey, JSON.stringify(this.videos));
+      localStorage.setItem(this.cacheTimeKey, Date.now().toString());
+      console.log(`💾 Видео сохранены в кеш (${this.videos.length} шт.)`);
+    }
+  }
+  // Загрузить видео через плейлист (экономит квоту - 1 единица)
+  async loadVideosFromPlaylist(playlistId) {
+    const url = `https://www.googleapis.com/youtube/v3/playlistItems?key=${this.API_KEY}&playlistId=${playlistId}&part=snippet&maxResults=${this.MAX_RESULTS}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data.error) {
+      throw new Error(data.error.message);
+    }
+    if (data.items && data.items.length > 0) {
+      return data.items.map((item) => ({
+        id: item.snippet.resourceId.videoId,
+        title: item.snippet.title,
+        thumbnail: item.snippet.thumbnails.high.url,
+        description: item.snippet.description || "",
+        publishedAt: item.snippet.publishedAt
+      }));
+    }
+    return [];
+  }
+  // Загрузить видео через поиск по каналу (тратит много квоты - 100 единиц)
+  async loadVideosFromSearch() {
+    const url = `https://www.googleapis.com/youtube/v3/search?key=${this.API_KEY}&channelId=${this.CHANNEL_ID}&part=snippet,id&order=date&maxResults=${this.MAX_RESULTS}&type=video`;
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data.error) {
+      throw new Error(data.error.message);
+    }
+    if (data.items && data.items.length > 0) {
+      return data.items.map((item) => ({
+        id: item.id.videoId,
+        title: item.snippet.title,
+        thumbnail: item.snippet.thumbnails.high.url,
+        description: item.snippet.description || "",
+        publishedAt: item.snippet.publishedAt
+      }));
+    }
+    return [];
+  }
+  // Загрузить видео из плейлиста (если тип playlist)
+  async loadVideosFromExternalPlaylist() {
+    const url = `https://www.googleapis.com/youtube/v3/playlistItems?key=${this.API_KEY}&playlistId=${this.PLAYLIST_ID}&part=snippet&maxResults=${this.MAX_RESULTS}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data.error) {
+      throw new Error(data.error.message);
+    }
+    if (data.items && data.items.length > 0) {
+      return data.items.map((item) => ({
+        id: item.snippet.resourceId.videoId,
+        title: item.snippet.title,
+        thumbnail: item.snippet.thumbnails.high.url,
+        description: item.snippet.description || "",
+        publishedAt: item.snippet.publishedAt
+      }));
+    }
+    return [];
+  }
+  async loadVideosFromYouTube() {
+    if (this.isCacheValid()) {
+      if (this.loadFromCache()) {
         return;
       }
-      if (data.items && data.items.length > 0) {
-        if (this.TYPE === "playlist") {
-          this.videos = data.items.map((item) => ({
-            id: item.snippet.resourceId.videoId,
-            title: item.snippet.title,
-            thumbnail: item.snippet.thumbnails.high.url,
-            description: item.snippet.description,
-            publishedAt: item.snippet.publishedAt
-          }));
+    }
+    try {
+      let videos = [];
+      if (this.TYPE === "playlist") {
+        console.log("🎬 Загрузка видео из плейлиста...");
+        videos = await this.loadVideosFromExternalPlaylist();
+      } else {
+        console.log("📺 Загрузка видео с канала...");
+        const uploadsPlaylistId = await this.getUploadsPlaylistId();
+        if (uploadsPlaylistId) {
+          console.log("✅ Загрузка через плейлист Uploads (экономичный режим)...");
+          videos = await this.loadVideosFromPlaylist(uploadsPlaylistId);
         } else {
-          this.videos = data.items.map((item) => ({
-            id: item.id.videoId,
-            title: item.snippet.title,
-            thumbnail: item.snippet.thumbnails.high.url,
-            description: item.snippet.description,
-            publishedAt: item.snippet.publishedAt
-          }));
+          console.warn("⚠️ Не удалось получить плейлист Uploads, используем поиск (дорогой режим)...");
+          videos = await this.loadVideosFromSearch();
         }
+      }
+      if (videos && videos.length > 0) {
+        this.videos = videos;
+        this.saveToCache();
         console.log(`✅ Загружено видео: ${this.videos.length}`);
       } else {
         console.warn("⚠️ Видео не найдены");
+        if (this.loadFromCache()) {
+          console.log("🔄 Использую просроченный кеш, так как новых видео нет");
+        } else {
+          this.showError("Видео не найдены", "На канале пока нет видео или они скрыты");
+        }
       }
     } catch (error) {
-      console.error("Ошибка загрузки YouTube:", error);
+      console.error("❌ Ошибка загрузки YouTube:", error);
+      if (error.message && error.message.includes("quota")) {
+        console.warn("⚠️ Превышена квота YouTube API");
+        if (this.loadFromCache()) {
+          console.log("🔄 Использую кешированные видео из-за превышения квоты");
+        } else {
+          this.showError(
+            "Превышен лимит запросов к YouTube API",
+            "Видео будут доступны позже. Пожалуйста, попробуйте обновить страницу через час."
+          );
+        }
+      } else if (error.message && error.message.includes("API key")) {
+        this.showError("Неверный API ключ", "Проверьте настройки YouTube API");
+      } else if (error.message && error.message.includes("not found")) {
+        this.showError("Канал или плейлист не найден", "Проверьте ID канала или плейлиста");
+      } else {
+        if (this.loadFromCache()) {
+          console.log("🔄 Использую кешированные видео из-за ошибки API");
+        } else {
+          this.showError("Не удалось загрузить видео", "Проверьте подключение к интернету");
+        }
+      }
     }
   }
   renderSlides() {
@@ -839,25 +984,37 @@ class ReviewsYouTubeLoader {
   }
   updateSwiper() {
     if (this.swiper) {
-      this.swiper.update();
-      this.swiper.updateSlides();
-      this.swiper.updateSlidesClasses();
+      setTimeout(() => {
+        this.swiper.update();
+        this.swiper.updateSlides();
+        this.swiper.updateSlidesClasses();
+      }, 100);
     }
   }
   formatDate(dateString) {
+    if (!dateString) return "новое видео";
     const date = new Date(dateString);
     const now2 = /* @__PURE__ */ new Date();
     const diffDays = Math.floor((now2 - date) / (1e3 * 60 * 60 * 24));
     if (diffDays < 1) return "сегодня";
     if (diffDays === 1) return "вчера";
     if (diffDays < 7) return `${diffDays} дня назад`;
-    if (diffDays < 30) return `${Math.floor(diffDays / 7)} недели назад`;
-    if (diffDays < 365) return `${Math.floor(diffDays / 30)} месяца назад`;
-    return `${Math.floor(diffDays / 365)} года назад`;
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)} ${this.declensionNum(Math.floor(diffDays / 7), ["неделю", "недели", "недель"])} назад`;
+    if (diffDays < 365) return `${Math.floor(diffDays / 30)} ${this.declensionNum(Math.floor(diffDays / 30), ["месяц", "месяца", "месяцев"])} назад`;
+    return `${Math.floor(diffDays / 365)} ${this.declensionNum(Math.floor(diffDays / 365), ["год", "года", "лет"])} назад`;
+  }
+  declensionNum(num, words) {
+    const cases = [2, 0, 1, 1, 1, 2];
+    return words[num % 100 > 4 && num % 100 < 20 ? 2 : cases[num % 10 < 5 ? num % 10 : 5]];
   }
   escapeHtml(str) {
     if (!str) return "";
     return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+  async init() {
+    await this.loadVideosFromYouTube();
+    this.renderSlides();
+    this.updateSwiper();
   }
 }
 function spollers() {

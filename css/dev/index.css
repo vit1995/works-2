@@ -3538,6 +3538,12 @@ textarea.input {
   object-fit: cover;
   border-radius: 0.9375rem;
 }
+.steaps__swiper-container {
+  position: relative;
+}
+.steaps__slider {
+  max-width: 90%;
+}
 .steaps__wrapper {
   padding-bottom: 1.25rem;
 }
@@ -3545,7 +3551,6 @@ textarea.input {
   display: flex;
   flex-direction: column;
   background-color: #f8f8f8;
-  min-height: 100%;
   border-radius: 0.625rem;
   justify-content: space-between;
 }
@@ -3599,21 +3604,6 @@ textarea.input {
   background-color: var(--main);
 }
 
-.portfolio-button-prev {
-  width: 1.875rem;
-  height: 1.875rem;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffffff;
-  text-align: center;
-}
-.portfolio-button-prev::after {
-  font-size: 1rem;
-  color: var(--dark);
-}
-
 .steaps-button-prev {
   width: 1.875rem;
   height: 1.875rem;
@@ -3623,6 +3613,7 @@ textarea.input {
   align-items: center;
   background-color: var(--main);
   text-align: center;
+  left: 0;
 }
 .steaps-button-prev::after {
   font-size: 1rem;
@@ -3638,6 +3629,7 @@ textarea.input {
   align-items: center;
   background-color: var(--main);
   text-align: center;
+  right: 0;
 }
 .steaps-button-next::after {
   font-size: 1rem;
@@ -4350,6 +4342,9 @@ body::after {
   }
   .advantages__bottom {
     grid-template-columns: repeat(auto-fit, minmax(17.5rem, auto));
+  }
+  .steaps__slider {
+    max-width: 75%;
   }
   .block-form__container {
     grid-template-columns: auto;

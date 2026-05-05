@@ -6674,6 +6674,7 @@ function initSliders() {
       observeParents: true,
       slidesPerView: 1,
       spaceBetween: 10,
+      autoHeight: true,
       speed: 800,
       navigation: {
         prevEl: ".steaps-button-prev",
@@ -6686,8 +6687,8 @@ function initSliders() {
       breakpoints: {
         640: {
           slidesPerView: 1,
-          spaceBetween: 0,
-          autoHeight: true
+          spaceBetween: 0
+          // autoHeight: true,
         },
         768: {
           slidesPerView: 2,
@@ -13371,7 +13372,6 @@ document.querySelector("[data-fls-ripple]") ? window.addEventListener("load", ri
   const shapeRadios = document.querySelectorAll('input[name="kitchen-shape"]');
   const sizeInputs = document.querySelectorAll(".calculator__size-item input");
   const materialRadios = document.querySelectorAll('input[name="material"]');
-  const totalSpan = document.getElementById("totalPrice");
   function getPriceFromData(priceKey, defaultValue = 4e4) {
     if (!calculator) return defaultValue;
     const priceAttr = `data-price-${priceKey}`;
@@ -13380,9 +13380,6 @@ document.querySelector("[data-fls-ripple]") ? window.addEventListener("load", ri
       return parseFloat(priceValue);
     }
     return defaultValue;
-  }
-  function formatNumber(value) {
-    return Math.round(value).toLocaleString("ru-RU");
   }
   function getCurrentShape() {
     let selected = null;
@@ -13401,16 +13398,16 @@ document.querySelector("[data-fls-ripple]") ? window.addEventListener("load", ri
     const side1Item = document.querySelector('.calculator__size-item[data-side="1"]');
     const side2Item = document.querySelector('.calculator__size-item[data-side="2"]');
     const side3Item = document.querySelector('.calculator__size-item[data-side="3"]');
-    side1Item.classList.remove("disabled");
-    side2Item.classList.remove("disabled");
-    side3Item.classList.remove("disabled");
+    if (side1Item) side1Item.classList.remove("disabled");
+    if (side2Item) side2Item.classList.remove("disabled");
+    if (side3Item) side3Item.classList.remove("disabled");
     switch (shape) {
       case "pryamaya":
-        side2Item.classList.add("disabled");
-        side3Item.classList.add("disabled");
+        if (side2Item) side2Item.classList.add("disabled");
+        if (side3Item) side3Item.classList.add("disabled");
         break;
       case "uglovaya":
-        side3Item.classList.add("disabled");
+        if (side3Item) side3Item.classList.add("disabled");
         break;
     }
   }
@@ -13432,9 +13429,9 @@ document.querySelector("[data-fls-ripple]") ? window.addEventListener("load", ri
     materialRadios.forEach((radio) => {
       if (radio.checked) selectedMaterial = radio;
     });
-    if (!selectedMaterial) return getPriceFromData("pvh", 4e4);
+    if (!selectedMaterial) return getPriceFromData("ldsp", 350);
     const priceKey = selectedMaterial.getAttribute("data-price-key");
-    const pricePerMeter = getPriceFromData(priceKey, 4e4);
+    const pricePerMeter = getPriceFromData(priceKey, 350);
     return pricePerMeter;
   }
   function calculateTotal() {
@@ -13445,7 +13442,7 @@ document.querySelector("[data-fls-ripple]") ? window.addEventListener("load", ri
     let total = totalLengthMeters * pricePerMeter;
     total *= shapeCoefficient;
     total = Math.round(total);
-    totalSpan.innerText = formatNumber(total);
+    console.log("Рассчитанная стоимость:", total);
     return total;
   }
   function recalc() {
@@ -13474,7 +13471,7 @@ document.querySelector("[data-fls-ripple]") ? window.addEventListener("load", ri
         e.preventDefault();
         const wrapper = btn.closest(".calculator__size-input-wrapper");
         const input = wrapper.querySelector("input");
-        if (input) updateInput(input, -10);
+        if (input) updateInput(input, -100);
       }
     });
     plusBtns.forEach((btn) => {
@@ -13484,7 +13481,7 @@ document.querySelector("[data-fls-ripple]") ? window.addEventListener("load", ri
         e.preventDefault();
         const wrapper = btn.closest(".calculator__size-input-wrapper");
         const input = wrapper.querySelector("input");
-        if (input) updateInput(input, 10);
+        if (input) updateInput(input, 100);
       }
     });
   }

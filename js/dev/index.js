@@ -7215,42 +7215,19 @@ function initAutoPopup() {
   }
   const popupElement = document.querySelector('[data-fls-popup="popup-clock"]');
   if (!popupElement) return;
-  let popupOpened = false;
-  if (sessionStorage.getItem("popupClockOpened") === "true") {
+  if (localStorage.getItem("popupClockOpened") === "true") {
+    console.log("Попап уже открывался ранее, больше не показываем");
     return;
   }
   function openPopup() {
-    if (!popupOpened && window.flsPopup) {
-      console.log("Открываем автопопап");
-      popupOpened = true;
-      sessionStorage.setItem("popupClockOpened", "true");
+    if (window.flsPopup) {
+      console.log("Открываем автопопап (через 30 секунд)");
+      localStorage.setItem("popupClockOpened", "true");
       window.flsPopup.open("popup-clock");
     }
   }
-  console.log("Автопопап активирован, откроется через 5 секунд");
-  const timerId = setTimeout(openPopup, 5e3);
-  let scrollTriggered = false;
-  window.addEventListener("scroll", function() {
-    if (!popupOpened && !scrollTriggered) {
-      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (scrollHeight > 0) {
-        const scrollPercent = window.scrollY / scrollHeight * 100;
-        if (scrollPercent >= 50) {
-          scrollTriggered = true;
-          clearTimeout(timerId);
-          openPopup();
-        }
-      }
-    }
-  });
-  let exitTriggered = false;
-  document.addEventListener("mouseleave", function(e) {
-    if (!popupOpened && !exitTriggered && e.clientY <= 0) {
-      exitTriggered = true;
-      clearTimeout(timerId);
-      openPopup();
-    }
-  });
+  console.log("Автопопап активирован, откроется через 30 секунд");
+  setTimeout(openPopup, 3e4);
 }
 function startPersistentCountdown() {
   const timerElement = document.getElementById("countdown-timer");
@@ -10050,7 +10027,14 @@ if (galleries.length) {
     lightGallery(gallery, {
       plugins: [lgZoom, lgThumbnail],
       licenseKey: KEY,
-      speed: 500
+      speed: 500,
+      mobileSettings: {
+        //   controls: true,       // Показывать стрелки "назад/вперед"
+        showCloseIcon: true,
+        // ПОКАЗЫВАТЬ КРЕСТИК (ЗАКРЫТИЕ)
+        download: true
+        // Показывать кнопку "Скачать"
+      }
     });
   });
 }

@@ -2715,9 +2715,9 @@ var lgZoom_minExports = requireLgZoom_min();
 const lgZoom = /* @__PURE__ */ getDefaultExportFromCjs(lgZoom_minExports);
 const KEY = "7EC452A9-0CFD441C-BD984C7C-17C8456E";
 function initGalleries() {
-  const existingGalleries = document.querySelectorAll("[data-fls-gallery]:not([data-dynamic-gallery])");
+  const existingGalleries = document.querySelectorAll("[data-fls-gallery]:not(.foto__images)");
   existingGalleries.forEach((gallery) => {
-    const isFotoGrid = gallery.closest(".foto__body");
+    const isFotoGrid = gallery.closest(".foto");
     if (!isFotoGrid) {
       lightGallery(gallery, {
         plugins: [lgZoom, lgThumbnail],
@@ -2730,11 +2730,12 @@ function initGalleries() {
       });
     }
   });
-  const fotoBlocks = document.querySelectorAll(".foto__body");
-  fotoBlocks.forEach((fotoBlock, blockIndex) => {
+  const fotoItemsBlocks = document.querySelectorAll(".foto .foto__items");
+  fotoItemsBlocks.forEach((fotoBlock, blockIndex) => {
+    const imagesInThisBlock = fotoBlock.querySelectorAll(".foto__image");
+    if (imagesInThisBlock.length === 0) return;
     const allImages = [];
-    const allLinks = fotoBlock.querySelectorAll(".foto__image");
-    allLinks.forEach((link, imgIndex) => {
+    imagesInThisBlock.forEach((link, imgIndex) => {
       const img = link.querySelector("img");
       const src = link.href;
       const thumb = img ? img.src : src;
@@ -2745,8 +2746,7 @@ function initGalleries() {
         subHtml: `<h4>${alt}</h4>`
       });
     });
-    if (allImages.length === 0) return;
-    const galleryId = `dynamic-gallery-${blockIndex}`;
+    const galleryId = `dynamic-gallery-foto-${blockIndex}`;
     let galleryElement = document.getElementById(galleryId);
     if (!galleryElement) {
       galleryElement = document.createElement("div");
@@ -2755,7 +2755,10 @@ function initGalleries() {
       document.body.appendChild(galleryElement);
     }
     if (galleryElement.lgInstance) {
-      galleryElement.lgInstance.destroy(true);
+      try {
+        galleryElement.lgInstance.destroy(true);
+      } catch (e) {
+      }
     }
     const galleryInstance = lightGallery(galleryElement, {
       plugins: [lgZoom, lgThumbnail],
@@ -2769,8 +2772,10 @@ function initGalleries() {
       }
     });
     galleryElement.lgInstance = galleryInstance;
-    allLinks.forEach((link, index) => {
-      link.removeEventListener("click", link._lgClickHandler);
+    imagesInThisBlock.forEach((link, index) => {
+      if (link._lgClickHandler) {
+        link.removeEventListener("click", link._lgClickHandler);
+      }
       const clickHandler = (e) => {
         e.preventDefault();
         galleryInstance.openGallery(index);

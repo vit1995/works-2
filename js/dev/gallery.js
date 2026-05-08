@@ -2392,7 +2392,8 @@ function requireLgThumbnail_min() {
   })(lgThumbnail_min$1);
   return lgThumbnail_min$1.exports;
 }
-requireLgThumbnail_min();
+var lgThumbnail_minExports = requireLgThumbnail_min();
+const lgThumbnail = /* @__PURE__ */ getDefaultExportFromCjs(lgThumbnail_minExports);
 var lgZoom_min$1 = { exports: {} };
 /**
  * lightgallery | 2.9.0-beta.1 | June 15th 2025
@@ -2713,22 +2714,76 @@ function requireLgZoom_min() {
 var lgZoom_minExports = requireLgZoom_min();
 const lgZoom = /* @__PURE__ */ getDefaultExportFromCjs(lgZoom_minExports);
 const KEY = "7EC452A9-0CFD441C-BD984C7C-17C8456E";
-const galleries = document.querySelectorAll("[data-fls-gallery]");
-if (galleries.length) {
-  galleries.forEach((gallery) => {
-    lightGallery(gallery, {
-      plugins: [lgZoom],
+function initGalleries() {
+  const existingGalleries = document.querySelectorAll("[data-fls-gallery]:not([data-dynamic-gallery])");
+  existingGalleries.forEach((gallery) => {
+    const isFotoGrid = gallery.closest(".foto__body");
+    if (!isFotoGrid) {
+      lightGallery(gallery, {
+        plugins: [lgZoom, lgThumbnail],
+        licenseKey: KEY,
+        speed: 500,
+        mobileSettings: {
+          showCloseIcon: true,
+          download: true
+        }
+      });
+    }
+  });
+  const fotoBlocks = document.querySelectorAll(".foto__body");
+  fotoBlocks.forEach((fotoBlock, blockIndex) => {
+    const allImages = [];
+    const allLinks = fotoBlock.querySelectorAll(".foto__image");
+    allLinks.forEach((link, imgIndex) => {
+      const img = link.querySelector("img");
+      const src = link.href;
+      const thumb = img ? img.src : src;
+      const alt = img ? img.alt : `Фото ${imgIndex + 1}`;
+      allImages.push({
+        src,
+        thumb,
+        subHtml: `<h4>${alt}</h4>`
+      });
+    });
+    if (allImages.length === 0) return;
+    const galleryId = `dynamic-gallery-${blockIndex}`;
+    let galleryElement = document.getElementById(galleryId);
+    if (!galleryElement) {
+      galleryElement = document.createElement("div");
+      galleryElement.id = galleryId;
+      galleryElement.style.display = "none";
+      document.body.appendChild(galleryElement);
+    }
+    if (galleryElement.lgInstance) {
+      galleryElement.lgInstance.destroy(true);
+    }
+    const galleryInstance = lightGallery(galleryElement, {
+      plugins: [lgZoom, lgThumbnail],
       licenseKey: KEY,
+      dynamic: true,
+      dynamicEl: allImages,
       speed: 500,
       mobileSettings: {
-        //   controls: true,       // Показывать стрелки "назад/вперед"
         showCloseIcon: true,
-        // ПОКАЗЫВАТЬ КРЕСТИК (ЗАКРЫТИЕ)
         download: true
-        // Показывать кнопку "Скачать"
       }
     });
+    galleryElement.lgInstance = galleryInstance;
+    allLinks.forEach((link, index) => {
+      link.removeEventListener("click", link._lgClickHandler);
+      const clickHandler = (e) => {
+        e.preventDefault();
+        galleryInstance.openGallery(index);
+      };
+      link._lgClickHandler = clickHandler;
+      link.addEventListener("click", clickHandler);
+    });
   });
+}
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initGalleries);
+} else {
+  initGalleries();
 }
 export {
   getDefaultExportFromCjs as g

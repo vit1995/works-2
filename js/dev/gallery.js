@@ -2720,7 +2720,14 @@ if (galleries.length) {
     lightGallery(gallery, {
       plugins: [lgZoom, lgThumbnail],
       licenseKey: KEY,
-      speed: 500
+      speed: 500,
+      mobileSettings: {
+        //   controls: true,       // Показывать стрелки "назад/вперед"
+        showCloseIcon: true,
+        // ПОКАЗЫВАТЬ КРЕСТИК (ЗАКРЫТИЕ)
+        download: true
+        // Показывать кнопку "Скачать"
+      }
     });
   });
 }

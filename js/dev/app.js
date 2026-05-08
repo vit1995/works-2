@@ -9886,3 +9886,24 @@ function formInit() {
   formFieldsInit();
 }
 document.querySelector("[data-fls-form]") ? window.addEventListener("load", formInit) : null;
+document.addEventListener("DOMContentLoaded", function() {
+  const navLinks = document.querySelectorAll(".navigation__item");
+  const currentUrl = window.location.href;
+  navLinks.forEach((link) => {
+    const linkUrl = link.href;
+    if (currentUrl === linkUrl) {
+      link.classList.add("active");
+      const image = link.querySelector(".navigation__image");
+      if (image) {
+        image.classList.add("active");
+      }
+    }
+    if (currentUrl.endsWith("/") && linkUrl.endsWith("index.html")) {
+      link.classList.add("active");
+      const image = link.querySelector(".navigation__image");
+      if (image) {
+        image.classList.add("active");
+      }
+    }
+  });
+});

@@ -2392,8 +2392,7 @@ function requireLgThumbnail_min() {
   })(lgThumbnail_min$1);
   return lgThumbnail_min$1.exports;
 }
-var lgThumbnail_minExports = requireLgThumbnail_min();
-const lgThumbnail = /* @__PURE__ */ getDefaultExportFromCjs(lgThumbnail_minExports);
+requireLgThumbnail_min();
 var lgZoom_min$1 = { exports: {} };
 /**
  * lightgallery | 2.9.0-beta.1 | June 15th 2025
@@ -2718,7 +2717,7 @@ const galleries = document.querySelectorAll("[data-fls-gallery]");
 if (galleries.length) {
   galleries.forEach((gallery) => {
     lightGallery(gallery, {
-      plugins: [lgZoom, lgThumbnail],
+      plugins: [lgZoom],
       licenseKey: KEY,
       speed: 500,
       mobileSettings: {

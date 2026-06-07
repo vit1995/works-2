@@ -1,24 +1,12 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="preload" href="./assets/fonts/Gilroy-UltraLight.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-		<link rel="preload" href="./assets/fonts/Gilroy-Thin.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-		<link rel="preload" href="./assets/fonts/Gilroy-Semibold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-		<link rel="preload" href="./assets/fonts/Gilroy-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-		<link rel="preload" href="./assets/fonts/Gilroy-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-		<link rel="preload" href="./assets/fonts/Gilroy-Light.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-		<link rel="preload" href="./assets/fonts/Gilroy-Heavy.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-		<link rel="preload" href="./assets/fonts/Gilroy-Extrabold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-		<link rel="preload" href="./assets/fonts/Gilroy-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-		<link rel="preload" href="./assets/fonts/Gilroy-Black.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-		<link rel="shortcut icon" href="assets/img/favicon.ico">
+		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1779104130912"></script>
-		<link rel="modulepreload" crossorigin="" href="./js/app.min.js">
-		<link rel="stylesheet" crossorigin="" href="./css/app.min.css?v=1779104130912">
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1779104130912">
+		<script type="module" crossorigin="" src="./js/app.min.js?v=1780864875291"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/app.min.css?v=1780864875291">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -37,1412 +25,502 @@
 </div>
 -->
 					<div class="header__logo-body">
-						<a href="#" class="header__logo">CENTERPPU.RU</a>
-						<p class="header__text">ЦЕНТР ППУ — держим тепло с 2018 года</p>
+						<a href="#" class="header__logo">IPAPER.BY</a>
+						<p class="header__text">Этикет лента для вашего бизнеса</p>
 					</div>
 					<a class="header__yandex" href="#" target="_blank">
-						<img src="./assets/img/socials/yandex.svg" alt="Image">
+						<img src="./assets/img/icon-social/yandex.svg" alt="Image">
 					</a>
 					<div class="header__socials">
 						<a class="header__social-link" href="#">
-							<img alt="Image" src="./assets/img/socials/telegram.png">
+							<img alt="Image" src="./assets/img/icon-social/telegram.png">
 						</a>
 						<a class="header__social-link" href="#">
-							<img alt="Image" src="./assets/img/socials/viber.png">
+							<img alt="Image" src="./assets/img/icon-social/viber.png">
+						</a>
+						<a class="header__social-link" href="#">
+							<img alt="Image" src="./assets/img/icon-social/instagram.png">
+						</a>
+						<a class="header__social-link" href="#">
+							<img src="./assets/img/icon-social/tiktok%20(1).png" alt="Image">
 						</a>
 					</div>
 					<a class="header__phone" href="tel:79312760178">+7 (931) 276-01-78</a>
-					<a data-fls-dynamic=".header__socials, 480" data-fls-popup-link="popup" class="header__button" href="#">ВАМ ПЕРЕЗВОНИТЬ?</a>
+					<!--
+<a
+data-fls-dynamic=".header__socials, 480"
+data-fls-popup-link="popup"
+class="header__button"
+href="#"
+>ВАМ ПЕРЕЗВОНИТЬ?</a
+>
+-->
+					<!-- Кнопка корзины сверху -->
+					<div class="cart" data-fls-cart-icon="">
+						<svg class="cart__icon" width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M7 18C5.9 18 5.01 18.9 5.01 20C5.01 21.1 5.9 22 7 22C8.1 22 9 21.1 9 20C9 18.9 8.1 18 7 18ZM1 2V4H3L6.6 11.59L5.25 14.04C5.09 14.32 5 14.65 5 15C5 16.1 5.9 17 7 17H19V15H7.42C7.28 15 7.17 14.89 7.17 14.75L7.2 14.63L8.1 13H15.55C16.3 13 16.96 12.59 17.3 11.97L20.88 5.48C21.05 5.17 21 4.8 20.75 4.55C20.5 4.3 20.13 4.25 19.82 4.42L19.52 4.55L7 4.55L6.2 2.7C6.09 2.44 5.83 2.27 5.55 2.27H1V2ZM17 18C15.9 18 15.01 18.9 15.01 20C15.01 21.1 15.9 22 17 22C18.1 22 19 21.1 19 20C19 18.9 18.1 18 17 18Z" fill="currentColor"></path>
+						</svg>
+						<span class="cart__quantity" data-fls-addtocart="">0</span>
+					</div>
 				</div>
 			</header>
 			<main class="page page--home">
 				<section class="hero">
-					<div class="hero__wrapper">
-						<img class="hero__img-bg" alt="Image" src="./assets/img/hero/bg.png">
-						<img class="hero__img-phone" alt="Image" src="./assets/img/hero/phone.png">
-						<div class="hero__container">
-							<h1 class="hero__title">
-								Утепление домов и промышленных зданий
-								<span>пенополиуретаном</span>
-							</h1>
-							<div class="hero__subtitle">В СПб и ЛО за 1 день с гарантией 2 года</div>
-							<div class="hero__bottom">
-								<form class="hero__form" data-fls-form="ajax" method="POST" required data-fls-form-popup="popup-message" action="files/sendmail/sendmail.php">
-									<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" required placeholder="+375(__) ___-__-__" class="input">
-									<label data-fls-checkbox="" class="checkbox">
-										<input data-fls-error="Заполните поле" class="checkbox__input" type="checkbox" value="1" name="check" checked>
-										<span class="checkbox__text">Вы соглашаетесь с условиями обработки персональных данных</span>
-									</label>
-									<button data-fls-button="" type="submit" class="hero__button button">ПОЛУЧИТЬ БЕСПЛАТНУЮ КОНСУЛЬТАЦИЮ</button>
-								</form>
-								<div data-fls-dynamic=".hero__container, 768,0" class="hero__block">
-									<p class="hero__text">Ангары, мастерские, подвалы</p>
-									<p class="hero__text">Дома, крыши, стены</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</section>
-				<div class="dignities">
-					<div class="dignities__container">
-						<div class="dignities__item">
-							<div class="dignities__content">
-								<h2 class="dignities__title">Фикс. смета без предоплаты</h2>
-								<p class="dignities__text">Платите наличными — расчет в день производства работ</p>
-							</div>
-							<img class="dignities__image" alt="Image" src="./assets/img/dignities/01.png">
-						</div>
-						<div class="dignities__item">
-							<div class="dignities__content">
-								<h2 class="dignities__title">Фикс. смета без предоплаты</h2>
-								<p class="dignities__text">Платите наличными — расчет в день производства работ</p>
-							</div>
-							<img class="dignities__image" alt="Image" src="./assets/img/dignities/02.png">
-						</div>
-						<div class="dignities__item">
-							<div class="dignities__content">
-								<h2 class="dignities__title">Фикс. смета без предоплаты</h2>
-								<p class="dignities__text">Платите наличными — расчет в день производства работ</p>
-							</div>
-							<img class="dignities__image" alt="Image" src="./assets/img/dignities/03.png">
-						</div>
-					</div>
-				</div>
-				<section class="indicative">
-					<div class="indicative__container">
-						<div data-fls-blockheader="" class="blockheader blockheader--left">
-							<div class="blockheader__block">
-								<h2 class="blockheader__title">
-									<span>За 7 лет работы мы утеплили</span>
-									более 700 объектов
-								</h2>
-								<div class="blockheader__subtitle">Показательные работы</div>
-							</div>
-							<div class="indicative__navications">
-								<button type="button" class="indicative__button-prev swiper-button-prev"></button>
-								<button type="button" class="indicative__button-next swiper-button-next"></button>
-							</div>
-						</div>
+					<div class="hero__container">
 						<!-- Оболочка слайдера -->
-						<div data-fls-slider="" class="indicative__slider swiper">
+						<div data-fls-slider="" class="hero__slider swiper">
 							<!-- Часть слайдера, которая двигается -->
-							<div class="indicative__wrapper swiper-wrapper">
+							<div class="hero__wrapper swiper-wrapper">
 								<!-- Слайд -->
-								<div class="indicative__slide swiper-slide">
-									<div class="indicative__image">
-										<img alt="Image" src="./assets/img/indicative/01.webp">
-										<div class="indicative__block">
-											<h3 class="indicative__title">Спортивный комплекс Динамо</h3>
-											<p class="indicative__text">
-												Утепление двух залов для пляжного спорта на Крестовском
-                  острове
-											</p>
-										</div>
-										<p class="indicative__square">Площадь - 5000м2</p>
-									</div>
-									<a data-fls-popup-link="popup-two" class="indicative__button button">УЗНАТЬ ПОДРОБНЕЕ</a>
+								<div class="hero__slide swiper-slide">
+									<img alt="#" src="./assets/img/hero/01.webp">
 								</div>
-								<div class="indicative__slide swiper-slide">
-									<div class="indicative__image">
-										<img alt="Image" src="./assets/img/indicative/01.webp">
-										<div class="indicative__block">
-											<h3 class="indicative__title">Спортивный комплекс Динамо</h3>
-											<p class="indicative__text">
-												Утепление двух залов для пляжного спорта на Крестовском
-                  острове
-											</p>
-										</div>
-										<p class="indicative__square">Площадь - 5000м2</p>
-									</div>
-									<a class="indicative__button button" href="underground.html">УЗНАТЬ ПОДРОБНЕЕ</a>
+								<div class="hero__slide swiper-slide">
+									<img alt="#" src="./assets/img/hero/02.webp">
 								</div>
-								<div class="indicative__slide swiper-slide">
-									<div class="indicative__image">
-										<img alt="Image" src="./assets/img/indicative/01.webp">
-										<div class="indicative__block">
-											<h3 class="indicative__title">Спортивный комплекс Динамо</h3>
-											<p class="indicative__text">
-												Утепление двух залов для пляжного спорта на Крестовском
-                  острове
-											</p>
-										</div>
-										<p class="indicative__square">Площадь - 5000м2</p>
-									</div>
-									<a class="indicative__button button" href="underground.html">УЗНАТЬ ПОДРОБНЕЕ</a>
-								</div>
-								<div class="indicative__slide swiper-slide">
-									<div class="indicative__image">
-										<img alt="Image" src="./assets/img/indicative/01.webp">
-										<div class="indicative__block">
-											<h3 class="indicative__title">Спортивный комплекс Динамо</h3>
-											<p class="indicative__text">
-												Утепление двух залов для пляжного спорта на Крестовском
-                  острове
-											</p>
-										</div>
-										<p class="indicative__square">Площадь - 5000м2</p>
-									</div>
-									<a class="indicative__button button" href="underground.html">УЗНАТЬ ПОДРОБНЕЕ</a>
-								</div>
-								<div class="indicative__slide swiper-slide">
-									<div class="indicative__image">
-										<img alt="Image" src="./assets/img/indicative/01.webp">
-										<div class="indicative__block">
-											<h3 class="indicative__title">Спортивный комплекс Динамо</h3>
-											<p class="indicative__text">
-												Утепление двух залов для пляжного спорта на Крестовском
-                  острове
-											</p>
-										</div>
-										<p class="indicative__square">Площадь - 5000м2</p>
-									</div>
-									<a class="indicative__button button" href="underground.html">УЗНАТЬ ПОДРОБНЕЕ</a>
+								<div class="hero__slide swiper-slide">
+									<img alt="#" src="./assets/img/hero/03.webp">
 								</div>
 							</div>
-							<div class="swiper-pagination"></div>
+							<!-- Если нужна пагинация -->
+							<div class="hero__navigacions">
+								<div class="swiper-pagination"></div>
+								<div class="hero__arrows">
+									<button type="button" class="hero-button-prev swiper-button-prev"></button>
+									<button type="button" class="hero-button-next swiper-button-next"></button>
+								</div>
+							</div>
+						</div>
+						<picture class="hero__banner">
+							<img class="hero__banner-bg" alt="#" src="./assets/img/hero/bg.webp">
+							<img alt="sale" src="./assets/img/hero/sale.webp">
+						</picture>
+					</div>
+				</section>
+				<section class="block-banner">
+					<div class="block-banner__container">
+						<div class="block-banner__content">
+							<img class="block-banner__content-img-bg" alt="#" src="./assets/img/block-banner/left-img.webp">
+							<h2 class="block-banner__title">Дизайн бумага</h2>
+							<p class="block-banner__text">Сертификаты, грамоты, полиграфия</p>
+							<a class="block-banner__button" href="#">Подобрать</a>
+						</div>
+						<div class="block-banner__items">
+							<div class="block-banner__item">
+								<img class="block-banner__item-img" alt="@" src="./assets/img/block-banner/01.webp">
+								<h3 class="block-banner__item-title">Этикетки с прямыми углами</h3>
+							</div>
+							<div class="block-banner__item">
+								<img class="block-banner__item-img" alt="@" src="./assets/img/block-banner/02.webp">
+								<h3 class="block-banner__item-title">Этикетки с закруглёнными углами</h3>
+							</div>
+							<div class="block-banner__item">
+								<img class="block-banner__item-img" alt="@" src="./assets/img/block-banner/03.webp">
+								<h3 class="block-banner__item-title">Круглые этикетки</h3>
+							</div>
 						</div>
 					</div>
 				</section>
-				<section class="steps">
-					<div class="steps__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<h2 class="blockheader__title">Как мы работаем: прозрачно и просто</h2>
-							<div class="blockheader__subtitle">
-								От заявки до приемки и гарантии— за 4 простых шага без нервов и
-          неожиданностей
+				<section class="popular">
+					<div class="popular__container">
+						<h2 class="popular__title">Популярные товары</h2>
+						<div data-fls-slider="" class="popular__slider swiper">
+							<div class="popular__wrapper swiper-wrapper">
+								<div class="popular__slide swiper-slide">
+									<img class="popular__img" alt="#" src="./assets/img/popular/01.jpeg">
+									<div class="popular__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
+									<a class="popular__button" href="#">в корзину</a>
+								</div>
+								<div class="popular__slide swiper-slide">
+									<img class="popular__img" alt="#" src="./assets/img/popular/01.jpeg">
+									<div class="popular__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
+									<a class="popular__button" href="#">в корзину</a>
+								</div>
+								<div class="popular__slide swiper-slide">
+									<img class="popular__img" alt="#" src="./assets/img/popular/01.jpeg">
+									<div class="popular__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
+									<a class="popular__button" href="#">в корзину</a>
+								</div>
+								<div class="popular__slide swiper-slide">
+									<img class="popular__img" alt="#" src="./assets/img/popular/01.jpeg">
+									<div class="popular__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
+									<a class="popular__button" href="#">в корзину</a>
+								</div>
+								<div class="popular__slide swiper-slide">
+									<img class="popular__img" alt="#" src="./assets/img/popular/01.jpeg">
+									<div class="popular__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
+									<a class="popular__button" href="#">в корзину</a>
+								</div>
+								<div class="popular__slide swiper-slide">
+									<img class="popular__img" alt="#" src="./assets/img/popular/01.jpeg">
+									<div class="popular__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
+									<a class="popular__button" href="#">в корзину</a>
+								</div>
+								<div class="popular__slide swiper-slide">
+									<img class="popular__img" alt="#" src="./assets/img/popular/01.jpeg">
+									<div class="popular__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
+									<a class="popular__button" href="#">в корзину</a>
+								</div>
+							</div>
+							<div class="popular__navigacions">
+								<div class="swiper-pagination"></div>
+								<div class="popular__arrows">
+									<button type="button" class="popular-button-prev swiper-button-prev"></button>
+									<button type="button" class="popular-button-next swiper-button-next"></button>
+								</div>
 							</div>
 						</div>
-						<div class="steps__items">
-							<div class="steps__top">
-								<div class="steps__item">
-									<div class="steps__content">
-										<h3 class="steps__title">Первичная консультация</h3>
-										<p class="steps__text">
-											За
-											<strong>4 минуты</strong>
-											по телефону расскажем все, что
-                нужно знать перед утеплением.
-										</p>
-										<p class="steps__text">
-											Присылаете снимки или чертеж –
-											<strong>сразу озвучим точную цену</strong>
-											без визита.
-										</p>
-										<div class="steps__phone-body">
-											<a class="steps__phone" href="tel:79312760178">+7 (931) 276-01-78</a>
-											<p class="steps__phone-text">Или оставьте заявку на звонок</p>
-										</div>
-										<a class="steps__button button" data-fls-popup-link="popup" href="#">ПОЛУЧИТЬ КОНСУЛЬТАЦИЮ</a>
+					</div>
+				</section>
+				<section class="dignities">
+					<div class="dignities__container">
+						<picture class="dignities__image">
+							<img class="dignities__img-bg" alt="#" src="./assets/img/hero/bg.webp">
+							<img class="dignities__img" alt="#" src="./assets/img/dignities/01.webp">
+						</picture>
+						<div class="dignities__content">
+							<div class="dignities__items">
+								<div class="dignities__item">
+									<div class="dignities__icon">
+										<img alt="#" src="./assets/img/dignities/icon01.png">
 									</div>
-									<div class="steps__image">
-										<img class="" alt="Image" src="./assets/img/steps/1.png">
-									</div>
-									<span class="steps__number">01</span>
-								</div>
-								<div class="steps__item">
-									<div class="steps__content">
-										<h3 class="steps__title">Приехали → утеплили → убрали за собой</h3>
-										<p class="steps__text">
-											Согласуем удобную дату и время выезда бригады на объект.
-											<strong>Приедем вовремя</strong>
-											и выполним работы в срок
-										</p>
-										<ul class="steps__list">
-											<li>Подскажем оптимальную толщину слоя и тип ППУ под ваш объект</li>
-											<li>Подготовим точную смету в течение дня и приступим к напылению</li>
-										</ul>
-									</div>
-									<div class="steps__image">
-										<img alt="Image" src="./assets/img/steps/2.png">
-									</div>
-									<span class="steps__number">02</span>
-								</div>
-							</div>
-							<div class="steps__bottom">
-								<div class="steps__item">
-									<div class="steps__content">
-										<h3 class="steps__title">Приехали → утеплили → убрали за собой</h3>
-										<p class="steps__text">
-											Согласуем удобную дату и время выезда бригады на объект.
-											<strong>Приедем вовремя</strong>
-											и выполним работы в срок
-										</p>
-										<ul class="steps__list">
-											<li>Подскажем оптимальную толщину слоя и тип ППУ под ваш объект</li>
-											<li>Подготовим точную смету в течение дня и приступим к напылению</li>
-										</ul>
-									</div>
-									<div class="steps__image">
-										<img alt="Image" src="./assets/img/steps/3.png">
-									</div>
-									<span class="steps__number">03</span>
-								</div>
-								<div class="steps__item">
-									<div class="steps__content">
-										<h3 class="steps__title">Приехали → утеплили → убрали за собой</h3>
-										<p class="steps__text">
-											Даём честную гарантию
-											<strong>2 года на все работы</strong>
-											и
-                толщину слоя, не пропадаем после оплаты
-										</p>
-										<p class="steps__text steps__text--border">
-											Если на протяжении этого времени у вас появятся дефекты,
-											<strong>то устраним всё за свой счет</strong>
+									<div class="dignities__block">
+										<h3 class="dignities__title">Качество</h3>
+										<p class="dignities__text">
+											Мы гарантируем высокое качество нашей продукции благодаря
+                использованию современных материалов и технологий производства.
 										</p>
 									</div>
-									<div class="steps__image">
-										<img alt="Image" src="./assets/img/steps/4.png">
-									</div>
-									<span class="steps__number">04</span>
 								</div>
+								<div class="dignities__item">
+									<div class="dignities__icon">
+										<img alt="#" src="./assets/img/dignities/icon02.png">
+									</div>
+									<div class="dignities__block">
+										<h3 class="dignities__title">Объёмы</h3>
+										<p class="dignities__text">
+											Мы готовы предложить вам любые объемы поставок – от небольших
+                партий до крупных заказов. Независимо от объема заказа, мы
+                обеспечим вас продукцией в установленные сроки.
+										</p>
+									</div>
+								</div>
+								<div class="dignities__item">
+									<div class="dignities__icon">
+										<img alt="#" src="./assets/img/dignities/icon03.png">
+									</div>
+									<div class="dignities__block">
+										<h3 class="dignities__title">Снабжение</h3>
+										<p class="dignities__text">
+											Наша компания обеспечивает бесперебойную поставку самоклеящихся
+                этикеток на листах А4 в любых необходимых объемах. Оперативно
+                реагируем на запросы клиентов.
+										</p>
+									</div>
+								</div>
+								<div class="dignities__item">
+									<div class="dignities__icon">
+										<img alt="#" src="./assets/img/dignities/icon04.png">
+									</div>
+									<div class="dignities__block">
+										<h3 class="dignities__title">Сроки</h3>
+										<p class="dignities__text">
+											Минимизируем временные затраты на выполнение вашего
+                заказа.Оптимизированные процессы и эффективная
+                логистика,гарантирует своевременную доставку.
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="dignities__bottom">
+								<div class="dignities__bottom-icon">
+									<img alt="#" src="./assets/img/dignities/burger.png">
+								</div>
+								<p class="dignities__bottom-text">Подобрать этикетки</p>
 							</div>
 						</div>
 					</div>
 				</section>
-				<section class="speed">
-					<div class="speed__wrapper">
-						<img class="speed__img-bg" alt="Image" src="./assets/img/speed/bg.png">
-						<div class="speed__container">
-							<div class="speed__content">
-								<h2 class="speed__title">
-									Скорость утепления -
-									<span>до 2000 м2/сутки</span>
-								</h2>
-								<p class="speed__text">Сделаем быстро и вытянем любые объемы</p>
-								<div class="speed__items">
-									<div class="speed__item">
-										<img class="speed__item-image" alt="Image" src="./assets/img/speed/01.jpeg">
-										<p class="speed__item-text">Частный дом — за 1 день</p>
-									</div>
-									<div class="speed__item">
-										<img class="speed__item-image" alt="Image" src="./assets/img/speed/02.jpg">
-										<p class="speed__item-text">Частный дом — за 1 день</p>
-									</div>
-									<div class="speed__item">
-										<img class="speed__item-image" alt="Image" src="./assets/img/speed/03.jpg">
-										<p class="speed__item-text">Частный дом — за 1 день</p>
-									</div>
-								</div>
-								<div class="speed__buttons">
-									<a data-fls-popup-link="popup" class="speed__button button button--60" href="#">ОСТАВИТЬ ЗАЯВКУ</a>
-									<a class="speed__button button button--green button--60" href="#">НАПИСАТЬ В VIBER</a>
-								</div>
-							</div>
-							<div class="speed__video">
-								<h3 class="speed__video-title">Посмотрите, как мы работаем!</h3>
-								<div class="speed__video-body">
-									<div class="video-container">
-										<div class="video-preview">
-											<img alt="Превью видео" class="preview-image" src="./assets/img/hero/bg.png">
-											<div class="play-button">
-												<svg viewbox="0 0 80 80">
-													<circle cx="40" cy="40" r="38" fill="#fff" fill-opacity="0.9"></circle>
-													<polygon points="32,25 32,55 52,40" fill="#000"></polygon>
-												</svg>
-											</div>
-										</div>
-										<video controls playsinline="" webkit-playsinline="" preload="none">
-											<source src="./assets/img/speed/video/01.mp4" type="video/mp4">
-											<source src="./assets/img/speed/video/01.webm" type="video/webm">
-											Ваш браузер не поддерживает видео.
-										</video>
-									</div>
-									<div class="video-container">
-										<div class="video-preview">
-											<img alt="Превью видео" class="preview-image" src="./assets/img/hero/bg.png">
-											<div class="play-button">
-												<svg viewbox="0 0 80 80">
-													<circle cx="40" cy="40" r="38" fill="#fff" fill-opacity="0.9"></circle>
-													<polygon points="32,25 32,55 52,40" fill="#000"></polygon>
-												</svg>
-											</div>
-										</div>
-										<video controls playsinline="" webkit-playsinline="" preload="none">
-											<source src="./assets/img/speed/video/01.mp4" type="video/mp4">
-											<source src="./assets/img/speed/video/01.webm" type="video/webm">
-											Ваш браузер не поддерживает видео.
-										</video>
-									</div>
-								</div>
-							</div>
+				<section class="products">
+					<div class="products__container">
+						<h2 class="products__title">Продукция</h2>
+						<div class="products__items">
+							<article data-fls-addtocart-product="" class="products__item">
+								<img data-fls-addtocart-image="" class="products__img" alt="#" src="./assets/img/popular/01.jpeg">
+								<div class="products__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
+								<button class="products__button" data-fls-addtocart-button="">в корзину</button>
+							</article>
+							<article data-fls-addtocart-product="" class="products__item">
+								<img data-fls-addtocart-image="" class="products__img" alt="#" src="./assets/img/popular/01.jpeg">
+								<div class="products__name">Этикет-лента 130х210 полипропилен (2000 этикеток) втулка 40 мм</div>
+								<button class="products__button" data-fls-addtocart-button="">в корзину</button>
+							</article>
+							<article class="products__item">
+								<img class="products__img" alt="#" src="./assets/img/popular/01.jpeg">
+								<div class="products__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
+								<a class="products__button" href="#">в корзину</a>
+							</article>
+							<article class="products__item">
+								<img class="products__img" alt="#" src="./assets/img/popular/01.jpeg">
+								<div class="products__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
+								<a class="products__button" href="#">в корзину</a>
+							</article>
+							<article class="products__item">
+								<img class="products__img" alt="#" src="./assets/img/popular/01.jpeg">
+								<div class="products__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
+								<a class="products__button" href="#">в корзину</a>
+							</article>
+							<article class="products__item">
+								<img class="products__img" alt="#" src="./assets/img/popular/01.jpeg">
+								<div class="products__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
+								<a class="products__button" href="#">в корзину</a>
+							</article>
+							<article class="products__item">
+								<img class="products__img" alt="#" src="./assets/img/popular/01.jpeg">
+								<div class="products__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
+								<a class="products__button" href="#">в корзину</a>
+							</article>
 						</div>
 					</div>
 				</section>
-				<section id="calculator" data-fls-qwiz="" class="page__calculator calculator">
-					<div class="calculator__container">
-						<div class="calculator__subtitle"></div>
-						<h2 class="calculator__title"></h2>
-						<div class="calculator__items">
-							<div class="calculator__item"></div>
-						</div>
-						<div class="calculator__body">
-							<!-- Оболонка слайдера -->
-							<!--
-<div id="calc" class="slide-calculator__slide-calculator slide-calculator-block">
-<h4 class="slide-calculator-block__title"><svg class="mdi-icon mdi-24px" viewBox="0 0 24 24">
-<path
-d="M17,21L14.25,18L15.41,16.84L17,18.43L20.59,14.84L21.75,16.25M12.8,21H5C3.89,21 3,20.11 3,19V5C3,3.89 3.89,3 5,3H19C20.11,3 21,3.89 21,5V12.8C20.39,12.45 19.72,12.2 19,12.08V5H5V19H12.08C12.2,19.72 12.45,20.39 12.8,21M12,17H7V15H12M14.68,13H7V11H17V12.08C16.15,12.22 15.37,12.54 14.68,13M17,9H7V7H17"
-stroke-width="0" fill-rule="nonzero"></path>
-</svg>Рассчитайте стоимость грядок за 1 минуту!</h4>
-</div>
-<div id="calc-last" class="slide-calculator__slide-calculator slide-calculator-block calc-last">
-</div>
--->
-							<div class="calculator__slider swiper swiper-container">
-								<!-- Частина слайдера, що рухається -->
-								<form data-fls-slider="" data-fls-form-popup="popup-message" data-ajax="" action="files/sendmail/sendmail.php" class="calculator__wrapper swiper-wrapper">
-									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-										<div class="slide-calculator__body">
-											<h5 class="slide-calculator__title">Какой объект вы хотите утеплить?</h5>
-											<div class="options">
-												<div class="options__item">
-													<input data-required="" id="o_1" class="options__input input" type="radio" value="Частный дом / дача" name="step_1">
-													<label for="o_1" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/calc/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Частный дом / дача</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_2" class="options__input input" type="radio" value="Артика" name="step_1">
-													<label for="o_2" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/calc/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Артика</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_3" class="options__input input" type="radio" value="Шоколад" name="step_1">
-													<label for="o_3" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/calc/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Шоколад</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_4" class="options__input input" type="radio" value="Шоколад" name="step_1">
-													<label for="o_4" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/calc/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Шоколад</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_5" class="options__input input" type="radio" value="Шоколад" name="step_1">
-													<label for="o_5" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/calc/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Шоколад</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_6" class="options__input input" type="radio" value="Шоколад" name="step_1">
-													<label for="o_6" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/calc/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Шоколад</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_7" class="options__input input" type="radio" value="Шоколад" name="step_1">
-													<label for="o_7" class="options__label">
-														<div class="options__text">
-															<img alt="#" src="./assets/img/calc/01.jpg">
-														</div>
-													</label>
-													<h3 class="options__title">Шоколад</h3>
-												</div>
-											</div>
-										</div>
-										<div class="slide-calculator__content content-slide-calculator">
-											<div class="content-slide-calculator__worker">
-												<div class="content-slide-calculator__avatar">
-													<img alt="avatar" src="./assets/img/calc/photo.jpg">
-												</div>
-												<div class="content-slide-calculator__date">
-													<div class="content-slide-calculator__name">Адам</div>
-													<div class="content-slide-calculator__job-title">старший менеджер</div>
-												</div>
-											</div>
-											<div class="content-slide-calculator__text">
-												<p>
-													Завод GARD производит пустотелые блоки с неповторимым дизайном
-                  по методологии покраски Колормикс (ColorMix) с полной
-                  покраской бетона на всю глубину:
-												</p>
-											</div>
-											<div class="content-slide-calculator__bottom">
-												Если есть вопросы,напишите мне в
-												<a href="#">viber</a>
-											</div>
-										</div>
-									</div>
-									<!-- 2 Слайд -->
-									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-										<div class="slide-calculator__body">
-											<h5 class="slide-calculator__title">Из какого материала сделаны стены/основание?</h5>
-											<div class="options">
-												<div class="options__item">
-													<input data-required="" id="o_8" class="options__input input" type="radio" value="Дым" name="step_2">
-													<label for="o_8" class="options__label">
-														<div class="options__text options__text--contain">
-															<img alt="#" src="./assets/img/calc/03.png">
-														</div>
-													</label>
-													<h3 class="options__title">Дым</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_9" class="options__input input" type="radio" value="Артика" name="step_2">
-													<label for="o_9" class="options__label">
-														<div class="options__text options__text--contain">
-															<img alt="#" src="./assets/img/calc/04.png">
-														</div>
-													</label>
-													<h3 class="options__title">Артика</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_10" class="options__input input" type="radio" value="Шоколад" name="step_2">
-													<label for="o_10" class="options__label">
-														<div class="options__text options__text--contain">
-															<img alt="#" src="./assets/img/calc/05.png">
-														</div>
-													</label>
-													<h3 class="options__title">Шоколад</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_11" class="options__input input" type="radio" value="Шоколад" name="step_2">
-													<label for="o_11" class="options__label">
-														<div class="options__text options__text--contain">
-															<img alt="#" src="./assets/img/calc/03.png">
-														</div>
-													</label>
-													<h3 class="options__title">Шоколад</h3>
-												</div>
-												<div class="options__item">
-													<input data-required="" id="o_12" class="options__input input" type="radio" value="Шоколад" name="step_2">
-													<label for="o_12" class="options__label">
-														<div class="options__text options__text--contain">
-															<img alt="#" src="./assets/img/calc/03.png">
-														</div>
-													</label>
-													<h3 class="options__title">Шоколад</h3>
-												</div>
-											</div>
-										</div>
-										<div class="slide-calculator__content content-slide-calculator">
-											<div class="content-slide-calculator__worker">
-												<div class="content-slide-calculator__avatar">
-													<img alt="avatar" src="./assets/img/calc/02.png">
-												</div>
-												<div class="content-slide-calculator__date">
-													<div class="content-slide-calculator__name">Адам</div>
-													<div class="content-slide-calculator__job-title">старший менеджер</div>
-												</div>
-											</div>
-											<div class="content-slide-calculator__text">
-												<p>
-													Завод GARD производит пустотелые блоки с неповторимым дизайном
-                  по методологии покраски Колормикс (ColorMix) с полной
-                  покраской бетона на всю глубину:
-												</p>
-											</div>
-											<div class="content-slide-calculator__bottom">
-												Если есть вопросы,напишите мне в
-												<a href="#">viber</a>
-											</div>
-										</div>
-									</div>
-									<!-- 3 слайд -->
-									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-										<div class="slide-calculator__body">
-											<h5 class="slide-calculator__title">Примерная площадь утепления?</h5>
-											<div class="radio">
-												<div class="radio__item">
-													<input data-required="" id="o_13" class="radio__input" checked type="radio" value="До 100 м²" name="step_3">
-													<label for="o_13" class="radio__label">
-														<span class="radio__text">До 100 м²</span>
-													</label>
-												</div>
-												<div class="radio__item">
-													<input id="o_14" class="radio__input" type="radio" value="100–300 м²" name="step_3">
-													<label for="o_14" class="radio__label">
-														<span class="radio__text">100–300 м²</span>
-													</label>
-												</div>
-												<div class="radio__item">
-													<input id="o_15" class="radio__input" type="radio" value="Ещё не знаю — нужна помощь" name="step_3">
-													<label for="o_15" class="radio__label">
-														<span class="radio__text">Ещё не знаю — нужна помощь</span>
-													</label>
-												</div>
-											</div>
-										</div>
-										<div class="slide-calculator__content content-slide-calculator">
-											<div class="content-slide-calculator__worker">
-												<div class="content-slide-calculator__avatar">
-													<img alt="avatar" src="./assets/img/calc/02.png">
-												</div>
-												<div class="content-slide-calculator__date">
-													<div class="content-slide-calculator__name">Адам</div>
-													<div class="content-slide-calculator__job-title">старший менеджер</div>
-												</div>
-											</div>
-											<div class="content-slide-calculator__text">
-												<p>
-													Завод GARD производит пустотелые блоки с неповторимым дизайном
-                  по методологии покраски Колормикс (ColorMix) с полной
-                  покраской бетона на всю глубину:
-												</p>
-											</div>
-											<div class="content-slide-calculator__bottom">
-												Если есть вопросы,напишите мне в
-												<a href="#">viber</a>
-											</div>
-										</div>
-									</div>
-									<!-- Конечная страница !форма! -->
-									<div class="calculator__slide swiper-slide slide-calculator slide-main-block">
-										<div class="slide-calculator-block__wrapper">
-											<div class="slide-calculator-block__content">
-												<h3 class="slide-calculator-block__title-last">Отлично! Остался последний шаг</h3>
-												<p class="slide-calculator-block__text">
-													Укажите удобный способ связи, чтобы я связался с вами и
-                  отправил расчёт стоимости утепления вашего объекта
-												</p>
-											</div>
-											<div class="slide-calculator-block__form">
-												<select name="select" data-fls-select="" data-fls-select-modif="form">
-													<option value="Телефон" selected>Телефон</option>
-													<option value="Viber">Viber</option>
-													<option value="Telegram">Telegram</option>
-												</select>
-												<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните номер телефона" required placeholder="+375(__) ___-__-__" class="slide-calculator-block__input input input--60">
-												<label data-fls-checkbox="" class="checkbox">
-													<input data-fls-error="Заполните поле" class="checkbox__input" type="checkbox" value="5" name="check" checked>
-													<span class="checkbox__text checkbox__text--black">Вы соглашаетесь с условиями обработки персональных
-                    данных</span>
-												</label>
-												<button data-fls-button="" type="submit" class="button button--60">УТЕПЛИТЬСЯ</button>
-											</div>
-										</div>
-									</div>
-									<div data-fls-dynamic=".calculator__slider, 768" id="progress" class="calculator__progress">
-										<div class="calculator__progress-body">
-											<div class="calculator__pagination swiper-pagination"></div>
-											<div class="fraction-controll">
-												<span class="fraction-controll__current">01</span>
-												<span class="fraction-controll__all">10</span>
-												<div class="fraction-controll__progress">
-													<span>Готово:</span>
-													0%
-												</div>
-											</div>
-										</div>
-										<div class="calculator__button-body">
-											<div type="button" class="calculator__button-next">
-												Далее
-												<svg class="mdi-icon mdi-24px" viewbox="0 0 24 24">
-													<path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" stroke-width="0" fill-rule="nonzero"></path>
-												</svg>
-											</div>
-											<div type="button" class="calculator__button-prev">
-												<svg class="mdi-icon mdi-24px" viewbox="0 0 24 24">
-													<path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" stroke-width="0" fill-rule="nonzero"></path>
-												</svg>
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="any">
-					<div class="any__container">
-						<img class="any__decor-left" alt="Image" src="./assets/img/any/decor.png">
-						<img class="any__decor-rigth" alt="Image" src="./assets/img/any/decor.png">
-						<div data-fls-blockheader="" class="blockheader">
-							<h2 class="blockheader__title">Утепляем любые объекты</h2>
-							<div class="blockheader__subtitle">Работаем с физическими и юридическими лицами</div>
-						</div>
-						<div class="any__items">
-							<div class="any__item">
-								<div class="any__content">
-									<h3 class="any__title">Каркасные дома:Тепло и сухо на 30 лет</h3>
-									<p class="any__text">
-										Напыляемый ППУ закрывает все мостики холода и швы. Без потерь
-              тепла, с гарантией. Работы — строго по проекту: всё как на
-              картинке, только вживую.
-									</p>
-									<a class="any__link" href="#">Узнать подробнее</a>
-								</div>
-								<img class="any__img" alt="Image" src="./assets/img/any/01.webp">
-							</div>
-							<div class="any__item">
-								<div class="any__content">
-									<h3 class="any__title">Каркасные дома:Тепло и сухо на 30 лет</h3>
-									<p class="any__text">
-										Напыляемый ППУ закрывает все мостики холода и швы. Без потерь
-              тепла, с гарантией. Работы — строго по проекту: всё как на
-              картинке, только вживую.
-									</p>
-									<a class="any__link" href="#">Узнать подробнее</a>
-								</div>
-								<img class="any__img" alt="Image" src="./assets/img/any/02.webp">
-							</div>
-							<div class="any__item">
-								<div class="any__content">
-									<h3 class="any__title">Каркасные дома:Тепло и сухо на 30 лет</h3>
-									<p class="any__text">
-										Напыляемый ППУ закрывает все мостики холода и швы. Без потерь
-              тепла, с гарантией. Работы — строго по проекту: всё как на
-              картинке, только вживую.
-									</p>
-								</div>
-								<img class="any__img" alt="Image" src="./assets/img/any/03.webp">
-							</div>
-							<div class="any__item">
-								<div class="any__content">
-									<h3 class="any__title">Каркасные дома:Тепло и сухо на 30 лет</h3>
-									<p class="any__text">
-										Напыляемый ППУ закрывает все мостики холода и швы. Без потерь
-              тепла, с гарантией. Работы — строго по проекту: всё как на
-              картинке, только вживую.
-									</p>
-									<a class="any__link" href="#">Узнать подробнее</a>
-								</div>
-								<img class="any__img" alt="Image" src="./assets/img/any/04.png">
-							</div>
-						</div>
-						<div class="any__buttons">
-							<a data-fls-popup-link="popup" class="any__button button button button--80" href="#">Рассчитать стоимость утепления моего объекта</a>
-							<a class="any__button button button button--black button--80" href="#works">Посмотреть наши работы →</a>
-						</div>
-					</div>
-				</section>
-				<section class="choice">
-					<div class="choice__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<h2 class="blockheader__title">Как правильно выбрать тип ППУ?</h2>
-							<div class="blockheader__subtitle">Не ошибитесь с выбором — вот как подобрать ППУ под ваш проект</div>
-						</div>
-						<div data-fls-tabs="" class="tabs">
-							<nav data-fls-tabs-titles="" class="tabs__navigation">
-								<button type="button" class="tabs__title --tab-active">Закрытая ячейка</button>
-								<button type="button" class="tabs__title">Открытая ячейка</button>
-							</nav>
-							<div data-fls-tabs-body="" class="tabs__content">
-								<div class="tabs__body">
-									<div class="tabs__wrapper">
-										<div class="tabs__images">
-											<img class="tabs__image-bg" alt="Image" src="./assets/img/choice/01.png">
-											<div data-fls-gallery="" class="tabs__gallery">
-												<a class="tabs__gallery-image" href="./assets/img/choice/02.jpg">
-													<img alt="Image" src="./assets/img/choice/02.jpg">
-												</a>
-												<a class="tabs__gallery-image" href="./assets/img/choice/03.jpg">
-													<img alt="Image" src="./assets/img/choice/03.jpg">
-												</a>
-												<a class="tabs__gallery-image" href="./assets/img/choice/04.jpg">
-													<img alt="Image" src="./assets/img/choice/04.jpg">
-												</a>
-											</div>
-										</div>
-										<div class="tabs__content content-tabs">
-											<div class="content-tabs__top">
-												<p class="content-tabs__top-left">Закрытая ячейка</p>
-												<div class="content-tabs__top-clock">
-													<img src="./assets/img/choice/clock.svg" alt="Image">
-													<p>
-														Полное высыхание:
-														<strong>5-10 минут</strong>
-													</p>
-												</div>
-											</div>
-											<h3 class="content-tabs__title">
-												<strong>Закрытая ячейка</strong>
-												— максимум тепла и прочности
-											</h3>
-											<div class="content-tabs__subtitle">Преимущества:</div>
-											<ul class="content-tabs__list">
-												<li>Подойдет для утепления полов, цоколей, подвалов</li>
-												<li>Не требует установки доп. мембран, ровный слой</li>
-												<li>Возможно использовать под стяжкой</li>
-											</ul>
-											<div class="content-tabs__warning">
-												<span>!</span>
-												<p class="content-tabs__warning-text">
-													<strong>Капризен в работе.</strong>
-													Рекомендуем обращаться только к проверенным специалистам.
-                    Например, к нам :)
-												</p>
-											</div>
-											<a class="content-tabs__button button button--60" href="#">ПОДОБРАТЬ РЕШЕНИЕ →</a>
-										</div>
-									</div>
-								</div>
-								<div class="tabs__body">
-									<div class="tabs__wrapper">
-										<div class="tabs__images">
-											<img class="tabs__image-bg" alt="Image" src="./assets/img/choice/05.png">
-											<div data-fls-gallery="" class="tabs__gallery">
-												<a class="tabs__gallery-image" href="./assets/img/choice/02.jpg">
-													<img alt="Image" src="./assets/img/choice/02.jpg">
-												</a>
-												<a class="tabs__gallery-image" href="./assets/img/choice/03.jpg">
-													<img alt="Image" src="./assets/img/choice/03.jpg">
-												</a>
-												<a class="tabs__gallery-image" href="./assets/img/choice/04.jpg">
-													<img alt="Image" src="./assets/img/choice/04.jpg">
-												</a>
-											</div>
-										</div>
-										<div class="tabs__content content-tabs">
-											<div class="content-tabs__top">
-												<p class="content-tabs__top-left">Закрытая ячейка</p>
-												<div class="content-tabs__top-clock">
-													<img src="./assets/img/choice/clock.svg" alt="Image">
-													<p>
-														Полное высыхание:
-														<strong>5-10 минут</strong>
-													</p>
-												</div>
-											</div>
-											<h3 class="content-tabs__title">
-												<strong>Открытая ячейка —</strong>
-												— минус шум, плюс комфорт
-											</h3>
-											<div class="content-tabs__subtitle">Преимущества:</div>
-											<ul class="content-tabs__list">
-												<li>Подойдет для утепления полов, цоколей, подвалов</li>
-												<li>Не требует установки доп. мембран, ровный слой</li>
-												<li>Возможно использовать под стяжкой</li>
-											</ul>
-											<div class="content-tabs__warning">
-												<span>!</span>
-												<p class="content-tabs__warning-text">
-													<strong>Капризен в работе.</strong>
-													Рекомендуем обращаться только к проверенным специалистам.
-                    Например, к нам :)
-												</p>
-											</div>
-											<a class="content-tabs__button button button--60" href="#calculator">ПОДОБРАТЬ РЕШЕНИЕ →</a>
-										</div>
-									</div>
+				<section class="gallery">
+					<div class="gallery__container">
+						<h2 class="gallery__title">Наши работы</h2>
+						<div class="gallery__slider-container">
+							<div data-fls-slider="" class="gallery__slider swiper">
+								<div data-fls-gallery="" class="gallery__wrapper swiper-wrapper">
+									<a href="./assets/img/gallery/01.webp" class="gallery__slide swiper-slide">
+										<img alt="#" src="./assets/img/gallery/01.webp">
+									</a>
+									<a href="./assets/img/gallery/02.webp" class="gallery__slide swiper-slide">
+										<img alt="#" src="./assets/img/gallery/02.webp">
+									</a>
+									<a href="./assets/img/gallery/03.webp" class="gallery__slide swiper-slide">
+										<img alt="#" src="./assets/img/gallery/03.webp">
+									</a>
+									<a href="./assets/img/gallery/01.webp" class="gallery__slide swiper-slide">
+										<img alt="#" src="./assets/img/gallery/01.webp">
+									</a>
+									<a href="./assets/img/gallery/02.webp" class="gallery__slide swiper-slide">
+										<img alt="#" src="./assets/img/gallery/02.webp">
+									</a>
 								</div>
 							</div>
-						</div>
-					</div>
-				</section>
-				<section class="table">
-					<div class="table__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<h2 class="blockheader__title">Честная стоимость утепления - фиксируем в договоре</h2>
-							<div class="blockheader__subtitle">Актуально на ноябрь 2025 г. и не вырастет, пока мы едем к вам</div>
-						</div>
-						<table class="pricing-table">
-							<thead>
-								<tr>
-									<th>ТОЛЩИНА ППУ</th>
-									<th>ЗАКРЫТАЯ ЯЧЕЙКА (БАНКА)</th>
-									<th>ОТКРЫТАЯ ЯЧЕЙКА (БАНКА)</th>
-									<th>ДЛЯ ЧЕГО ПОДОЙДЕТ?</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="thickness">30 мм</td>
-									<td class="price-closed">850 руб.</td>
-									<td class="price-open">400 руб.</td>
-									<td class="description">Летние домики, бытовки, теплицы | Шумоизоляция стен и потолков</td>
-								</tr>
-								<tr>
-									<td class="thickness">50 мм</td>
-									<td class="price-closed">1 200 руб.</td>
-									<td class="price-open">650 руб.</td>
-									<td class="description">Стены домов, подполы, ангары, гаражи | Подсобки, шумоизоляция</td>
-								</tr>
-								<tr>
-									<td class="thickness">100 мм</td>
-									<td class="price-closed">2 200 руб.</td>
-									<td class="price-open">850 руб.</td>
-									<td class="description">Кровли, мастерские, част. дома | Стены каркасников, тех. постройки</td>
-								</tr>
-								<tr>
-									<td class="thickness">150 мм</td>
-									<td class="price-closed">
-										<u>Договорная</u>
-									</td>
-									<td class="price-open">1 250 руб.</td>
-									<td class="description">Кровли и стены краскас. домов, производ. помещения, шумоизоляция</td>
-								</tr>
-								<tr>
-									<td class="thickness">200 мм</td>
-									<td class="price-closed">
-										<u>Договорная</u>
-									</td>
-									<td class="price-open">1 700 руб.</td>
-									<td class="description">Кровли, полы, шумоизоляция</td>
-								</tr>
-								<tr>
-									<td class="thickness"></td>
-									<td class="price-closed">
-										<a data-fls-popup-link="popup" href="#" class="button button--50">Рассчитать стоимость</a>
-									</td>
-									<td class="price-closed">
-										<a data-fls-popup-link="popup" href="#" class="button button--50">Рассчитать стоимость</a>
-									</td>
-									<td class="price-closed">
-										<a href="#calculator" class="button button--50">Подобрать решение</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<!-- Мобильная версия -->
-						<div class="mobile-pricing">
-							<!-- Закрытая ячейка -->
-							<div class="mobile-section">
-								<div class="mobile-section-header">
-									Закрытая ячейка
-									<br>
-									<small>(самая теплая)</small>
-								</div>
-								<div class="mobile-item">
-									<div class="mobile-thickness-price">
-										<span class="mobile-thickness">30 мм</span>
-										<span class="mobile-price">850 руб.</span>
-									</div>
-									<div class="mobile-description">Летние домики, бытовки, фасады, тех помещения</div>
-								</div>
-								<div class="mobile-item">
-									<div class="mobile-thickness-price">
-										<span class="mobile-thickness">50 мм</span>
-										<span class="mobile-price">1200 руб.</span>
-									</div>
-									<div class="mobile-description">Стены домов, подполь, ангары, гаражи</div>
-								</div>
-								<div class="mobile-item">
-									<div class="mobile-thickness-price">
-										<span class="mobile-thickness">70 мм</span>
-										<span class="mobile-price">1650 руб.</span>
-									</div>
-									<div class="mobile-description">Кровли, мастерские, частные дома</div>
-								</div>
-								<div class="mobile-item">
-									<div class="mobile-thickness-price">
-										<span class="mobile-thickness">100 мм</span>
-										<span class="mobile-price">2200 руб.</span>
-									</div>
-									<div class="mobile-description">Кровли, помещения с повышенной теплоизоляцией</div>
-								</div>
-								<div class="mobile-item">
-									<div class="mobile-thickness-price">
-										<span class="mobile-thickness">150 мм</span>
-										<span class="mobile-price calculate">Рассчитайте стоимость</span>
-									</div>
-									<div class="mobile-description">Морозильные камеры, максимальная теплоизоляция</div>
-								</div>
-							</div>
-							<!-- Открытая ячейка -->
-							<div class="mobile-section">
-								<div class="mobile-section-header">
-									Открытая ячейка
-									<br>
-									<small>(самая тихая)</small>
-								</div>
-								<div class="mobile-item">
-									<div class="mobile-thickness-price">
-										<span class="mobile-thickness">30 мм</span>
-										<span class="mobile-price">400 руб.</span>
-									</div>
-									<div class="mobile-description">Шумоизоляция стен и потолков</div>
-								</div>
-								<div class="mobile-item">
-									<div class="mobile-thickness-price">
-										<span class="mobile-thickness">50 мм</span>
-										<span class="mobile-price">650 руб.</span>
-									</div>
-									<div class="mobile-description">Шумо и теплоизоляция помещений</div>
-								</div>
-								<div class="mobile-item">
-									<div class="mobile-thickness-price">
-										<span class="mobile-thickness">100 мм</span>
-										<span class="mobile-price">850 руб.</span>
-									</div>
-									<div class="mobile-description">Стены и кровли каркасных домов, технические постройки</div>
-								</div>
-								<div class="mobile-item">
-									<div class="mobile-thickness-price">
-										<span class="mobile-thickness">150 мм</span>
-										<span class="mobile-price">1250 руб.</span>
-									</div>
-									<div class="mobile-description">Морозильные камеры, максимальная теплоизоляция</div>
-								</div>
-								<div class="mobile-item">
-									<div class="mobile-thickness-price">
-										<span class="mobile-thickness">200 мм</span>
-										<span class="mobile-price">1700 руб.</span>
-									</div>
-									<div class="mobile-description">Теплоизоляция премиум класса</div>
-								</div>
-							</div>
-							<a data-fls-popup-link="popup" class="mobile-pricing__button button button--50" href="#">Рассчитать стоимость</a>
-						</div>
-						<!--
-<table class="pricing-table">
-<thead>
-<tr>
-<th>ТОЛЩИНА ППУ</th>
-<th>ЗАКРЫТАЯ ЯЧЕЙКА (БАНКА)</th>
-<th>ОТКРЫТАЯ ЯЧЕЙКА (БАНКА)</th>
-<th>ДЛЯ ЧЕГО ПОДОЙДЕТ?</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="thickness">30 мм</td>
-<td class="price-closed">850 руб.</td>
-<td class="price-open">400 руб.</td>
-<td class="description">
-Летние домики, бытовки, теплицы | Шумоизоляция стен и потолков
-</td>
-</tr>
-<tr>
-<td class="thickness">50 мм</td>
-<td class="price-closed">1 200 руб.</td>
-<td class="price-open">650 руб.</td>
-<td class="description">
-Стены домов, подполы, ангары, гаражи | Подсобки, шумоизоляция
-</td>
-</tr>
-<tr>
-<td class="thickness">100 мм</td>
-<td class="price-closed">2 200 руб.</td>
-<td class="price-open">850 руб.</td>
-<td class="description">
-Кровли, мастерские, част. дома | Стены каркасников, тех. постройки
-</td>
-</tr>
-<tr>
-<td class="thickness">150 мм</td>
-<td class="price-closed">
-<u>Договорная</u>
-</td>
-<td class="price-open">1 250 руб.</td>
-<td class="description">
-Кровли и стены краскас. домов, производ. помещения, шумоизоляция
-</td>
-</tr>
-<tr>
-<td class="thickness">200 мм</td>
-<td class="price-closed">
-<u>Договорная</u>
-</td>
-<td class="price-open">1 700 руб.</td>
-<td class="description">Кровли, полы, шумоизоляция</td>
-</tr>
-<tr>
-<td class="thickness"></td>
-<td class="price-closed">
-<a href="#" class="button button--50">Рассчитать стоимость</a>
-</td>
-<td class="price-closed">
-<a href="#" class="button button--50">Рассчитать стоимость</a>
-</td>
-<td class="price-closed">
-<a href="#" class="button button--50">Подобрать решение</a>
-</td>
-</tr>
-</tbody>
-</table>
--->
-						<!--
-<table class="table-phone">
-<tr>
-<th colspan="2">ЗАКРЫТАЯ ЯЧЕЙКА<br />(САМАЯ ТЕПЛАЯ)</th>
-<th colspan="2">ОТКРЫТАЯ ЯЧЕЙКА<br />(САМАЯ ТИХАЯ)</th>
-</tr>
-<tr>
-<td>30 мм</td>
-<td>Летние дочики, бытовки, фасады, тех помещения</td>
-<td>850 руб.</td>
-<td>1 200 руб.</td>
-</tr>
-<tr>
-<td>30 мм</td>
-<td>Шумоколящим стен и потолков</td>
-<td>400 руб.</td>
-<td>650 руб.</td>
-</tr>
-<tr>
-<td>50 мм</td>
-<td>Шумо и теплоизоляция помещений</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>70 мм</td>
-<td>Кровля, мастерские, частные дома</td>
-<td>1 650 руб.</td>
-<td>2 200 руб.</td>
-</tr>
-<tr>
-<td>100 мм</td>
-<td>Стены и кровли кормовых домов, технические построили</td>
-<td>850 руб.</td>
-<td>1 250 руб.</td>
-</tr>
-<tr>
-<td>150 мм</td>
-<td>Улучшенная теплоизоляция кровель и стен</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>150 мм</td>
-<td>Морозильные козырек, максимальная теплоизоляция</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td colspan="4">Рассчитайте стоимость</td>
-</tr>
-<tr>
-<td>200 мм</td>
-<td>Теплоизоляция премиум класса</td>
-<td>1 700 руб.</td>
-<td></td>
-</tr>
-</table>
--->
-					</div>
-				</section>
-				<section class="payment">
-					<div class="payment__wrapper">
-						<img class="payment__img-bg" alt="Image" src="./assets/img/payment/bg.webp">
-						<img class="payment__money-img" alt="Image" src="./assets/img/payment/manye.png">
-						<div class="payment__container">
-							<div class="payment__bank">
-								<h2 class="payment__bank-title">Оплачивайте так,как вам удобно</h2>
-								<div class="payment__bank-images">
-									<img alt="Image" src="./assets/img/payment/spb.png">
-									<img alt="Image" src="./assets/img/payment/mir.png">
-									<img alt="Image" src="./assets/img/payment/sber.png">
-									<img alt="Image" src="./assets/img/payment/tinkof.png">
-								</div>
-							</div>
-							<div class="payment__money">
-								<h3 class="payment__money-title">Принимаем все виды оплаты</h3>
-								<div class="payment__buttons">
-									<p>Безналичный расчет с НДС для юр. лиц</p>
-									<p>Оплата дебетовой или кредитной картой</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="payment__bottom">
-						<p>
-							Окончательный расчет после приемки. Постоплата только для при оплате
-        наличными. (Безнал с НДС по предоплате 70/30)
-						</p>
-					</div>
-				</section>
-				<section id="works" class="works">
-					<div class="works__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<h2 class="blockheader__title">Галерея наших работ</h2>
-							<div class="blockheader__subtitle">Работаем в Санкт-Петербурге, ЛО и в близлежащих регионах</div>
-						</div>
-						<div class="works__items">
-							<div class="works__item">
-								<div class="works__image">
-									<img alt="Image" src="./assets/img/works/01.jpg">
-									<time class="works__time" datetime="04.06.2025">04.06.2025</time>
-									<div class="works__block">
-										<h3 class="works__title">Утепление загородного дома</h3>
-										<div class="works__place">
-											<img class="works__svg" src="./assets/img/works/local.svg" alt="Image">
-											<p class="works__city">Всеволжский район</p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="works__item">
-								<div class="works__image">
-									<img alt="Image" src="./assets/img/works/02.jpg">
-									<time class="works__time" datetime="04.06.2025">04.06.2025</time>
-									<div class="works__block">
-										<h3 class="works__title">Утепление загородного дома</h3>
-										<div class="works__place">
-											<img class="works__svg" src="./assets/img/works/local.svg" alt="Image">
-											<p class="works__city">Всеволжский район</p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="works__item">
-								<div class="works__image">
-									<img alt="Image" src="./assets/img/works/03.jpg">
-									<time class="works__time" datetime="04.06.2025">04.06.2025</time>
-									<div class="works__block">
-										<h3 class="works__title">Утепление загородного дома</h3>
-										<div class="works__place">
-											<img class="works__svg" src="./assets/img/works/local.svg" alt="Image">
-											<p class="works__city">Всеволжский район</p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="works__item">
-								<div class="works__image">
-									<img alt="Image" src="./assets/img/works/01.jpg">
-									<time class="works__time" datetime="04.06.2025">04.06.2025</time>
-									<div class="works__block">
-										<h3 class="works__title">Утепление загородного дома</h3>
-										<div class="works__place">
-											<img class="works__svg" src="./assets/img/works/local.svg" alt="Image">
-											<p class="works__city">Всеволжский район</p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="works__item">
-								<div class="works__image">
-									<img alt="Image" src="./assets/img/works/01.jpg">
-									<time class="works__time" datetime="04.06.2025">04.06.2025</time>
-									<div class="works__block">
-										<h3 class="works__title">Утепление загородного дома</h3>
-										<div class="works__place">
-											<img class="works__svg" src="./assets/img/works/local.svg" alt="Image">
-											<p class="works__city">Всеволжский район</p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="works__item">
-								<div class="works__image">
-									<img alt="Image" src="./assets/img/works/01.jpg">
-									<time class="works__time" datetime="04.06.2025">04.06.2025</time>
-									<div class="works__block">
-										<h3 class="works__title">Утепление загородного дома</h3>
-										<div class="works__place">
-											<img class="works__svg" src="./assets/img/works/local.svg" alt="Image">
-											<p class="works__city">Всеволжский район</p>
-										</div>
-									</div>
-								</div>
+							<div class="gallery__navigacions">
+								<button type="button" class="gallery-button-prev swiper-button-prev"></button>
+								<button type="button" class="gallery-button-next swiper-button-next"></button>
 							</div>
 						</div>
 					</div>
 				</section>
 				<section class="questions">
 					<div class="questions__container">
-						<div data-fls-blockheader="" class="blockheader">
-							<h2 class="blockheader__title">Как мы работаем: прозрачно и просто</h2>
-							<div class="blockheader__subtitle">
-								От заявки до приемки и гарантии— за 4 простых шага без нервов и
-          неожиданностей
-							</div>
-						</div>
-						<div class="questions__body">
-							<div data-fls-spollers="" class="spollers">
-								<details class="spollers__item">
-									<summary class="spollers__title">Токсичен и пахнет ли ППУ?</summary>
-									<div class="spollers__body">
-										<strong>Нет.</strong>
-										<p>
-											После застывания ППУ не выделяет вредных веществ — он безопасен
-                для жилых домов, включая детские комнаты. Мы используем
-											<strong>сертифицированные материалы</strong>
-											, прошедшие
-                испытания даже для применения в медицине и пищевой
-                промышленности.
-										</p>
-									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">Токсичен и пахнет ли ППУ?</summary>
-									<div class="spollers__body">
-										<strong>Нет.</strong>
-										<p>
-											После застывания ППУ не выделяет вредных веществ — он безопасен
-                для жилых домов, включая детские комнаты. Мы используем
-											<strong>сертифицированные материалы</strong>
-											, прошедшие
-                испытания даже для применения в медицине и пищевой
-                промышленности.
-										</p>
-									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">Токсичен и пахнет ли ППУ?</summary>
-									<div class="spollers__body">
-										<strong>Нет.</strong>
-										<p>
-											После застывания ППУ не выделяет вредных веществ — он безопасен
-                для жилых домов, включая детские комнаты. Мы используем
-											<strong>сертифицированные материалы</strong>
-											, прошедшие
-                испытания даже для применения в медицине и пищевой
-                промышленности.
-										</p>
-									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">Токсичен и пахнет ли ППУ?</summary>
-									<div class="spollers__body">
-										<strong>Нет.</strong>
-										<p>
-											После застывания ППУ не выделяет вредных веществ — он безопасен
-                для жилых домов, включая детские комнаты. Мы используем
-											<strong>сертифицированные материалы</strong>
-											, прошедшие
-                испытания даже для применения в медицине и пищевой
-                промышленности.
-										</p>
-									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">Токсичен и пахнет ли ППУ?</summary>
-									<div class="spollers__body">
-										<strong>Нет.</strong>
-										<p>
-											После застывания ППУ не выделяет вредных веществ — он безопасен
-                для жилых домов, включая детские комнаты. Мы используем
-											<strong>сертифицированные материалы</strong>
-											, прошедшие
-                испытания даже для применения в медицине и пищевой
-                промышленности.
-										</p>
-									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">Токсичен и пахнет ли ППУ?</summary>
-									<div class="spollers__body">
-										<strong>Нет.</strong>
-										<p>
-											После застывания ППУ не выделяет вредных веществ — он безопасен
-                для жилых домов, включая детские комнаты. Мы используем
-											<strong>сертифицированные материалы</strong>
-											, прошедшие
-                испытания даже для применения в медицине и пищевой
-                промышленности.
-										</p>
-									</div>
-								</details>
-								<details class="spollers__item">
-									<summary class="spollers__title">Токсичен и пахнет ли ППУ?</summary>
-									<div class="spollers__body">
-										<strong>Нет.</strong>
-										<p>
-											После застывания ППУ не выделяет вредных веществ — он безопасен
-                для жилых домов, включая детские комнаты. Мы используем
-											<strong>сертифицированные материалы</strong>
-											, прошедшие
-                испытания даже для применения в медицине и пищевой
-                промышленности.
-										</p>
-									</div>
-								</details>
-							</div>
-							<!--
-<form
-class="questions__form form-questions"
-data-fls-form="ajax"
-data-fls-form-popup="popup-message"
-method="POST"
-action="files/sendmail/sendmail.php"
-method="POST"
->
-<h3 class="form-questions__title">Возникли вопросы?</h3>
-<p class="form-questions__text">
-Напишите, и наши специалисты подробно ответят вам в удобной форме.
-</p>
-<textarea
-required
-data-fls-input
-autocomplete="off"
-name="text"
-placeholder="* Ваш вопрос"
-data-fls-form-errtext="Заполните поле"
-class="form-questions__textarea input"
-></textarea>
-<input
-data-fls-input
-autocomplete="off"
-type="text"
-required
-name="name"
-data-fls-form-errtext="Заполните поле"
-placeholder="* Ваше имя"
-class="form-questions__input input"
-/>
-<input
-data-fls-input-mask="+375(99) 999-99-99"
-required
-type="text"
-name="phone"
-data-fls-form-errtext="Заполните поле"
-placeholder="+375 (__) ___-__-__"
-class="form-questions__input input"
-/>
-<select name="questions" data-fls-select data-fls-select-modif="form">
-<option value="ответ на телефон" selected>
-Получить ответ на телефон
-</option>
-<option value="ответ в viber">Получить ответ в viber</option>
-</select>
-<button type="submit" class="form-questions__button button">
-Отправить
-</button>
-<p class="form-questions__check">
-Нажимая на кнопку «Отправить», Вы принимаете условия
-<a target="_blank" class="form-questions__policy" href="#"
->политики конфиденциальности</a
->
-в отношении обработки персональных данных.
-</p>
-</form>
--->
+						<h2 class="questions__title">Частые вопросы</h2>
+						<div data-fls-spollers="" class="spollers">
+							<details class="spollers__item">
+								<summary class="spollers__title">Чем Стикер Студия отличается от других типографий?</summary>
+								<div class="spollers__body">
+									Мы специализируемся только на наклейках и этикетках — это наш
+            единственный профиль. Печатаем на европейских виниловых материалах
+            японским оборудованием. Весь процесс онлайн: оформление заказа,
+            оплата, отслеживание статуса — без звонков и менеджеров. Более 1600
+            реальных отзывов через независимую систему CusRev.
+								</div>
+							</details>
+							<details class="spollers__item">
+								<summary class="spollers__title">Как осуществляется доставка?</summary>
+								<div class="spollers__body">
+									Оплата банковской картой (Visa, Mastercard, Мир) или через СБП. Для
+            юридических лиц и ИП — оплата по счёту, который автоматически придёт
+            на почту после оформления заказа. Подробнее — в разделе «Доставка и
+            оплата».
+								</div>
+							</details>
+							<details class="spollers__item">
+								<summary class="spollers__title">Как осуществляется доставка?</summary>
+								<div class="spollers__body">
+									Бесплатно Почтой России в любой город (3–7 рабочих дней). Также
+            доступна доставка СДЭК — до пункта выдачи или курьером до двери (2–5
+            дней). Самовывоз с производства в Москве: Нижняя Сыромятническая
+            11с52, лофт «Плутон», по будням с 12:00 до 2
+								</div>
+							</details>
+							<details class="spollers__item">
+								<summary class="spollers__title">Можно ли заказать наклейки без готового макета?</summary>
+								<div class="spollers__body">
+									Да. Загрузите любое изображение — мы подготовим линию реза сами. С
+            рекомендациями по подготовке файлов можно ознакомиться в специальном
+            разделе. Если есть вопросы по макету — напишите в чат на сайте или в
+            Telegram.
+								</div>
+							</details>
+							<details class="spollers__item">
+								<summary class="spollers__title">Чем Стикер Студия отличается от других типографий?</summary>
+								<div class="spollers__body">
+									Мы специализируемся только на наклейках и этикетках — это наш
+            единственный профиль. Печатаем на европейских виниловых материалах
+            японским оборудованием. Весь процесс онлайн: оформление заказа,
+            оплата, отслеживание статуса — без звонков и менеджеров. Более 1600
+            реальных отзывов через независимую систему CusRev.
+								</div>
+							</details>
+							<details class="spollers__item">
+								<summary class="spollers__title">Как осуществляется доставка?</summary>
+								<div class="spollers__body">
+									Оплата банковской картой (Visa, Mastercard, Мир) или через СБП. Для
+            юридических лиц и ИП — оплата по счёту, который автоматически придёт
+            на почту после оформления заказа. Подробнее — в разделе «Доставка и
+            оплата».
+								</div>
+							</details>
+							<details class="spollers__item">
+								<summary class="spollers__title">Как осуществляется доставка?</summary>
+								<div class="spollers__body">
+									Бесплатно Почтой России в любой город (3–7 рабочих дней). Также
+            доступна доставка СДЭК — до пункта выдачи или курьером до двери (2–5
+            дней). Самовывоз с производства в Москве: Нижняя Сыромятническая
+            11с52, лофт «Плутон», по будням с 12:00 до 2
+								</div>
+							</details>
+							<details class="spollers__item">
+								<summary class="spollers__title">Можно ли заказать наклейки без готового макета?</summary>
+								<div class="spollers__body">
+									Да. Загрузите любое изображение — мы подготовим линию реза сами. С
+            рекомендациями по подготовке файлов можно ознакомиться в специальном
+            разделе. Если есть вопросы по макету — напишите в чат на сайте или в
+            Telegram.
+								</div>
+							</details>
 						</div>
 					</div>
 				</section>
-				<section class="solved">
-					<div class="solved__wrapper">
-						<img class="solved__img-bg" alt="Image" src="./assets/img/solved/bg.png">
-						<div class="solved__container">
-							<div class="solved__content">
-								<h2 class="solved__title">Решим любые ваши вопросы</h2>
-								<p class="solved__text">и расскажем о самых выгодных предложениях в Центре ППУ :)</p>
+				<section class="contacts">
+					<div class="contacts__container">
+						<h2 class="contacts__title">Адрес производства и офиса</h2>
+						<div class="contacts__clock">
+							Принимаем заказы
+							<span>ежедневно с 09.00 до 21.00</span>
+						</div>
+						<div class="contacts__info">
+							<div class="contacts__item">
+								<svg class="contacts__icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewbox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+									<g>
+										<path d="M39,22c0-3.86-3.14-7-7-7s-7,3.14-7,7s3.14,7,7,7S39,25.86,39,22z M27,22c0-2.757,2.243-5,5-5s5,2.243,5,5s-2.243,5-5,5
+		S27,24.757,27,22z"></path>
+										<path d="M31.962,64.543l0.763-0.895C33.597,62.628,54.07,38.457,54,22.731C53.946,10.197,44.077,0,32,0
+		C19.869,0,10,10.199,10,22.735c0,15.721,20.336,39.89,21.202,40.911L31.962,64.543z M32,2c10.979,0,19.951,9.304,20,20.74
+		c0.06,13.328-16.274,34.091-20.033,38.69C28.228,56.826,12,36.07,12,22.735C12,11.302,20.972,2,32,2z"></path>
+									</g>
+								</svg>
+								<div class="contacts__item-block">
+									<strong class="contacts__item-title">Адрес:</strong>
+									<div class="contacts__item-text">г.Минск</div>
+								</div>
 							</div>
-							<form class="solved__form" data-fls-form="ajax" data-fls-form-popup="popup" method="POST" action="files/sendmail/sendmail.php">
-								<div class="solved__logo">CENTERPPU.RU</div>
-								<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" required placeholder="+375(__) ___-__-__" class="input input--70">
-								<label data-fls-checkbox="" class="checkbox">
-									<input data-fls-error="Заполните поле" class="checkbox__input" type="checkbox" value="2" name="check" checked>
-									<span class="checkbox__text">Вы соглашаетесь с условиями обработки персональных данных</span>
-								</label>
-								<button data-fls-button="" type="submit" class="hero__button button button--70">УТЕПЛИТЬСЯ СЕЙЧАС</button>
-								<p class="solved__form-text">или пишите в WhatsApp</p>
-								<a class="solved__phone" href="tel:+79312760178">+7 (931) 276-01-78</a>
-							</form>
+							<div class="contacts__item">
+								<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewbox="0 0 29.735 29.735" style="enable-background: new 0 0 29.735 29.735" xml:space="preserve">
+									<g>
+										<g>
+											<path d="M23.895,29.733c-1.237,0-2.731-0.31-4.373-0.929c-3.603-1.359-7.521-4.043-11.035-7.557
+			C4.973,17.733,2.289,13.814,0.93,10.21C-0.307,6.935-0.31,4.247,0.92,3.017c0.178-0.178,0.359-0.368,0.545-0.563
+			c1.123-1.18,2.422-2.521,4.073-2.448c1.16,0.048,2.283,0.768,3.435,2.198c3.396,4.225,1.865,5.731,0.093,7.477L8.752,9.991
+			c-0.29,0.29-0.839,1.632,4.26,6.73c1.666,1.665,3.084,2.883,4.217,3.62c0.715,0.464,1.991,1.164,2.514,0.641l0.315-0.318
+			c1.744-1.77,3.25-3.296,7.474,0.099c1.431,1.15,2.15,2.273,2.198,3.434c0.069,1.682-1.271,2.954-2.453,4.076
+			c-0.194,0.185-0.384,0.364-0.56,0.54C26.103,29.426,25.127,29.733,23.895,29.733z M5.419,1.002c-1.194,0-2.274,1.136-3.229,2.14
+			C1.997,3.344,1.81,3.541,1.627,3.724C0.711,4.639,0.805,7.047,1.865,9.858c1.31,3.473,3.913,7.267,7.329,10.683
+			s7.209,6.018,10.681,7.328c2.811,1.061,5.219,1.153,6.135,0.236c0.183-0.182,0.378-0.368,0.578-0.558
+			c1.028-0.977,2.193-2.083,2.143-3.311c-0.035-0.843-0.649-1.75-1.826-2.695c-3.52-2.828-4.503-1.828-6.135-0.176l-0.32,0.323
+			c-0.777,0.781-2.044,0.61-3.766-0.51c-1.19-0.774-2.664-2.037-4.379-3.751l0,0c-4.231-4.231-5.585-6.819-4.26-8.145l0.319-0.316
+			c1.658-1.632,2.658-2.617-0.171-6.137C7.247,1.654,6.34,1.04,5.497,1.004C5.471,1.003,5.444,1.002,5.419,1.002z"></path>
+										</g>
+										<g>
+											<path d="M24.07,12.29c-0.063,0-0.126-0.012-0.188-0.037c-0.256-0.104-0.38-0.395-0.275-0.65c0.636-1.568,0.272-3.355-0.924-4.552
+			c-1.229-1.229-3.118-1.57-4.703-0.858c-0.249,0.113-0.548,0.003-0.661-0.249c-0.114-0.252-0.003-0.548,0.249-0.661
+			c1.961-0.888,4.3-0.461,5.822,1.062c1.481,1.481,1.93,3.692,1.143,5.634C24.455,12.171,24.267,12.29,24.07,12.29z"></path>
+											<path d="M28.534,14.102c-0.063,0-0.126-0.012-0.188-0.037c-0.257-0.104-0.38-0.395-0.275-0.65
+			c1.365-3.367,0.588-7.202-1.981-9.771c-2.638-2.638-6.695-3.378-10.095-1.841c-0.252,0.11-0.548,0.002-0.662-0.25
+			C15.22,1.3,15.331,1.004,15.583,0.89c3.777-1.706,8.283-0.885,11.214,2.046c2.854,2.854,3.718,7.114,2.2,10.854
+			C28.919,13.984,28.731,14.102,28.534,14.102z"></path>
+										</g>
+									</g>
+									<g></g>
+									<g></g>
+									<g></g>
+									<g></g>
+									<g></g>
+									<g></g>
+									<g></g>
+									<g></g>
+									<g></g>
+									<g></g>
+									<g></g>
+									<g></g>
+									<g></g>
+									<g></g>
+									<g></g>
+								</svg>
+								<div class="contacts__item-block">
+									<strong class="contacts__item-title">Телефон:</strong>
+									<a href="tel:375000000000" class="contacts__item-text">+375(00) 000-00-00</a>
+								</div>
+							</div>
+							<div class="contacts__item">
+								<svg class="contacts__icon" enable-background="new 0 0 192 210.0428" id="viber" version="1.1" viewbox="0 0 192 210.0428" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+									<g>
+										<path d="M116.004,0H75.996C34.0916,0,0,34.086,0,75.9804v36.0392c0,31.1992,19.172,59.2384,48,70.66v23.3632 c0,1.582,0.9316,3.0156,2.3788,3.6564c0.5196,0.2304,1.0724,0.3436,1.6212,0.3436c0.9728,0,1.9356-0.3552,2.6856-1.0348 L77.8788,188h38.1252C157.9084,188,192,153.914,192,112.0196V75.9804C192,34.086,157.9084,0,116.004,0z M184,112.0196 C184,149.504,153.498,180,116.004,180H76.336c-0.9924,0-1.9492,0.3672-2.6856,1.0352L56,197.0236v-17.1172 c0-1.6956-1.0684-3.2072-2.668-3.7696C26.2188,166.5508,8,140.7852,8,112.0196V75.9804C8,38.496,38.502,8,75.996,8h40.008 C153.498,8,184,38.496,184,75.9804V112.0196z"></path>
+										<path d="M148.8632,121.9728l-24.586-15.9688c-2.6892-1.746-5.8864-2.34-9.0212-1.6916c-3.1368,0.6604-5.8304,2.512-7.5804,5.2112 l-1.156,1.7772c-10.6408-3.5156-22.3732-8.008-29.3964-28.34l2.908-2.5272h0.002c4.9904-4.34,5.5156-11.9336,1.174-16.9336 L61.9748,41.3748c-1.4496-1.6676-3.9768-1.8396-5.6448-0.3944l-12.074,10.496c-10.594,9.2072-5.6428,22.8284-4.0156,27.3048 c0.072,0.1992,0.16,0.3908,0.2636,0.578c0.42,0.754,10.4492,18.6488,26.6424,35.1448 c16.26,16.5624,45.6172,31.8592,46.5176,32.3044c3.3536,2.176,7.1252,3.2188,10.8556,3.2188 c6.5508,0,12.9764-3.2108,16.8064-9.1016l8.7132-13.4176C151.242,125.6524,150.7148,123.1756,148.8632,121.9728z M134.6172,136.5664c-3.6056,5.5508-11.0508,7.1288-16.9336,3.336c-0.2928-0.1524-29.4552-15.34-44.828-31 C58.4884,94.2656,48.9492,78.008,47.6464,75.7384c-3.17-8.8828-2.6092-14.344,1.8556-18.2228l9.0584-7.8712L75.168,68.75 c1.4744,1.6952,1.3048,4.1756-0.3848,5.6444l-4.908,4.2656c-1.1956,1.0392-1.6664,2.6836-1.1996,4.1956 c8.3692,27.1912,24.6408,32.5312,36.5216,36.4336l1.7304,0.57c1.7308,0.586,3.6292-0.082,4.6192-1.6132l2.838-4.3672 c0.586-0.9024,1.4804-1.5156,2.5196-1.7344c1.0428-0.2224,2.1092-0.0156,3.0136,0.5704l21.2324,13.7892L134.6172,136.5664z"></path>
+										<path d="M105.1288,64.9884c-2.1288-0.6136-4.3396,0.6248-4.9432,2.7536c-0.6036,2.1252,0.6288,4.336,2.752,4.9416 c5.9608,1.6952,10.7068,6.4532,12.3884,12.418c0.4964,1.7616,2.1016,2.914,3.848,2.914c0.3592,0,0.7244-0.0468,1.0876-0.1484 c2.1252-0.6016,3.3636-2.8088,2.7636-4.9376C120.5976,74.3124,113.7384,67.4376,105.1288,64.9884z"></path>
+										<path d="M135.5704,88.8748c0.3592,0,0.7244-0.0468,1.088-0.1484c2.1268-0.6016,3.3632-2.8124,2.7636-4.9372 c-4.7188-16.7308-18.0372-30.0784-34.756-34.836c-2.1248-0.6132-4.338,0.6328-4.9412,2.754 c-0.6036,2.1248,0.6288,4.3356,2.7536,4.9412c14.0664,4,25.2736,15.2344,29.2444,29.3124 C132.2208,87.7228,133.8244,88.8748,135.5704,88.8748z"></path>
+										<path d="M102.9432,30.328c-2.1288-0.6132-4.3396,0.6252-4.9432,2.754c-0.6036,2.1252,0.6288,4.336,2.752,4.9416 c23.838,6.7812,42.824,25.8124,49.5508,49.664c0.496,1.7616,2.1016,2.914,3.8476,2.914c0.3592,0,0.7248-0.0468,1.088-0.1484 c2.1248-0.6016,3.3632-2.8124,2.7636-4.9376C150.5272,59.0116,129.4296,37.8672,102.9432,30.328z"></path>
+									</g>
+								</svg>
+								<div class="contacts__item-block">
+									<strong class="contacts__item-title">Viber:</strong>
+									<a href="tel:375000000000" class="contacts__item-text">+375(00) 000-00-00</a>
+								</div>
+							</div>
+							<div class="contacts__item">
+								<svg class="contacts__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24">
+									<path d="M3.84674576,17.8602756 C4.0442161,17.955959 4.26584099,18.0096122 4.49999728,18.0096122 L19.5,18.0096122 C19.734157,18.0096122 19.9557825,17.9559587 20.1532533,17.8602747 L14.2446247,12.2992125 L12.3178536,13.8859651 C12.1332257,14.0380116 11.8667743,14.0380116 11.6821464,13.8859651 L9.75537533,12.2992125 L3.84674576,17.8602756 L3.84674576,17.8602756 Z M3.1430925,17.1498223 C3.1477226,17.1451097 3.15246435,17.1404678 3.15731765,17.1359 L8.97720082,11.6583629 L3.18214637,6.88596512 C3.16950983,6.87555855 3.15751523,6.86466152 3.14616744,6.85332433 C3.05246763,7.04913384 2.99999728,7.26843937 2.99999728,7.5 L2.99999728,16.5096122 C2.99999728,16.7386275 3.05132045,16.9556556 3.1430925,17.1498223 L3.1430925,17.1498223 Z M20.8569057,17.1498204 C20.9486772,16.9556542 21,16.7386268 21,16.5096122 L21,7.5 C21,7.26844009 20.94753,7.04913522 20.8538307,6.85332617 C20.8424835,6.86466269 20.8304895,6.87555911 20.8178536,6.88596512 L15.0227992,11.6583629 L20.8426823,17.1359 C20.847535,17.1404672 20.8522762,17.1451085 20.8569057,17.1498204 L20.8569057,17.1498204 Z M20.1444281,6.14509696 C19.9491886,6.05206979 19.7306751,6 19.5,6 L4.49999728,6 C4.26932289,6 4.05080997,6.05206949 3.85557086,6.14509614 L12,12.8522731 L20.1444281,6.14509696 L20.1444281,6.14509696 Z M4.49999728,5 L19.5,5 C20.8807119,5 22,6.11928813 22,7.5 L22,16.5096122 C22,17.8903241 20.8807119,19.0096122 19.5,19.0096122 L4.49999728,19.0096122 C3.11928541,19.0096122 1.99999728,17.8903241 1.99999728,16.5096122 L1.99999728,7.5 C1.99999728,6.11928813 3.11928541,5 4.49999728,5 Z"></path>
+								</svg>
+								<div class="contacts__item-block">
+									<strong class="contacts__item-title">E-Mail:</strong>
+									<a href="malito:почт@mail.ru" class="contacts__item-text">почт@mail.ru</a>
+								</div>
+							</div>
+						</div>
+						<div class="contacts__map">
+							<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Ae341eea60766637d6229388975a5fbd8469a3bccecc82f0fb13ec4f3b2cc10a8&amp;source=constructor" width="100%" height="400" frameborder="0"></iframe>
 						</div>
 					</div>
 				</section>
+				<!-- Боковая панель корзины -->
+				<div class="cart-sidebar" id="cartSidebar">
+					<div class="cart-sidebar__header">
+						<h3>Корзина</h3>
+						<button class="cart-sidebar__close" id="closeCartSidebar">
+							<svg width="24" height="24" viewbox="0 0 24 24" fill="none">
+								<path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"></path>
+							</svg>
+						</button>
+					</div>
+					<div class="cart-sidebar__items" id="cartSidebarItems"></div>
+					<div class="cart-sidebar__footer">
+						<div class="cart-sidebar__total">
+							<span>Итого:</span>
+							<strong id="cartSidebarTotal">0 ₽</strong>
+						</div>
+						<button class="cart-sidebar__checkout" id="checkoutBtn">Оформить заказ</button>
+					</div>
+				</div>
+				<div class="cart-overlay" id="cartOverlay"></div>
 			</main>
 			<footer data-fls-footer="" class="footer">
 				<div class="footer__container">
 					<div class="footer__banner banner">
 						<div class="banner__logo-body">
-							<a href="#" class="banner__logo">CENTERPPU.RU</a>
-							<p class="banner__text">ЦЕНТР ППУ — держим тепло с 2018 года</p>
+							<a href="#" class="banner__logo">IPAPER.BY</a>
+							<p class="banner__text">Этикет лента для вашего бизнеса</p>
 						</div>
 						<ul class="banner__list">
 							<li>
@@ -1458,20 +536,30 @@ class="form-questions__input input"
 					</div>
 					<div class="footer__main main-footer">
 						<div class="main-footer__content">
-							<p class="main-footer__text">
-								Утепление сооружений
-								<strong>пенополиуретаном</strong>
-								в
-          Санкт-Петербурге и ЛО
-							</p>
-							<a data-fls-popup-link="popup" class="main-footer__button button button--60" href="#">Обратный звонок</a>
+							<p class="main-footer__text">Этикет лента для вашего бизнеса в Минске и Минской области</p>
+							<a data-fls-popup-link="popup" class="main-footer__button" href="#">Обратный звонок</a>
 							<div class="main-footer__socials">
 								<a class="main-footer__social-link" href="#">
-									<img alt="Image" src="./assets/img/socials/viber.png">
+									<img alt="Image" src="./assets/img/icon-social/viber.png">
 								</a>
 								<a class="main-footer__social-link" href="#">
-									<img alt="Image" src="./assets/img/socials/telegram.png">
+									<img alt="Image" src="./assets/img/icon-social/telegram.png">
 								</a>
+								<a class="main-footer__social-link" href="#">
+									<img alt="Image" src="./assets/img/icon-social/instagram.png">
+								</a>
+								<a class="main-footer__social-link" href="#">
+									<img src="./assets/img/icon-social/tiktok%20(1).png" alt="Image">
+								</a>
+							</div>
+							<div class="main-footer__copyright">
+								Copyright © 2008 - 2026 Все права защищены - УНП 791134290 Утепление
+          пенополиуретаном ppu-uteplenie.by Информация на данном интернет-сайте
+          носит исключительно ознакомительный характер и ни при каких условиях
+          не является публичной офертой. Все материалы сайта защищены законом
+          Республики Беларусь от 17 мая 2011 года №262-З "Об авторском праве и
+          смежных правах". Копирование и распространение материалов без согласия
+          владельцев сайта запрещено.20008
 							</div>
 						</div>
 						<div class="main-footer__info">
@@ -1507,8 +595,7 @@ class="form-questions__input input"
 					</div>
 					<div class="footer__bottom">
 						<div class="footer__bottom-left">
-							<a href="">Разработка сайта</a>
-							© 2025 г.
+							<a href="#">Продвижение сайта Pandas.web</a>
 						</div>
 						<a class="footer__politicy" href="#">Политика конфиденциальности</a>
 					</div>
@@ -1537,149 +624,5 @@ class="form-questions__input input"
 				</a>
 			</div>
 		</div>
-		<div data-fls-popup="popup" aria-hidden="true" class="popup">
-			<div data-fls-popup-wrapper="" class="popup__wrapper">
-				<div data-fls-popup-body="" class="popup__body">
-					<button data-fls-popup-close="" type="button" class="popup__close">
-						<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
-							<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
-						</svg>
-					</button>
-					<div data-fls-popup-content="" class="popup__box">
-						<h2 class="popup__title">Обратный звонок от руководителя Центр ППУ</h2>
-						<p class="popup__text">Оставьте ваш номер телефона и я свяжусь с вами в ближайшее время!</p>
-						<form class="popup__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="files/sendmail/sendmail.php">
-							<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" required placeholder="+375(__) ___-__-__" class="popup__input input input--60">
-							<label data-fls-checkbox="" class="checkbox">
-								<input data-fls-error="Заполните поле" class="checkbox__input" type="checkbox" value="6" name="check" checked>
-								<span class="checkbox__text checkbox__text--black">Вы соглашаетесь с условиями обработки персональных данных</span>
-							</label>
-							<button data-fls-button="" type="submit" class="popup__button button button--60">ПОЛУЧИТЬ БЕСПЛАТНУЮ КОНСУЛЬТАЦИЮ</button>
-						</form>
-						<p class="popup__bottom">За 4 минуты расскажем все, что необходимо знать перед утеплением!</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div data-fls-popup="popup-message" aria-hidden="true" class="popup">
-			<div data-fls-popup-wrapper="" class="popup__wrapper">
-				<div data-fls-popup-body="" class="popup__body">
-					<button data-fls-popup-close="" type="button" class="popup__close">
-						<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
-							<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
-						</svg>
-					</button>
-					<div data-fls-popup-content="" class="popup__box">
-						<h2 class="popup__title">СПАСИБО,ВАШЕ СООБЩЕНИЕ УСПЕШНО ОТПРАВЛЕНО!!!</h2>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div data-fls-popup="popup-two" aria-hidden="true" class="popup">
-			<div data-fls-popup-wrapper="" class="popup__wrapper">
-				<div data-fls-popup-body="" class="popup__body popup__body--gallery">
-					<button data-fls-popup-close="" type="button" class="popup__close">
-						<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
-							<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
-						</svg>
-					</button>
-					<div data-fls-popup-content="" class="popup__box">
-						<div class="tabs__wrapper tabs__wrapper--popup">
-							<div class="tabs__images">
-								<img class="tabs__image-bg" alt="Image" src="./assets/img/choice/01.png">
-								<div data-fls-gallery="" class="tabs__gallery">
-									<a class="tabs__gallery-image" href="./assets/img/choice/02.jpg">
-										<img alt="Image" src="./assets/img/choice/02.jpg">
-									</a>
-									<a class="tabs__gallery-image" href="./assets/img/choice/03.jpg">
-										<img alt="Image" src="./assets/img/choice/03.jpg">
-									</a>
-									<a class="tabs__gallery-image" href="./assets/img/choice/04.jpg">
-										<img alt="Image" src="./assets/img/choice/04.jpg">
-									</a>
-								</div>
-							</div>
-							<div class="tabs__content content-tabs">
-								<div class="content-tabs__top">
-									<p class="content-tabs__top-left">Стадион Динамо</p>
-									<div class="content-tabs__top-clock">
-										<img src="./assets/img/choice/clock.svg" alt="Image">
-										<p>
-											Срок исполнения:
-											<strong>8 дней</strong>
-										</p>
-									</div>
-								</div>
-								<h3 class="content-tabs__title">
-									<strong>Утепление стадиона «Динамо»</strong>
-								</h3>
-								<div class="content-tabs__subtitle">
-									<strong>📍 Санкт-Петербург</strong>
-								</div>
-								<ul class="content-tabs__list">
-									<li>Площадь покрытия: 5000м2</li>
-									<li>Затрачено ППУ: 720м3</li>
-									<li>Слой ППУ: 120мм</li>
-								</ul>
-								<p class="content-tabs__warning-text">
-									Работы выполнялись в зимнее время года на высоте до 15м. Для
-              перемещения по по стадиону (глубокий песок) был использован
-              полноприводный ножничный подъемник.
-								</p>
-								<a class="content-tabs__button button button--60" href="#">ПОДОБРАТЬ РЕШЕНИЕ →</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<ul id="fls-dev-panel">
-			<li>
-				<a href="underground.html">underground</a>
-			</li>
-			<li>
-				<a href="index.html">index</a>
-			</li>
-		</ul>
-		<style>
-			#fls-dev-panel{
-				position: fixed;
-				left: 10px;
-				padding: 15px 25px 15px 15px;
-				border-radius: 0 10px 10px 0;
-				top: 10%;
-				color: #ffffff;
-				background-color: rgba(51, 51, 51, 0.5);
-				transform: translate(-100%, 0px);
-				max-height: 80svh;
-				overflow: auto;
-				transition: all 300ms;
-				z-index: 9999;
-				font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-			}
-			#fls-dev-panel li{
-				list-style:none;
-			}
-			#fls-dev-panel hr{
-				border-bottom: 1px solid;
-			}
-			#fls-dev-panel:hover{
-				left: 0px;
-				transform: translate(0, 0);
-			}
-			#fls-dev-panel a{
-				text-decoration: none;
-				color: inherit;
-			}
-			#fls-dev-panel a:hover {
-				text-decoration: underline;
-			}
-			#fls-dev-panel li:not(:last-child) {
-				margin-bottom: 10px;
-			}
-		</style>
 	</body>
 </html>

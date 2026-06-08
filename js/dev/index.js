@@ -8675,7 +8675,6 @@ if (galleries.length) {
     });
   });
 }
-Запуск;
 function initGallery() {
   if (document.querySelector("[data-fls-gallery]")) {
     new lightGallery(document.querySelector("[data-fls-gallery]"), {

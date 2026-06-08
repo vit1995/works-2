@@ -5,8 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1780915190169"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1780915190169">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1780916006273"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1780916006273">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -552,15 +552,19 @@
 						</div>
 					</div>
 				</section>
+				<!-- Карточка товара -->
+				<div data-fls-addtocart-product="" class="products__item">
+					<img data-fls-addtocart-image="" src="product.jpg" alt="Товар">
+					<h3 class="products__name">Название товара</h3>
+					<div class="products__price">1500 ₽</div>
+					<input data-fls-addtocart-quantity="" type="number" value="1" min="1">
+					<button data-fls-addtocart-button="" class="products__button">В корзину</button>
+				</div>
 				<!-- Боковая панель корзины -->
 				<div class="cart-sidebar" id="cartSidebar">
 					<div class="cart-sidebar__header">
 						<h3>Корзина</h3>
-						<button class="cart-sidebar__close" id="closeCartSidebar">
-							<svg width="24" height="24" viewbox="0 0 24 24" fill="none">
-								<path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"></path>
-							</svg>
-						</button>
+						<button class="cart-sidebar__close" id="closeCartSidebar">✕</button>
 					</div>
 					<div class="cart-sidebar__items" id="cartSidebarItems"></div>
 					<div class="cart-sidebar__footer">

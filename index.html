@@ -5,8 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1780919069826"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1780919069826">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1781440535649"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1781440535649">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -68,7 +68,7 @@
 						<div data-fls-popup-content="" class="popup__box">
 							<h2 class="popup__title">Обратный звонок</h2>
 							<p class="popup__text">Оставьте ваш номер телефона и я свяжусь с вами в ближайшее время!</p>
-							<form class="popup__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="files/sendmail/sendmail.php">
+							<form class="popup__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
 								<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" required placeholder="Имя" class="popup__input input">
 								<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" required placeholder="+375(__) ___-__-__" class="popup__input input input--60">
 								<label data-fls-checkbox="" class="checkbox">
@@ -82,6 +82,46 @@
 За 4 минуты расскажем все, что необходимо знать перед утеплением!
 </p>
 -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Попап для оформления заказа -->
+			<div data-fls-popup="popup-order" aria-hidden="true" class="popup">
+				<div data-fls-popup-wrapper="" class="popup__wrapper">
+					<div data-fls-popup-body="" class="popup__body">
+						<button data-fls-popup-close="" type="button" class="popup__close">
+							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
+								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
+							</svg>
+						</button>
+						<div data-fls-popup-content="" class="popup__box">
+							<h2 class="popup__title">Оформление заказа</h2>
+							<p class="popup__text">Заполните данные для оформления заказа</p>
+							<form class="popup__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php" id="orderForm">
+								<!-- Сюда будет вставлен состав заказа -->
+								<div id="orderSummaryContainer"></div>
+								<!-- Поля для физ.лица (по умолчанию видны) -->
+								<div id="individualFieldsBlock">
+									<input data-fls-input="" autocomplete="off" required type="text" name="individual_name" data-fls-form-errtext="Заполните поле" placeholder="Ваше имя" class="popup__input input">
+									<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="individual_phone" data-fls-form-errtext="Заполните поле" required placeholder="+375(__) ___-__-__" class="popup__input input input--60">
+									<input data-fls-input="" autocomplete="off" required type="text" name="individual_address" placeholder="Адрес доставки" class="popup__input input">
+								</div>
+								<!-- Поля для юр.лица (скрыты по умолчанию) -->
+								<div id="legalFieldsBlock" style="display: none">
+									<input data-fls-input="" autocomplete="off" type="text" required name="legal_company_name" data-fls-form-errtext="Заполните поле" placeholder="Название организации" class="popup__input input">
+									<input data-fls-input="" autocomplete="off" required type="text" name="legal_unp" data-fls-form-errtext="Заполните поле" placeholder="УНП" class="popup__input input">
+									<input data-fls-input="" autocomplete="off" required type="text" name="legal_address" data-fls-form-errtext="Заполните поле" placeholder="Юридический адрес" class="popup__input input">
+									<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="legal_phone" data-fls-form-errtext="Заполните поле" required placeholder="+375(__) ___-__-__ (телефон для связи)" class="popup__input input input--60">
+									<textarea data-fls-input="" autocomplete="off" name="legal_bank_details" placeholder="Банковские реквизиты" class="popup__input input" rows="3"></textarea>
+								</div>
+								<label data-fls-checkbox="" class="checkbox">
+									<input data-fls-error="Заполните поле" class="checkbox__input" type="checkbox" value="6" name="check" checked>
+									<span class="checkbox__text checkbox__text--black">Вы соглашаетесь с условиями обработки персональных данных</span>
+								</label>
+								<button data-fls-button="" type="submit" class="popup__button button button--60">ОФОРМИТЬ ЗАКАЗ</button>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -552,7 +592,6 @@
 						</div>
 					</div>
 				</section>
-				<!-- Боковая панель корзины -->
 				<div class="cart-sidebar" id="cartSidebar">
 					<div class="cart-sidebar__header">
 						<h3>Корзина</h3>
@@ -560,6 +599,20 @@
 					</div>
 					<div class="cart-sidebar__items" id="cartSidebarItems"></div>
 					<div class="cart-sidebar__footer">
+						<!-- Выбор типа клиента -->
+						<div class="cart-client-type">
+							<div class="cart-client-type__title">Тип клиента:</div>
+							<div class="cart-client-type__options">
+								<label class="cart-client-type__option">
+									<input type="radio" name="clientType" value="individual" checked>
+									<span>Физическое лицо</span>
+								</label>
+								<label class="cart-client-type__option">
+									<input type="radio" name="clientType" value="legal">
+									<span>Юридическое лицо</span>
+								</label>
+							</div>
+						</div>
 						<div class="cart-sidebar__total">
 							<span>Итого:</span>
 							<strong id="cartSidebarTotal">0 ₽</strong>

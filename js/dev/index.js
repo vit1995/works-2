@@ -12024,8 +12024,26 @@ class CartManager2 {
     radios.forEach((radio) => {
       radio.addEventListener("change", () => {
         console.log("Выбран тип:", this.getClientType());
+        this.toggleFieldsInPopup(this.getClientType());
       });
     });
+  }
+  toggleFieldsInPopup(clientType) {
+    const individualBlock = document.getElementById("individualFieldsBlock");
+    const legalBlock = document.getElementById("legalFieldsBlock");
+    const popupTitle = document.querySelector('[data-fls-popup="popup-order"] .popup__title');
+    const popupText = document.querySelector('[data-fls-popup="popup-order"] .popup__text');
+    if (clientType === "individual") {
+      if (individualBlock) individualBlock.style.display = "block";
+      if (legalBlock) legalBlock.style.display = "none";
+      if (popupTitle) popupTitle.textContent = "Оформление заказа - Физическое лицо";
+      if (popupText) popupText.textContent = "Заполните контактные данные для доставки";
+    } else {
+      if (individualBlock) individualBlock.style.display = "none";
+      if (legalBlock) legalBlock.style.display = "block";
+      if (popupTitle) popupTitle.textContent = "Оформление заказа - Юридическое лицо";
+      if (popupText) popupText.textContent = "Заполните реквизиты организации";
+    }
   }
   addToCart(productData, quantity = 1) {
     if (!productData || !productData.name) return;
@@ -12228,21 +12246,7 @@ class CartManager2 {
       <input type="hidden" name="order_items" value='${JSON.stringify(orderItems)}'>
       <input type="hidden" name="order_total" value="${orderTotal}">
     `;
-    const individualBlock = document.getElementById("individualFieldsBlock");
-    const legalBlock = document.getElementById("legalFieldsBlock");
-    const popupTitle = document.querySelector('[data-fls-popup="popup-order"] .popup__title');
-    const popupText = document.querySelector('[data-fls-popup="popup-order"] .popup__text');
-    if (clientType === "individual") {
-      if (individualBlock) individualBlock.style.display = "block";
-      if (legalBlock) legalBlock.style.display = "none";
-      if (popupTitle) popupTitle.textContent = "Оформление заказа - Физическое лицо";
-      if (popupText) popupText.textContent = "Заполните контактные данные для доставки";
-    } else {
-      if (individualBlock) individualBlock.style.display = "none";
-      if (legalBlock) legalBlock.style.display = "block";
-      if (popupTitle) popupTitle.textContent = "Оформление заказа - Юридическое лицо";
-      if (popupText) popupText.textContent = "Заполните реквизиты организации";
-    }
+    this.toggleFieldsInPopup(clientType);
     setTimeout(() => {
       if (window.FLS && window.FLS.popup) {
         window.FLS.popup.open("popup-order");
@@ -12277,6 +12281,12 @@ class CartManager2 {
     if (checkoutBtn) {
       checkoutBtn.addEventListener("click", () => this.checkout());
     }
+    const clientTypeRadios = document.querySelectorAll('#cartSidebar input[name="clientType"]');
+    clientTypeRadios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        this.toggleFieldsInPopup(radio.value);
+      });
+    });
   }
 }
 (function() {

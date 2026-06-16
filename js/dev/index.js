@@ -12203,24 +12203,33 @@ class CartManager2 {
       name: item.name,
       quantity: item.quantity,
       price: item.price,
-      total: item.price * item.quantity
+      total: Math.round(item.price * item.quantity * 100) / 100
     }));
     const orderTotal = this.getTotal();
+    console.log("=== ОТПРАВКА ЗАКАЗА ===");
+    console.log("Тип клиента:", clientType);
+    console.log("Товары:", orderItems);
+    console.log("Итого:", orderTotal);
+    console.log("Корзина:", this.cart);
     let orderSummaryHtml = `
       <div class="order-summary">
         <div class="order-summary__title">📦 Ваш заказ:</div>
         <div class="order-summary__items">
     `;
-    orderItems.forEach((item) => {
-      orderSummaryHtml += `
-        <div class="order-summary__item">
-          <span class="order-summary__name">${this.escapeHtml(item.name)}</span>
-          <span class="order-summary__qty">${item.quantity} шт.</span>
-          <span class="order-summary__price">${item.price.toLocaleString()} ₽</span>
-          <span class="order-summary__total">${item.total.toLocaleString()} ₽</span>
-        </div>
-      `;
-    });
+    if (orderItems.length > 0) {
+      orderItems.forEach((item) => {
+        orderSummaryHtml += `
+          <div class="order-summary__item">
+            <span class="order-summary__name">${this.escapeHtml(item.name)}</span>
+            <span class="order-summary__qty">${item.quantity} шт.</span>
+            <span class="order-summary__price">${item.price.toLocaleString()} ₽</span>
+            <span class="order-summary__total">${item.total.toLocaleString()} ₽</span>
+          </div>
+        `;
+      });
+    } else {
+      orderSummaryHtml += `<div class="order-summary__empty">Нет товаров в корзине</div>`;
+    }
     orderSummaryHtml += `
         </div>
         <div class="order-summary__total-block">
@@ -12232,20 +12241,27 @@ class CartManager2 {
     if (summaryContainer) {
       summaryContainer.innerHTML = orderSummaryHtml;
     }
-    let hiddenFields = document.getElementById("hiddenOrderFields");
-    if (!hiddenFields) {
-      hiddenFields = document.createElement("div");
-      hiddenFields.id = "hiddenOrderFields";
-      const orderForm = document.getElementById("orderForm");
-      if (orderForm) {
-        orderForm.insertBefore(hiddenFields, orderForm.firstChild);
-      }
+    const oldHiddenFields = document.getElementById("hiddenOrderFields");
+    if (oldHiddenFields) {
+      oldHiddenFields.remove();
     }
+    const hiddenFields = document.createElement("div");
+    hiddenFields.id = "hiddenOrderFields";
+    const orderItemsJson = JSON.stringify(orderItems);
     hiddenFields.innerHTML = `
       <input type="hidden" name="order_type" value="${clientType}">
-      <input type="hidden" name="order_items" value='${JSON.stringify(orderItems)}'>
+      <input type="hidden" name="order_items" value='${orderItemsJson}'>
       <input type="hidden" name="order_total" value="${orderTotal}">
     `;
+    const orderForm = document.getElementById("orderForm");
+    if (orderForm) {
+      orderForm.insertBefore(hiddenFields, orderForm.firstChild);
+    }
+    console.log("Скрытые поля добавлены:", {
+      order_type: clientType,
+      order_items: orderItemsJson,
+      order_total: orderTotal
+    });
     this.toggleFieldsInPopup(clientType);
     setTimeout(() => {
       if (window.FLS && window.FLS.popup) {

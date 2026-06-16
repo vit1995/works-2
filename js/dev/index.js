@@ -12023,8 +12023,7 @@ class CartManager2 {
     if (!radios.length) return;
     radios.forEach((radio) => {
       radio.addEventListener("change", () => {
-        console.log("Выбран тип:", this.getClientType());
-        this.toggleFieldsInPopup(this.getClientType());
+        this.toggleFieldsInPopup(radio.value);
       });
     });
   }
@@ -12191,8 +12190,11 @@ class CartManager2 {
     if (overlay) overlay.classList.remove("active");
     document.body.style.overflow = "";
   }
-  // Подготовка и открытие попапа с заказом
+  // ===== ГЛАВНАЯ ФУНКЦИЯ ОТПРАВКИ =====
   prepareAndOpenOrderPopup() {
+    console.log("=== ОТЛАДКА ОТПРАВКИ ЗАКАЗА ===");
+    console.log("Корзина:", this.cart);
+    console.log("Товаров в корзине:", this.cart.length);
     if (this.cart.length === 0) {
       this.showNotification("Корзина пуста!");
       return false;
@@ -12206,30 +12208,24 @@ class CartManager2 {
       total: Math.round(item.price * item.quantity * 100) / 100
     }));
     const orderTotal = this.getTotal();
-    console.log("=== ОТПРАВКА ЗАКАЗА ===");
     console.log("Тип клиента:", clientType);
-    console.log("Товары:", orderItems);
-    console.log("Итого:", orderTotal);
-    console.log("Корзина:", this.cart);
+    console.log("Товары для отправки:", orderItems);
+    console.log("Общая сумма:", orderTotal);
     let orderSummaryHtml = `
       <div class="order-summary">
         <div class="order-summary__title">📦 Ваш заказ:</div>
         <div class="order-summary__items">
     `;
-    if (orderItems.length > 0) {
-      orderItems.forEach((item) => {
-        orderSummaryHtml += `
-          <div class="order-summary__item">
-            <span class="order-summary__name">${this.escapeHtml(item.name)}</span>
-            <span class="order-summary__qty">${item.quantity} шт.</span>
-            <span class="order-summary__price">${item.price.toLocaleString()} ₽</span>
-            <span class="order-summary__total">${item.total.toLocaleString()} ₽</span>
-          </div>
-        `;
-      });
-    } else {
-      orderSummaryHtml += `<div class="order-summary__empty">Нет товаров в корзине</div>`;
-    }
+    orderItems.forEach((item) => {
+      orderSummaryHtml += `
+        <div class="order-summary__item">
+          <span class="order-summary__name">${this.escapeHtml(item.name)}</span>
+          <span class="order-summary__qty">${item.quantity} шт.</span>
+          <span class="order-summary__price">${item.price.toLocaleString()} ₽</span>
+          <span class="order-summary__total">${item.total.toLocaleString()} ₽</span>
+        </div>
+      `;
+    });
     orderSummaryHtml += `
         </div>
         <div class="order-summary__total-block">
@@ -12276,7 +12272,6 @@ class CartManager2 {
     }, 100);
     return true;
   }
-  // Обработчик оформления заказа
   checkout() {
     this.prepareAndOpenOrderPopup();
   }
@@ -12297,12 +12292,6 @@ class CartManager2 {
     if (checkoutBtn) {
       checkoutBtn.addEventListener("click", () => this.checkout());
     }
-    const clientTypeRadios = document.querySelectorAll('#cartSidebar input[name="clientType"]');
-    clientTypeRadios.forEach((radio) => {
-      radio.addEventListener("change", () => {
-        this.toggleFieldsInPopup(radio.value);
-      });
-    });
   }
 }
 (function() {

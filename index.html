@@ -5,8 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1781707908326"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1781707908326">
+		<script type="module" crossorigin="" src="./js/index.min.js?v=1781785777590"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1781785777590">
 	</head>
 	<body>
 		<div class="wrapper">
@@ -217,18 +217,7 @@
 						</div>
 					</div>
 				</section>
-				<!--
-data-price-pryamaya="1.0"       коэффициент для прямой
-data-price-uglovaya="1.1"        коэффициент для угловой (+10%)
-data-price-p-obraznaya="1.15"    коэффициент для П-образной (+15%)
-data-price-pvh="40000"           цена ПВХ за погонный метр
-data-price-plastik="50000"       цена пластика
-data-price-emal="60000"         цена эмали
-data-price-plastik-luxe="55000"  цена пластик Alvic Luxe
-data-price-shpon="60000"        цена шпона
-data-price-massiv="70000"      цена массива
--->
-				<div data-fls-calc="" class="calculator" data-price-pryamaya="1.0" data-price-uglovaya="1.1" data-price-p-obraznaya="1.15" data-price-ldsp="350" data-price-mdf="450" data-price-krashenye="550" data-price-plastik="500" data-price-massiv="700">
+				<div data-fls-calc="" class="calculator" data-price-pryamaya="1.0" data-price-uglovaya="1.1" data-price-p-obraznaya="1.15" data-price-s-ostrovom="1.25" data-price-ldsp="350" data-price-mdf="450" data-price-krashenye="550" data-price-plastik="500" data-price-massiv="700">
 					<div class="calculator__container">
 						<div class="calculator__options">
 							<h2 class="calculator__title">Рассчитайте стоимость кухни прямо сейчас</h2>
@@ -289,39 +278,30 @@ data-price-massiv="70000"      цена массива
 										</label>
 									</div>
 								</div>
-								<!-- Вопрос 2: Укажите размеры кухни -->
+								<!-- Вопрос 2: Выберите примерную площадь кухни -->
 								<div class="calculator__options-item">
-									<span>2. Укажите размеры кухни</span>
-									<div class="calculator__size">
-										<label class="calculator__size-item" data-side="1">
-											<span>Сторона 1, мм</span>
-											<span class="calculator__size-input-wrapper">
-												<span class="calculator__size-minus" data-action="minus">−</span>
-												<input type="number" name="size" data-side="1" value="2000" step="10" min="500" max="10000">
-												<span class="calculator__size-plus" data-action="plus">+</span>
-											</span>
+									<span>2. Какая примерная площадь вашей будущей кухни?</span>
+									<div class="calculator__area">
+										<label class="calculator__area-item" data-area="small">
+											<input type="checkbox" name="area" value="small" data-area-value="8">
+											<span class="custom-checkbox"></span>
+											<span>до 10 квадратных метров</span>
 										</label>
-										<label class="calculator__size-item disabled" data-side="2">
-											<span>Сторона 2, мм</span>
-											<span class="calculator__size-input-wrapper">
-												<span class="calculator__size-minus" data-action="minus">−</span>
-												<input type="number" name="size" data-side="2" value="2000" step="10" min="500" max="10000">
-												<span class="calculator__size-plus" data-action="plus">+</span>
-											</span>
+										<label class="calculator__area-item" data-area="medium">
+											<input type="checkbox" name="area" value="medium" data-area-value="13">
+											<span class="custom-checkbox"></span>
+											<span>11-15 квадратных метров</span>
 										</label>
-										<label class="calculator__size-item disabled" data-side="3">
-											<span>Сторона 3, мм</span>
-											<span class="calculator__size-input-wrapper">
-												<span class="calculator__size-minus" data-action="minus">−</span>
-												<input type="number" name="size" data-side="3" value="2000" step="10" min="500" max="10000">
-												<span class="calculator__size-plus" data-action="plus">+</span>
-											</span>
+										<label class="calculator__area-item" data-area="large">
+											<input type="checkbox" name="area" value="large" data-area-value="18">
+											<span class="custom-checkbox"></span>
+											<span>более 15 квадратных метров</span>
 										</label>
-									</div>
-									<div class="calculator__size-help">
-										<label class="calculator__help-label">
-											<input type="checkbox" name="size-need-help" class="calculator__help-checkbox">
-											<span>❓ Не знаю, нужна помощь</span>
+										<label class="calculator__area-item calculator__area-item--help" data-area="need-help">
+											<input type="checkbox" name="area" value="need-help">
+											<span class="custom-checkbox"></span>
+											<span class="help-icon">❓</span>
+											<span>Не знаю, нужна помощь</span>
 										</label>
 									</div>
 								</div>
@@ -397,16 +377,10 @@ data-price-massiv="70000"      цена массива
 								</div>
 								<form class="content-calculator__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
 									<h3 class="content-calculator__form-title">Оставить заявку</h3>
-									<!-- Скрытые поля с данными калькулятора -->
-									<input type="hidden" name="calculator_shape" id="calc_shape" value="Прямая">
-									<input type="hidden" name="calculator_sizes" id="calc_sizes" value="">
-									<input type="hidden" name="calculator_material" id="calc_material" value="ЛДСП">
-									<input type="hidden" name="calculator_total" id="calc_total" value="0">
 									<input required type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя*" class="content-calculator__input input">
 									<input required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+375(__) ___-__-__" class="content-calculator__input input">
 									<p class="calculator__select-text">Укажите удобное время для звонка</p>
 									<select name="select" data-fls-select="" data-fls-select-modif="form">
-										<!-- <option value="1" selected>Укажите удобное время для звонка</option> -->
 										<option value="10:00 - 14:00">10:00-11:00</option>
 										<option value="14:00 - 18:00">14:00 - 18:00</option>
 										<option value="18:00 - 21:00">18:00 - 21:00</option>
@@ -569,35 +543,6 @@ data-price-massiv="70000"      цена массива
 								<h3 class="portfolio__name">«Кухня Осло»</h3>
 								<a class="portfolio__button button" href="#">Расчитать стоимость</a>
 							</article>
-						</div>
-					</div>
-				</section>
-				<section class="free-design">
-					<img class="free-design__img-bg" alt="Image" src="./assets/img/free-design/bg.webp">
-					<div class="free-design__container">
-						<div class="free-design__body">
-							<h2 data-fls-title="" class="title">
-								3D дизайн-проект
-								<span>бесплатно</span>
-							</h2>
-							<p class="free-design__text">
-								Поможем определиться с выбором материалов, конфигурацией и нарисуем
-          дизайн-проект кухни прямо у вас дома
-							</p>
-							<form class="free-design__form" data-fls-form="ajax" data-fls-form-popup="popup" method="POST" action="sendmail/sendmail.php">
-								<div class="free-design__item">
-									<input required type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Ваше имя" class="free-design__input input">
-									<input required data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+375(__) ___-__-__" class="free-design__input input">
-									<button type="submit" class="free-design__button button">Вызвать дизайнера</button>
-								</div>
-								<label data-fls-checkbox="" class="checkbox">
-									<input checked class="checkbox__input" type="checkbox" value="согласен" name="check">
-									<span class="checkbox__text">
-										Я согласен на обработку персональных данных и получение
-              информационных сообщений
-									</span>
-								</label>
-							</form>
 						</div>
 					</div>
 				</section>
@@ -797,6 +742,90 @@ data-youtube-max-results	Максимум видео	20
 							</div>
 							<button type="button" class="swiper-button-prev steaps-button-prev"></button>
 							<button type="button" class="swiper-button-next steaps-button-next"></button>
+						</div>
+					</div>
+				</section>
+				<section class="steaps know">
+					<div class="steaps__container">
+						<h2 data-fls-title="" class="title">Узнайте, как сделать ремонт правильно</h2>
+						<!-- Оболочка слайдера -->
+						<div class="steaps__swiper-container">
+							<div data-fls-slider="" class="know__slider steaps__slider swiper">
+								<!-- Часть слайдера, которая двигается -->
+								<div class="know__wrapper steaps__wrapper swiper-wrapper">
+									<!-- Слайд -->
+									<div class="know__slide steaps__slide steaps__slide--black swiper-slide">
+										<div class="steaps__header">
+											<div class="steaps__top">
+												<h3 class="steaps__slide-title">
+													У вас нет возможности заказать кухню сейчас, а схемы для
+                    ремонта нужны “ещё вчера”?
+												</h3>
+												<div class="steaps__number">01.</div>
+											</div>
+											<div class="steaps__info">
+												<a class="steaps__button button" data-fls-popup-link="popup" href="#">Оставить заявку</a>
+												<a class="steaps__phone" href="tel:+79852194094">+7 (985) 219-40-94</a>
+											</div>
+										</div>
+										<picture>
+											<img class="steaps__img" alt="Image" src="./assets/img/steaps/01.webp">
+										</picture>
+										<p class="steaps__text">
+											У нас есть решение этого вопроса - услуга“Правильный ремонт без
+                переделок”. (выделить оранжевы цветом название услуги)
+										</p>
+									</div>
+									<div class="know__slide teaps__slide swiper-slide">
+										<div class="steaps__top">
+											<h3 class="steaps__slide-title">Работа с дизайнером</h3>
+											<div class="steaps__number">02.</div>
+										</div>
+										<picture>
+											<img class="steaps__img steaps__img--contain" alt="Image" src="./assets/img/steaps/02.webp">
+										</picture>
+										<p class="steaps__text">
+											- 3D-проект кухни по вашим размерам и пожеланиям. - Поддержка от
+                дизайнера и возможность внести до 3-ех правок в проект. -
+                Консультация по материалам и фурнитуре, помощь в подборе.
+										</p>
+									</div>
+									<div class="know__slide steaps__slide swiper-slide">
+										<div class="steaps__top">
+											<h3 class="steaps__slide-title">Замер помещения</h3>
+											<div class="steaps__number">03.</div>
+										</div>
+										<picture>
+											<img class="steaps__img" alt="Image" src="./assets/img/steaps/03.png">
+										</picture>
+										<p class="steaps__text">
+											На замер выезжает инженер-обмерщик с лазерным оборудованием. Он
+                делает точные замеры, учитывает все нюансы вашего помещения и
+                дает четкие рекомендации по ремонту.
+										</p>
+									</div>
+									<div class="know__slide steaps__slide swiper-slide">
+										<div class="steaps__top">
+											<h3 class="steaps__slide-title">Сопровождение технолога-конструктора</h3>
+											<div class="steaps__number">04.</div>
+										</div>
+										<picture>
+											<img class="steaps__img" alt="Image" src="./assets/img/steaps/04.png">
+										</picture>
+										<p class="steaps__text">
+											- Все необходимые схемы для ремонта. Это значит, что когда
+                придет время устанавливать кухню, всё встанет на свои места с
+                точностью до миллиметров.
+											<br>
+											- Поддержка по вопросам ремонта и чертежам для вас и ваших
+                строителей.
+										</p>
+									</div>
+								</div>
+								<div class="swiper-scrollbar"></div>
+							</div>
+							<button type="button" class="know-button-prev swiper-button-prev"></button>
+							<button type="button" class="know-button-next swiper-button-next"></button>
 						</div>
 					</div>
 				</section>

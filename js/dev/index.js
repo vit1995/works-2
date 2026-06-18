@@ -6829,6 +6829,40 @@ function initSliders() {
       }
     });
   }
+  if (document.querySelector(".know__slider")) {
+    new Swiper(".know__slider", {
+      modules: [Pagination, Scrollbar, Navigation],
+      observer: true,
+      observeParents: true,
+      slidesPerView: 1,
+      spaceBetween: 10,
+      autoHeight: true,
+      speed: 800,
+      navigation: {
+        prevEl: ".know-button-prev",
+        nextEl: ".know-button-next"
+      },
+      scrollbar: {
+        el: ".swiper-scrollbar",
+        draggable: true
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 1,
+          spaceBetween: 0
+          // autoHeight: true,
+        },
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 20
+        },
+        992: {
+          slidesPerView: 2.5,
+          spaceBetween: 20
+        }
+      }
+    });
+  }
   if (document.querySelector(".steaps__slider")) {
     new Swiper(".steaps__slider", {
       modules: [Pagination, Scrollbar, Navigation],
@@ -6906,400 +6940,6 @@ if (document.querySelector("[data-fls-slider]")) {
   if (document.querySelector(".hero__slider, .portfolio__slider, .steaps__slider, .reviews-slider")) {
     window.addEventListener("load", initSliders);
   }
-}
-class Popup {
-  constructor(options) {
-    let config = {
-      logging: true,
-      init: true,
-      //Для кнопок
-      attributeOpenButton: "data-fls-popup-link",
-      // Атрибут для кнопки, которая вызывает Popup
-      attributeCloseButton: "data-fls-popup-close",
-      // Атрибут для кнопки, что закрывает popup
-      // Для сторонних объектов
-      fixElementSelector: "[data-fls-lp]",
-      // Атрибут для элементов с левым паддингом (которые fixed)
-      // Для объекта попапа
-      attributeMain: "data-fls-popup",
-      youtubeAttribute: "data-fls-popup-youtube",
-      // Атрибут для кода youtube
-      youtubePlaceAttribute: "data-fls-popup-youtube-place",
-      // Атрибут для вставки ролика youtube
-      setAutoplayYoutube: true,
-      // Смена классов
-      classes: {
-        popup: "popup",
-        // popupWrapper: 'popup__wrapper',
-        popupContent: "data-fls-popup-body",
-        popupActive: "data-fls-popup-active",
-        // Добавляется для попапа, когда он открывается
-        bodyActive: "data-fls-popup-open"
-        // Прилагается для боди, когда попал открытый
-      },
-      focusCatch: true,
-      // Фокус внутри попапа зациклен
-      closeEsc: true,
-      // Закрытие ESC
-      bodyLock: true,
-      // Блокировка скролла
-      hashSettings: {
-        location: true,
-        // Хэш в адресной строке
-        goHash: true
-        // Переход по наличию в адресной строке
-      },
-      on: {
-        // События
-        beforeOpen: function() {
-        },
-        afterOpen: function() {
-        },
-        beforeClose: function() {
-        },
-        afterClose: function() {
-        }
-      }
-    };
-    this.youTubeCode;
-    this.isOpen = false;
-    this.targetOpen = {
-      selector: false,
-      element: false
-    };
-    this.previousOpen = {
-      selector: false,
-      element: false
-    };
-    this.lastClosed = {
-      selector: false,
-      element: false
-    };
-    this._dataValue = false;
-    this.hash = false;
-    this._reopen = false;
-    this._selectorOpen = false;
-    this.lastFocusEl = false;
-    this._focusEl = [
-      "a[href]",
-      'input:not([disabled]):not([type="hidden"]):not([aria-hidden])',
-      "button:not([disabled]):not([aria-hidden])",
-      "select:not([disabled]):not([aria-hidden])",
-      "textarea:not([disabled]):not([aria-hidden])",
-      "area[href]",
-      "iframe",
-      "object",
-      "embed",
-      "[contenteditable]",
-      '[tabindex]:not([tabindex^="-"])'
-    ];
-    this.options = {
-      ...config,
-      ...options,
-      classes: {
-        ...config.classes,
-        ...options?.classes
-      },
-      hashSettings: {
-        ...config.hashSettings,
-        ...options?.hashSettings
-      },
-      on: {
-        ...config.on,
-        ...options?.on
-      }
-    };
-    this.bodyLock = false;
-    this.options.init ? this.initPopups() : null;
-  }
-  initPopups() {
-    this.buildPopup();
-    this.eventsPopup();
-  }
-  buildPopup() {
-  }
-  eventsPopup() {
-    document.addEventListener("click", (function(e) {
-      const buttonOpen = e.target.closest(`[${this.options.attributeOpenButton}]`);
-      if (buttonOpen) {
-        e.preventDefault();
-        this._dataValue = buttonOpen.getAttribute(this.options.attributeOpenButton) ? buttonOpen.getAttribute(this.options.attributeOpenButton) : "error";
-        this.youTubeCode = buttonOpen.getAttribute(this.options.youtubeAttribute) ? buttonOpen.getAttribute(this.options.youtubeAttribute) : null;
-        if (this._dataValue !== "error") {
-          if (!this.isOpen) this.lastFocusEl = buttonOpen;
-          this.targetOpen.selector = `${this._dataValue}`;
-          this._selectorOpen = true;
-          this.open();
-          return;
-        }
-        return;
-      }
-      const buttonClose = e.target.closest(`[${this.options.attributeCloseButton}]`);
-      if (buttonClose || !e.target.closest(`[${this.options.classes.popupContent}]`) && this.isOpen) {
-        e.preventDefault();
-        this.close();
-        return;
-      }
-    }).bind(this));
-    document.addEventListener("keydown", (function(e) {
-      if (this.options.closeEsc && e.which == 27 && e.code === "Escape" && this.isOpen) {
-        e.preventDefault();
-        this.close();
-        return;
-      }
-      if (this.options.focusCatch && e.which == 9 && this.isOpen) {
-        this._focusCatch(e);
-        return;
-      }
-    }).bind(this));
-    if (this.options.hashSettings.goHash) {
-      window.addEventListener("hashchange", (function() {
-        if (window.location.hash) {
-          this._openToHash();
-        } else {
-          this.close(this.targetOpen.selector);
-        }
-      }).bind(this));
-      if (window.location.hash) {
-        this._openToHash();
-      }
-    }
-  }
-  open(selectorValue) {
-    if (bodyLockStatus) {
-      this.bodyLock = document.documentElement.hasAttribute("data-fls-scrolllock") && !this.isOpen ? true : false;
-      if (selectorValue && typeof selectorValue === "string" && selectorValue.trim() !== "") {
-        this.targetOpen.selector = selectorValue;
-        this._selectorOpen = true;
-      }
-      if (this.isOpen) {
-        this._reopen = true;
-        this.close();
-      }
-      if (!this._selectorOpen) this.targetOpen.selector = this.lastClosed.selector;
-      if (!this._reopen) this.previousActiveElement = document.activeElement;
-      this.targetOpen.element = document.querySelector(`[${this.options.attributeMain}=${this.targetOpen.selector}]`);
-      if (this.targetOpen.element) {
-        const codeVideo = this.youTubeCode || this.targetOpen.element.getAttribute(`${this.options.youtubeAttribute}`);
-        if (codeVideo) {
-          const urlVideo = `https://www.youtube.com/embed/${codeVideo}?rel=0&showinfo=0&autoplay=1`;
-          const iframe = document.createElement("iframe");
-          const autoplay = this.options.setAutoplayYoutube ? "autoplay;" : "";
-          iframe.setAttribute("allowfullscreen", "");
-          iframe.setAttribute("allow", `${autoplay}; encrypted-media`);
-          iframe.setAttribute("src", urlVideo);
-          if (!this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`)) {
-            this.targetOpen.element.querySelector("[data-fls-popup-content]").setAttribute(`${this.options.youtubePlaceAttribute}`, "");
-          }
-          this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`).appendChild(iframe);
-        }
-        if (this.options.hashSettings.location) {
-          this._getHash();
-          this._setHash();
-        }
-        this.options.on.beforeOpen(this);
-        document.dispatchEvent(new CustomEvent("beforePopupOpen", {
-          detail: {
-            popup: this
-          }
-        }));
-        this.targetOpen.element.setAttribute(this.options.classes.popupActive, "");
-        document.documentElement.setAttribute(this.options.classes.bodyActive, "");
-        if (!this._reopen) {
-          !this.bodyLock ? bodyLock() : null;
-        } else this._reopen = false;
-        this.targetOpen.element.setAttribute("aria-hidden", "false");
-        this.previousOpen.selector = this.targetOpen.selector;
-        this.previousOpen.element = this.targetOpen.element;
-        this._selectorOpen = false;
-        this.isOpen = true;
-        setTimeout(() => {
-          this._focusTrap();
-        }, 50);
-        this.options.on.afterOpen(this);
-        document.dispatchEvent(new CustomEvent("afterPopupOpen", {
-          detail: {
-            popup: this
-          }
-        }));
-      }
-    }
-  }
-  close(selectorValue) {
-    if (selectorValue && typeof selectorValue === "string" && selectorValue.trim() !== "") {
-      this.previousOpen.selector = selectorValue;
-    }
-    if (!this.isOpen || !bodyLockStatus) {
-      return;
-    }
-    this.options.on.beforeClose(this);
-    document.dispatchEvent(new CustomEvent("beforePopupClose", {
-      detail: {
-        popup: this
-      }
-    }));
-    if (this.targetOpen.element && this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`)) {
-      setTimeout(() => {
-        const youtubePlace = this.targetOpen.element.querySelector(`[${this.options.youtubePlaceAttribute}]`);
-        if (youtubePlace) youtubePlace.innerHTML = "";
-      }, 500);
-    }
-    if (this.previousOpen.element) {
-      this.previousOpen.element.removeAttribute(this.options.classes.popupActive);
-      this.previousOpen.element.setAttribute("aria-hidden", "true");
-    }
-    if (!this._reopen) {
-      document.documentElement.removeAttribute(this.options.classes.bodyActive);
-      !this.bodyLock ? bodyUnlock() : null;
-      this.isOpen = false;
-    }
-    this._removeHash();
-    if (this._selectorOpen) {
-      this.lastClosed.selector = this.previousOpen.selector;
-      this.lastClosed.element = this.previousOpen.element;
-    }
-    this.options.on.afterClose(this);
-    document.dispatchEvent(new CustomEvent("afterPopupClose", {
-      detail: {
-        popup: this
-      }
-    }));
-    setTimeout(() => {
-      this._focusTrap();
-    }, 50);
-  }
-  // Получение хэша
-  _getHash() {
-    if (this.options.hashSettings.location) {
-      this.hash = `#${this.targetOpen.selector}`;
-    }
-  }
-  _openToHash() {
-    let classInHash = window.location.hash.replace("#", "");
-    const openButton = document.querySelector(`[${this.options.attributeOpenButton}="${classInHash}"]`);
-    if (openButton) {
-      this.youTubeCode = openButton.getAttribute(this.options.youtubeAttribute) ? openButton.getAttribute(this.options.youtubeAttribute) : null;
-    }
-    if (classInHash) this.open(classInHash);
-  }
-  // Установка хэша
-  _setHash() {
-    history.pushState("", "", this.hash);
-  }
-  _removeHash() {
-    history.pushState("", "", window.location.href.split("#")[0]);
-  }
-  _focusCatch(e) {
-    if (!this.targetOpen.element) return;
-    const focusable = this.targetOpen.element.querySelectorAll(this._focusEl);
-    const focusArray = Array.prototype.slice.call(focusable);
-    const focusedIndex = focusArray.indexOf(document.activeElement);
-    if (e.shiftKey && focusedIndex === 0) {
-      focusArray[focusArray.length - 1].focus();
-      e.preventDefault();
-    }
-    if (!e.shiftKey && focusedIndex === focusArray.length - 1) {
-      focusArray[0].focus();
-      e.preventDefault();
-    }
-  }
-  _focusTrap() {
-    if (!this.previousOpen.element) return;
-    const focusable = this.previousOpen.element.querySelectorAll(this._focusEl);
-    if (!this.isOpen && this.lastFocusEl) {
-      this.lastFocusEl.focus();
-    } else if (focusable && focusable.length > 0) {
-      focusable[0].focus();
-    }
-  }
-}
-function initAutoPopup() {
-  if (!window.flsPopup) {
-    setTimeout(initAutoPopup, 100);
-    return;
-  }
-  const popupElement = document.querySelector('[data-fls-popup="popup-clock"]');
-  if (!popupElement) return;
-  if (localStorage.getItem("popupClockOpened") === "true") {
-    console.log("Попап уже открывался ранее, больше не показываем");
-    return;
-  }
-  function openPopup() {
-    if (window.flsPopup) {
-      console.log("Открываем автопопап (через 30 секунд)");
-      localStorage.setItem("popupClockOpened", "true");
-      window.flsPopup.open("popup-clock");
-    }
-  }
-  console.log("Автопопап активирован, откроется через 30 секунд");
-  setTimeout(openPopup, 3e4);
-}
-function startPersistentCountdown() {
-  const timerElement = document.getElementById("countdown-timer");
-  if (!timerElement) return;
-  let endTime;
-  const savedEndTime = localStorage.getItem("countdown_end_time");
-  if (savedEndTime && new Date(savedEndTime) > /* @__PURE__ */ new Date()) {
-    endTime = new Date(savedEndTime);
-  } else {
-    endTime = /* @__PURE__ */ new Date();
-    endTime.setHours(endTime.getHours() + 9);
-    localStorage.setItem("countdown_end_time", endTime.toISOString());
-  }
-  function updateCountdown() {
-    const now2 = /* @__PURE__ */ new Date();
-    const difference = endTime - now2;
-    if (difference <= 0) {
-      localStorage.removeItem("countdown_end_time");
-      if (timerElement) {
-        timerElement.innerHTML = `
-					<div class="timer-block" style="background: #28a745;">
-						<div class="timer-number">Акция</div>
-						<div class="timer-label">Завершена!</div>
-					</div>
-				`;
-      }
-      return;
-    }
-    const hours = Math.floor(difference / (1e3 * 60 * 60));
-    const minutes = Math.floor(difference % (1e3 * 60 * 60) / (1e3 * 60));
-    const seconds = Math.floor(difference % (1e3 * 60) / 1e3);
-    if (timerElement) {
-      timerElement.innerHTML = `
-				<div class="timer-block">
-					<div class="timer-number">${hours.toString().padStart(2, "0")}</div>
-					<div class="timer-label">Часов</div>
-				</div>
-				<div class="timer-separator">:</div>
-				<div class="timer-block">
-					<div class="timer-number">${minutes.toString().padStart(2, "0")}</div>
-					<div class="timer-label">Минут</div>
-				</div>
-				<div class="timer-separator">:</div>
-				<div class="timer-block">
-					<div class="timer-number">${seconds.toString().padStart(2, "0")}</div>
-					<div class="timer-label">Секунд</div>
-				</div>
-			`;
-    }
-  }
-  updateCountdown();
-  setInterval(updateCountdown, 1e3);
-}
-if (document.querySelector("[data-fls-popup]")) {
-  window.addEventListener("load", () => {
-    window.flsPopup = new Popup({});
-    initAutoPopup();
-  });
-}
-if (document.getElementById("countdown-timer")) {
-  document.addEventListener("DOMContentLoaded", startPersistentCountdown);
-} else {
-  document.addEventListener("afterPopupOpen", function(e) {
-    if (e.detail.popup.targetOpen.selector === "popup-clock") {
-      startPersistentCountdown();
-    }
-  });
 }
 function menuInit() {
   document.addEventListener("click", function(e) {
@@ -13516,7 +13156,7 @@ document.querySelector("[data-fls-ripple]") ? window.addEventListener("load", ri
   const calculator = document.querySelector("[data-fls-calc]");
   if (!calculator) return;
   const shapeRadios = document.querySelectorAll('input[name="kitchen-shape"]');
-  const sizeInputs = document.querySelectorAll(".calculator__size-item input");
+  const areaCheckboxes = document.querySelectorAll('input[name="area"]');
   const materialRadios = document.querySelectorAll('input[name="material"]');
   function getPriceFromData(priceKey, defaultValue = 4e4) {
     if (!calculator) return defaultValue;
@@ -13534,41 +13174,20 @@ document.querySelector("[data-fls-ripple]") ? window.addEventListener("load", ri
     });
     return selected;
   }
-  function getShapeCoefficient() {
-    const shape = getCurrentShape();
-    const coefficient = getPriceFromData(shape, 1);
-    return coefficient;
-  }
-  function updateSizeFieldsVisibility() {
-    const shape = getCurrentShape();
-    const side1Item = document.querySelector('.calculator__size-item[data-side="1"]');
-    const side2Item = document.querySelector('.calculator__size-item[data-side="2"]');
-    const side3Item = document.querySelector('.calculator__size-item[data-side="3"]');
-    if (side1Item) side1Item.classList.remove("disabled");
-    if (side2Item) side2Item.classList.remove("disabled");
-    if (side3Item) side3Item.classList.remove("disabled");
-    switch (shape) {
-      case "pryamaya":
-        if (side2Item) side2Item.classList.add("disabled");
-        if (side3Item) side3Item.classList.add("disabled");
-        break;
-      case "uglovaya":
-        if (side3Item) side3Item.classList.add("disabled");
-        break;
-    }
-  }
-  function getActiveSizes() {
-    const sizes = [];
-    const sideItems = document.querySelectorAll(".calculator__size-item");
-    sideItems.forEach((item) => {
-      if (!item.classList.contains("disabled")) {
-        const input = item.querySelector("input");
-        let val = parseInt(input.value, 10);
-        if (isNaN(val) || val < 500) val = 500;
-        sizes.push(val);
+  function getSelectedArea() {
+    let selected = null;
+    let areaValue = 0;
+    areaCheckboxes.forEach((checkbox) => {
+      if (checkbox.checked) {
+        selected = checkbox.value;
+        areaValue = parseFloat(checkbox.dataset.areaValue) || 0;
       }
     });
-    return sizes;
+    return { value: selected, area: areaValue };
+  }
+  function getShapeCoefficient() {
+    const shape = getCurrentShape();
+    return getPriceFromData(shape, 1);
   }
   function getMaterialPrice() {
     let selectedMaterial = null;
@@ -13577,75 +13196,47 @@ document.querySelector("[data-fls-ripple]") ? window.addEventListener("load", ri
     });
     if (!selectedMaterial) return getPriceFromData("ldsp", 350);
     const priceKey = selectedMaterial.getAttribute("data-price-key");
-    const pricePerMeter = getPriceFromData(priceKey, 350);
-    return pricePerMeter;
+    return getPriceFromData(priceKey, 350);
   }
   function calculateTotal() {
-    const sizes = getActiveSizes();
+    const { area } = getSelectedArea();
     const pricePerMeter = getMaterialPrice();
     const shapeCoefficient = getShapeCoefficient();
-    let totalLengthMeters = sizes.reduce((sum, val) => sum + val, 0) / 1e3;
-    let total = totalLengthMeters * pricePerMeter;
-    total *= shapeCoefficient;
+    if (!area || area === 0) return 0;
+    let total = area * pricePerMeter * shapeCoefficient;
     total = Math.round(total);
-    console.log("Рассчитанная стоимость:", total);
     return total;
   }
   function recalc() {
-    calculateTotal();
+    const total = calculateTotal();
+    console.log("Стоимость:", total);
   }
   function onShapeChange() {
-    updateSizeFieldsVisibility();
     recalc();
   }
-  function setupSteppers() {
-    const minusBtns = document.querySelectorAll(".calculator__size-minus");
-    const plusBtns = document.querySelectorAll(".calculator__size-plus");
-    function updateInput(input, delta) {
-      let val = parseInt(input.value, 10);
-      if (isNaN(val)) val = 1e3;
-      let newVal = val + delta;
-      if (newVal < 500) newVal = 500;
-      if (newVal > 5e3) newVal = 5e3;
-      input.value = newVal;
-      input.dispatchEvent(new Event("change", { bubbles: true }));
+  function onAreaChange() {
+    const currentCheckbox = this;
+    if (currentCheckbox.checked) {
+      areaCheckboxes.forEach((checkbox) => {
+        if (checkbox !== currentCheckbox) {
+          checkbox.checked = false;
+        }
+      });
     }
-    minusBtns.forEach((btn) => {
-      btn.removeEventListener("click", minusHandler);
-      btn.addEventListener("click", minusHandler);
-      function minusHandler(e) {
-        e.preventDefault();
-        const wrapper = btn.closest(".calculator__size-input-wrapper");
-        const input = wrapper.querySelector("input");
-        if (input) updateInput(input, -100);
-      }
-    });
-    plusBtns.forEach((btn) => {
-      btn.removeEventListener("click", plusHandler);
-      btn.addEventListener("click", plusHandler);
-      function plusHandler(e) {
-        e.preventDefault();
-        const wrapper = btn.closest(".calculator__size-input-wrapper");
-        const input = wrapper.querySelector("input");
-        if (input) updateInput(input, 100);
-      }
-    });
+    recalc();
   }
   function initEvents() {
     shapeRadios.forEach((radio) => {
       radio.addEventListener("change", onShapeChange);
     });
-    sizeInputs.forEach((input) => {
-      input.addEventListener("change", recalc);
-      input.addEventListener("input", recalc);
+    areaCheckboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", onAreaChange);
     });
     materialRadios.forEach((radio) => {
       radio.addEventListener("change", recalc);
     });
   }
   function init() {
-    updateSizeFieldsVisibility();
-    setupSteppers();
     initEvents();
     recalc();
   }

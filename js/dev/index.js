@@ -6840,17 +6840,18 @@ function initSliders() {
       speed: 800,
       navigation: {
         prevEl: ".know-button-prev",
+        // ← уникальный класс
         nextEl: ".know-button-next"
+        // ← уникальный класс
       },
       scrollbar: {
-        el: ".swiper-scrollbar",
+        el: ".know__slider .swiper-scrollbar",
         draggable: true
       },
       breakpoints: {
         640: {
           slidesPerView: 1,
           spaceBetween: 0
-          // autoHeight: true,
         },
         768: {
           slidesPerView: 2,
@@ -6863,8 +6864,8 @@ function initSliders() {
       }
     });
   }
-  if (document.querySelector(".steaps__slider")) {
-    new Swiper(".steaps__slider", {
+  if (document.querySelector(".steaps__slider:not(.know__slider)")) {
+    new Swiper(".steaps__slider:not(.know__slider)", {
       modules: [Pagination, Scrollbar, Navigation],
       observer: true,
       observeParents: true,
@@ -6874,17 +6875,18 @@ function initSliders() {
       speed: 800,
       navigation: {
         prevEl: ".steaps-button-prev",
+        // ← уникальный класс
         nextEl: ".steaps-button-next"
+        // ← уникальный класс
       },
       scrollbar: {
-        el: ".swiper-scrollbar",
+        el: ".steaps__slider:not(.know__slider) .swiper-scrollbar",
         draggable: true
       },
       breakpoints: {
         640: {
           slidesPerView: 1,
           spaceBetween: 0
-          // autoHeight: true,
         },
         768: {
           slidesPerView: 2,

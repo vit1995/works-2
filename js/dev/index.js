@@ -842,7 +842,7 @@ function Resize(_ref) {
     emit
   } = _ref;
   const window2 = getWindow();
-  let observer = null;
+  let observer2 = null;
   let animationFrame = null;
   const resizeHandler = () => {
     if (!swiper || swiper.destroyed || !swiper.initialized) return;
@@ -851,7 +851,7 @@ function Resize(_ref) {
   };
   const createObserver = () => {
     if (!swiper || swiper.destroyed || !swiper.initialized) return;
-    observer = new ResizeObserver((entries) => {
+    observer2 = new ResizeObserver((entries) => {
       animationFrame = window2.requestAnimationFrame(() => {
         const {
           width,
@@ -874,15 +874,15 @@ function Resize(_ref) {
         }
       });
     });
-    observer.observe(swiper.el);
+    observer2.observe(swiper.el);
   };
   const removeObserver = () => {
     if (animationFrame) {
       window2.cancelAnimationFrame(animationFrame);
     }
-    if (observer && observer.unobserve && swiper.el) {
-      observer.unobserve(swiper.el);
-      observer = null;
+    if (observer2 && observer2.unobserve && swiper.el) {
+      observer2.unobserve(swiper.el);
+      observer2 = null;
     }
   };
   const orientationChangeHandler = () => {
@@ -917,7 +917,7 @@ function Observer(_ref) {
       options = {};
     }
     const ObserverFunc = window2.MutationObserver || window2.WebkitMutationObserver;
-    const observer = new ObserverFunc((mutations) => {
+    const observer2 = new ObserverFunc((mutations) => {
       if (swiper.__preventObserver__) return;
       if (mutations.length === 1) {
         emit("observerUpdate", mutations[0]);
@@ -932,12 +932,12 @@ function Observer(_ref) {
         window2.setTimeout(observerUpdate, 0);
       }
     });
-    observer.observe(target, {
+    observer2.observe(target, {
       attributes: typeof options.attributes === "undefined" ? true : options.attributes,
       childList: swiper.isElement || (typeof options.childList === "undefined" ? true : options).childList,
       characterData: typeof options.characterData === "undefined" ? true : options.characterData
     });
-    observers.push(observer);
+    observers.push(observer2);
   };
   const init = () => {
     if (!swiper.params.observer) return;
@@ -955,8 +955,8 @@ function Observer(_ref) {
     });
   };
   const destroy = () => {
-    observers.forEach((observer) => {
-      observer.disconnect();
+    observers.forEach((observer2) => {
+      observer2.disconnect();
     });
     observers.splice(0, observers.length);
   };
@@ -8984,34 +8984,108 @@ function requireLgZoom_min() {
 var lgZoom_minExports = requireLgZoom_min();
 const lgZoom = /* @__PURE__ */ getDefaultExportFromCjs(lgZoom_minExports);
 const KEY = "7EC452A9-0CFD441C-BD984C7C-17C8456E";
-const galleries = document.querySelectorAll("[data-fls-gallery]");
-if (galleries.length) {
-  galleries.forEach((gallery) => {
-    lightGallery(gallery, {
-      plugins: [lgZoom, lgThumbnail],
-      licenseKey: KEY,
-      speed: 500,
-      mobileSettings: {
-        //   controls: true,       // Показывать стрелки "назад/вперед"
-        showCloseIcon: true,
-        // ПОКАЗЫВАТЬ КРЕСТИК (ЗАКРЫТИЕ)
-        download: true
-        // Показывать кнопку "Скачать"
+document.addEventListener("DOMContentLoaded", function() {
+  const galleries = document.querySelectorAll("[data-fls-gallery]");
+  if (galleries.length) {
+    galleries.forEach((gallery) => {
+      const items = gallery.querySelectorAll("a");
+      if (items.length === 0) return;
+      if (gallery.lgInstance) {
+        gallery.lgInstance.destroy();
+      }
+      const instance = lightGallery(gallery, {
+        plugins: [lgZoom, lgThumbnail],
+        licenseKey: KEY,
+        selector: "a",
+        speed: 500,
+        // НАСТРОЙКИ ДЛЯ МОБИЛЬНЫХ
+        mobileSettings: {
+          controls: true,
+          showCloseIcon: true,
+          download: true,
+          swipeThreshold: 30
+          // Уменьшаем чувствительность свайпа
+        },
+        // ОТКЛЮЧАЕМ КОНФЛИКТУЮЩИЕ НАСТРОЙКИ
+        enableSwipe: true,
+        enableDrag: true,
+        swipeThreshold: 50,
+        // ДОПОЛНИТЕЛЬНЫЕ НАСТРОЙКИ
+        zoom: true,
+        rotate: false,
+        download: true,
+        counter: true,
+        // УЛУЧШАЕМ ПРОИЗВОДИТЕЛЬНОСТЬ
+        hideBarsDelay: 3e3,
+        getCaptionFromTitleOrAlt: true,
+        // ОТКЛЮЧАЕМ КОНФЛИКТ С TOUCHMOVE
+        allowMediaOverflow: true,
+        allowTouchMove: true
+      });
+      gallery.lgInstance = instance;
+    });
+  }
+});
+document.addEventListener("touchmove", function(e) {
+  const target = e.target;
+  const isInsideGallery = target.closest(".lg-outer") || target.closest("[data-fls-gallery]");
+  if (isInsideGallery) {
+    return;
+  }
+}, { passive: true });
+let resizeTimer;
+window.addEventListener("resize", function() {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(function() {
+    const galleries = document.querySelectorAll("[data-fls-gallery]");
+    galleries.forEach((gallery) => {
+      if (gallery.lgInstance) {
+        gallery.lgInstance.refresh();
+      }
+    });
+  }, 250);
+});
+const observer = new MutationObserver(function(mutations) {
+  mutations.forEach(function(mutation) {
+    mutation.addedNodes.forEach(function(node) {
+      if (node.nodeType === 1 && node.matches && node.matches("[data-fls-gallery]")) {
+        const gallery = node;
+        if (gallery.lgInstance) {
+          gallery.lgInstance.destroy();
+        }
+        const instance = lightGallery(gallery, {
+          plugins: [lgZoom, lgThumbnail],
+          licenseKey: KEY,
+          selector: "a",
+          speed: 500,
+          mobileSettings: {
+            controls: true,
+            showCloseIcon: true,
+            download: true,
+            swipeThreshold: 30
+          },
+          enableSwipe: true,
+          enableDrag: true,
+          swipeThreshold: 50,
+          zoom: true,
+          download: true,
+          counter: true,
+          hideBarsDelay: 3e3,
+          getCaptionFromTitleOrAlt: true,
+          allowMediaOverflow: true,
+          allowTouchMove: true
+        });
+        gallery.lgInstance = instance;
       }
     });
   });
+});
+if (document.body) {
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
 }
-function initGallery() {
-  if (document.querySelector("[data-fls-gallery]")) {
-    new lightGallery(document.querySelector("[data-fls-gallery]"), {
-      plugins: [lgZoom, lgThumbnail],
-      licenseKey: KEY,
-      selector: "a",
-      speed: 500
-    });
-  }
-}
-window.addEventListener("load", initGallery());
 class DynamicAdapt {
   constructor() {
     this.type = "max";

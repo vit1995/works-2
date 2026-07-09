@@ -12494,6 +12494,31 @@ document.addEventListener(
     );
   }
 );
+document.addEventListener("click", function(e) {
+  if (e.target.closest(".products__quantity-plus")) {
+    const btn = e.target.closest(".products__quantity-plus");
+    const wrapper = btn.closest(".products__quantity");
+    const input = wrapper.querySelector(
+      ".products__quantity-input"
+    );
+    if (input) {
+      input.value = parseInt(input.value || 1) + 1;
+    }
+  }
+  if (e.target.closest(".products__quantity-minus")) {
+    const btn = e.target.closest(".products__quantity-minus");
+    const wrapper = btn.closest(".products__quantity");
+    const input = wrapper.querySelector(
+      ".products__quantity-input"
+    );
+    if (input) {
+      let value = parseInt(input.value || 1);
+      if (value > 1) {
+        input.value = value - 1;
+      }
+    }
+  }
+});
 document.addEventListener("DOMContentLoaded", function() {
   const navButton = document.querySelector(".nav");
   const pageHeight = document.body.scrollHeight;

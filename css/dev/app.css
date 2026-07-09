@@ -2558,7 +2558,7 @@ textarea.input {
 }
 .products__items {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(16.875rem, auto));
+  grid-template-columns: repeat(auto-fill, minmax(14.375rem, auto));
 }
 .products__item {
   display: flex;

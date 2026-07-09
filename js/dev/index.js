@@ -12089,7 +12089,7 @@ class CartManager2 {
     this.initEvents();
     this.renderSidebar();
   }
-  // ДОБАВЛЕНИЕ ТОВАРА - только 1 раз!
+  // ДОБАВЛЕНИЕ ТОВАРА
   addToCart(product, quantity = 1) {
     if (!product.name) return;
     let existingItem = null;
@@ -12253,18 +12253,13 @@ class CartManager2 {
     if (overlay) overlay.classList.remove("active");
     document.body.style.overflow = "";
   }
-  // ОФОРМИТЬ ЗАКАЗ
+  // ОФОРМИТЬ ЗАКАЗ - просто закрываем корзину
   checkout() {
     if (this.cart.length === 0) {
       alert("Корзина пуста");
       return;
     }
     console.log("Заказ:", this.cart);
-    alert("✅ Заказ оформлен!");
-    this.cart = [];
-    this.saveCart();
-    this.updateCartCounter();
-    this.renderSidebar();
     this.closeSidebar();
   }
   // ИНИЦИАЛИЗАЦИЯ СОБЫТИЙ
@@ -12303,11 +12298,15 @@ document.addEventListener("click", function(e) {
   const priceEl = product.querySelector(".products__price");
   const imageEl = product.querySelector("[data-fls-addtocart-image]");
   const unitEl = product.querySelector(".products__unit");
+  let unit = "шт.";
+  if (unitEl) {
+    unit = unitEl.textContent.replace(/[()]/g, "").trim();
+  }
   const productData = {
     name: nameEl ? nameEl.textContent.trim() : "Товар",
     price: priceEl ? Number(priceEl.textContent.replace(/[^0-9.]/g, "")) : 0,
     image: imageEl ? imageEl.src : "",
-    unit: unitEl ? unitEl.textContent.replace(/[()]/g, "").trim() : "шт."
+    unit
   };
   cart.addToCart(productData, quantity);
 });

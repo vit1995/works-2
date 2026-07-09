@@ -12071,25 +12071,24 @@ class CartManager2 {
     this.loadCart();
     this.init();
   }
+  // ===============================
+  // ЗАГРУЗКА КОРЗИНЫ
+  // ===============================
   loadCart() {
     try {
       const saved = localStorage.getItem("cart");
       if (saved) {
         this.cart = JSON.parse(saved);
-        this.cart = this.cart.map((item) => {
-          return {
-            name: item.name || "",
-            image: item.image || "",
-            price: Number(item.price) || 0,
-            quantity: Number(item.quantity) || 1,
-            // сохраняем старую единицу
-            unit: item.unit || "шт."
-          };
-        });
-        this.saveCart();
       }
-    } catch (error) {
-      console.error("Ошибка загрузки корзины", error);
+      this.cart = this.cart.map((item) => ({
+        ...item,
+        unit: item.unit || ""
+      }));
+      console.log(
+        "Корзина загружена:",
+        this.cart
+      );
+    } catch (e) {
       this.cart = [];
     }
   }
@@ -12099,41 +12098,37 @@ class CartManager2 {
       JSON.stringify(this.cart)
     );
     console.log(
-      "Сохранена корзина:",
+      "Корзина сохранена:",
       this.cart
     );
   }
-  init() {
-    this.updateCartCounter();
-    this.initEvents();
-    this.renderSidebar();
-  }
+  // ===============================
+  // ДОБАВИТЬ ТОВАР
+  // ===============================
   addToCart(product, quantity = 1) {
-    console.log(
-      "Добавляем:",
-      product
+    if (!product.name) return;
+    let item = this.cart.find(
+      (x) => x.name === product.name
     );
-    const index = this.cart.findIndex(
-      (item) => item.name === product.name
-    );
-    if (index !== -1) {
-      this.cart[index].quantity += quantity;
-      if (product.unit) {
-        this.cart[index].unit = product.unit;
-      }
+    if (item) {
+      item.quantity += quantity;
+      item.unit = product.unit;
     } else {
       this.cart.push({
         name: product.name,
         image: product.image || "",
         price: Number(product.price) || 0,
         quantity,
-        unit: product.unit || "шт."
+        unit: product.unit || ""
       });
     }
     this.saveCart();
     this.updateCartCounter();
     this.renderSidebar();
   }
+  // ===============================
+  // КОЛИЧЕСТВО
+  // ===============================
   updateQuantity(index, change) {
     if (!this.cart[index]) return;
     this.cart[index].quantity += change;
@@ -12150,31 +12145,42 @@ class CartManager2 {
     this.updateCartCounter();
     this.renderSidebar();
   }
-  getTotalQuantity() {
-    return this.cart.reduce(
-      (sum, item) => sum + item.quantity,
-      0
-    );
-  }
   getTotal() {
     return this.cart.reduce(
       (sum, item) => sum + item.price * item.quantity,
       0
     );
   }
+  getTotalQuantity() {
+    return this.cart.reduce(
+      (sum, item) => sum + item.quantity,
+      0
+    );
+  }
   updateCartCounter() {
-    const counter = document.querySelector("[data-fls-addtocart]");
+    const counter = document.querySelector(
+      "[data-fls-addtocart]"
+    );
     if (counter) {
       counter.textContent = this.getTotalQuantity();
     }
   }
+  // ===============================
+  // ОТРИСОВКА
+  // ===============================
   renderSidebar() {
-    const box = document.getElementById("cartSidebarItems");
-    const total = document.getElementById("cartSidebarTotal");
+    const box = document.getElementById(
+      "cartSidebarItems"
+    );
+    const total = document.getElementById(
+      "cartSidebarTotal"
+    );
     if (!box) return;
     box.innerHTML = "";
     if (this.cart.length === 0) {
-      box.innerHTML = '<div class="cart-empty">🛒 Корзина пуста</div>';
+      box.innerHTML = `<div class="cart-empty">
+            🛒 Корзина пуста
+            </div>`;
       if (total)
         total.textContent = "0 Br";
       return;
@@ -12184,68 +12190,69 @@ class CartManager2 {
       div.className = "cart-item";
       div.innerHTML = `
 
-
-<img 
-class="cart-item__img"
-src="${item.image}"
->
-
-
-<div class="cart-item__info">
+            <img 
+            class="cart-item__img"
+            src="${item.image}"
+            >
 
 
-<div class="cart-item__name">
-${this.escapeHtml(item.name)}
-</div>
+            <div class="cart-item__info">
 
 
-
-<div class="cart-item__price">
-${item.price} Br
-</div>
+                <div class="cart-item__name">
+                ${this.escapeHtml(item.name)}
+                </div>
 
 
 
-<div class="cart-item__controls">
-
-
-<button 
-class="cart-minus"
-data-index="${index}">
-−
-</button>
+                <div class="cart-item__price">
+                ${item.price} Br
+                </div>
 
 
 
-<span class="cart-count">
-${item.quantity} ${item.unit}
-</span>
+                <div class="cart-item__controls">
+
+
+                    <button 
+                    class="cart-minus"
+                    data-index="${index}">
+                    −
+                    </button>
 
 
 
-<button 
-class="cart-plus"
-data-index="${index}">
-+
-</button>
+                    <span class="cart-count">
+
+                    ${item.quantity} ${item.unit}
+
+                    </span>
 
 
 
-<button 
-class="cart-remove"
-data-index="${index}">
-🗑
-</button>
+
+                    <button
+                    class="cart-plus"
+                    data-index="${index}">
+                    +
+                    </button>
 
 
 
-</div>
+                    <button
+                    class="cart-remove"
+                    data-index="${index}">
+                    🗑
+                    </button>
 
 
-</div>
+                </div>
 
 
-`;
+            </div>
+
+
+            `;
       box.appendChild(div);
     });
     if (total) {
@@ -12279,15 +12286,16 @@ data-index="${index}">
     });
   }
   escapeHtml(text) {
-    return String(text).replace(/[&<>"']/g, function(m) {
-      return {
+    return text.replace(
+      /[&<>"']/g,
+      (m) => ({
         "&": "&amp;",
         "<": "&lt;",
         ">": "&gt;",
         '"': "&quot;",
         "'": "&#039;"
-      }[m];
-    });
+      })[m]
+    );
   }
   openSidebar() {
     document.getElementById("cartSidebar")?.classList.add("open");
@@ -12297,79 +12305,92 @@ data-index="${index}">
     document.getElementById("cartSidebar")?.classList.remove("open");
     document.getElementById("cartOverlay")?.classList.remove("active");
   }
-  initEvents() {
-    document.querySelector("[data-fls-cart-icon]")?.addEventListener(
-      "click",
-      () => this.openSidebar()
+  init() {
+    this.updateCartCounter();
+    this.renderSidebar();
+    const icon = document.querySelector(
+      "[data-fls-cart-icon]"
     );
+    if (icon) {
+      icon.onclick = () => this.openSidebar();
+    }
     document.getElementById("closeCartSidebar")?.addEventListener(
-      "click",
-      () => this.closeSidebar()
-    );
-    document.getElementById("cartOverlay")?.addEventListener(
       "click",
       () => this.closeSidebar()
     );
   }
 }
 const cart = new CartManager2();
-document.addEventListener("click", function(e) {
-  const btn = e.target.closest("[data-fls-addtocart-button]");
-  if (!btn) return;
-  e.preventDefault();
-  const product = btn.closest("[data-fls-addtocart-product]");
-  if (!product) return;
-  let quantity = 1;
-  const quantityInput = product.querySelector("[data-fls-addtocart-quantity]");
-  if (quantityInput) {
-    quantity = Number(quantityInput.value) || 1;
+document.addEventListener(
+  "click",
+  function(e) {
+    const button = e.target.closest(
+      "[data-fls-addtocart-button]"
+    );
+    if (!button) return;
+    e.preventDefault();
+    const product = button.closest(
+      "[data-fls-addtocart-product]"
+    );
+    if (!product) return;
+    const name = product.querySelector(
+      ".products__name"
+    )?.textContent.trim();
+    const price = Number(
+      product.querySelector(
+        ".products__price"
+      ).textContent.replace(/\D/g, "")
+    );
+    const image = product.querySelector(
+      "[data-fls-addtocart-image]"
+    )?.src || "";
+    const quantity = Number(
+      product.querySelector(
+        "[data-fls-addtocart-quantity]"
+      )?.value
+    ) || 1;
+    const unit = product.dataset.unit || "";
+    console.log(
+      "Добавляем:",
+      {
+        name,
+        price,
+        quantity,
+        unit
+      }
+    );
+    cart.addToCart(
+      {
+        name,
+        price,
+        image,
+        unit
+      },
+      quantity
+    );
   }
-  const nameEl = product.querySelector(".products__name");
-  const priceEl = product.querySelector(".products__price");
-  const imageEl = product.querySelector("[data-fls-addtocart-image]");
-  product.querySelector(".products__unit");
-  let unit = "шт.";
-  if (product.dataset.unit) {
-    unit = product.dataset.unit.trim();
-  }
-  let price = 0;
-  if (priceEl) {
-    const priceText = priceEl.textContent.replace(/[^0-9.]/g, "");
-    price = Number(priceText) || 0;
-  }
-  const productData = {
-    name: nameEl ? nameEl.textContent.trim() : "Товар",
-    price,
-    image: imageEl ? imageEl.src : "",
-    unit
-  };
-  console.log("Перед корзиной:", productData);
-  cart.addToCart(productData, quantity);
-});
-document.addEventListener("click", function(e) {
-  const plusBtn = e.target.closest(".products__quantity-plus");
-  if (plusBtn) {
-    const wrapper = plusBtn.closest(".products__quantity");
-    const input = wrapper.querySelector(".products__quantity-input");
-    if (input) {
+);
+document.addEventListener(
+  "click",
+  function(e) {
+    const plus = e.target.closest(
+      ".products__quantity-plus"
+    );
+    if (plus) {
+      const input = plus.parentElement.querySelector("input");
       input.value = Number(input.value) + 1;
     }
-    return;
-  }
-  const minusBtn = e.target.closest(".products__quantity-minus");
-  if (minusBtn) {
-    const wrapper = minusBtn.closest(".products__quantity");
-    const input = wrapper.querySelector(".products__quantity-input");
-    if (input) {
-      let value = Number(input.value);
-      if (value > 1) {
-        input.value = value - 1;
+    const minus = e.target.closest(
+      ".products__quantity-minus"
+    );
+    if (minus) {
+      const input = minus.parentElement.querySelector("input");
+      if (Number(input.value) > 1) {
+        input.value = Number(input.value) - 1;
       }
     }
-    return;
   }
-});
-localStorage.removeItem("cart");
+);
 document.addEventListener("DOMContentLoaded", function() {
   const navButton = document.querySelector(".nav");
   const pageHeight = document.body.scrollHeight;

@@ -2829,7 +2829,6 @@ textarea.input {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.25rem;
   font-size: 1.125rem;
 }
 .cart-sidebar__total strong {
@@ -2996,7 +2995,6 @@ textarea.input {
   }
 }
 .cart-client-type {
-  margin-bottom: 1.25rem;
   padding: 0.75rem;
   background: #f5f5f5;
   border-radius: 0.625rem;
@@ -3776,6 +3774,9 @@ body::after {
   .contacts__item-block {
     font-size: 0.875rem;
   }
+  .cart-sidebar__footer > *:not(:last-child) {
+    margin-bottom: 0.9375rem;
+  }
   .individual-fields > *:not(:last-child),
   .legal-fields > *:not(:last-child) {
     margin-bottom: 0.9375rem;
@@ -4072,6 +4073,9 @@ body::after {
   }
   .contacts__item-block {
     font-size: clamp( 0.875rem , 0.82954545454375rem  +  0.2272727273vw , 1rem );
+  }
+  .cart-sidebar__footer > *:not(:last-child) {
+    margin-bottom: clamp( 0.9375rem , 0.8238636363625rem  +  0.5681818182vw , 1.25rem );
   }
   .individual-fields > *:not(:last-child),
   .legal-fields > *:not(:last-child) {
@@ -4405,6 +4409,9 @@ body::after {
   }
   .contacts__item-block {
     font-size: 1rem;
+  }
+  .cart-sidebar__footer > *:not(:last-child) {
+    margin-bottom: 1.25rem;
   }
   .individual-fields > *:not(:last-child),
   .legal-fields > *:not(:last-child) {

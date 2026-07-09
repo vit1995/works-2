@@ -5882,7 +5882,7 @@ let Popup$1 = class Popup2 {
     }
   }
 };
-class CartManager {
+let CartManager$1 = class CartManager {
   constructor() {
     this.cart = [];
     this.loadCart();
@@ -6168,12 +6168,12 @@ class CartManager {
       checkoutBtn.addEventListener("click", () => this.checkout());
     }
   }
-}
+};
 document.querySelector("[data-fls-popup]") ? window.addEventListener("load", () => window.flsPopup = new Popup$1({})) : null;
 (function() {
   const cartElement = document.querySelector("[data-fls-addtocart]");
   if (!cartElement) return;
-  const cartManager = new CartManager();
+  const cartManager = new CartManager$1();
   document.addEventListener("click", async (e) => {
     const button = e.target.closest("[data-fls-addtocart-button]");
     if (!button) return;
@@ -12065,7 +12065,7 @@ function formInit() {
   formFieldsInit();
 }
 document.querySelector("[data-fls-form]") ? window.addEventListener("load", formInit) : null;
-let CartManager$1 = class CartManager2 {
+class CartManager2 {
   constructor() {
     this.cart = [];
     this.loadCart();
@@ -12116,7 +12116,6 @@ let CartManager$1 = class CartManager2 {
         price: parseFloat(productData.price) || 0,
         quantity,
         unit: productData.unit || "шт."
-        // Добавляем единицу измерения
       });
     }
     this.saveCart();
@@ -12195,27 +12194,29 @@ let CartManager$1 = class CartManager2 {
       `;
       sidebarItems.appendChild(itemElement);
     });
-    sidebarItems.querySelectorAll(".cart-item__decr").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
+    if (this._cartClickHandler) {
+      sidebarItems.removeEventListener("click", this._cartClickHandler);
+    }
+    this._cartClickHandler = (e) => {
+      const target = e.target.closest("button");
+      if (!target) return;
+      const index = parseInt(target.dataset.index);
+      if (isNaN(index)) return;
+      if (target.classList.contains("cart-item__decr")) {
+        e.preventDefault();
         e.stopPropagation();
-        const index = parseInt(btn.dataset.index);
         this.updateQuantity(index, -1);
-      });
-    });
-    sidebarItems.querySelectorAll(".cart-item__incr").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
+      } else if (target.classList.contains("cart-item__incr")) {
+        e.preventDefault();
         e.stopPropagation();
-        const index = parseInt(btn.dataset.index);
         this.updateQuantity(index, 1);
-      });
-    });
-    sidebarItems.querySelectorAll(".cart-item__remove").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
+      } else if (target.classList.contains("cart-item__remove")) {
+        e.preventDefault();
         e.stopPropagation();
-        const index = parseInt(btn.dataset.index);
         this.removeFromCart(index);
-      });
-    });
+      }
+    };
+    sidebarItems.addEventListener("click", this._cartClickHandler);
     if (sidebarTotal) {
       sidebarTotal.textContent = this.getTotal() + " Br";
     }
@@ -12358,12 +12359,12 @@ let CartManager$1 = class CartManager2 {
       checkoutBtn.addEventListener("click", () => this.checkout());
     }
   }
-};
+}
 document.querySelector("[data-fls-popup]") ? window.addEventListener("load", () => window.flsPopup = new Popup({})) : null;
 (function() {
   const cartElement = document.querySelector("[data-fls-addtocart]");
   if (!cartElement) return;
-  const cartManager = new CartManager$1();
+  const cartManager = new CartManager2();
   document.addEventListener("click", async (e) => {
     const button = e.target.closest("[data-fls-addtocart-button]");
     if (!button) return;
@@ -12404,7 +12405,6 @@ document.querySelector("[data-fls-popup]") ? window.addEventListener("load", () 
       price: priceEl ? parseFloat(priceEl.dataset.price || priceEl.textContent.replace(/[^0-9.-]/g, "")) : 1e3,
       image: imageEl ? imageEl.src || imageEl.currentSrc : "",
       unit
-      // Добавляем единицу измерения
     };
     if (imageEl && addToCart) {
       const flyImg = document.createElement("img");

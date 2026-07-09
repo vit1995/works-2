@@ -5599,7 +5599,7 @@ function initSliders() {
   }
 }
 document.querySelector("[data-fls-slider]") ? window.addEventListener("load", initSliders) : null;
-class Popup {
+let Popup$1 = class Popup2 {
   constructor(options) {
     let config = {
       logging: true,
@@ -5881,8 +5881,8 @@ class Popup {
       focusable[0].focus();
     }
   }
-}
-let CartManager$1 = class CartManager {
+};
+class CartManager {
   constructor() {
     this.cart = [];
     this.loadCart();
@@ -6168,12 +6168,12 @@ let CartManager$1 = class CartManager {
       checkoutBtn.addEventListener("click", () => this.checkout());
     }
   }
-};
-document.querySelector("[data-fls-popup]") ? window.addEventListener("load", () => window.flsPopup = new Popup({})) : null;
+}
+document.querySelector("[data-fls-popup]") ? window.addEventListener("load", () => window.flsPopup = new Popup$1({})) : null;
 (function() {
   const cartElement = document.querySelector("[data-fls-addtocart]");
   if (!cartElement) return;
-  const cartManager = new CartManager$1();
+  const cartManager = new CartManager();
   document.addEventListener("click", async (e) => {
     const button = e.target.closest("[data-fls-addtocart-button]");
     if (!button) return;
@@ -12065,337 +12065,375 @@ function formInit() {
   formFieldsInit();
 }
 document.querySelector("[data-fls-form]") ? window.addEventListener("load", formInit) : null;
-class CartManager2 {
+let CartManager$1 = class CartManager2 {
   constructor() {
     this.cart = [];
     this.loadCart();
     this.init();
   }
-  // ===============================
-  // ЗАГРУЗКА КОРЗИНЫ
-  // ===============================
   loadCart() {
     try {
-      const saved = localStorage.getItem("cart");
-      if (saved) {
-        this.cart = JSON.parse(saved);
+      const savedCart = localStorage.getItem("cart");
+      if (savedCart) {
+        this.cart = JSON.parse(savedCart);
       }
-      this.cart = this.cart.map((item) => ({
-        ...item,
-        unit: item.unit || ""
-      }));
-      console.log(
-        "Корзина загружена:",
-        this.cart
-      );
     } catch (e) {
+      console.warn("Error loading cart:", e);
       this.cart = [];
     }
   }
-  saveCart() {
-    localStorage.setItem(
-      "cart",
-      JSON.stringify(this.cart)
-    );
-    console.log(
-      "Корзина сохранена:",
-      this.cart
-    );
+  init() {
+    this.updateCartCounter();
+    this.initEventListeners();
+    this.renderSidebar();
+    this.initClientTypeToggle();
   }
-  // ===============================
-  // ДОБАВИТЬ ТОВАР
-  // ===============================
-  addToCart(product, quantity = 1) {
-    if (!product.name) return;
-    let item = this.cart.find(
-      (x) => x.name === product.name
-    );
-    if (item) {
-      item.quantity += quantity;
-      item.unit = product.unit;
+  getClientType() {
+    const selected = document.querySelector('#cartSidebar input[name="clientType"]:checked');
+    return selected ? selected.value : "individual";
+  }
+  initClientTypeToggle() {
+    const radios = document.querySelectorAll('#cartSidebar input[name="clientType"]');
+    if (!radios.length) return;
+    radios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        console.log("Выбран тип:", this.getClientType());
+      });
+    });
+  }
+  addToCart(productData, quantity = 1) {
+    if (!productData || !productData.name) return;
+    const existingItem = this.cart.find((item) => item.name === productData.name);
+    if (existingItem) {
+      existingItem.quantity += quantity;
+      if (productData.unit) {
+        existingItem.unit = productData.unit;
+      }
     } else {
       this.cart.push({
-        name: product.name,
-        image: product.image || "",
-        price: Number(product.price) || 0,
+        name: productData.name,
+        image: productData.image || "",
+        price: parseFloat(productData.price) || 0,
         quantity,
-        unit: product.unit || ""
+        unit: productData.unit || "шт."
+        // Добавляем единицу измерения
       });
     }
     this.saveCart();
     this.updateCartCounter();
     this.renderSidebar();
+    this.showNotification("Товар добавлен в корзину!");
   }
-  // ===============================
-  // КОЛИЧЕСТВО
-  // ===============================
-  updateQuantity(index, change) {
-    if (!this.cart[index]) return;
-    this.cart[index].quantity += change;
-    if (this.cart[index].quantity <= 0) {
+  removeFromCart(index) {
+    if (index >= 0 && index < this.cart.length) {
       this.cart.splice(index, 1);
+      this.saveCart();
+      this.updateCartCounter();
+      this.renderSidebar();
+      this.showNotification("Товар удален из корзины");
     }
-    this.saveCart();
-    this.updateCartCounter();
-    this.renderSidebar();
   }
-  removeItem(index) {
-    this.cart.splice(index, 1);
-    this.saveCart();
-    this.updateCartCounter();
-    this.renderSidebar();
+  updateQuantity(index, change) {
+    if (index >= 0 && index < this.cart.length) {
+      const newQuantity = this.cart[index].quantity + change;
+      if (newQuantity > 0) {
+        this.cart[index].quantity = newQuantity;
+      } else {
+        this.removeFromCart(index);
+        return;
+      }
+      this.saveCart();
+      this.updateCartCounter();
+      this.renderSidebar();
+    }
   }
   getTotal() {
-    return this.cart.reduce(
-      (sum, item) => sum + item.price * item.quantity,
-      0
-    );
+    return this.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
   getTotalQuantity() {
-    return this.cart.reduce(
-      (sum, item) => sum + item.quantity,
-      0
-    );
+    return this.cart.reduce((sum, item) => sum + item.quantity, 0);
+  }
+  saveCart() {
+    try {
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+    } catch (e) {
+      console.warn("Error saving cart:", e);
+    }
   }
   updateCartCounter() {
-    const counter = document.querySelector(
-      "[data-fls-addtocart]"
-    );
-    if (counter) {
-      counter.textContent = this.getTotalQuantity();
+    const cartCounter = document.querySelector("[data-fls-addtocart]");
+    if (cartCounter) {
+      cartCounter.textContent = this.getTotalQuantity();
     }
   }
-  // ===============================
-  // ОТРИСОВКА
-  // ===============================
   renderSidebar() {
-    const box = document.getElementById(
-      "cartSidebarItems"
-    );
-    const total = document.getElementById(
-      "cartSidebarTotal"
-    );
-    if (!box) return;
-    box.innerHTML = "";
+    const sidebarItems = document.getElementById("cartSidebarItems");
+    const sidebarTotal = document.getElementById("cartSidebarTotal");
+    if (!sidebarItems) return;
     if (this.cart.length === 0) {
-      box.innerHTML = `<div class="cart-empty">
-            🛒 Корзина пуста
-            </div>`;
-      if (total)
-        total.textContent = "0 Br";
+      sidebarItems.innerHTML = '<div class="cart-empty">🛒 Корзина пуста</div>';
+      if (sidebarTotal) sidebarTotal.textContent = "0 Br";
       return;
     }
+    sidebarItems.innerHTML = "";
     this.cart.forEach((item, index) => {
-      const div = document.createElement("div");
-      div.className = "cart-item";
-      div.innerHTML = `
-
-            <img 
-            class="cart-item__img"
-            src="${item.image}"
-            >
-
-
-            <div class="cart-item__info">
-
-
-                <div class="cart-item__name">
-                ${this.escapeHtml(item.name)}
-                </div>
-
-
-
-                <div class="cart-item__price">
-                ${item.price} Br
-                </div>
-
-
-
-                <div class="cart-item__controls">
-
-
-                    <button 
-                    class="cart-minus"
-                    data-index="${index}">
-                    −
-                    </button>
-
-
-
-                    <span class="cart-count">
-
-                    ${item.quantity} ${item.unit}
-
-                    </span>
-
-
-
-
-                    <button
-                    class="cart-plus"
-                    data-index="${index}">
-                    +
-                    </button>
-
-
-
-                    <button
-                    class="cart-remove"
-                    data-index="${index}">
-                    🗑
-                    </button>
-
-
-                </div>
-
-
-            </div>
-
-
-            `;
-      box.appendChild(div);
+      const itemElement = document.createElement("div");
+      itemElement.className = "cart-item";
+      const unit = item.unit || "шт.";
+      itemElement.innerHTML = `
+        <img class="cart-item__img" src="${item.image || ""}" alt="${this.escapeHtml(item.name)}">
+        <div class="cart-item__info">
+          <div class="cart-item__name">${this.escapeHtml(item.name)}</div>
+          <div class="cart-item__price">${item.price} Br</div>
+          <div class="cart-item__controls">
+            <button class="cart-item__decr" data-index="${index}">−</button>
+            <span class="cart-item__quantity">${item.quantity} ${this.escapeHtml(unit)}</span>
+            <button class="cart-item__incr" data-index="${index}">+</button>
+            <button class="cart-item__remove" data-index="${index}">🗑️</button>
+          </div>
+        </div>
+      `;
+      sidebarItems.appendChild(itemElement);
     });
-    if (total) {
-      total.textContent = this.getTotal() + " Br";
+    sidebarItems.querySelectorAll(".cart-item__decr").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const index = parseInt(btn.dataset.index);
+        this.updateQuantity(index, -1);
+      });
+    });
+    sidebarItems.querySelectorAll(".cart-item__incr").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const index = parseInt(btn.dataset.index);
+        this.updateQuantity(index, 1);
+      });
+    });
+    sidebarItems.querySelectorAll(".cart-item__remove").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const index = parseInt(btn.dataset.index);
+        this.removeFromCart(index);
+      });
+    });
+    if (sidebarTotal) {
+      sidebarTotal.textContent = this.getTotal() + " Br";
     }
-    this.addCartEvents();
   }
-  addCartEvents() {
-    document.querySelectorAll(".cart-minus").forEach((btn) => {
-      btn.onclick = () => {
-        this.updateQuantity(
-          Number(btn.dataset.index),
-          -1
-        );
-      };
-    });
-    document.querySelectorAll(".cart-plus").forEach((btn) => {
-      btn.onclick = () => {
-        this.updateQuantity(
-          Number(btn.dataset.index),
-          1
-        );
-      };
-    });
-    document.querySelectorAll(".cart-remove").forEach((btn) => {
-      btn.onclick = () => {
-        this.removeItem(
-          Number(btn.dataset.index)
-        );
-      };
+  escapeHtml(str) {
+    if (!str) return "";
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === "&") return "&amp;";
+      if (m === "<") return "&lt;";
+      if (m === ">") return "&gt;";
+      return m;
     });
   }
-  escapeHtml(text) {
-    return text.replace(
-      /[&<>"']/g,
-      (m) => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;"
-      })[m]
-    );
+  showNotification(message) {
+    const notification = document.createElement("div");
+    notification.className = "cart-notification";
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    setTimeout(() => {
+      notification.classList.add("hide");
+      setTimeout(() => notification.remove(), 300);
+    }, 2e3);
   }
   openSidebar() {
-    document.getElementById("cartSidebar")?.classList.add("open");
-    document.getElementById("cartOverlay")?.classList.add("active");
+    const sidebar = document.getElementById("cartSidebar");
+    const overlay = document.getElementById("cartOverlay");
+    if (sidebar) sidebar.classList.add("open");
+    if (overlay) overlay.classList.add("active");
+    document.body.style.overflow = "hidden";
   }
   closeSidebar() {
-    document.getElementById("cartSidebar")?.classList.remove("open");
-    document.getElementById("cartOverlay")?.classList.remove("active");
+    const sidebar = document.getElementById("cartSidebar");
+    const overlay = document.getElementById("cartOverlay");
+    if (sidebar) sidebar.classList.remove("open");
+    if (overlay) overlay.classList.remove("active");
+    document.body.style.overflow = "";
   }
-  init() {
-    this.updateCartCounter();
-    this.renderSidebar();
-    const icon = document.querySelector(
-      "[data-fls-cart-icon]"
-    );
-    if (icon) {
-      icon.onclick = () => this.openSidebar();
+  prepareAndOpenOrderPopup() {
+    if (this.cart.length === 0) {
+      this.showNotification("Корзина пуста!");
+      return false;
     }
-    document.getElementById("closeCartSidebar")?.addEventListener(
-      "click",
-      () => this.closeSidebar()
-    );
+    this.closeSidebar();
+    const clientType = this.getClientType();
+    const orderItems = this.cart.map((item) => ({
+      name: item.name,
+      quantity: item.quantity,
+      price: item.price,
+      total: item.price * item.quantity,
+      unit: item.unit || "шт."
+    }));
+    const orderTotal = this.getTotal();
+    let orderSummaryHtml = `
+      <div class="order-summary">
+        <div class="order-summary__title">📦 Ваш заказ:</div>
+        <div class="order-summary__items">
+    `;
+    orderItems.forEach((item) => {
+      orderSummaryHtml += `
+        <div class="order-summary__item">
+          <span class="order-summary__name">${this.escapeHtml(item.name)}</span>
+          <span class="order-summary__qty">${item.quantity} ${this.escapeHtml(item.unit)}</span>
+          <span class="order-summary__price">${item.price.toLocaleString()} Br</span>
+          <span class="order-summary__total">${item.total.toLocaleString()} Br</span>
+        </div>
+      `;
+    });
+    orderSummaryHtml += `
+        </div>
+        <div class="order-summary__total-block">
+          Итого: <strong>${orderTotal.toLocaleString()} Br</strong>
+        </div>
+      </div>
+    `;
+    const summaryContainer = document.getElementById("orderSummaryContainer");
+    if (summaryContainer) {
+      summaryContainer.innerHTML = orderSummaryHtml;
+    }
+    let hiddenFields = document.getElementById("hiddenOrderFields");
+    if (!hiddenFields) {
+      hiddenFields = document.createElement("div");
+      hiddenFields.id = "hiddenOrderFields";
+      const orderForm = document.getElementById("orderForm");
+      if (orderForm) {
+        orderForm.insertBefore(hiddenFields, orderForm.firstChild);
+      }
+    }
+    hiddenFields.innerHTML = `
+      <input type="hidden" name="order_type" value="${clientType}">
+      <input type="hidden" name="order_items" value='${JSON.stringify(orderItems)}'>
+      <input type="hidden" name="order_total" value="${orderTotal}">
+    `;
+    const individualBlock = document.getElementById("individualFieldsBlock");
+    const legalBlock = document.getElementById("legalFieldsBlock");
+    const popupTitle = document.querySelector('[data-fls-popup="popup-order"] .popup__title');
+    const popupText = document.querySelector('[data-fls-popup="popup-order"] .popup__text');
+    if (clientType === "individual") {
+      if (individualBlock) individualBlock.style.display = "block";
+      if (legalBlock) legalBlock.style.display = "none";
+      if (popupTitle) popupTitle.textContent = "Оформление заказа - Физическое лицо";
+      if (popupText) popupText.textContent = "Заполните контактные данные для доставки";
+    } else {
+      if (individualBlock) individualBlock.style.display = "none";
+      if (legalBlock) legalBlock.style.display = "block";
+      if (popupTitle) popupTitle.textContent = "Оформление заказа - Юридическое лицо";
+      if (popupText) popupText.textContent = "Заполните реквизиты организации";
+    }
+    setTimeout(() => {
+      if (window.flsPopup) {
+        window.flsPopup.open("popup-order");
+      } else {
+        const popupElement = document.querySelector('[data-fls-popup="popup-order"]');
+        if (popupElement) {
+          popupElement.setAttribute("data-fls-popup-active", "");
+          document.documentElement.setAttribute("data-fls-popup-open", "");
+          popupElement.setAttribute("aria-hidden", "false");
+        }
+      }
+    }, 100);
+    return true;
   }
-}
-const cart = new CartManager2();
-document.addEventListener(
-  "click",
-  function(e) {
-    const button = e.target.closest(
-      "[data-fls-addtocart-button]"
-    );
+  checkout() {
+    this.prepareAndOpenOrderPopup();
+  }
+  initEventListeners() {
+    const cartIcon = document.querySelector("[data-fls-cart-icon]");
+    if (cartIcon) {
+      cartIcon.addEventListener("click", () => this.openSidebar());
+    }
+    const closeBtn = document.getElementById("closeCartSidebar");
+    const overlay = document.getElementById("cartOverlay");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", () => this.closeSidebar());
+    }
+    if (overlay) {
+      overlay.addEventListener("click", () => this.closeSidebar());
+    }
+    const checkoutBtn = document.getElementById("checkoutBtn");
+    if (checkoutBtn) {
+      checkoutBtn.addEventListener("click", () => this.checkout());
+    }
+  }
+};
+document.querySelector("[data-fls-popup]") ? window.addEventListener("load", () => window.flsPopup = new Popup({})) : null;
+(function() {
+  const cartElement = document.querySelector("[data-fls-addtocart]");
+  if (!cartElement) return;
+  const cartManager = new CartManager$1();
+  document.addEventListener("click", async (e) => {
+    const button = e.target.closest("[data-fls-addtocart-button]");
     if (!button) return;
     e.preventDefault();
-    const product = button.closest(
-      "[data-fls-addtocart-product]"
-    );
-    if (!product) return;
-    const nameEl = product.querySelector(".products__name");
-    const name = nameEl ? nameEl.textContent.trim() : "Товар";
-    const priceEl = product.querySelector(".products__price");
-    let price = 0;
-    if (priceEl) {
-      const priceText = priceEl.textContent.replace(/[^0-9.]/g, "");
-      price = Number(priceText) || 0;
+    const addToCart = document.querySelector("[data-fls-addtocart]");
+    const productBlock = button.closest("[data-fls-addtocart-product]");
+    if (!productBlock) {
+      if (addToCart) {
+        addToCart.textContent = parseInt(addToCart.textContent || 0) + 1;
+      }
+      return;
     }
-    const imageEl = product.querySelector("[data-fls-addtocart-image]");
-    const image = imageEl ? imageEl.src : "";
-    const quantityInput = product.querySelector("[data-fls-addtocart-quantity]");
-    const quantity = quantityInput ? Number(quantityInput.value) || 1 : 1;
-    let unit = product.dataset.productUnit || product.dataset.unit;
-    if (!unit) {
-      const unitEl = product.querySelector(".products__unit");
+    let quantity = 1;
+    const quantityInput = productBlock.querySelector("[data-fls-addtocart-quantity]");
+    if (quantityInput) {
+      quantity = parseInt(quantityInput.value) || 1;
+    }
+    const nameEl = productBlock.querySelector("[data-name], .product__name, .products__name");
+    const priceEl = productBlock.querySelector("[data-price], .product__price, .products__price");
+    const imageEl = productBlock.querySelector("[data-fls-addtocart-image] img, [data-fls-addtocart-image]");
+    let unit = "шт.";
+    if (productBlock.dataset.productUnit) {
+      unit = productBlock.dataset.productUnit;
+    } else if (productBlock.dataset.unit) {
+      unit = productBlock.dataset.unit;
+    } else {
+      const unitEl = productBlock.querySelector(".products__unit");
       if (unitEl) {
-        unit = unitEl.dataset.unit;
-        if (!unit) {
+        if (unitEl.dataset.unit) {
+          unit = unitEl.dataset.unit;
+        } else {
           unit = unitEl.textContent.replace(/[()]/g, "").trim();
         }
       }
     }
-    if (!unit) {
-      unit = "шт.";
-    }
-    console.log("Добавляем товар:", {
-      name,
-      price,
-      quantity,
+    const productData = {
+      name: nameEl ? nameEl.dataset.name || nameEl.textContent.trim() : "Товар",
+      price: priceEl ? parseFloat(priceEl.dataset.price || priceEl.textContent.replace(/[^0-9.-]/g, "")) : 1e3,
+      image: imageEl ? imageEl.src || imageEl.currentSrc : "",
       unit
-    });
-    cart.addToCart(
-      {
-        name,
-        price,
-        image,
-        unit
-      },
-      quantity
-    );
-  }
-);
-document.addEventListener(
-  "click",
-  function(e) {
-    const plus = e.target.closest(
-      ".products__quantity-plus"
-    );
-    if (plus) {
-      const input = plus.parentElement.querySelector("input");
-      input.value = Number(input.value) + 1;
+      // Добавляем единицу измерения
+    };
+    if (imageEl && addToCart) {
+      const flyImg = document.createElement("img");
+      flyImg.src = imageEl.src || imageEl.currentSrc;
+      flyImg.style.cssText = `
+        position: fixed;
+        left: ${imageEl.getBoundingClientRect().left}px;
+        top: ${imageEl.getBoundingClientRect().top}px;
+        width: ${imageEl.offsetWidth}px;
+        height: auto;
+        z-index: 10000;
+        pointer-events: none;
+        border-radius: 8px;
+      `;
+      document.body.appendChild(flyImg);
+      setTimeout(() => {
+        const cartRect = addToCart.getBoundingClientRect();
+        flyImg.style.transition = "all 500ms cubic-bezier(0.2, 0.9, 0.4, 1.1)";
+        flyImg.style.left = `${cartRect.left + cartRect.width / 2}px`;
+        flyImg.style.top = `${cartRect.top + cartRect.height / 2}px`;
+        flyImg.style.width = "0px";
+        flyImg.style.opacity = "0";
+      }, 10);
+      setTimeout(() => flyImg.remove(), 510);
+      await new Promise((resolve) => setTimeout(resolve, 500));
     }
-    const minus = e.target.closest(
-      ".products__quantity-minus"
-    );
-    if (minus) {
-      const input = minus.parentElement.querySelector("input");
-      if (Number(input.value) > 1) {
-        input.value = Number(input.value) - 1;
-      }
-    }
-  }
-);
+    cartManager.addToCart(productData, quantity);
+  });
+})();
 document.addEventListener("DOMContentLoaded", function() {
   const navButton = document.querySelector(".nav");
   const pageHeight = document.body.scrollHeight;

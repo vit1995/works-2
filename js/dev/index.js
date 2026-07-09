@@ -12109,9 +12109,7 @@ class CartManager2 {
     }
     if (existingItem) {
       existingItem.quantity += quantity;
-      if (product.unit) {
-        existingItem.unit = product.unit;
-      }
+      existingItem.unit = product.unit || existingItem.unit || "шт.";
       console.log("Обновлен существующий товар:", existingItem);
     } else {
       const newItem = {
@@ -12354,6 +12352,7 @@ document.addEventListener("click", function(e) {
     return;
   }
 });
+localStorage.removeItem("cart");
 document.addEventListener("DOMContentLoaded", function() {
   const navButton = document.querySelector(".nav");
   const pageHeight = document.body.scrollHeight;

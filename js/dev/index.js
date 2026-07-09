@@ -12068,7 +12068,6 @@ document.querySelector("[data-fls-form]") ? window.addEventListener("load", form
 class CartManager2 {
   constructor() {
     this.cart = [];
-    this.deliveryPrice = 10;
     this.loadCart();
     this.init();
   }
@@ -12083,10 +12082,7 @@ class CartManager2 {
     }
   }
   saveCart() {
-    localStorage.setItem(
-      "cart",
-      JSON.stringify(this.cart)
-    );
+    localStorage.setItem("cart", JSON.stringify(this.cart));
   }
   init() {
     this.updateCartCounter();
@@ -12095,9 +12091,7 @@ class CartManager2 {
   }
   addToCart(product, quantity = 1) {
     if (!product.name) return;
-    let item = this.cart.find(
-      (i) => i.name === product.name
-    );
+    let item = this.cart.find((i) => i.name === product.name);
     if (item) {
       item.quantity += quantity;
     } else {
@@ -12105,7 +12099,8 @@ class CartManager2 {
         name: product.name,
         image: product.image || "",
         price: Number(product.price),
-        quantity
+        quantity,
+        unit: product.unit || "шт."
       });
     }
     this.saveCart();
@@ -12123,50 +12118,30 @@ class CartManager2 {
     this.renderSidebar();
   }
   getProductsTotal() {
-    return this.cart.reduce(
-      (sum, item) => {
-        return sum + item.price * item.quantity;
-      },
-      0
-    );
-  }
-  getTotal() {
-    let products = this.getProductsTotal();
-    if (products === 0) {
-      return 0;
-    }
-    return products + this.deliveryPrice;
+    return this.cart.reduce((sum, item) => {
+      return sum + item.price * item.quantity;
+    }, 0);
   }
   getTotalQuantity() {
-    return this.cart.reduce(
-      (sum, item) => sum + item.quantity,
-      0
-    );
+    return this.cart.reduce((sum, item) => sum + item.quantity, 0);
   }
   updateCartCounter() {
-    const counter = document.querySelector(
-      "[data-fls-addtocart]"
-    );
+    const counter = document.querySelector("[data-fls-addtocart]");
     if (counter) {
       counter.textContent = this.getTotalQuantity();
     }
   }
   renderSidebar() {
-    const box = document.getElementById(
-      "cartSidebarItems"
-    );
-    const total = document.getElementById(
-      "cartSidebarTotal"
-    );
+    const box = document.getElementById("cartSidebarItems");
+    const total = document.getElementById("cartSidebarTotal");
     if (!box) return;
     if (this.cart.length === 0) {
-      box.innerHTML = `
-        <div class="cart-empty">
-          🛒 Корзина пуста
-        </div>
-      `;
+      box.innerHTML = `<div class="cart-empty">🛒 Корзина пуста</div>`;
       if (total) {
-        total.textContent = "0 Br";
+        total.innerHTML = `
+          <div class="cart-total-row">Итого: <strong>0 Br</strong></div>
+          <div class="cart-delivery-text">🚚 Доставка рассчитывается отдельно</div>
+        `;
       }
       return;
     }
@@ -12174,156 +12149,47 @@ class CartManager2 {
     this.cart.forEach((item, index) => {
       let itemTotal = item.price * item.quantity;
       let html = `
-
-      <div class="cart-item">
-
-
-        <img 
-        class="cart-item__img"
-        src="${item.image}"
-        >
-
-
-        <div class="cart-item__info">
-
-
-          <div class="cart-item__name">
-
-            ${this.escapeHtml(item.name)}
-
+        <div class="cart-item">
+          <img class="cart-item__img" src="${item.image}" alt="${this.escapeHtml(item.name)}">
+          <div class="cart-item__info">
+            <div class="cart-item__name">${this.escapeHtml(item.name)}</div>
+            <div class="cart-item__price">Цена: ${item.price} Br</div>
+            <div class="cart-item__controls">
+              <button class="cart-minus" data-index="${index}">−</button>
+              <span class="cart-count">${item.quantity} ${this.escapeHtml(item.unit || "шт.")}</span>
+              <button class="cart-plus" data-index="${index}">+</button>
+            </div>
+            <div class="cart-item__sum">Стоимость: ${itemTotal} Br</div>
+            <button class="cart-remove" data-index="${index}">🗑 Удалить</button>
           </div>
-
-
-
-          <div class="cart-item__price">
-
-            Цена:
-            ${item.price} Br
-
-          </div>
-
-
-
-          <div class="cart-item__controls">
-
-
-            <button 
-            class="cart-minus"
-            data-index="${index}">
-              −
-            </button>
-
-
-
-            <span class="cart-count">
-
-              ${item.quantity} шт.
-
-            </span>
-
-
-
-            <button 
-            class="cart-plus"
-            data-index="${index}">
-              +
-            </button>
-
-
-          </div>
-
-
-
-          <div class="cart-item__sum">
-
-            Стоимость:
-            ${itemTotal} Br
-
-          </div>
-
-
-
-          <button
-          class="cart-remove"
-          data-index="${index}">
-          
-            🗑 Удалить
-
-          </button>
-
-
-
         </div>
-
-
-      </div>
-
-
       `;
-      box.insertAdjacentHTML(
-        "beforeend",
-        html
-      );
+      box.insertAdjacentHTML("beforeend", html);
     });
     box.querySelectorAll(".cart-minus").forEach((btn) => {
       btn.onclick = () => {
-        this.updateQuantity(
-          Number(btn.dataset.index),
-          -1
-        );
+        this.updateQuantity(Number(btn.dataset.index), -1);
       };
     });
     box.querySelectorAll(".cart-plus").forEach((btn) => {
       btn.onclick = () => {
-        this.updateQuantity(
-          Number(btn.dataset.index),
-          1
-        );
+        this.updateQuantity(Number(btn.dataset.index), 1);
       };
     });
     box.querySelectorAll(".cart-remove").forEach((btn) => {
       btn.onclick = () => {
-        this.cart.splice(
-          Number(btn.dataset.index),
-          1
-        );
+        this.cart.splice(Number(btn.dataset.index), 1);
         this.saveCart();
         this.renderSidebar();
         this.updateCartCounter();
       };
     });
     if (total) {
+      const productsTotal = this.getProductsTotal();
       total.innerHTML = `
-
-      <div class="cart-total-row">
-
-        Товары:
-        <b>
-        ${this.getProductsTotal()} Br
-        </b>
-
-      </div>
-
-
-      <div class="cart-total-row">
-
-        Доставка:
-        <b>
-        ${this.deliveryPrice} Br
-        </b>
-
-      </div>
-
-
-      <div class="cart-total-final">
-
-        Итого:
-        <strong>
-        ${this.getTotal()} Br
-        </strong>
-
-      </div>
-
+        <div class="cart-total-row">Товары: <b>${productsTotal} Br</b></div>
+        <div class="cart-delivery-text">🚚 Доставка рассчитывается отдельно</div>
+        <div class="cart-total-final">Итого: <strong>${productsTotal} Br</strong></div>
       `;
     }
   }
@@ -12332,175 +12198,94 @@ class CartManager2 {
     return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
   openSidebar() {
-    const sidebar = document.getElementById(
-      "cartSidebar"
-    );
-    const overlay = document.getElementById(
-      "cartOverlay"
-    );
-    if (sidebar) {
-      sidebar.classList.add("open");
-    }
-    if (overlay) {
-      overlay.classList.add("active");
-    }
+    const sidebar = document.getElementById("cartSidebar");
+    const overlay = document.getElementById("cartOverlay");
+    if (sidebar) sidebar.classList.add("open");
+    if (overlay) overlay.classList.add("active");
     document.body.style.overflow = "hidden";
   }
   closeSidebar() {
-    const sidebar = document.getElementById(
-      "cartSidebar"
-    );
-    const overlay = document.getElementById(
-      "cartOverlay"
-    );
-    if (sidebar) {
-      sidebar.classList.remove("open");
-    }
-    if (overlay) {
-      overlay.classList.remove("active");
-    }
+    const sidebar = document.getElementById("cartSidebar");
+    const overlay = document.getElementById("cartOverlay");
+    if (sidebar) sidebar.classList.remove("open");
+    if (overlay) overlay.classList.remove("active");
     document.body.style.overflow = "";
   }
   checkout() {
     if (this.cart.length === 0) {
-      alert(
-        "Корзина пустая"
-      );
+      alert("Корзина пустая");
       return;
     }
-    console.log(
-      "Заказ:",
-      this.cart
-    );
-    console.log(
-      "Доставка:",
-      this.deliveryPrice
-    );
-    console.log(
-      "Итого:",
-      this.getTotal()
-    );
+    console.log("Заказ:", this.cart);
   }
   initEvents() {
-    const cartIcon = document.querySelector(
-      "[data-fls-cart-icon]"
-    );
+    const cartIcon = document.querySelector("[data-fls-cart-icon]");
     if (cartIcon) {
-      cartIcon.onclick = () => {
-        this.openSidebar();
-      };
+      cartIcon.onclick = () => this.openSidebar();
     }
-    const close = document.getElementById(
-      "closeCartSidebar"
-    );
+    const close = document.getElementById("closeCartSidebar");
     if (close) {
-      close.onclick = () => {
-        this.closeSidebar();
-      };
+      close.onclick = () => this.closeSidebar();
     }
-    const overlay = document.getElementById(
-      "cartOverlay"
-    );
+    const overlay = document.getElementById("cartOverlay");
     if (overlay) {
-      overlay.onclick = () => {
-        this.closeSidebar();
-      };
+      overlay.onclick = () => this.closeSidebar();
     }
-    const checkout = document.getElementById(
-      "checkoutBtn"
-    );
+    const checkout = document.getElementById("checkoutBtn");
     if (checkout) {
-      checkout.onclick = () => {
-        this.checkout();
-      };
+      checkout.onclick = () => this.checkout();
     }
   }
 }
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-    const cart = new CartManager2();
-    document.querySelectorAll(
-      "[data-fls-addtocart-product]"
-    ).forEach((product) => {
-      const input = product.querySelector(
-        "[data-fls-addtocart-quantity]"
-      );
-      const minus = product.querySelector(
-        ".quantity-minus"
-      );
-      const plus = product.querySelector(
-        ".quantity-plus"
-      );
-      if (input) {
-        if (minus) {
-          minus.onclick = () => {
-            let value = Number(input.value);
-            if (value > 1) {
-              input.value = value - 1;
-            }
-          };
-        }
-        if (plus) {
-          plus.onclick = () => {
-            input.value = Number(input.value) + 1;
-          };
-        }
-      }
-    });
-    document.addEventListener(
-      "click",
-      (e) => {
-        const btn = e.target.closest(
-          "[data-fls-addtocart-button]"
-        );
-        if (!btn) return;
-        e.preventDefault();
-        const product = btn.closest(
-          "[data-fls-addtocart-product]"
-        );
-        if (!product) return;
-        let quantity = 1;
-        const quantityInput = product.querySelector(
-          "[data-fls-addtocart-quantity]"
-        );
-        if (quantityInput) {
-          quantity = Number(quantityInput.value) || 1;
-        }
-        const name = product.querySelector(
-          ".products__name"
-        );
-        const price = product.querySelector(
-          ".products__price"
-        );
-        const image = product.querySelector(
-          "[data-fls-addtocart-image]"
-        );
-        const productData = {
-          name: name ? name.textContent.trim() : "Товар",
-          price: price ? Number(
-            price.textContent.replace(
-              /[^0-9.]/g,
-              ""
-            )
-          ) : 0,
-          image: image ? image.src : ""
+document.addEventListener("DOMContentLoaded", () => {
+  const cart = new CartManager2();
+  document.querySelectorAll("[data-fls-addtocart-product]").forEach((product) => {
+    const input = product.querySelector("[data-fls-addtocart-quantity]");
+    const minus = product.querySelector(".products__quantity-minus");
+    const plus = product.querySelector(".products__quantity-plus");
+    if (input) {
+      if (minus) {
+        minus.onclick = () => {
+          let value = Number(input.value);
+          if (value > 1) input.value = value - 1;
         };
-        cart.addToCart(
-          productData,
-          quantity
-        );
       }
-    );
-  }
-);
+      if (plus) {
+        plus.onclick = () => {
+          input.value = Number(input.value) + 1;
+        };
+      }
+    }
+  });
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-fls-addtocart-button]");
+    if (!btn) return;
+    e.preventDefault();
+    const product = btn.closest("[data-fls-addtocart-product]");
+    if (!product) return;
+    let quantity = 1;
+    const quantityInput = product.querySelector("[data-fls-addtocart-quantity]");
+    if (quantityInput) {
+      quantity = Number(quantityInput.value) || 1;
+    }
+    const name = product.querySelector(".products__name");
+    const price = product.querySelector(".products__price");
+    const image = product.querySelector("[data-fls-addtocart-image]");
+    const unit = product.querySelector(".products__unit");
+    const productData = {
+      name: name ? name.textContent.trim() : "Товар",
+      price: price ? Number(price.textContent.replace(/[^0-9.]/g, "")) : 0,
+      image: image ? image.src : "",
+      unit: unit ? unit.textContent.replace(/[()]/g, "").trim() : "шт."
+    };
+    cart.addToCart(productData, quantity);
+  });
+});
 document.addEventListener("click", function(e) {
   if (e.target.closest(".products__quantity-plus")) {
     const btn = e.target.closest(".products__quantity-plus");
     const wrapper = btn.closest(".products__quantity");
-    const input = wrapper.querySelector(
-      ".products__quantity-input"
-    );
+    const input = wrapper.querySelector(".products__quantity-input");
     if (input) {
       input.value = parseInt(input.value || 1) + 1;
     }
@@ -12508,14 +12293,10 @@ document.addEventListener("click", function(e) {
   if (e.target.closest(".products__quantity-minus")) {
     const btn = e.target.closest(".products__quantity-minus");
     const wrapper = btn.closest(".products__quantity");
-    const input = wrapper.querySelector(
-      ".products__quantity-input"
-    );
+    const input = wrapper.querySelector(".products__quantity-input");
     if (input) {
       let value = parseInt(input.value || 1);
-      if (value > 1) {
-        input.value = value - 1;
-      }
+      if (value > 1) input.value = value - 1;
     }
   }
 });

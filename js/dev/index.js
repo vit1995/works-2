@@ -12108,6 +12108,7 @@ class CartManager2 {
         price: Number(product.price) || 0,
         quantity,
         unit: product.unit || "шт."
+        // Сохраняем единицу измерения
       });
     }
     this.saveCart();
@@ -12171,6 +12172,7 @@ class CartManager2 {
     for (let i = 0; i < this.cart.length; i++) {
       const item = this.cart[i];
       const itemTotal = item.price * item.quantity;
+      const unit = item.unit || "шт.";
       const div = document.createElement("div");
       div.className = "cart-item";
       div.setAttribute("data-index", i);
@@ -12181,7 +12183,7 @@ class CartManager2 {
                     <div class="cart-item__price">${item.price} Br</div>
                     <div class="cart-item__controls">
                         <button class="cart-minus" data-index="${i}">−</button>
-                        <span class="cart-count">${item.quantity} ${this.escapeHtml(item.unit)}</span>
+                        <span class="cart-count">${item.quantity} ${this.escapeHtml(unit)}</span>
                         <button class="cart-plus" data-index="${i}">+</button>
                         <button class="cart-remove" data-index="${i}">🗑</button>
                     </div>
@@ -12253,7 +12255,7 @@ class CartManager2 {
     if (overlay) overlay.classList.remove("active");
     document.body.style.overflow = "";
   }
-  // ОФОРМИТЬ ЗАКАЗ - просто закрываем корзину
+  // ОФОРМИТЬ ЗАКАЗ
   checkout() {
     if (this.cart.length === 0) {
       alert("Корзина пуста");
@@ -12300,13 +12302,18 @@ document.addEventListener("click", function(e) {
   const unitEl = product.querySelector(".products__unit");
   let unit = "шт.";
   if (unitEl) {
-    unit = unitEl.textContent.replace(/[()]/g, "").trim();
+    if (unitEl.dataset.unit) {
+      unit = unitEl.dataset.unit;
+    } else {
+      unit = unitEl.textContent.replace(/[()]/g, "").trim();
+    }
   }
   const productData = {
     name: nameEl ? nameEl.textContent.trim() : "Товар",
     price: priceEl ? Number(priceEl.textContent.replace(/[^0-9.]/g, "")) : 0,
     image: imageEl ? imageEl.src : "",
     unit
+    // Передаем единицу измерения
   };
   cart.addToCart(productData, quantity);
 });

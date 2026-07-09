@@ -12349,7 +12349,7 @@ document.addEventListener(
         "[data-fls-addtocart-quantity]"
       )?.value
     ) || 1;
-    const unit = product.dataset.unit || "";
+    const unit = product.dataset.productUnit || product.dataset.unit || "шт.";
     console.log(
       "Добавляем:",
       {

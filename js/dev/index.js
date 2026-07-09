@@ -12333,32 +12333,37 @@ document.addEventListener(
       "[data-fls-addtocart-product]"
     );
     if (!product) return;
-    const name = product.querySelector(
-      ".products__name"
-    )?.textContent.trim();
-    const price = Number(
-      product.querySelector(
-        ".products__price"
-      ).textContent.replace(/\D/g, "")
-    );
-    const image = product.querySelector(
-      "[data-fls-addtocart-image]"
-    )?.src || "";
-    const quantity = Number(
-      product.querySelector(
-        "[data-fls-addtocart-quantity]"
-      )?.value
-    ) || 1;
-    const unit = product.dataset.productUnit || product.dataset.unit || "шт.";
-    console.log(
-      "Добавляем:",
-      {
-        name,
-        price,
-        quantity,
-        unit
+    const nameEl = product.querySelector(".products__name");
+    const name = nameEl ? nameEl.textContent.trim() : "Товар";
+    const priceEl = product.querySelector(".products__price");
+    let price = 0;
+    if (priceEl) {
+      const priceText = priceEl.textContent.replace(/[^0-9.]/g, "");
+      price = Number(priceText) || 0;
+    }
+    const imageEl = product.querySelector("[data-fls-addtocart-image]");
+    const image = imageEl ? imageEl.src : "";
+    const quantityInput = product.querySelector("[data-fls-addtocart-quantity]");
+    const quantity = quantityInput ? Number(quantityInput.value) || 1 : 1;
+    let unit = product.dataset.productUnit || product.dataset.unit;
+    if (!unit) {
+      const unitEl = product.querySelector(".products__unit");
+      if (unitEl) {
+        unit = unitEl.dataset.unit;
+        if (!unit) {
+          unit = unitEl.textContent.replace(/[()]/g, "").trim();
+        }
       }
-    );
+    }
+    if (!unit) {
+      unit = "шт.";
+    }
+    console.log("Добавляем товар:", {
+      name,
+      price,
+      quantity,
+      unit
+    });
     cart.addToCart(
       {
         name,

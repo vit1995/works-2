@@ -12108,7 +12108,6 @@ class CartManager2 {
         price: Number(product.price) || 0,
         quantity,
         unit: product.unit || "шт."
-        // Сохраняем единицу измерения
       });
     }
     this.saveCart();
@@ -12171,7 +12170,7 @@ class CartManager2 {
     }
     for (let i = 0; i < this.cart.length; i++) {
       const item = this.cart[i];
-      const itemTotal = item.price * item.quantity;
+      item.price * item.quantity;
       const unit = item.unit || "шт.";
       const div = document.createElement("div");
       div.className = "cart-item";
@@ -12187,7 +12186,6 @@ class CartManager2 {
                         <button class="cart-plus" data-index="${i}">+</button>
                         <button class="cart-remove" data-index="${i}">🗑</button>
                     </div>
-                    <div class="cart-item__sum">${itemTotal} Br</div>
                 </div>
             `;
       box.appendChild(div);
@@ -12308,13 +12306,14 @@ document.addEventListener("click", function(e) {
       unit = unitEl.textContent.replace(/[()]/g, "").trim();
     }
   }
+  console.log("Единица измерения из карточки:", unit);
   const productData = {
     name: nameEl ? nameEl.textContent.trim() : "Товар",
     price: priceEl ? Number(priceEl.textContent.replace(/[^0-9.]/g, "")) : 0,
     image: imageEl ? imageEl.src : "",
     unit
-    // Передаем единицу измерения
   };
+  console.log("Данные товара:", productData);
   cart.addToCart(productData, quantity);
 });
 document.addEventListener("click", function(e) {

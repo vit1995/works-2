@@ -12091,14 +12091,15 @@ class CartManager2 {
   }
   addToCart(product, quantity = 1) {
     if (!product.name) return;
-    let item = this.cart.find((i) => i.name === product.name);
+    const nameKey = product.name.trim().toLowerCase();
+    let item = this.cart.find((i) => i.name.trim().toLowerCase() === nameKey);
     if (item) {
       item.quantity += quantity;
     } else {
       this.cart.push({
-        name: product.name,
+        name: product.name.trim(),
         image: product.image || "",
-        price: Number(product.price),
+        price: Number(product.price) || 0,
         quantity,
         unit: product.unit || "шт."
       });
@@ -12133,69 +12134,70 @@ class CartManager2 {
   }
   renderSidebar() {
     const box = document.getElementById("cartSidebarItems");
+    const productsTotal = document.getElementById("cartProductsTotal");
     const total = document.getElementById("cartSidebarTotal");
     if (!box) return;
+    box.innerHTML = "";
     if (this.cart.length === 0) {
       box.innerHTML = `<div class="cart-empty">🛒 Корзина пуста</div>`;
-      if (total) {
-        total.innerHTML = `
-          <div class="cart-total-row">Итого: <strong>0 Br</strong></div>
-          <div class="cart-delivery-text">🚚 Доставка рассчитывается отдельно</div>
-        `;
-      }
+      if (productsTotal) productsTotal.textContent = "0 Br";
+      if (total) total.textContent = "0 Br";
       return;
     }
-    box.innerHTML = "";
     this.cart.forEach((item, index) => {
-      let itemTotal = item.price * item.quantity;
-      let html = `
-        <div class="cart-item">
-          <img class="cart-item__img" src="${item.image}" alt="${this.escapeHtml(item.name)}">
-          <div class="cart-item__info">
-            <div class="cart-item__name">${this.escapeHtml(item.name)}</div>
-            <div class="cart-item__price">Цена: ${item.price} Br</div>
-            <div class="cart-item__controls">
-              <button class="cart-minus" data-index="${index}">−</button>
-              <span class="cart-count">${item.quantity} ${this.escapeHtml(item.unit || "шт.")}</span>
-              <button class="cart-plus" data-index="${index}">+</button>
-            </div>
-            <div class="cart-item__sum">Стоимость: ${itemTotal} Br</div>
-            <button class="cart-remove" data-index="${index}">🗑 Удалить</button>
-          </div>
-        </div>
-      `;
-      box.insertAdjacentHTML("beforeend", html);
+      const itemTotal = item.price * item.quantity;
+      const div = document.createElement("div");
+      div.className = "cart-item";
+      div.dataset.index = index;
+      div.innerHTML = `
+                <img class="cart-item__img" src="${item.image}" alt="${this.escapeHtml(item.name)}">
+                <div class="cart-item__info">
+                    <div class="cart-item__name">${this.escapeHtml(item.name)}</div>
+                    <div class="cart-item__price">Цена: ${item.price} Br</div>
+                    <div class="cart-item__controls">
+                        <button class="cart-minus" data-index="${index}">−</button>
+                        <span class="cart-count">${item.quantity} ${this.escapeHtml(item.unit)}</span>
+                        <button class="cart-plus" data-index="${index}">+</button>
+                    </div>
+                    <div class="cart-item__sum">Стоимость: ${itemTotal} Br</div>
+                    <button class="cart-remove" data-index="${index}">🗑 Удалить</button>
+                </div>
+            `;
+      box.appendChild(div);
     });
-    box.querySelectorAll(".cart-minus").forEach((btn) => {
-      btn.onclick = () => {
-        this.updateQuantity(Number(btn.dataset.index), -1);
-      };
+    this.addCartEventListeners();
+    const sum = this.getProductsTotal();
+    if (productsTotal) productsTotal.textContent = sum + " Br";
+    if (total) total.textContent = sum + " Br";
+  }
+  addCartEventListeners() {
+    const box = document.getElementById("cartSidebarItems");
+    if (!box) return;
+    box.querySelectorAll(".cart-minus, .cart-plus, .cart-remove").forEach((btn) => {
+      btn.removeEventListener("click", this.handleCartClick);
     });
-    box.querySelectorAll(".cart-plus").forEach((btn) => {
-      btn.onclick = () => {
-        this.updateQuantity(Number(btn.dataset.index), 1);
-      };
-    });
-    box.querySelectorAll(".cart-remove").forEach((btn) => {
-      btn.onclick = () => {
-        this.cart.splice(Number(btn.dataset.index), 1);
+    box.addEventListener("click", (e) => {
+      const btn = e.target.closest(".cart-minus, .cart-plus, .cart-remove");
+      if (!btn) return;
+      e.preventDefault();
+      const index = Number(btn.dataset.index);
+      if (btn.classList.contains("cart-minus")) {
+        this.updateQuantity(index, -1);
+      } else if (btn.classList.contains("cart-plus")) {
+        this.updateQuantity(index, 1);
+      } else if (btn.classList.contains("cart-remove")) {
+        this.cart.splice(index, 1);
         this.saveCart();
         this.renderSidebar();
         this.updateCartCounter();
-      };
+      }
     });
-    if (total) {
-      const productsTotal = this.getProductsTotal();
-      total.innerHTML = `
-        <div class="cart-total-row">Товары: <b>${productsTotal} Br</b></div>
-        <div class="cart-delivery-text">🚚 Доставка рассчитывается отдельно</div>
-        <div class="cart-total-final">Итого: <strong>${productsTotal} Br</strong></div>
-      `;
-    }
   }
   escapeHtml(text) {
     if (!text) return "";
-    return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
   }
   openSidebar() {
     const sidebar = document.getElementById("cartSidebar");
@@ -12217,23 +12219,29 @@ class CartManager2 {
       return;
     }
     console.log("Заказ:", this.cart);
+    alert("Заказ оформлен! Проверьте консоль для деталей.");
+    this.cart = [];
+    this.saveCart();
+    this.renderSidebar();
+    this.updateCartCounter();
+    this.closeSidebar();
   }
   initEvents() {
     const cartIcon = document.querySelector("[data-fls-cart-icon]");
     if (cartIcon) {
-      cartIcon.onclick = () => this.openSidebar();
+      cartIcon.addEventListener("click", () => this.openSidebar());
     }
     const close = document.getElementById("closeCartSidebar");
     if (close) {
-      close.onclick = () => this.closeSidebar();
+      close.addEventListener("click", () => this.closeSidebar());
     }
     const overlay = document.getElementById("cartOverlay");
     if (overlay) {
-      overlay.onclick = () => this.closeSidebar();
+      overlay.addEventListener("click", () => this.closeSidebar());
     }
     const checkout = document.getElementById("checkoutBtn");
     if (checkout) {
-      checkout.onclick = () => this.checkout();
+      checkout.addEventListener("click", () => this.checkout());
     }
   }
 }
@@ -12245,15 +12253,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const plus = product.querySelector(".products__quantity-plus");
     if (input) {
       if (minus) {
-        minus.onclick = () => {
+        minus.addEventListener("click", (e) => {
+          e.preventDefault();
           let value = Number(input.value);
           if (value > 1) input.value = value - 1;
-        };
+        });
       }
       if (plus) {
-        plus.onclick = () => {
+        plus.addEventListener("click", (e) => {
+          e.preventDefault();
           input.value = Number(input.value) + 1;
-        };
+        });
       }
     }
   });
@@ -12268,17 +12278,21 @@ document.addEventListener("DOMContentLoaded", () => {
     if (quantityInput) {
       quantity = Number(quantityInput.value) || 1;
     }
-    const name = product.querySelector(".products__name");
-    const price = product.querySelector(".products__price");
-    const image = product.querySelector("[data-fls-addtocart-image]");
-    const unit = product.querySelector(".products__unit");
+    const nameEl = product.querySelector(".products__name");
+    const priceEl = product.querySelector(".products__price");
+    const imageEl = product.querySelector("[data-fls-addtocart-image]");
+    const unitEl = product.querySelector(".products__unit");
     const productData = {
-      name: name ? name.textContent.trim() : "Товар",
-      price: price ? Number(price.textContent.replace(/[^0-9.]/g, "")) : 0,
-      image: image ? image.src : "",
-      unit: unit ? unit.textContent.replace(/[()]/g, "").trim() : "шт."
+      name: nameEl ? nameEl.textContent.trim() : "Товар",
+      price: priceEl ? Number(priceEl.textContent.replace(/[^0-9.]/g, "")) : 0,
+      image: imageEl ? imageEl.src : "",
+      unit: unitEl ? unitEl.textContent.replace(/[()]/g, "").trim() : "шт."
     };
     cart.addToCart(productData, quantity);
+    btn.textContent = "✅ Добавлено!";
+    setTimeout(() => {
+      btn.textContent = "В корзину";
+    }, 1e3);
   });
 });
 document.addEventListener("click", function(e) {

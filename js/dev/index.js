@@ -12076,7 +12076,11 @@ class CartManager2 {
       const saved = localStorage.getItem("cart");
       if (saved) {
         this.cart = JSON.parse(saved);
-        console.log("Загружена корзина из localStorage:", this.cart);
+        this.cart = this.cart.map((item) => ({
+          ...item,
+          unit: item.unit || "шт."
+        }));
+        console.log("Корзина:", this.cart);
       }
     } catch (e) {
       this.cart = [];
@@ -12310,15 +12314,12 @@ document.addEventListener("click", function(e) {
   const imageEl = product.querySelector("[data-fls-addtocart-image]");
   const unitEl = product.querySelector(".products__unit");
   let unit = "шт.";
-  if (unitEl) {
-    if (unitEl.dataset.unit) {
-      unit = unitEl.dataset.unit;
-      console.log("Единица из data-unit:", unit);
-    } else {
-      unit = unitEl.textContent.replace(/[()]/g, "").trim();
-      console.log("Единица из текста:", unit);
-    }
+  if (product.dataset.unit) {
+    unit = product.dataset.unit.trim();
+  } else if (unitEl) {
+    unit = (unitEl.dataset.unit || unitEl.textContent).replace(/[()]/g, "").trim();
   }
+  console.log("Финальная единица:", unit);
   let price = 0;
   if (priceEl) {
     const priceText = priceEl.textContent.replace(/[^0-9.]/g, "");

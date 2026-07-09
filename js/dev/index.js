@@ -12185,7 +12185,7 @@ class CartManager2 {
     }
     for (let i = 0; i < this.cart.length; i++) {
       const item = this.cart[i];
-      const unit = item.unit || "шт.";
+      const unit = item.unit ? item.unit : "";
       console.log(`Товар ${i}: ${item.name}, единица: ${unit}`);
       const div = document.createElement("div");
       div.className = "cart-item";
@@ -12312,14 +12312,11 @@ document.addEventListener("click", function(e) {
   const nameEl = product.querySelector(".products__name");
   const priceEl = product.querySelector(".products__price");
   const imageEl = product.querySelector("[data-fls-addtocart-image]");
-  const unitEl = product.querySelector(".products__unit");
+  product.querySelector(".products__unit");
   let unit = "шт.";
   if (product.dataset.unit) {
     unit = product.dataset.unit.trim();
-  } else if (unitEl) {
-    unit = (unitEl.dataset.unit || unitEl.textContent).replace(/[()]/g, "").trim();
   }
-  console.log("Финальная единица:", unit);
   let price = 0;
   if (priceEl) {
     const priceText = priceEl.textContent.replace(/[^0-9.]/g, "");
@@ -12331,7 +12328,7 @@ document.addEventListener("click", function(e) {
     image: imageEl ? imageEl.src : "",
     unit
   };
-  console.log("Данные товара для добавления:", productData);
+  console.log("Перед корзиной:", productData);
   cart.addToCart(productData, quantity);
 });
 document.addEventListener("click", function(e) {

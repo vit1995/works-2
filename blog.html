@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" href="./assets/img/favicon.ico">
+		<title>Home Page</title>
+		<script type="module" crossorigin="" src="./js/app.min.js?v=1786191554777"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/app.min.css?v=1786191554777">
+	</head>
+	<body>
+		<div class="wrapper">
+			<header data-fls-header-scroll="" data-fls-header-scroll-show="" data-fls-header="" class="header">
+				<div class="header__container">
+					<!-- <include src="@components/layout/menu/menu.html" locals='{"active":"contacts"}'></include> -->
+					<div class="header__top top-header">
+						<a href="index.html" class="top-header__logo">
+							<img src="./assets/img/header/logo.svg" alt="#">
+						</a>
+						<!--
+<p data-fls-dynamic=".menu__body, 992" class="top-header__text">
+10 лет помогаем с машинами в разных странах
+</p>
+-->
+						<div class="header__menu menu">
+							<nav class="menu__body">
+								<ul class="menu__list">
+									<li class="menu__item _has-submenu">
+										<a href="convert.html" class="menu__link">Услуги</a>
+										<ul class="sub-menu">
+											<li>
+												<a href="services.html">Заказ авто</a>
+											</li>
+											<li>
+												<a href="convert.html">Переобородование</a>
+											</li>
+										</ul>
+									</li>
+									<!--
+<li class="menu__item _has-submenu">
+<a href="convert.html" class="menu__link"> Заказ авто </a>
+<ul class="sub-menu">
+<li><a href="services.html">Портфолио</a></li>
+<li><a href="contacts.html">Контакты</a></li>
+<li><a href="blog.html">Блог</a></li>
+</ul>
+</li>
+-->
+									<li class="menu__item">
+										<a href="company.html" class="menu__link">О компании</a>
+									</li>
+									<li class="menu__item">
+										<a href="portfolio.html" class="menu__link">Портфолио</a>
+									</li>
+									<li class="menu__item">
+										<a href="contacts.html" class="menu__link">Контакты</a>
+									</li>
+									<li class="menu__item">
+										<a href="blog.html" class="menu__link">Блог</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+						<div class="top-header__social">
+							<p class="top-header__social-text">Напишите нам напрямую</p>
+							<div class="top-header__social-icons">
+								<a href="#">
+									<picture>
+										<img class="top-header__social-icon" alt="Image" src="./assets/img/icon-social/instagram.webp">
+									</picture>
+								</a>
+								<a href="#">
+									<picture>
+										<img class="top-header__social-icon" alt="Image" src="./assets/img/icon-social/vk.webp">
+									</picture>
+								</a>
+								<a href="#">
+									<picture>
+										<img class="top-header__social-icon" alt="Image" src="./assets/img/icon-social/telegram.webp">
+									</picture>
+								</a>
+							</div>
+						</div>
+						<div data-fls-dynamic=".menu__body, 600" class="top-header__info">
+							<p class="top-header__info-text">Звоните, мы сейчас работаем</p>
+							<a class="top-header__info-phone" href="tel:+79242424343">+7 92 42 42 43 43</a>
+							<a data-fls-popup-link="popup" class="top-header__info-button" href="#">позвоните мне</a>
+						</div>
+						<!--
+<a data-fls-button class="top-header__button button" href="#"
+>Заказать звонок</a
+>
+-->
+						<button type="button" data-fls-menu="" class="menu__icon icon-menu">
+							<span></span>
+						</button>
+					</div>
+					<!--
+<div class="header__menu menu">
+<nav class="menu__body">
+<ul class="menu__list">
+<li data-spollers="1200,max" class="menu__item _has-submenu">
+<a
+href="convert.html"
+type="button"
+data-spoller
+class="menu__link"
+>
+Переоборудование
+</a>
+<ul class="sub-menu">
+<li><a href="services.html">Вывоз строительного мусора</a></li>
+<li><a href="#">Вывоз старой мебели</a></li>
+<li><a href="#">Квартирный переезд</a></li>
+<li><a href="#">Офисный переезд</a></li>
+<li><a href="#">Дачный переезд</a></li>
+<li><a href="#">Перевозка мебели</a></li>
+</ul>
+</li>
+<li class="menu__item">
+<a href="order.html" class="menu__link">Заказ авто</a>
+</li>
+<li class="menu__item">
+<a href="company.html" class="menu__link">О компании</a>
+</li>
+<li class="menu__item">
+<a href="" class="menu__link">Портфолио</a>
+</li>
+<li class="menu__item">
+<a href="contacts.html" class="menu__link">Контакты</a>
+</li>
+<li class="menu__item"><a href="" class="menu__link">Блог</a></li>
+</ul>
+</nav>
+</div>
+-->
+				</div>
+			</header>
+			<div data-fls-popup="popup" aria-hidden="true" class="popup">
+				<div data-fls-popup-wrapper="" class="popup__wrapper">
+					<div data-fls-popup-body="" class="popup__body">
+						<button data-fls-popup-close="" type="button" class="popup__close">
+							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
+								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
+							</svg>
+						</button>
+						<div data-fls-popup-content="" class="popup__box">
+							<h2 class="popup__title">Оставить заявку</h2>
+							<form class="popup__form" data-fls-form="dev" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
+								<input required data-fls-input="" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="popup__input input">
+								<input required data-fls-input="" data-fls-input-mask="+7(99) 99-99-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+7(__) __-__-__-__" class="popup__input input">
+								<textarea required data-fls-input="" data-fls-input-autoheight-min="100" data-fls-input-autoheight-max="200" data-fls-input-autoheight="" autocomplete="off" name="text" placeholder="Какое авто" data-fls-form-errtext="Заполните поле" class="popup__input input"></textarea>
+								<button data-fls-button="" type="submit" class="popup__button button button--arrow">
+									<span>Оставить заявку</span>
+									<svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<g clip-path="url(#clip0_49_641)">
+											<path d="M12 19L19 12L12 5M19 12L5 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+										</g>
+										<defs>
+											<clipPath id="clip0_49_641">
+												<rect width="24" height="24" fill="white"></rect>
+											</clipPath>
+										</defs>
+									</svg>
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div data-fls-popup="popup-message" aria-hidden="true" class="popup popup--success">
+				<div data-fls-popup-wrapper="" class="popup__wrapper">
+					<div data-fls-popup-body="" class="popup__body">
+						<button data-fls-popup-close="" type="button" class="popup__close">
+							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
+								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
+							</svg>
+						</button>
+						<div data-fls-popup-content="" class="popup__box popup__box--success">
+							<div class="popup__icon">
+								<svg width="80" height="80" viewbox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<circle cx="40" cy="40" r="40" fill="#4CAF50"></circle>
+									<path d="M25 40L35 50L55 30" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+								</svg>
+							</div>
+							<h2 class="popup__title popup__title--success">Заявка отправлена!</h2>
+							<div class="popup__message">
+								<p class="popup__text">Спасибо за обращение! Мы свяжемся с вами в ближайшее время.</p>
+								<p class="popup__hint">Обычно перезваниваем в течение 15 минут</p>
+							</div>
+							<button data-fls-popup-close="" type="button" class="popup__button button">Понятно, спасибо</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<main class="page">
+				<section class="hub">
+					<div class="hub__container">
+						<div data-fls-blockhead="" class="blockhead">
+							<span class="blockhead__subtitle">Knowledge base</span>
+							<h2 class="blockhead__title">
+								Всё, что нужно знать
+								<span>о ввозе авто</span>
+							</h2>
+							<p class="reviews__text">Статьи, гайды и ответы экспертов — в одном месте</p>
+						</div>
+						<div data-fls-tabs="" class="hub__tabs tabs">
+							<nav data-fls-tabs-titles="" class="tabs__navigation">
+								<button type="button" class="tabs__title --tab-active">📝 Статьи</button>
+								<button type="button" class="tabs__title">❓ Вопросы</button>
+							</nav>
+							<div data-fls-tabs-body="" class="tabs__content">
+								<!-- Таб 1: Статьи -->
+								<div class="tabs__body">
+									<div class="hub__grid">
+										<div class="hub__card">
+											<div class="hub__card-tag">Таможня</div>
+											<h3 class="hub__card-title">Утильсбор 2025 вырос на 70-85%</h3>
+											<p class="hub__card-text">
+												Новые ставки уже действуют. Разбираем, как изменилась итоговая
+                  цена авто под ключ.
+											</p>
+											<button class="hub__card-more">Читать →</button>
+											<div class="hub__card-hidden">
+												<p>
+													Для авто 1.5-2 литра утильсбор вырос с 150 000 до 220 000 ₽.
+                    Для двигателей 2-3 литра — с 250 000 до 380 000 ₽. Мы
+                    фиксируем все платежи в договоре.
+												</p>
+											</div>
+										</div>
+										<div class="hub__card">
+											<div class="hub__card-tag">Советы</div>
+											<h3 class="hub__card-title">Как не ошибиться с аукционом в Японии</h3>
+											<p class="hub__card-text">
+												Расшифровка оценок, отметок и скрытых дефектов. На что
+                  обращать внимание.
+											</p>
+											<button class="hub__card-more">Читать →</button>
+											<div class="hub__card-hidden">
+												<p>
+													Оценка S или 4 — отлично, 3.5 — хорошо, 3 — средне. Отметка
+                    RA — был ремонт, U — скрытые дефекты. Всегда проверяйте фото
+                    авто.
+												</p>
+											</div>
+										</div>
+										<div class="hub__card">
+											<div class="hub__card-tag">Обзоры</div>
+											<h3 class="hub__card-title">Топ-5 гибридов до 2 млн ₽</h3>
+											<p class="hub__card-text">
+												Honda Fit, Nissan Note, Toyota Aqua — что выбрать и сколько
+                  экономит гибрид.
+											</p>
+											<button class="hub__card-more">Читать →</button>
+											<div class="hub__card-hidden">
+												<p>
+													Гибриды экономят до 60 000 ₽ в год. Самые популярные: Honda
+                    Fit (3.5 л/100 км), Nissan Note (просторный салон), Toyota
+                    Aqua (надёжность).
+												</p>
+											</div>
+										</div>
+										<div class="hub__card">
+											<div class="hub__card-tag">Документы</div>
+											<h3 class="hub__card-title">СБКТС и ЭПТС — полный гайд</h3>
+											<p class="hub__card-text">Что это, зачем нужны, сколько стоят и как получить.</p>
+											<button class="hub__card-more">Читать →</button>
+											<div class="hub__card-hidden">
+												<p>
+													СБКТС (от 20 000 ₽) — свидетельство безопасности. ЭПТС (от 5
+                    000 ₽) — электронный паспорт. Оформляем сами, без очередей.
+												</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Таб 2: Вопросы -->
+								<div class="tabs__body">
+									<!--
+<section data-fls-questions id="questions" class="questions">
+<div class="questions__container">
+<h2 data-fls-title class="blockheader__title title">Популярные вопросы, на которые важно ответить</h2>
+<div class="questions__body">
+<div data-fls-spollers data-fls-spollers-one class="spollers">
+<details class="spollers__item">
+<summary class="spollers__title"> Вы являетесь аккредитованной компанией?</summary>
+<div class="spollers__body">
+<p>
+Да, мы являемся аккредитованной компанией, благодаря собственной лаборатории и государственной аккредитации мы можем регистрировать переоборудование транспортных средств.            </p>
+</div>
+</details>
+<details class="spollers__item">
+<summary class="spollers__title">Сколько вы уже занимаетесь регистрацией переоборудования ТС в России?</summary>
+<div class="spollers__body">
+Уже 5 лет мы помогаем собственникам автомобилей в России получить документы после внесения изменений в транспортное средство, большое количество довольных клиентов и портфолио проделанных работ вы можете посмотреть на нашем сайте.
+</p>
+</div>
+</details>
+<details class="spollers__item">
+<summary class="spollers__title">Работаете ли вы с организациями?</summary>
+<div class="spollers__body">
+<p>
+Работаем как с физическими лицами, так и с юридическими лицами (компаниями, организациями и индивидуальными предпринимателями). Предоставляем полный пакет документов, чтобы вы были уверены в надежности нашей компании и юридически защищены законом.            </p>
+</div>
+</details>
+<details class="spollers__item">
+<summary class="spollers__title"> Вы являетесь аккредитованной компанией?</summary>
+<div class="spollers__body">
+<p>
+Да, мы являемся аккредитованной компанией, благодаря собственной лаборатории и государственной аккредитации мы можем регистрировать переоборудование транспортных средств.            </p>
+</div>
+</details>
+<details class="spollers__item">
+<summary class="spollers__title">Сколько вы уже занимаетесь регистрацией переоборудования ТС в России?</summary>
+<div class="spollers__body">
+Уже 5 лет мы помогаем собственникам автомобилей в России получить документы после внесения изменений в транспортное средство, большое количество довольных клиентов и портфолио проделанных работ вы можете посмотреть на нашем сайте.
+</p>
+</div>
+</details>
+<details class="spollers__item">
+<summary class="spollers__title">Работаете ли вы с организациями?</summary>
+<div class="spollers__body">
+<p>
+Работаем как с физическими лицами, так и с юридическими лицами (компаниями, организациями и индивидуальными предпринимателями). Предоставляем полный пакет документов, чтобы вы были уверены в надежности нашей компании и юридически защищены законом.            </p>
+</div>
+</details>
+</div>
+</div>
+</div>
+</section>
+-->
+									<div data-fls-spollers="" data-fls-spollers-one="" class="spollers">
+										<details class="spollers__item">
+											<summary class="spollers__title">Вы являетесь аккредитованной компанией?</summary>
+											<div class="spollers__body">
+												<p>
+													Да, мы являемся аккредитованной компанией, благодаря собственной лаборатории и государственной аккредитации мы можем регистрировать переоборудование транспортных средств.
+												</p>
+											</div>
+										</details>
+										<details class="spollers__item">
+											<summary class="spollers__title">Сколько вы уже занимаетесь регистрацией переоборудования ТС в России?</summary>
+											<div class="spollers__body">
+												Уже 5 лет мы помогаем собственникам автомобилей в России получить документы после внесения изменений в транспортное средство, большое количество довольных клиентов и портфолио проделанных работ вы можете посмотреть на нашем сайте.
+												<p></p>
+											</div>
+										</details>
+										<details class="spollers__item">
+											<summary class="spollers__title">Работаете ли вы с организациями?</summary>
+											<div class="spollers__body">
+												<p>
+													Работаем как с физическими лицами, так и с юридическими лицами (компаниями, организациями и индивидуальными предпринимателями). Предоставляем полный пакет документов, чтобы вы были уверены в надежности нашей компании и юридически защищены законом.
+												</p>
+											</div>
+										</details>
+										<details class="spollers__item">
+											<summary class="spollers__title">Вы являетесь аккредитованной компанией?</summary>
+											<div class="spollers__body">
+												<p>
+													Да, мы являемся аккредитованной компанией, благодаря собственной лаборатории и государственной аккредитации мы можем регистрировать переоборудование транспортных средств.
+												</p>
+											</div>
+										</details>
+										<details class="spollers__item">
+											<summary class="spollers__title">Сколько вы уже занимаетесь регистрацией переоборудования ТС в России?</summary>
+											<div class="spollers__body">
+												Уже 5 лет мы помогаем собственникам автомобилей в России получить документы после внесения изменений в транспортное средство, большое количество довольных клиентов и портфолио проделанных работ вы можете посмотреть на нашем сайте.
+												<p></p>
+											</div>
+										</details>
+										<details class="spollers__item">
+											<summary class="spollers__title">Работаете ли вы с организациями?</summary>
+											<div class="spollers__body">
+												<p>
+													Работаем как с физическими лицами, так и с юридическими лицами (компаниями, организациями и индивидуальными предпринимателями). Предоставляем полный пакет документов, чтобы вы были уверены в надежности нашей компании и юридически защищены законом.
+												</p>
+											</div>
+										</details>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="hub__stats">
+							<div class="hub__stat">
+								<div class="hub__stat-value">45-60</div>
+								<div class="hub__stat-label">дней доставка</div>
+							</div>
+							<div class="hub__stat">
+								<div class="hub__stat-value">30-50%</div>
+								<div class="hub__stat-label">предоплата</div>
+							</div>
+							<div class="hub__stat">
+								<div class="hub__stat-value">от 150к</div>
+								<div class="hub__stat-label">растаможка</div>
+							</div>
+							<div class="hub__stat">
+								<div class="hub__stat-value">5 лет</div>
+								<div class="hub__stat-label">на рынке</div>
+							</div>
+						</div>
+						<!--
+<div class="hub__banner">
+<div class="hub__banner-content">
+<div class="hub__banner-icon">🚀</div>
+<div class="hub__banner-text">
+<h3>Остались вопросы?</h3>
+<p>Свяжитесь с нами — ответим за 15 минут</p>
+</div>
+<a href="#" class="hub__banner-btn">Связаться →</a>
+</div>
+</div>
+-->
+					</div>
+				</section>
+				<section class="question-form">
+					<div class="question-form__container">
+						<form class="question-form__form" data-fls-form="ajax" data-fls-form-popup="popup-message" action="sendmail/sendmail.php" method="POST" novalidate>
+							<div class="question-form__header">
+								<div class="question-form__icon">
+									<svg viewbox="0 0 24 24" fill="none">
+										<path d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.709 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18457 2.99721 7.13633 4.39828 5.49707C5.79935 3.85782 7.69279 2.71538 9.79619 2.24015C11.8996 1.76491 14.1003 1.98234 16.07 2.86" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+										<path d="M22 4L12 14.01L9 11.01" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+									</svg>
+								</div>
+								<div class="question-form__text">
+									<span class="question-form__title">
+										Остались
+										<mark>вопросы?</mark>
+									</span>
+									<span class="question-form__subtitle">Оставьте заявку — перезвоним за 2 минуты</span>
+								</div>
+							</div>
+							<div class="question-form__fields">
+								<div class="question-form__group">
+									<input required data-fls-input="" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Ваше имя" class="question-form__input input">
+								</div>
+								<div class="question-form__group">
+									<input required data-fls-input="" data-fls-input-mask="+7(99) 99-99-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+7(__) __-__-__-__" class="question-form__input input" inputmode="text">
+								</div>
+								<button type="submit" class="question-form__button button">
+									<span>Перезвоните мне</span>
+									<svg viewbox="0 0 24 24" fill="none">
+										<path d="M4 12h16M14 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+									</svg>
+								</button>
+							</div>
+						</form>
+					</div>
+				</section>
+			</main>
+			<footer data-fls-footer="" class="footer">
+				<div class="footer__container">
+					<div data-fls-spollers="992,max" class="footer__contact">
+						<details class="footer__contact-body">
+							<summary class="footer__contact-title">Контакты:</summary>
+							<div class="footer__contact-content">
+								<div class="footer__contact-block">
+									<div class="footer__contact-item">
+										<div class="footer__contact-name">Почта:</div>
+										<div class="footer__contact-link">
+											<i class="--icon-arrow-right-2"></i>
+											<a href="mailto:ADR-OOO@yandex.ru" class="footer__contact-link">ADR-OOO@yandex.ru</a>
+										</div>
+									</div>
+									<div class="footer__contact-item">
+										<div class="footer__contact-name">Телефон:</div>
+										<div class="footer__contact-link">
+											<i class="--icon-arrow-right-2"></i>
+											<a href="tel:79242424343" class="footer__contact-link">+7 92 42 42 43 43</a>
+										</div>
+									</div>
+									<ul class="footer__contact-mess">
+										<li>
+											<a href="https://t.me/adrdv25" target="_blank">
+												<picture>
+													<img alt="Telegram" src="./assets/img/icon-social/telegram.webp">
+												</picture>
+												<span>Telegram</span>
+											</a>
+										</li>
+										<li>
+											<a href="https://www.instagram.com/adr_dv125?igsh=OXJ0dWt4N2xlNGcw&utm_source=qr" target="_blank">
+												<picture>
+													<img alt="Vk" src="./assets/img/icon-social/instagram.webp">
+												</picture>
+												<span>instagram</span>
+											</a>
+										</li>
+									</ul>
+									<a data-fls-popup-link="popup" class="footer__button footer__button--icon-arrow-right-2" href="#">Заказать консультацию</a>
+								</div>
+							</div>
+						</details>
+					</div>
+					<div class="footer__bottom bottom-footer">
+						<div class="bottom-footer__info">
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">Наименование:</span>
+								<span class="bottom-footer__info-text">ООО «АДР-ДВ»</span>
+							</div>
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">Юридический адрес:</span>
+								<span class="bottom-footer__info-text">690105, Россия, Приморский край, г Владивосток, ул. Бородинская, д. 26, офис 8</span>
+							</div>
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">ИНН:</span>
+								<span class="bottom-footer__info-text">2543185502</span>
+							</div>
+						</div>
+						<div class="bottom-footer__info">
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">ОГРН:</span>
+								<span class="bottom-footer__info-text">1242500015504</span>
+							</div>
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">КПП:</span>
+								<span class="bottom-footer__info-text">254301001</span>
+							</div>
+							<a class="bottom-footer__info-policy" href="#">Политика конфиденциальности</a>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

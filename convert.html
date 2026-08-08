@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" href="./assets/img/favicon.ico">
+		<title>Home Page</title>
+		<script type="module" crossorigin="" src="./js/app.min.js?v=1786191554780"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/app.min.css?v=1786191554780">
+	</head>
+	<body>
+		<div class="wrapper">
+			<header data-fls-header-scroll="" data-fls-header-scroll-show="" data-fls-header="" class="header">
+				<div class="header__container">
+					<!-- <include src="@components/layout/menu/menu.html" locals='{"active":"contacts"}'></include> -->
+					<div class="header__top top-header">
+						<a href="index.html" class="top-header__logo">
+							<img src="./assets/img/header/logo.svg" alt="#">
+						</a>
+						<!--
+<p data-fls-dynamic=".menu__body, 992" class="top-header__text">
+10 лет помогаем с машинами в разных странах
+</p>
+-->
+						<div class="header__menu menu">
+							<nav class="menu__body">
+								<ul class="menu__list">
+									<li class="menu__item _has-submenu">
+										<a href="convert.html" class="menu__link">Услуги</a>
+										<ul class="sub-menu">
+											<li>
+												<a href="services.html">Заказ авто</a>
+											</li>
+											<li>
+												<a href="convert.html">Переобородование</a>
+											</li>
+										</ul>
+									</li>
+									<!--
+<li class="menu__item _has-submenu">
+<a href="convert.html" class="menu__link"> Заказ авто </a>
+<ul class="sub-menu">
+<li><a href="services.html">Портфолио</a></li>
+<li><a href="contacts.html">Контакты</a></li>
+<li><a href="blog.html">Блог</a></li>
+</ul>
+</li>
+-->
+									<li class="menu__item">
+										<a href="company.html" class="menu__link">О компании</a>
+									</li>
+									<li class="menu__item">
+										<a href="portfolio.html" class="menu__link">Портфолио</a>
+									</li>
+									<li class="menu__item">
+										<a href="contacts.html" class="menu__link">Контакты</a>
+									</li>
+									<li class="menu__item">
+										<a href="blog.html" class="menu__link">Блог</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+						<div class="top-header__social">
+							<p class="top-header__social-text">Напишите нам напрямую</p>
+							<div class="top-header__social-icons">
+								<a href="#">
+									<picture>
+										<img class="top-header__social-icon" alt="Image" src="./assets/img/icon-social/instagram.webp">
+									</picture>
+								</a>
+								<a href="#">
+									<picture>
+										<img class="top-header__social-icon" alt="Image" src="./assets/img/icon-social/vk.webp">
+									</picture>
+								</a>
+								<a href="#">
+									<picture>
+										<img class="top-header__social-icon" alt="Image" src="./assets/img/icon-social/telegram.webp">
+									</picture>
+								</a>
+							</div>
+						</div>
+						<div data-fls-dynamic=".menu__body, 600" class="top-header__info">
+							<p class="top-header__info-text">Звоните, мы сейчас работаем</p>
+							<a class="top-header__info-phone" href="tel:+79242424343">+7 92 42 42 43 43</a>
+							<a data-fls-popup-link="popup" class="top-header__info-button" href="#">позвоните мне</a>
+						</div>
+						<!--
+<a data-fls-button class="top-header__button button" href="#"
+>Заказать звонок</a
+>
+-->
+						<button type="button" data-fls-menu="" class="menu__icon icon-menu">
+							<span></span>
+						</button>
+					</div>
+					<!--
+<div class="header__menu menu">
+<nav class="menu__body">
+<ul class="menu__list">
+<li data-spollers="1200,max" class="menu__item _has-submenu">
+<a
+href="convert.html"
+type="button"
+data-spoller
+class="menu__link"
+>
+Переоборудование
+</a>
+<ul class="sub-menu">
+<li><a href="services.html">Вывоз строительного мусора</a></li>
+<li><a href="#">Вывоз старой мебели</a></li>
+<li><a href="#">Квартирный переезд</a></li>
+<li><a href="#">Офисный переезд</a></li>
+<li><a href="#">Дачный переезд</a></li>
+<li><a href="#">Перевозка мебели</a></li>
+</ul>
+</li>
+<li class="menu__item">
+<a href="order.html" class="menu__link">Заказ авто</a>
+</li>
+<li class="menu__item">
+<a href="company.html" class="menu__link">О компании</a>
+</li>
+<li class="menu__item">
+<a href="" class="menu__link">Портфолио</a>
+</li>
+<li class="menu__item">
+<a href="contacts.html" class="menu__link">Контакты</a>
+</li>
+<li class="menu__item"><a href="" class="menu__link">Блог</a></li>
+</ul>
+</nav>
+</div>
+-->
+				</div>
+			</header>
+			<div data-fls-popup="popup" aria-hidden="true" class="popup">
+				<div data-fls-popup-wrapper="" class="popup__wrapper">
+					<div data-fls-popup-body="" class="popup__body">
+						<button data-fls-popup-close="" type="button" class="popup__close">
+							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
+								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
+							</svg>
+						</button>
+						<div data-fls-popup-content="" class="popup__box">
+							<h2 class="popup__title">Оставить заявку</h2>
+							<form class="popup__form" data-fls-form="dev" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
+								<input required data-fls-input="" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="popup__input input">
+								<input required data-fls-input="" data-fls-input-mask="+7(99) 99-99-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+7(__) __-__-__-__" class="popup__input input">
+								<textarea required data-fls-input="" data-fls-input-autoheight-min="100" data-fls-input-autoheight-max="200" data-fls-input-autoheight="" autocomplete="off" name="text" placeholder="Какое авто" data-fls-form-errtext="Заполните поле" class="popup__input input"></textarea>
+								<button data-fls-button="" type="submit" class="popup__button button button--arrow">
+									<span>Оставить заявку</span>
+									<svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<g clip-path="url(#clip0_49_641)">
+											<path d="M12 19L19 12L12 5M19 12L5 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+										</g>
+										<defs>
+											<clipPath id="clip0_49_641">
+												<rect width="24" height="24" fill="white"></rect>
+											</clipPath>
+										</defs>
+									</svg>
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div data-fls-popup="popup-message" aria-hidden="true" class="popup popup--success">
+				<div data-fls-popup-wrapper="" class="popup__wrapper">
+					<div data-fls-popup-body="" class="popup__body">
+						<button data-fls-popup-close="" type="button" class="popup__close">
+							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
+								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
+							</svg>
+						</button>
+						<div data-fls-popup-content="" class="popup__box popup__box--success">
+							<div class="popup__icon">
+								<svg width="80" height="80" viewbox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<circle cx="40" cy="40" r="40" fill="#4CAF50"></circle>
+									<path d="M25 40L35 50L55 30" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+								</svg>
+							</div>
+							<h2 class="popup__title popup__title--success">Заявка отправлена!</h2>
+							<div class="popup__message">
+								<p class="popup__text">Спасибо за обращение! Мы свяжемся с вами в ближайшее время.</p>
+								<p class="popup__hint">Обычно перезваниваем в течение 15 минут</p>
+							</div>
+							<button data-fls-popup-close="" type="button" class="popup__button button">Понятно, спасибо</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<main class="page">
+				<section class="convert-hero">
+					<img class="convert-hero__img-bg" src="assets/img/convert-hero/bg.jpg" alt="bg">
+					<div class="convert-hero__container">
+						<h1 class="convert-hero__title">Регистрация переоборудования транспортных средств в России</h1>
+						<div class="convert-hero__content">
+							<div class="convert-hero__text">
+								<p>
+									Зарегистрируем переоборудование транспортного средства в ГИБДД,
+            проконсультируем по всем связанным с этим вопросам.
+								</p>
+								<p>
+									Будем сопровождать вас до получения подтверждения законности вашего
+            переоборудования.
+								</p>
+							</div>
+							<form class="convert-hero__form" data-fls-form="ajax" data-fls-form-popup="popup-message" action="sendmail/sendmail.php" method="POST">
+								<input required data-fls-input="" data-fls-input-mask="+7(99) 99-99-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+7(__) __-__-__-__" class="convert-hero__input input">
+								<button type="submit" class="convert-hero__button button button--arrow">
+									<span>Оставить заявку</span>
+									<svg width="24" height="24" viewbox="0 0 24 24" fill="none">
+										<path d="M5 12H19M12 5L19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+									</svg>
+								</button>
+							</form>
+						</div>
+						<div class="convert-hero__items">
+							<div class="convert-hero__item">
+								<picture>
+									<img class="convert-hero__icon" alt="#" src="./assets/img/hero/01.webp">
+								</picture>
+								<p class="convert-hero__item-text">Договор со 100% гарантией результата</p>
+							</div>
+							<div class="convert-hero__item">
+								<picture>
+									<img class="convert-hero__icon" alt="#" src="./assets/img/hero/02.webp">
+								</picture>
+								<p class="convert-hero__item-text">Договор со 100% гарантией результата</p>
+							</div>
+							<div class="convert-hero__item">
+								<picture>
+									<img class="convert-hero__icon" alt="#" src="./assets/img/hero/03.webp">
+								</picture>
+								<p class="convert-hero__item-text">Договор со 100% гарантией результата</p>
+							</div>
+							<div class="convert-hero__item">
+								<picture>
+									<img class="convert-hero__icon" alt="#" src="./assets/img/hero/01.webp">
+								</picture>
+								<p class="convert-hero__item-text">Договор со 100% гарантией результата</p>
+							</div>
+						</div>
+					</div>
+				</section>
+				<div class="convert-services">
+					<div class="convert-services__container">
+						<h2 data-fls-title="" class="title">
+							Оказываем весь спектр услуг, необходимый для регистрации
+        переоборудования транспортных средств в ГИБДД
+						</h2>
+						<div class="convert-services__items">
+							<article class="convert-services__item">
+								<picture class="convert-services__image">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/01-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/01-1200.webp" type="image/webp">
+										<img alt="#" src="./assets/img/portfolio/01.webp">
+									</picture>
+								</picture>
+								<div class="convert-services__name">Внедорожный тюнинг</div>
+							</article>
+							<article class="convert-services__item">
+								<picture class="convert-services__image">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/02-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/02-1200.webp" type="image/webp">
+										<img alt="#" src="./assets/img/portfolio/02.webp">
+									</picture>
+								</picture>
+								<div class="convert-services__name">Переоборудование грузовых автомобилей</div>
+							</article>
+							<article class="convert-services__item">
+								<picture class="convert-services__image">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/03-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/03-1200.webp" type="image/webp">
+										<img alt="#" src="./assets/img/portfolio/03.webp">
+									</picture>
+								</picture>
+								<div class="convert-services__name">Переоборудование легковых автомобилей</div>
+							</article>
+							<article class="convert-services__item">
+								<picture class="convert-services__image">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/04-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/04-1200.webp" type="image/webp">
+										<img alt="#" src="./assets/img/portfolio/04.webp">
+									</picture>
+								</picture>
+								<div class="convert-services__name">Внедорожный тюнинг</div>
+							</article>
+							<article class="convert-services__item">
+								<picture class="convert-services__image">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/05-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/05-1200.webp" type="image/webp">
+										<img alt="#" src="./assets/img/portfolio/05.webp">
+									</picture>
+								</picture>
+								<div class="convert-services__name">Переоборудование грузовых автомобилей</div>
+							</article>
+							<article class="convert-services__item">
+								<picture class="convert-services__image">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/06-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/06-1200.webp" type="image/webp">
+										<img alt="#" src="./assets/img/portfolio/06.webp">
+									</picture>
+								</picture>
+								<div class="convert-services__name">Переоборудование легковых автомобилей</div>
+							</article>
+						</div>
+					</div>
+				</div>
+				<section class="contract">
+					<div class="contract__container">
+						<div class="contract__top">
+							<h2 dta-fls-title="" class="title title--notmargin">
+								Мы уверены в результате регистрации:все что обещаем —
+								<span>закрепим в договоре</span>
+							</h2>
+							<a href="#" class="trust__button button button--blue" target="_blank">
+								<div class="contract__button-icon">
+									<picture>
+										<img alt="contract" src="./assets/img/contract/icon.webp">
+									</picture>
+								</div>
+								<span>Посмотреть образец договора</span>
+							</a>
+						</div>
+						<div class="contract__items">
+							<div class="contract__item">
+								<div class="contract__item-title">Гарантия выдачи документов</div>
+								<p class="contract__item-text">
+									Это позволяет держать минимальные цены на документы а также выдавать
+            их в кратчайшие сроки (в зависимости от вида переоборудования)
+								</p>
+							</div>
+							<div class="contract__item">
+								<div class="contract__item-title">Гарантия соблюдения сроков</div>
+								<ul>
+									<li>Получения исходных документов от клиента</li>
+									<li>Сроки оформления документов лабораторией</li>
+								</ul>
+							</div>
+							<div class="contract__item">
+								<div class="contract__item-title">Гарантия регистрации в ГИБДД</div>
+								<p class="contract__item-text">
+									Это позволяет держать минимальные цены на документы а также выдавать
+            их в кратчайшие сроки (в зависимости от вида переоборудования)
+								</p>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section data-fls-blocktext="" class="block-text">
+					<div data-fls-showmore="" class="block-text__container">
+						<div data-fls-showmore-content="300" class="block-text__body">
+							<h2 dta-fls-title="" class="title">Почему стоит доверить регистрацию переоборудования ТС нам:</h2>
+							<div class="block-text__text">
+								<p>
+									Для заказа технической оценки просто оставьте заявку на сайте,
+            указав свои данные, или позвоните по номеру 8 (800) 777 15 08.
+            Сертифицированный специалист свяжется с вами в рабочие часы (пн-пт с
+            9:00 до 18:00), подробно расскажет о порядке оформления
+            переоборудования транспортного средства, необходимых документах и
+            сроках. Мы предлагаем удобные условия и полное сопровождение под
+            ключ. Доверьте регистрацию изменений ТС профессионалам и избавьте
+            себя от лишних хлопот.
+								</p>
+								<ul>
+									<li>проконсультировать по перечню бумаг и порядку оформления;</li>
+									<li>провести предварительную техническую экспертизу;</li>
+									<li>оформить диагностическую карту и получить разрешение в ГИБДД;</li>
+									<li>провести проверку безопасности после выполненных работ;</li>
+									<li>оформить СКТС, внести изменения в ПТС, ЭПТС и получить новое СТС;</li>
+									<li>подготовить пакет документов от владельца ТС.</li>
+								</ul>
+								<p>
+									Услуга оформления переоборудования авто доступна для России и любого
+            региона РФ. Регистрация с нашей помощью займет минимум времени. Вы
+            получаете полный комплект документов и возможность легально
+            эксплуатировать ТС.&nbsp;
+								</p>
+								<p>
+									Оставьте заявку на консультацию, чтобы узнать решения для вашего
+            случая. Отправляя заявку, вы соглашаетесь на обработку персональных
+            данных. Мы гарантируем их конфиденциальность согласно ФЗ-152.
+								</p>
+							</div>
+						</div>
+						<button hidden data-fls-showmore-button="" type="button" class="block__more">
+							<span>Показать ещё</span>
+							<span>Скрыть</span>
+						</button>
+					</div>
+				</section>
+				<section data-fls-blocktext="" class="block-text">
+					<div data-fls-showmore="" class="block-text__container">
+						<div data-fls-showmore-content="300" class="block-text__body">
+							<h2 dta-fls-title="" class="title">Закажите бесплатную консультацию от экспертов</h2>
+							<div class="block-text__text">
+								<p>
+									Это сложная процедура, является обязательной согласно ТР ТС
+            018/2011. Она требует специальных знаний, подготовки большого пакета
+            документов и прохождения ряда проверок. Наши эксперты готовы
+            провести бесплатную консультацию и помочь с регистрацией изменений в
+            конструкции любой сложности. Мы оформляем документы на ГБО, замену
+            двигателя, кузова, установку дополнительного оборудования и другие
+            виды переоборудования.
+								</p>
+								<p>
+									Для заказа технической оценки просто оставьте заявку на сайте,
+            указав свои данные, или позвоните по номеру 8 (800) 777 15 08.
+            Сертифицированный специалист свяжется с вами в рабочие часы (пн-пт с
+            9:00 до 18:00), подробно расскажет о порядке оформления
+            переоборудования транспортного средства, необходимых документах и
+            сроках. Мы предлагаем удобные условия и полное сопровождение под
+            ключ. Доверьте регистрацию изменений ТС профессионалам и избавьте
+            себя от лишних хлопот.
+								</p>
+							</div>
+						</div>
+						<button hidden data-fls-showmore-button="" type="button" class="block__more">
+							<span>Показать ещё</span>
+							<span>Скрыть</span>
+						</button>
+					</div>
+				</section>
+				<section data-fls-blockform="" class="block-form">
+					<div class="block-form__container">
+						<h2 dta-fls-title="" class="title">
+							Оставьте заявку на
+							<span>бесплатную техническую оценку</span>
+							и получите
+        заявление в ГИБДД в подарок до
+							<span>31 мая</span>
+						</h2>
+						<div class="block-form__body">
+							<div class="block-form__items">
+								<p class="block-form__text">
+									Расскажу об оформлении документов на каждом этапе оформления
+            переоборудования
+								</p>
+								<p class="block-form__text">Назову точную стоимость получения всех необходимых документов на ТС</p>
+								<p class="block-form__text">
+									Какую услугу вы не выберете — наш юрист стоит на страже ваших
+            интересов
+								</p>
+							</div>
+							<div class="block-form__image">
+								<picture class="block-form__avatar">
+									<picture>
+										<img alt="men" src="./assets/img/form/men.webp">
+									</picture>
+								</picture>
+								<div class="block-form__info">
+									<div class="block-form__name">Евгений Останин</div>
+									<div class="block-form__duty">Эксперт по переоборудованию ТС</div>
+								</div>
+							</div>
+							<form class="block-form__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
+								<input required data-fls-input="" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="block-form__input input">
+								<input required data-fls-input="" data-fls-input-mask="+7(99) 99-99-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+7(__) __-__-__-__" class="block-form__input input">
+								<textarea data-fls-input="" data-fls-input-autoheight-min="100" data-fls-input-autoheight-max="200" data-fls-input-autoheight="" autocomplete="off" name="text" placeholder="Сообщение" data-fls-form-errtext="Заполните поле" class="block-form__input input"></textarea>
+								<button type="submit" class="block-form__button button button--arrow">
+									<span>Оставить заявку</span>
+									<svg width="24" height="24" viewbox="0 0 24 24" fill="none">
+										<path d="M5 12H19M12 5L19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+									</svg>
+								</button>
+							</form>
+						</div>
+					</div>
+				</section>
+				<section class="steaps">
+					<div class="steaps__container">
+						<h2 dta-fls-title="" class="title">Этапы оформления переоборудования транспортного средства</h2>
+						<div class="steaps__items">
+							<div class="steaps__item">
+								<span class="steaps__number">01</span>
+								<p class="steaps__text">Получить заключение предварительной технической экспертизы</p>
+							</div>
+							<div class="steaps__item">
+								<span class="steaps__number">02</span>
+								<p class="steaps__text">Получить заключение предварительной технической экспертизы</p>
+							</div>
+							<div class="steaps__item">
+								<span class="steaps__number">03</span>
+								<p class="steaps__text">Получить заключение предварительной технической экспертизы</p>
+							</div>
+							<div class="steaps__item">
+								<span class="steaps__number">04</span>
+								<p class="steaps__text">Получить заключение предварительной технической экспертизы</p>
+							</div>
+							<div class="steaps__item">
+								<span class="steaps__number">05</span>
+								<p class="steaps__text">Получить заключение предварительной технической экспертизы</p>
+							</div>
+							<div class="steaps__item">
+								<span class="steaps__number">06</span>
+								<p class="steaps__text">Получить заключение предварительной технической экспертизы</p>
+							</div>
+							<div class="steaps__item">
+								<span class="steaps__number">07</span>
+								<p class="steaps__text">Получить заключение предварительной технической экспертизы</p>
+							</div>
+							<div class="steaps__item steaps__item--center">
+								<strong>Возьмите телефон</strong>
+								<small>и позвоните нам прямо сейчас</small>
+							</div>
+							<div class="steaps__item steaps__item--center">
+								<a data-fls-popup-link="popup" href="#" class="steaps-hero__button button button--arrow">
+									<span>Оставить заявку</span>
+									<svg width="24" height="24" viewbox="0 0 24 24" fill="none">
+										<path d="M5 12H19M12 5L19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+									</svg>
+								</a>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="fine">
+					<div class="fine__container">
+						<h2 dta-fls-title="" class="title">
+							А что будет,
+							<span>если не зарегистрировать</span>
+							переоборудование транспортного средства?
+						</h2>
+						<div class="fine__items">
+							<div class="fine__item">
+								<span class="fine__number">1</span>
+								<p>Штрафы при проверке от 500 до 30 000 рублей</p>
+							</div>
+							<div class="fine__item">
+								<span class="fine__number">2</span>
+								<p>Штрафы при проверке от 500 до 30 000 рублей</p>
+							</div>
+							<div class="fine__item">
+								<span class="fine__number">3</span>
+								<p>Могут снять Ваше транспортное средство с учета</p>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section data-fls-result="" class="result">
+					<div class="result__container">
+						<div class="result__top">
+							<h2 data-fls-title="" class="title title--notmargin">Наше портфолио</h2>
+							<div class="result__navigacions">
+								<button type="button" class="result-prev swiper-button-prev"></button>
+								<a href="portfolio.html">Смотреть все</a>
+								<button type="button" class="result-next swiper-button-next"></button>
+							</div>
+						</div>
+						<!-- Оболочка слайдера -->
+						<div data-fls-slider="" class="result__slider swiper">
+							<!-- Часть слайдера, которая двигается -->
+							<div data-fls-gallery="" class="result__wrapper swiper-wrapper">
+								<!-- Слайд -->
+								<a href="./assets/img/portfolio/01.webp" class="result__slide swiper-slide">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/01-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/01-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/01.webp">
+									</picture>
+									<div class="result__name">Установка ГБО на ГАЗ 37054С в России</div>
+								</a>
+								<a href="./assets/img/portfolio/02.webp" class="result__slide swiper-slide">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/02-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/02-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/02.webp">
+									</picture>
+									<div class="result__name">Внедорожный тюнинг на Toyota Land Cruiser 150 (Prado) в России</div>
+								</a>
+								<a href="./assets/img/portfolio/03.webp" class="result__slide swiper-slide">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/03-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/03-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/03.webp">
+									</picture>
+									<div class="result__name">Установка ГБО на ГАЗ 37054С в России</div>
+								</a>
+								<a href="./assets/img/portfolio/04.webp" class="result__slide swiper-slide">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/04-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/04-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/04.webp">
+									</picture>
+									<div class="result__name">Внедорожный тюнинг на Toyota Land Cruiser 150 (Prado) в России</div>
+								</a>
+								<a href="./assets/img/portfolio/05.webp" class="result__slide swiper-slide">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/05-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/05-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/05.webp">
+									</picture>
+									<div class="result__name">Установка ГБО на ГАЗ 37054С в России</div>
+								</a>
+								<a href="./assets/img/portfolio/01.webp" class="result__slide swiper-slide">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/01-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/01-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/01.webp">
+									</picture>
+									<div class="result__name">Установка ГБО на ГАЗ 37054С в России</div>
+								</a>
+								<a href="./assets/img/portfolio/02.webp" class="result__slide swiper-slide">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/02-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/02-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/02.webp">
+									</picture>
+									<div class="result__name">Внедорожный тюнинг на Toyota Land Cruiser 150 (Prado) в России</div>
+								</a>
+								<a href="./assets/img/portfolio/03.webp" class="result__slide swiper-slide">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/03-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/03-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/03.webp">
+									</picture>
+									<div class="result__name">Установка ГБО на ГАЗ 37054С в России</div>
+								</a>
+								<a href="./assets/img/portfolio/04.webp" class="result__slide swiper-slide">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/04-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/04-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/04.webp">
+									</picture>
+									<div class="result__name">Внедорожный тюнинг на Toyota Land Cruiser 150 (Prado) в России</div>
+								</a>
+								<a href="./assets/img/portfolio/05.webp" class="result__slide swiper-slide">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/05-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/05-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/05.webp">
+									</picture>
+									<div class="result__name">Установка ГБО на ГАЗ 37054С в России</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</section>
+			</main>
+			<footer data-fls-footer="" class="footer">
+				<div class="footer__container">
+					<div data-fls-spollers="992,max" class="footer__contact">
+						<details class="footer__contact-body">
+							<summary class="footer__contact-title">Контакты:</summary>
+							<div class="footer__contact-content">
+								<div class="footer__contact-block">
+									<div class="footer__contact-item">
+										<div class="footer__contact-name">Почта:</div>
+										<div class="footer__contact-link">
+											<i class="--icon-arrow-right-2"></i>
+											<a href="mailto:ADR-OOO@yandex.ru" class="footer__contact-link">ADR-OOO@yandex.ru</a>
+										</div>
+									</div>
+									<div class="footer__contact-item">
+										<div class="footer__contact-name">Телефон:</div>
+										<div class="footer__contact-link">
+											<i class="--icon-arrow-right-2"></i>
+											<a href="tel:79242424343" class="footer__contact-link">+7 92 42 42 43 43</a>
+										</div>
+									</div>
+									<ul class="footer__contact-mess">
+										<li>
+											<a href="https://t.me/adrdv25" target="_blank">
+												<picture>
+													<img alt="Telegram" src="./assets/img/icon-social/telegram.webp">
+												</picture>
+												<span>Telegram</span>
+											</a>
+										</li>
+										<li>
+											<a href="https://www.instagram.com/adr_dv125?igsh=OXJ0dWt4N2xlNGcw&utm_source=qr" target="_blank">
+												<picture>
+													<img alt="Vk" src="./assets/img/icon-social/instagram.webp">
+												</picture>
+												<span>instagram</span>
+											</a>
+										</li>
+									</ul>
+									<a data-fls-popup-link="popup" class="footer__button footer__button--icon-arrow-right-2" href="#">Заказать консультацию</a>
+								</div>
+							</div>
+						</details>
+					</div>
+					<div class="footer__bottom bottom-footer">
+						<div class="bottom-footer__info">
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">Наименование:</span>
+								<span class="bottom-footer__info-text">ООО «АДР-ДВ»</span>
+							</div>
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">Юридический адрес:</span>
+								<span class="bottom-footer__info-text">690105, Россия, Приморский край, г Владивосток, ул. Бородинская, д. 26, офис 8</span>
+							</div>
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">ИНН:</span>
+								<span class="bottom-footer__info-text">2543185502</span>
+							</div>
+						</div>
+						<div class="bottom-footer__info">
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">ОГРН:</span>
+								<span class="bottom-footer__info-text">1242500015504</span>
+							</div>
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">КПП:</span>
+								<span class="bottom-footer__info-text">254301001</span>
+							</div>
+							<a class="bottom-footer__info-policy" href="#">Политика конфиденциальности</a>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

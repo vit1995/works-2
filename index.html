@@ -5,55 +5,135 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="./assets/img/favicon.ico">
 		<title>Home Page</title>
-		<script type="module" crossorigin="" src="./js/index.min.js?v=1783866441168"></script>
-		<link rel="stylesheet" crossorigin="" href="./css/index.min.css?v=1783866441168">
+		<script type="module" crossorigin="" src="./js/app.min.js?v=1786191554780"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/app.min.css?v=1786191554780">
 	</head>
 	<body>
 		<div class="wrapper">
 			<header data-fls-header-scroll="" data-fls-header-scroll-show="" data-fls-header="" class="header">
 				<div class="header__container">
+					<!-- <include src="@components/layout/menu/menu.html" locals='{"active":"Home"}'></include> -->
+					<div class="header__top top-header">
+						<a href="index.html" class="top-header__logo">
+							<img src="./assets/img/header/logo.svg" alt="#">
+						</a>
+						<!--
+<p data-fls-dynamic=".menu__body, 992" class="top-header__text">
+10 лет помогаем с машинами в разных странах
+</p>
+-->
+						<div class="header__menu menu">
+							<nav class="menu__body">
+								<ul class="menu__list">
+									<li class="menu__item _has-submenu">
+										<a href="convert.html" class="menu__link">Услуги</a>
+										<ul class="sub-menu">
+											<li>
+												<a href="services.html">Заказ авто</a>
+											</li>
+											<li>
+												<a href="convert.html">Переобородование</a>
+											</li>
+										</ul>
+									</li>
+									<!--
+<li class="menu__item _has-submenu">
+<a href="convert.html" class="menu__link"> Заказ авто </a>
+<ul class="sub-menu">
+<li><a href="services.html">Портфолио</a></li>
+<li><a href="contacts.html">Контакты</a></li>
+<li><a href="blog.html">Блог</a></li>
+</ul>
+</li>
+-->
+									<li class="menu__item">
+										<a href="company.html" class="menu__link">О компании</a>
+									</li>
+									<li class="menu__item">
+										<a href="portfolio.html" class="menu__link">Портфолио</a>
+									</li>
+									<li class="menu__item">
+										<a href="contacts.html" class="menu__link">Контакты</a>
+									</li>
+									<li class="menu__item">
+										<a href="blog.html" class="menu__link">Блог</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+						<div class="top-header__social">
+							<p class="top-header__social-text">Напишите нам напрямую</p>
+							<div class="top-header__social-icons">
+								<a href="#">
+									<picture>
+										<img class="top-header__social-icon" alt="Image" src="./assets/img/icon-social/instagram.webp">
+									</picture>
+								</a>
+								<a href="#">
+									<picture>
+										<img class="top-header__social-icon" alt="Image" src="./assets/img/icon-social/vk.webp">
+									</picture>
+								</a>
+								<a href="#">
+									<picture>
+										<img class="top-header__social-icon" alt="Image" src="./assets/img/icon-social/telegram.webp">
+									</picture>
+								</a>
+							</div>
+						</div>
+						<div data-fls-dynamic=".menu__body, 600" class="top-header__info">
+							<p class="top-header__info-text">Звоните, мы сейчас работаем</p>
+							<a class="top-header__info-phone" href="tel:+79242424343">+7 92 42 42 43 43</a>
+							<a data-fls-popup-link="popup" class="top-header__info-button" href="#">позвоните мне</a>
+						</div>
+						<!--
+<a data-fls-button class="top-header__button button" href="#"
+>Заказать звонок</a
+>
+-->
+						<button type="button" data-fls-menu="" class="menu__icon icon-menu">
+							<span></span>
+						</button>
+					</div>
 					<!--
 <div class="header__menu menu">
-<button type="button" data-fls-menu class="menu__icon icon-menu">
-<span></span>
-</button>
 <nav class="menu__body">
 <ul class="menu__list">
-<li class="menu__item"><a href="" class="menu__link"></a></li>
+<li data-spollers="1200,max" class="menu__item _has-submenu">
+<a
+href="convert.html"
+type="button"
+data-spoller
+class="menu__link"
+>
+Переоборудование
+</a>
+<ul class="sub-menu">
+<li><a href="services.html">Вывоз строительного мусора</a></li>
+<li><a href="#">Вывоз старой мебели</a></li>
+<li><a href="#">Квартирный переезд</a></li>
+<li><a href="#">Офисный переезд</a></li>
+<li><a href="#">Дачный переезд</a></li>
+<li><a href="#">Перевозка мебели</a></li>
+</ul>
+</li>
+<li class="menu__item">
+<a href="order.html" class="menu__link">Заказ авто</a>
+</li>
+<li class="menu__item">
+<a href="company.html" class="menu__link">О компании</a>
+</li>
+<li class="menu__item">
+<a href="" class="menu__link">Портфолио</a>
+</li>
+<li class="menu__item">
+<a href="contacts.html" class="menu__link">Контакты</a>
+</li>
+<li class="menu__item"><a href="" class="menu__link">Блог</a></li>
 </ul>
 </nav>
 </div>
 -->
-					<div class="header__logo-body">
-						<a href="#" class="header__logo">IPAPER.BY</a>
-						<p class="header__text">Этикет лента для вашего бизнеса</p>
-					</div>
-					<a class="header__yandex" href="#" target="_blank">
-						<img src="./assets/img/icon-social/yandex.svg" alt="Image">
-					</a>
-					<div class="header__socials">
-						<a class="header__social-link" href="#">
-							<img alt="Image" src="./assets/img/icon-social/telegram.png">
-						</a>
-						<a class="header__social-link" href="#">
-							<img alt="Image" src="./assets/img/icon-social/viber.png">
-						</a>
-						<a class="header__social-link" href="#">
-							<img alt="Image" src="./assets/img/icon-social/instagram.png">
-						</a>
-						<a class="header__social-link" href="#">
-							<img src="./assets/img/icon-social/tiktok%20(1).png" alt="Image">
-						</a>
-					</div>
-					<a class="header__phone" href="tel:79312760178">+7 (931) 276-01-78</a>
-					<a data-fls-dynamic=".header__socials, 480" data-fls-popup-link="popup" class="header__button" href="#">ПЕРЕЗВОНИТЬ?</a>
-					<!-- Кнопка корзины сверху -->
-					<div class="cart" data-fls-cart-icon="">
-						<svg class="cart__icon" width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M7 18C5.9 18 5.01 18.9 5.01 20C5.01 21.1 5.9 22 7 22C8.1 22 9 21.1 9 20C9 18.9 8.1 18 7 18ZM1 2V4H3L6.6 11.59L5.25 14.04C5.09 14.32 5 14.65 5 15C5 16.1 5.9 17 7 17H19V15H7.42C7.28 15 7.17 14.89 7.17 14.75L7.2 14.63L8.1 13H15.55C16.3 13 16.96 12.59 17.3 11.97L20.88 5.48C21.05 5.17 21 4.8 20.75 4.55C20.5 4.3 20.13 4.25 19.82 4.42L19.52 4.55L7 4.55L6.2 2.7C6.09 2.44 5.83 2.27 5.55 2.27H1V2ZM17 18C15.9 18 15.01 18.9 15.01 20C15.01 21.1 15.9 22 17 22C18.1 22 19 21.1 19 20C19 18.9 18.1 18 17 18Z" fill="currentColor"></path>
-						</svg>
-						<span class="cart__quantity" data-fls-addtocart="">0</span>
-					</div>
 				</div>
 			</header>
 			<div data-fls-popup="popup" aria-hidden="true" class="popup">
@@ -66,670 +146,942 @@
 							</svg>
 						</button>
 						<div data-fls-popup-content="" class="popup__box">
-							<h2 class="popup__title">Обратный звонок</h2>
-							<p class="popup__text">Оставьте ваш номер телефона и я свяжусь с вами в ближайшее время!</p>
-							<form class="popup__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
-								<input data-fls-input="" autocomplete="off" type="text" name="name" data-fls-form-errtext="Заполните поле" required placeholder="Имя" class="popup__input input">
-								<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" required placeholder="+375(__) ___-__-__" class="popup__input input input--60">
-								<label data-fls-checkbox="" class="checkbox">
-									<input data-fls-error="Заполните поле" class="checkbox__input" type="checkbox" value="6" name="check" checked>
-									<span class="checkbox__text checkbox__text--black">Вы соглашаетесь с условиями обработки персональных данных</span>
-								</label>
-								<button data-fls-button="" type="submit" class="popup__button button button--60">ПОЛУЧИТЬ БЕСПЛАТНУЮ КОНСУЛЬТАЦИЮ</button>
+							<h2 class="popup__title">Оставить заявку</h2>
+							<form class="popup__form" data-fls-form="dev" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
+								<input required data-fls-input="" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="popup__input input">
+								<input required data-fls-input="" data-fls-input-mask="+7(99) 99-99-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+7(__) __-__-__-__" class="popup__input input">
+								<textarea required data-fls-input="" data-fls-input-autoheight-min="100" data-fls-input-autoheight-max="200" data-fls-input-autoheight="" autocomplete="off" name="text" placeholder="Какое авто" data-fls-form-errtext="Заполните поле" class="popup__input input"></textarea>
+								<button data-fls-button="" type="submit" class="popup__button button button--arrow">
+									<span>Оставить заявку</span>
+									<svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<g clip-path="url(#clip0_49_641)">
+											<path d="M12 19L19 12L12 5M19 12L5 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+										</g>
+										<defs>
+											<clipPath id="clip0_49_641">
+												<rect width="24" height="24" fill="white"></rect>
+											</clipPath>
+										</defs>
+									</svg>
+								</button>
 							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div data-fls-popup="popup-message" aria-hidden="true" class="popup popup--success">
+				<div data-fls-popup-wrapper="" class="popup__wrapper">
+					<div data-fls-popup-body="" class="popup__body">
+						<button data-fls-popup-close="" type="button" class="popup__close">
+							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
+								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
+							</svg>
+						</button>
+						<div data-fls-popup-content="" class="popup__box popup__box--success">
+							<div class="popup__icon">
+								<svg width="80" height="80" viewbox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<circle cx="40" cy="40" r="40" fill="#4CAF50"></circle>
+									<path d="M25 40L35 50L55 30" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+								</svg>
+							</div>
+							<h2 class="popup__title popup__title--success">Заявка отправлена!</h2>
+							<div class="popup__message">
+								<p class="popup__text">Спасибо за обращение! Мы свяжемся с вами в ближайшее время.</p>
+								<p class="popup__hint">Обычно перезваниваем в течение 15 минут</p>
+							</div>
+							<button data-fls-popup-close="" type="button" class="popup__button button">Понятно, спасибо</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<main class="page">
+				<section class="hero">
+					<picture>
+						<source media="(max-width: 600px)" srcset="./assets/img/hero/bg-600.webp" type="image/webp">
+						<source media="(max-width: 1200px)" srcset="./assets/img/hero/bg-1200.webp" type="image/webp">
+						<img class="hero__img-bg" alt="bg" src="./assets/img/hero/bg.webp">
+					</picture>
+					<div class="hero__container">
+						<h1 class="hero__title">Внесение изменений в конструкцию транспортного средства в России</h1>
+						<div class="hero__text">
+							<p>
+								Хотите внести изменения в конструкцию транспортного средства? Мы
+          поможем правильно подготовить документы и пройти все этапы оформления
+          в ГИБДД.
+							</p>
+							<p>Помогли уже более 5000 автовладельцам.</p>
+						</div>
+						<div class="hero__bottom bottom-hero">
+							<h2 class="bottom-hero__title">
+								Закажите консультацию по переоборудованию от эксперта и вы получите
+          бесплатно
+							</h2>
+							<div class="bottom-hero__items">
+								<div class="bottom-hero__item">
+									<picture>
+										<img class="bottom-hero__icon" alt="icon" src="./assets/img/hero/01.webp">
+									</picture>
+									<p class="bottom-hero__text">
+										Закажите консультацию по переоборудованию от эксперта и вы
+              получите бесплатно
+									</p>
+								</div>
+								<div class="bottom-hero__item">
+									<picture>
+										<img class="bottom-hero__icon" alt="icon" src="./assets/img/hero/02.webp">
+									</picture>
+									<p class="bottom-hero__text">Юридическое сопровождение</p>
+								</div>
+								<div class="bottom-hero__item">
+									<picture>
+										<img class="bottom-hero__icon" alt="icon" src="./assets/img/hero/03.webp">
+									</picture>
+									<p class="bottom-hero__text">Сроки и стоимость процедуры по вашему случаю</p>
+								</div>
+								<a href="#" data-fls-popup-link="popup" type="submit" class="bottom-hero__button button button--arrow">
+									<span>Оставить заявку</span>
+									<svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<g clip-path="url(#clip0_49_641)">
+											<path d="M12 19L19 12L12 5M19 12L5 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+										</g>
+										<defs>
+											<clipPath id="clip0_49_641">
+												<rect width="24" height="24" fill="white"></rect>
+											</clipPath>
+										</defs>
+									</svg>
+								</a>
+							</div>
 							<!--
-<p class="popup__bottom">
-За 4 минуты расскажем все, что необходимо знать перед утеплением!
-</p>
+<form
+class="bottom-hero__form"
+data-fls-form="ajax"
+data-fls-form-popup="popup-message"
+action="sendmail/sendmail.php"
+method="POST"
+>
+<input
+required
+data-fls-input
+type="text"
+name="name"
+data-fls-form-errtext="Заполните поле"
+placeholder="Имя"
+class="bottom-hero__input input"
+/>
+<input
+required
+data-fls-input
+data-fls-input-mask="+7(99) 99-99-99-99"
+autocomplete="off"
+type="text"
+name="phone"
+data-fls-form-errtext="Заполните поле"
+placeholder="+7(__) __-__-__-__"
+class="bottom-hero__input input"
+/>
+<button
+type="submit"
+class="bottom-hero__button button button--arrow"
+>
+<span> Оставить заявку</span>
+<svg
+width="24"
+height="24"
+viewBox="0 0 24 24"
+fill="none"
+xmlns="http://www.w3.org/2000/svg"
+>
+<g clip-path="url(#clip0_49_641)">
+<path
+d="M12 19L19 12L12 5M19 12L5 12"
+stroke="white"
+stroke-width="1.5"
+stroke-linecap="round"
+stroke-linejoin="round"
+></path>
+</g>
+<defs>
+<clipPath id="clip0_49_641">
+<rect width="24" height="24" fill="white"></rect>
+</clipPath>
+</defs>
+</svg>
+</button>
+</form>
 -->
 						</div>
 					</div>
-				</div>
-			</div>
-			<!-- Попап для оформления заказа -->
-			<div data-fls-popup="popup-order" aria-hidden="true" class="popup">
-				<div data-fls-popup-wrapper="" class="popup__wrapper">
-					<div data-fls-popup-body="" class="popup__body">
-						<button data-fls-popup-close="" type="button" class="popup__close">
-							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
-								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
-							</svg>
-						</button>
-						<div data-fls-popup-content="" class="popup__box">
-							<h2 class="popup__title">Оформление заказа</h2>
-							<p class="popup__text">Заполните данные для оформления заказа</p>
-							<form class="popup__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php" id="orderForm">
-								<!-- Сюда будет вставлен состав заказа -->
-								<div id="orderSummaryContainer"></div>
-								<!-- Поля для физ.лица (по умолчанию видны) -->
-								<div id="individualFieldsBlock">
-									<input data-fls-input="" autocomplete="off" required type="text" name="individual_name" data-fls-form-errtext="Заполните поле" placeholder="Ваше имя" class="popup__input input">
-									<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="individual_phone" data-fls-form-errtext="Заполните поле" required placeholder="+375(__) ___-__-__" class="popup__input input input--60">
-									<input data-fls-input="" autocomplete="off" required type="text" name="individual_address" placeholder="Адрес доставки" class="popup__input input">
+				</section>
+				<section class="services">
+					<div class="services__container">
+						<h2 data-fls-title="" class="title">
+							Оказываем весь спектр услуг по переоборудованию транспортных средств в
+        России
+						</h2>
+						<div class="services__items">
+							<article href="#" class="services__item">
+								<div class="services__content">
+									<h3 class="services__item-title">Сколько видов переоборудования ТС мы регистрируем?</h3>
+									<p class="services__text">
+										Регистрируем более 470 видов изменений в конструкции транспортных
+              средств всех категорий
+									</p>
+									<ul class="services__list">
+										<li>Документы от лаборатории без посредников</li>
+										<li>Работаем со всеми категориями ТС</li>
+										<li>Юридическое сопровождение и защита интересов клиентов</li>
+									</ul>
 								</div>
-								<!-- Поля для юр.лица (скрыты по умолчанию) -->
-								<div id="legalFieldsBlock" style="display: none">
-									<input data-fls-input="" autocomplete="off" type="text" required name="legal_company_name" data-fls-form-errtext="Заполните поле" placeholder="Название организации" class="popup__input input">
-									<input data-fls-input="" autocomplete="off" required type="text" name="legal_unp" data-fls-form-errtext="Заполните поле" placeholder="УНП" class="popup__input input">
-									<input data-fls-input="" autocomplete="off" required type="text" name="legal_address" data-fls-form-errtext="Заполните поле" placeholder="Юридический адрес" class="popup__input input">
-									<input data-fls-input="" data-fls-input-mask="+375(99) 999-99-99" autocomplete="off" type="text" name="legal_phone" data-fls-form-errtext="Заполните поле" required placeholder="+375(__) ___-__-__" class="popup__input input">
-									<input data-fls-input="" autocomplete="off" type="text" name="legal_bank_details" data-fls-form-errtext="Заполните поле" required rows="3" placeholder="Банковские реквизиты" class="popup__input input">
+								<picture class="services__image">
+									<picture>
+										<img alt="image" src="./assets/img/services/01.webp">
+									</picture>
+								</picture>
+								<!--
+<div class="services__arrow">
+<svg
+width="24"
+height="24"
+viewBox="0 0 24 24"
+fill="none"
+xmlns="http://www.w3.org/2000/svg"
+>
+<path
+d="M7 8.00006L14.59 8.00006L6.29 16.2901C6.1017 16.4784 5.99591 16.7338 5.99591 17.0001C5.99591 17.2664 6.1017 17.5218 6.29 17.7101C6.4783 17.8984 6.7337 18.0041 7 18.0041C7.2663 18.0041 7.5217 17.8984 7.71 17.7101L16 9.41006L16 17.0001C16 17.2653 16.1054 17.5196 16.2929 17.7072C16.4804 17.8947 16.7348 18.0001 17 18.0001C17.2652 18.0001 17.5196 17.8947 17.7071 17.7072C17.8946 17.5196 18 17.2653 18 17.0001L18 7.00006C17.9984 6.86938 17.9712 6.74028 17.92 6.62006C17.8185 6.37571 17.6244 6.18153 17.38 6.08006C17.2598 6.02882 17.1307 6.00164 17 6.00006L7 6.00006C6.73478 6.00006 6.48043 6.10541 6.29289 6.29295C6.10536 6.48049 6 6.73484 6 7.00006C6 7.26527 6.10536 7.51963 6.29289 7.70717C6.48043 7.8947 6.73478 8.00006 7 8.00006Z"
+fill="#777777"
+></path>
+</svg>
+</div>
+-->
+							</article>
+							<article href="#" class="services__item">
+								<div class="services__content">
+									<h3 class="services__item-title">Сколько видов переоборудования ТС мы регистрируем?</h3>
+									<p class="services__text">
+										Регистрируем более 470 видов изменений в конструкции транспортных
+              средств всех категорий
+									</p>
+									<ul class="services__list">
+										<li>Документы от лаборатории без посредников</li>
+										<li>Работаем со всеми категориями ТС</li>
+										<li>Юридическое сопровождение и защита интересов клиентов</li>
+									</ul>
 								</div>
-								<label data-fls-checkbox="" class="checkbox">
-									<input data-fls-error="Заполните поле" class="checkbox__input" type="checkbox" value="6" name="check" checked>
-									<span class="checkbox__text checkbox__text--black">Вы соглашаетесь с условиями обработки персональных данных</span>
-								</label>
-								<button data-fls-button="" type="submit" class="popup__button button button--60">ОФОРМИТЬ ЗАКАЗ</button>
+								<picture class="services__image">
+									<picture>
+										<img alt="image" src="./assets/img/services/02.webp">
+									</picture>
+								</picture>
+								<!--
+<div class="services__arrow">
+<svg
+width="24"
+height="24"
+viewBox="0 0 24 24"
+fill="none"
+xmlns="http://www.w3.org/2000/svg"
+>
+<path
+d="M7 8.00006L14.59 8.00006L6.29 16.2901C6.1017 16.4784 5.99591 16.7338 5.99591 17.0001C5.99591 17.2664 6.1017 17.5218 6.29 17.7101C6.4783 17.8984 6.7337 18.0041 7 18.0041C7.2663 18.0041 7.5217 17.8984 7.71 17.7101L16 9.41006L16 17.0001C16 17.2653 16.1054 17.5196 16.2929 17.7072C16.4804 17.8947 16.7348 18.0001 17 18.0001C17.2652 18.0001 17.5196 17.8947 17.7071 17.7072C17.8946 17.5196 18 17.2653 18 17.0001L18 7.00006C17.9984 6.86938 17.9712 6.74028 17.92 6.62006C17.8185 6.37571 17.6244 6.18153 17.38 6.08006C17.2598 6.02882 17.1307 6.00164 17 6.00006L7 6.00006C6.73478 6.00006 6.48043 6.10541 6.29289 6.29295C6.10536 6.48049 6 6.73484 6 7.00006C6 7.26527 6.10536 7.51963 6.29289 7.70717C6.48043 7.8947 6.73478 8.00006 7 8.00006Z"
+fill="#777777"
+></path>
+</svg>
+</div>
+-->
+							</article>
+							<article href="#" class="services__item">
+								<div class="services__content">
+									<h3 class="services__item-title">Сколько видов переоборудования ТС мы регистрируем?</h3>
+									<p class="services__text">
+										Регистрируем более 470 видов изменений в конструкции транспортных
+              средств всех категорий
+									</p>
+									<ul class="services__list">
+										<li>Документы от лаборатории без посредников</li>
+										<li>Работаем со всеми категориями ТС</li>
+										<li>Юридическое сопровождение и защита интересов клиентов</li>
+									</ul>
+								</div>
+								<picture class="services__image">
+									<picture>
+										<img alt="image" src="./assets/img/services/03.webp">
+									</picture>
+								</picture>
+								<!--
+<div class="services__arrow">
+<svg
+width="24"
+height="24"
+viewBox="0 0 24 24"
+fill="none"
+xmlns="http://www.w3.org/2000/svg"
+>
+<path
+d="M7 8.00006L14.59 8.00006L6.29 16.2901C6.1017 16.4784 5.99591 16.7338 5.99591 17.0001C5.99591 17.2664 6.1017 17.5218 6.29 17.7101C6.4783 17.8984 6.7337 18.0041 7 18.0041C7.2663 18.0041 7.5217 17.8984 7.71 17.7101L16 9.41006L16 17.0001C16 17.2653 16.1054 17.5196 16.2929 17.7072C16.4804 17.8947 16.7348 18.0001 17 18.0001C17.2652 18.0001 17.5196 17.8947 17.7071 17.7072C17.8946 17.5196 18 17.2653 18 17.0001L18 7.00006C17.9984 6.86938 17.9712 6.74028 17.92 6.62006C17.8185 6.37571 17.6244 6.18153 17.38 6.08006C17.2598 6.02882 17.1307 6.00164 17 6.00006L7 6.00006C6.73478 6.00006 6.48043 6.10541 6.29289 6.29295C6.10536 6.48049 6 6.73484 6 7.00006C6 7.26527 6.10536 7.51963 6.29289 7.70717C6.48043 7.8947 6.73478 8.00006 7 8.00006Z"
+fill="#777777"
+></path>
+</svg>
+</div>
+-->
+							</article>
+						</div>
+					</div>
+				</section>
+				<section id="calculator" data-fls-qwiz="" class="calculator">
+					<div class="calculator__container">
+						<!-- Hero блок -->
+						<div data-fls-blockhead="" class="blockhead">
+							<span class="blockhead__subtitle">Калькулятор</span>
+							<h2 class="blockhead__title">
+								Рассчитайте стоимость
+								<span>авто под ключ</span>
+							</h2>
+							<p class="blockhead__text">Ответьте на 4 вопроса и получите точную цену с учётом всех платежей</p>
+						</div>
+						<div class="calculator__body">
+							<div class="calculator__slider swiper">
+								<form data-fls-slider="" data-fls-form-popup="popup-message" data-ajax="" action="sendmail/sendmail.php" class="calculator__wrapper swiper-wrapper">
+									<!-- Слайд 1: Страна импорта -->
+									<div class="calculator__slide swiper-slide slide-calc">
+										<div class="slide-calc__body">
+											<div class="slide-calc__step">Шаг 1 из 4</div>
+											<h3 class="slide-calc__title">Откуда будем везти авто?</h3>
+											<div class="slide-calc__options">
+												<label class="slide-calc__option">
+													<input required type="radio" name="country" value="Япония">
+													<span class="slide-calc__option-content">
+														<span class="slide-calc__option-emoji">🇯🇵</span>
+														<span class="slide-calc__option-name">Япония</span>
+														<span class="slide-calc__option-price">от 60 000 ₽ логистика</span>
+													</span>
+												</label>
+												<label class="slide-calc__option">
+													<input required type="radio" name="country" value="Корея">
+													<span class="slide-calc__option-content">
+														<span class="slide-calc__option-emoji">🇰🇷</span>
+														<span class="slide-calc__option-name">Корея</span>
+														<span class="slide-calc__option-price">от 55 000 ₽ логистика</span>
+													</span>
+												</label>
+												<label class="slide-calc__option">
+													<input required type="radio" name="country" value="Китай">
+													<span class="slide-calc__option-content">
+														<span class="slide-calc__option-emoji">🇨🇳</span>
+														<span class="slide-calc__option-name">Китай</span>
+														<span class="slide-calc__option-price">от 70 000 ₽ логистика</span>
+													</span>
+												</label>
+												<label class="slide-calc__option">
+													<input required type="radio" name="country" value="Европа">
+													<span class="slide-calc__option-content">
+														<span class="slide-calc__option-emoji">🇪🇺</span>
+														<span class="slide-calc__option-name">Европа</span>
+														<span class="slide-calc__option-price">от 120 000 ₽ логистика</span>
+													</span>
+												</label>
+											</div>
+										</div>
+										<div class="slide-calc__expert">
+											<div class="slide-calc__expert-avatar">
+												<img src="https://lab-td.ru/wp-content/uploads/2026/04/eo_icon.png" alt="Эксперт">
+											</div>
+											<div class="slide-calc__expert-info">
+												<div class="slide-calc__expert-name">Евгений Останин</div>
+												<div class="slide-calc__expert-text">Эксперт по вашему автомобилю · ответ в течение рабочего дня</div>
+											</div>
+										</div>
+									</div>
+									<!-- Слайд 2: Бюджет на авто -->
+									<div class="calculator__slide swiper-slide slide-calc">
+										<div class="slide-calc__body">
+											<div class="slide-calc__step">Шаг 2 из 4</div>
+											<h3 class="slide-calc__title">Какой бюджет на авто?</h3>
+											<div class="slide-calc__range">
+												<div class="slide-calc__range-value">
+													<span>до</span>
+													<span class="slide-calc__range-number" id="budgetValue">2 500 000</span>
+													<span>₽</span>
+												</div>
+												<input type="range" id="budgetRange" name="budget" min="500000" max="10000000" step="100000" value="2500000">
+												<div class="slide-calc__range-bounds">
+													<span>500 000 ₽</span>
+													<span>10 000 000 ₽</span>
+												</div>
+											</div>
+										</div>
+										<div class="slide-calc__expert">
+											<div class="slide-calc__expert-avatar">
+												<img src="https://lab-td.ru/wp-content/uploads/2026/04/eo_icon.png" alt="Эксперт">
+											</div>
+											<div class="slide-calc__expert-info">
+												<div class="slide-calc__expert-name">Евгений Останин</div>
+												<div class="slide-calc__expert-text">Подберём лучший вариант под ваш бюджет</div>
+											</div>
+										</div>
+									</div>
+									<!-- Слайд 3: Мощность и год -->
+									<div class="calculator__slide swiper-slide slide-calc">
+										<div class="slide-calc__body">
+											<div class="slide-calc__step">Шаг 3 из 4</div>
+											<h3 class="slide-calc__title">Характеристики авто</h3>
+											<div class="slide-calc__group">
+												<div class="slide-calc__label">Мощность двигателя</div>
+												<div class="slide-calc__pills">
+													<label class="slide-calc__pill">
+														<input required type="radio" name="power" value="до 160 л.с.">
+														<span>до 160 л.с.</span>
+													</label>
+													<label class="slide-calc__pill">
+														<input data-required="" type="radio" name="power" value="160–250 л.с.">
+														<span>160–250 л.с.</span>
+													</label>
+													<label class="slide-calc__pill">
+														<input required type="radio" name="power" value="свыше 250 л.с.">
+														<span>свыше 250 л.с.</span>
+													</label>
+												</div>
+											</div>
+											<div class="slide-calc__group">
+												<div class="slide-calc__label">Год выпуска</div>
+												<div class="slide-calc__pills">
+													<label class="slide-calc__pill">
+														<input required type="radio" name="year" value="до 3-х лет">
+														<span>до 3-х лет</span>
+													</label>
+													<label class="slide-calc__pill">
+														<input data-required="" type="radio" name="year" value="от 3 до 5 лет">
+														<span>от 3 до 5 лет</span>
+													</label>
+													<label class="slide-calc__pill">
+														<input required type="radio" name="year" value="старше 5 лет">
+														<span>старше 5 лет</span>
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="slide-calc__expert">
+											<div class="slide-calc__expert-avatar">
+												<img src="https://lab-td.ru/wp-content/uploads/2026/04/eo_icon.png" alt="Эксперт">
+											</div>
+											<div class="slide-calc__expert-info">
+												<div class="slide-calc__expert-name">Евгений Останин</div>
+												<div class="slide-calc__expert-text">Эти параметры влияют на утильсбор и пошлины</div>
+											</div>
+										</div>
+									</div>
+									<!-- Слайд 4: Доп опции и контакты -->
+									<div class="calculator__slide swiper-slide slide-calc">
+										<div class="slide-calc__body">
+											<div class="slide-calc__step">Шаг 4 из 4</div>
+											<h3 class="slide-calc__title">Дополнительные услуги</h3>
+											<div class="slide-calc__checks">
+												<label class="slide-calc__check">
+													<input type="checkbox" name="extras[rf]" value="Доставка по РФ">
+													<span>Доставка по РФ</span>
+												</label>
+												<label class="slide-calc__check">
+													<input type="checkbox" name="extras[kasko]" value="Страхование КАСКО">
+													<span>Страхование КАСКО</span>
+												</label>
+												<label class="slide-calc__check">
+													<input type="checkbox" name="extras[garant]" value="Расширенная гарантия">
+													<span>Расширенная гарантия</span>
+												</label>
+											</div>
+											<div class="slide-calc__contacts">
+												<div class="slide-calc__input-group">
+													<input required data-fls-input="" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="bottom-hero__input input">
+												</div>
+												<div class="slide-calc__input-group">
+													<input required data-fls-input="" data-fls-input-mask="+7(99) 99-99-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+7(__) __-__-__-__" class="bottom-hero__input input">
+												</div>
+											</div>
+											<label data-fls-checkbox="" class="checkbox">
+												<input checked data-fls-form-errtext="Заполните поле" class="checkbox__input" type="checkbox" value="согласен" name="check">
+												<span class="checkbox__text">
+													Нажимая на кнопку, вы соглашаетесь с политикой
+                  конфиденциальности
+												</span>
+											</label>
+											<button type="submit" class="bottom-hero__button button button--arrow">
+												<span>Получить точный расчёт</span>
+												<svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<g clip-path="url(#clip0_49_641)">
+														<path d="M12 19L19 12L12 5M19 12L5 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+													</g>
+													<defs>
+														<clipPath id="clip0_49_641">
+															<rect width="24" height="24" fill="white"></rect>
+														</clipPath>
+													</defs>
+												</svg>
+											</button>
+										</div>
+										<div class="slide-calc__expert">
+											<div class="slide-calc__expert-avatar">
+												<img src="https://lab-td.ru/wp-content/uploads/2026/04/eo_icon.png" alt="Эксперт">
+											</div>
+											<div class="slide-calc__expert-info">
+												<div class="slide-calc__expert-name">Евгений Останин</div>
+												<div class="slide-calc__expert-text">Ответим в течение рабочего дня с точным расчётом</div>
+											</div>
+										</div>
+									</div>
+								</form>
+								<!-- Навигация -->
+								<div class="calculator__nav">
+									<div class="calculator__progress">
+										<div class="calculator__progress-bar">
+											<span style="width: 25%"></span>
+										</div>
+										<span class="calculator__progress-text">Шаг 1 из 4</span>
+									</div>
+									<div class="calculator__navigacions">
+										<button type="button" class="calculator__prev">
+											<svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M15 18l-6-6 6-6"></path>
+											</svg>
+											Назад
+										</button>
+										<button type="button" class="calculator__next">
+											Далее
+											<svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<path d="M9 6l6 6-6 6"></path>
+											</svg>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!--
+<section class="dignity">
+<div class="dignity__container">
+<h2 dta-fls-title class="title">
+Зарегистрировали переоборудование уже <span>более 5000 раз</span>
+</h2>
+</div>
+</section>
+-->
+				<section class="trust">
+					<div class="trust__container">
+						<div class="trust__top">
+							<h2 dta-fls-title="" class="title title--notmargin">
+								Почему нам
+								<span>можно доверить оформление изменений в автомобиле?</span>
+							</h2>
+							<a href="https://www.youtube.com/watch?v=e0MvXulXIC8&amp;t=1s" class="trust__button button button--blue" target="_blank">
+								<div class="trust__button-icon">
+									<svg width="40" height="40" viewbox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<circle cx="20" cy="20" r="20" fill="white"></circle>
+										<circle opacity="0.1" cx="20" cy="20" r="14" fill="#0088C4"></circle>
+										<path d="M28 20L16 26.9282L16 13.0718L28 20Z" fill="#0088C4"></path>
+									</svg>
+								</div>
+								<span>Видео-презенация о компании</span>
+							</a>
+						</div>
+						<div class="trust__body">
+							<div class="trust__row">
+								<h3 class="trust__row-title">Несколько цифр лично о нас</h3>
+								<div data-fls-watcher="" class="trust__items">
+									<div class="trust__item">
+										<h4 class="trust__item-title">
+											Работаем
+											<span data-fls-digcounter="">5</span>
+											лет
+										</h4>
+										<p class="trust__item-text">Регистрируем все возможные изменения</p>
+									</div>
+									<div class="trust__item">
+										<h4 class="trust__item-title">
+											<span data-fls-digcounter="">70</span>
+											филиалов
+										</h4>
+										<p class="trust__item-text">Удобно выбирать ближайший офис для встречи</p>
+									</div>
+									<div class="trust__item">
+										<h4 class="trust__item-title">
+											<span data-fls-digcounter="">95</span>
+											сотрудников
+										</h4>
+										<p class="trust__item-text">Быстро решают даже самые сложные вопросы</p>
+									</div>
+									<div class="trust__item">
+										<h4 class="trust__item-title">
+											Аккредитация с
+											<span data-fls-digcounter="">2020</span>
+											г.
+										</h4>
+										<p class="trust__item-text">Позволяет выпускать документы день в день</p>
+									</div>
+								</div>
+							</div>
+							<div class="trust__row">
+								<h3 class="trust__row-title">…и немного цифр о наших клиентах</h3>
+								<div data-fls-watcher="" class="trust__items">
+									<div class="trust__item">
+										<h4 class="trust__item-title">
+											Работаем
+											<span data-fls-digcounter="">5</span>
+											лет
+										</h4>
+										<p class="trust__item-text">Регистрируем все возможные изменения</p>
+									</div>
+									<div class="trust__item">
+										<h4 class="trust__item-title">
+											<span data-fls-digcounter="">70</span>
+											филиалов
+										</h4>
+										<p class="trust__item-text">Удобно выбирать ближайший офис для встречи</p>
+									</div>
+									<div class="trust__item">
+										<h4 class="trust__item-title">
+											<span data-fls-digcounter="">95</span>
+											сотрудников
+										</h4>
+										<p class="trust__item-text">Быстро решают даже самые сложные вопросы</p>
+									</div>
+									<div class="trust__item">
+										<h4 class="trust__item-title">
+											Аккредитация с
+											<span data-fls-digcounter="">2020</span>
+											г.
+										</h4>
+										<p class="trust__item-text">Позволяет выпускать документы день в день</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="trust__bottom">
+							<div class="trust__bottom-icon">
+								<picture>
+									<img alt="icon" src="./assets/img/trust/icon.webp">
+								</picture>
+							</div>
+							<div class="trust__bottom-text">
+								<p>
+									Работаем как с
+									<strong>физическими лицами</strong>
+									, так и с
+									<strong>юридическими лицами</strong>
+									(компаниями, организациями и
+            индивидуальными предпринимателями) в том числе по
+									<strong>44 ФЗ</strong>
+									.
+									<strong>Предоставляем полный пакет документов</strong>
+									, чтобы вы
+            были уверены в надежности нашей компании и юридически защищены
+            законом.
+								</p>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section data-fls-blockform="" class="block-form">
+					<div class="block-form__container">
+						<h2 dta-fls-title="" class="title">Расскажу об внесении изменений именно в вашем случае</h2>
+						<div class="block-form__body">
+							<div class="block-form__items">
+								<p class="block-form__text">
+									Расскажу об оформлении документов на каждом этапе оформления
+            переоборудования
+								</p>
+								<p class="block-form__text">Назову точную стоимость получения всех необходимых документов на ТС</p>
+								<p class="block-form__text">
+									Какую услугу вы не выберете — наш юрист стоит на страже ваших
+            интересов
+								</p>
+							</div>
+							<div class="block-form__image">
+								<picture class="block-form__avatar">
+									<picture>
+										<img alt="men" src="./assets/img/form/men.webp">
+									</picture>
+								</picture>
+								<div class="block-form__info">
+									<div class="block-form__name">Евгений Останин</div>
+									<div class="block-form__duty">Эксперт по переоборудованию ТС</div>
+								</div>
+							</div>
+							<form class="block-form__form" data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
+								<input required data-fls-input="" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="block-form__input input">
+								<input required data-fls-input="" data-fls-input-mask="+7(99) 99-99-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+7(__) __-__-__-__" class="block-form__input input">
+								<textarea data-fls-input="" data-fls-input-autoheight-min="100" data-fls-input-autoheight-max="200" data-fls-input-autoheight="" autocomplete="off" name="text" placeholder="Сообщение" data-fls-form-errtext="Заполните поле" class="block-form__input input"></textarea>
+								<button type="submit" class="block-form__button button button--arrow">
+									<span>Оставить заявку</span>
+									<svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<g clip-path="url(#clip0_49_641)">
+											<path d="M12 19L19 12L12 5M19 12L5 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+										</g>
+										<defs>
+											<clipPath id="clip0_49_641">
+												<rect width="24" height="24" fill="white"></rect>
+											</clipPath>
+										</defs>
+									</svg>
+								</button>
 							</form>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div data-fls-popup="popup-message" aria-hidden="true" class="popup">
-				<div data-fls-popup-wrapper="" class="popup__wrapper">
-					<div data-fls-popup-body="" class="popup__body">
-						<button data-fls-popup-close="" type="button" class="popup__close">
-							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
-								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
-							</svg>
-						</button>
-						<div data-fls-popup-content="" class="popup__box">
-							<h2 class="popup__title">СПАСИБО,ВАШЕ СООБЩЕНИЕ УСПЕШНО ОТПРАВЛЕНО!!!</h2>
+				</section>
+				<section data-fls-blocktext="" class="block-text">
+					<div class="block-text__container">
+						<div class="block-text__body">
+							<h2 dta-fls-title="" class="title">Безопасность колесных ТС — наша главная цель</h2>
+							<div class="block-text__text">
+								<p>
+									Мы помогаем владельцам ТС узаконить изменения в конструкции после
+            установки нового оборудования. Оформляем документы на ввозимые из
+            стран Таможенного союза машины. Обращайтесь к нам, чтобы получить
+            профессиональную помощь во внесении изменений в конструкцию
+            транспортного средства.
+								</p>
+							</div>
+						</div>
+						<div class="block-text__body">
+							<h2 dta-fls-title="" class="title">Аккредитованная испытательная лаборатория</h2>
+							<div class="block-text__text">
+								<p>
+									Наши сертифицированные специалисты проведут необходимые экспертизы в
+            соответствии с правилами ТР ТС 018/2011 и ГОСТ 33670-2015. С
+            результатами наших проверок вы быстро пройдете регистрацию изменений
+            в ГИБДД.
+								</p>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<main class="page page--home">
-				<section class="hero">
-					<div class="hero__container">
+				</section>
+				<section data-fls-result="" class="result">
+					<div class="result__container">
+						<div class="result__top">
+							<h2 data-fls-title="" class="title title--notmargin">Наше портфолио</h2>
+							<div class="result__navigacions">
+								<button type="button" class="result-prev swiper-button-prev"></button>
+								<a href="portfolio.html">Смотреть все</a>
+								<button type="button" class="result-next swiper-button-next"></button>
+							</div>
+						</div>
 						<!-- Оболочка слайдера -->
-						<div data-fls-slider="" class="hero__slider swiper">
+						<div data-fls-slider="" class="result__slider swiper">
 							<!-- Часть слайдера, которая двигается -->
-							<div class="hero__wrapper swiper-wrapper">
+							<div data-fls-gallery="" class="result__wrapper swiper-wrapper">
 								<!-- Слайд -->
-								<div class="hero__slide swiper-slide">
-									<img alt="#" src="./assets/img/hero/01.webp">
-								</div>
-								<div class="hero__slide swiper-slide">
-									<img alt="#" src="./assets/img/hero/02.webp">
-								</div>
-								<div class="hero__slide swiper-slide">
-									<img alt="#" src="./assets/img/hero/03.webp">
-								</div>
-							</div>
-							<!-- Если нужна пагинация -->
-							<div class="hero__navigacions">
-								<div class="swiper-pagination"></div>
-								<div class="hero__arrows">
-									<button type="button" class="hero-button-prev swiper-button-prev"></button>
-									<button type="button" class="hero-button-next swiper-button-next"></button>
-								</div>
-							</div>
-						</div>
-						<picture class="hero__banner">
-							<img class="hero__banner-bg" alt="#" src="./assets/img/hero/bg.webp">
-							<img alt="sale" src="./assets/img/hero/sale.webp">
-						</picture>
-					</div>
-				</section>
-				<section class="block-banner">
-					<div class="block-banner__container">
-						<div class="block-banner__content">
-							<img class="block-banner__content-img-bg" alt="#" src="./assets/img/block-banner/left-img.webp">
-							<h2 class="block-banner__title">Дизайн бумага</h2>
-							<p class="block-banner__text">Сертификаты, грамоты, полиграфия</p>
-							<a class="block-banner__button" href="#">Подобрать</a>
-						</div>
-						<div class="block-banner__items">
-							<div class="block-banner__item">
-								<img class="block-banner__item-img" alt="@" src="./assets/img/block-banner/01.webp">
-								<h3 class="block-banner__item-title">Этикетки с прямыми углами</h3>
-							</div>
-							<div class="block-banner__item">
-								<img class="block-banner__item-img" alt="@" src="./assets/img/block-banner/02.webp">
-								<h3 class="block-banner__item-title">Этикетки с закруглёнными углами</h3>
-							</div>
-							<div class="block-banner__item">
-								<img class="block-banner__item-img" alt="@" src="./assets/img/block-banner/03.webp">
-								<h3 class="block-banner__item-title">Круглые этикетки</h3>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="popular">
-					<div class="popular__container">
-						<h2 class="popular__title">Популярные товары</h2>
-						<div data-fls-slider="" class="popular__slider swiper">
-							<div class="popular__wrapper swiper-wrapper">
-								<div class="popular__slide swiper-slide">
+								<a href="./assets/img/portfolio/01.webp" class="result__slide swiper-slide">
 									<picture>
-										<img class="popular__img" alt="#" src="./assets/img/popular/01.jpeg">
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/01-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/01-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/01.webp">
 									</picture>
-									<div class="popular__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
-									<a class="popular__button" href="#">в корзину</a>
-								</div>
-								<div class="popular__slide swiper-slide">
+									<div class="result__name">Установка ГБО на ГАЗ 37054С в России</div>
+								</a>
+								<a href="./assets/img/portfolio/02.webp" class="result__slide swiper-slide">
 									<picture>
-										<img class="popular__img" alt="#" src="./assets/img/popular/01.jpeg">
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/02-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/02-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/02.webp">
 									</picture>
-									<div class="popular__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
-									<a class="popular__button" href="#">в корзину</a>
-								</div>
-								<div class="popular__slide swiper-slide">
+									<div class="result__name">Внедорожный тюнинг на Toyota Land Cruiser 150 (Prado) в России</div>
+								</a>
+								<a href="./assets/img/portfolio/03.webp" class="result__slide swiper-slide">
 									<picture>
-										<img class="popular__img" alt="#" src="./assets/img/popular/01.jpeg">
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/03-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/03-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/03.webp">
 									</picture>
-									<div class="popular__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
-									<a class="popular__button" href="#">в корзину</a>
-								</div>
-								<div class="popular__slide swiper-slide">
+									<div class="result__name">Установка ГБО на ГАЗ 37054С в России</div>
+								</a>
+								<a href="./assets/img/portfolio/04.webp" class="result__slide swiper-slide">
 									<picture>
-										<img class="popular__img" alt="#" src="./assets/img/popular/01.jpeg">
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/04-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/04-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/04.webp">
 									</picture>
-									<div class="popular__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
-									<a class="popular__button" href="#">в корзину</a>
-								</div>
-								<div class="popular__slide swiper-slide">
+									<div class="result__name">Внедорожный тюнинг на Toyota Land Cruiser 150 (Prado) в России</div>
+								</a>
+								<a href="./assets/img/portfolio/05.webp" class="result__slide swiper-slide">
 									<picture>
-										<img class="popular__img" alt="#" src="./assets/img/popular/01.jpeg">
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/05-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/05-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/05.webp">
 									</picture>
-									<div class="popular__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
-									<a class="popular__button" href="#">в корзину</a>
-								</div>
-								<div class="popular__slide swiper-slide">
+									<div class="result__name">Установка ГБО на ГАЗ 37054С в России</div>
+								</a>
+								<a href="./assets/img/portfolio/01.webp" class="result__slide swiper-slide">
 									<picture>
-										<img class="popular__img" alt="#" src="./assets/img/popular/01.jpeg">
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/01-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/01-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/01.webp">
 									</picture>
-									<div class="popular__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
-									<a class="popular__button" href="#">в корзину</a>
-								</div>
-								<div class="popular__slide swiper-slide">
+									<div class="result__name">Установка ГБО на ГАЗ 37054С в России</div>
+								</a>
+								<a href="./assets/img/portfolio/02.webp" class="result__slide swiper-slide">
 									<picture>
-										<img class="popular__img" alt="#" src="./assets/img/popular/01.jpeg">
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/02-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/02-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/02.webp">
 									</picture>
-									<div class="popular__name">Этикет-лента 30х20 полипропилен (2000 этикеток) втулка 40 мм</div>
-									<a class="popular__button" href="#">в корзину</a>
-								</div>
-							</div>
-							<div class="popular__navigacions">
-								<div class="swiper-pagination"></div>
-								<div class="popular__arrows">
-									<button type="button" class="popular-button-prev swiper-button-prev"></button>
-									<button type="button" class="popular-button-next swiper-button-next"></button>
-								</div>
+									<div class="result__name">Внедорожный тюнинг на Toyota Land Cruiser 150 (Prado) в России</div>
+								</a>
+								<a href="./assets/img/portfolio/03.webp" class="result__slide swiper-slide">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/03-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/03-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/03.webp">
+									</picture>
+									<div class="result__name">Установка ГБО на ГАЗ 37054С в России</div>
+								</a>
+								<a href="./assets/img/portfolio/04.webp" class="result__slide swiper-slide">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/04-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/04-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/04.webp">
+									</picture>
+									<div class="result__name">Внедорожный тюнинг на Toyota Land Cruiser 150 (Prado) в России</div>
+								</a>
+								<a href="./assets/img/portfolio/05.webp" class="result__slide swiper-slide">
+									<picture>
+										<source media="(max-width: 600px)" srcset="./assets/img/portfolio/05-600.webp" type="image/webp">
+										<source media="(max-width: 1200px)" srcset="./assets/img/portfolio/05-1200.webp" type="image/webp">
+										<img class="result__img" alt="Image" src="./assets/img/portfolio/05.webp">
+									</picture>
+									<div class="result__name">Установка ГБО на ГАЗ 37054С в России</div>
+								</a>
 							</div>
 						</div>
 					</div>
 				</section>
-				<section class="dignities">
-					<div class="dignities__container">
-						<picture class="dignities__image">
-							<img class="dignities__img-bg" alt="#" src="./assets/img/hero/bg.webp">
-							<img class="dignities__img" alt="#" src="./assets/img/dignities/01.webp">
-						</picture>
-						<div class="dignities__content">
-							<div class="dignities__items">
-								<div class="dignities__item">
-									<div class="dignities__icon">
-										<img alt="#" src="./assets/img/dignities/icon01.png">
-									</div>
-									<div class="dignities__block">
-										<h3 class="dignities__title">Качество</h3>
-										<p class="dignities__text">
-											Мы гарантируем высокое качество нашей продукции благодаря
-                использованию современных материалов и технологий производства.
-										</p>
-									</div>
-								</div>
-								<div class="dignities__item">
-									<div class="dignities__icon">
-										<img alt="#" src="./assets/img/dignities/icon02.png">
-									</div>
-									<div class="dignities__block">
-										<h3 class="dignities__title">Объёмы</h3>
-										<p class="dignities__text">
-											Мы готовы предложить вам любые объемы поставок – от небольших
-                партий до крупных заказов. Независимо от объема заказа, мы
-                обеспечим вас продукцией в установленные сроки.
-										</p>
-									</div>
-								</div>
-								<div class="dignities__item">
-									<div class="dignities__icon">
-										<img alt="#" src="./assets/img/dignities/icon03.png">
-									</div>
-									<div class="dignities__block">
-										<h3 class="dignities__title">Снабжение</h3>
-										<p class="dignities__text">
-											Наша компания обеспечивает бесперебойную поставку самоклеящихся
-                этикеток на листах А4 в любых необходимых объемах. Оперативно
-                реагируем на запросы клиентов.
-										</p>
-									</div>
-								</div>
-								<div class="dignities__item">
-									<div class="dignities__icon">
-										<img alt="#" src="./assets/img/dignities/icon04.png">
-									</div>
-									<div class="dignities__block">
-										<h3 class="dignities__title">Сроки</h3>
-										<p class="dignities__text">
-											Минимизируем временные затраты на выполнение вашего
-                заказа.Оптимизированные процессы и эффективная
-                логистика,гарантирует своевременную доставку.
-										</p>
-									</div>
-								</div>
-							</div>
-							<div class="dignities__bottom">
-								<div class="dignities__bottom-icon">
-									<img alt="#" src="./assets/img/dignities/burger.png">
-								</div>
-								<p class="dignities__bottom-text">Подобрать этикетки</p>
+				<!--
+<div
+data-fls-marquee-space="50"
+data-fls-marquee-speed="300"
+data-fls-marquee
+>
+<div><img src="@img/marquee/01.webp" alt="Image" /></div>
+<div><img src="@img/marquee/02.webp" alt="Image" /></div>
+<div><img src="@img/marquee/03.webp" alt="Image" /></div>
+<div><img src="@img/marquee/04.webp" alt="Image" /></div>
+</div>
+-->
+				<section data-fls-blocktext="" class="block-text">
+					<div data-fls-showmore="" class="block-text__container">
+						<div data-fls-showmore-content="300" class="block-text__body">
+							<h2 dta-fls-title="" class="title">Какой вид переоборудования автомобиля подлежит регистрации в 2026 году</h2>
+							<div class="block-text__text">
+								<h3>ГБО на авто</h3>
+								<p>
+									Незарегистрированное газовое оборудование — повод для серьезных
+            штрафов. Чтобы узаконить ГБО по всем правилам, обратитесь в нашу
+            лабораторию. Выдаем официальные заключения, которые примут в любом
+            подразделении ГИБДД РФ.
+								</p>
+								<h3>Внесение изменений в конструкцию внедорожников</h3>
+								<p>
+									Лебедки, багажники, силовые бамперы, колесные спейсеры — эти и
+            другие элементы тюнинга меняют конструкцию ТС. Чтобы поставить их на
+            учет, пройдите экспертизу в аккредитованном испытательном центре. Мы
+            работаем не только в Москве, но и во всех регионах.
+								</p>
+								<h3>Замена основных агрегатов</h3>
+								<p>
+									Свап двигателя или коробки, кардинальные кузовные изменения — всё
+            это тоже требует обязательной регистрации. В некоторых случаях может
+            понадобиться заключение предварительной технической экспертизы. Она
+            ведётся в рамках установленного законодательства РФ.
+								</p>
+								<p>
+									Мы гарантируем конфиденциальность персональных данных и обрабатываем
+            их согласно ФЗ-152. Чтобы начать сотрудничество, отправьте заявку
+            через форму на сайте либо позвоните по номеру указанному в шапке
+            сайта. Наши специалисты ответят на вопросы по внесению изменений в
+            конструкцию авто и их оформлению, предложат оптимальное решение
+            вашей задачи.
+								</p>
 							</div>
 						</div>
+						<button hidden data-fls-showmore-button="" type="button" class="block__more">
+							<span>Показать ещё</span>
+							<span>Скрыть</span>
+						</button>
 					</div>
 				</section>
-				<section class="products">
-					<div class="products__container">
-						<h2 class="products__title">Продукция</h2>
-						<div class="products__items">
-							<article data-fls-addtocart-product="" class="products__item">
-								<picture>
-									<img data-fls-addtocart-image="" class="products__img" alt="#" src="./assets/img/popular/01.jpeg">
-								</picture>
-								<div class="products__name">Этикет-лента 130х210 полипропилен (2000 этикеток) втулка 40 мм</div>
-								<button class="products__button" data-fls-addtocart-button="">в корзину</button>
-							</article>
-							<article data-fls-addtocart-product="" class="products__item">
-								<picture>
-									<img data-fls-addtocart-image="" class="products__img" alt="#" src="./assets/img/popular/01.jpeg">
-								</picture>
-								<div class="products__name">Этикет-лента 130х210 полипропилен (2000 этикеток) втулка 40 мм</div>
-								<button class="products__button" data-fls-addtocart-button="">в корзину</button>
-							</article>
-							<article data-fls-addtocart-product="" class="products__item">
-								<picture>
-									<img data-fls-addtocart-image="" class="products__img" alt="#" src="./assets/img/popular/01.jpeg">
-								</picture>
-								<div class="products__name">Этикет-лента 130х210 полипропилен (2000 этикеток) втулка 40 мм</div>
-								<button class="products__button" data-fls-addtocart-button="">в корзину</button>
-							</article>
-							<article data-fls-addtocart-product="" class="products__item">
-								<picture>
-									<img data-fls-addtocart-image="" class="products__img" alt="#" src="./assets/img/popular/01.jpeg">
-								</picture>
-								<div class="products__name">Этикет-лента 130х210 полипропилен (2000 этикеток) втулка 40 мм</div>
-								<button class="products__button" data-fls-addtocart-button="">в корзину</button>
-							</article>
-							<article data-fls-addtocart-product="" class="products__item">
-								<picture>
-									<img data-fls-addtocart-image="" class="products__img" alt="#" src="./assets/img/popular/01.jpeg">
-								</picture>
-								<div class="products__name">Этикет-лента 130х210 полипропилен (2000 этикеток) втулка 40 мм</div>
-								<button class="products__button" data-fls-addtocart-button="">в корзину</button>
-							</article>
-							<article data-fls-addtocart-product="" class="products__item">
-								<picture>
-									<img data-fls-addtocart-image="" class="products__img" alt="#" src="./assets/img/popular/01.jpeg">
-								</picture>
-								<div class="products__name">Этикет-лента 130х210 полипропилен (2000 этикеток) втулка 40 мм</div>
-								<button class="products__button" data-fls-addtocart-button="">в корзину</button>
-							</article>
-						</div>
-					</div>
-				</section>
-				<section class="gallery">
-					<div class="gallery__container">
-						<h2 class="gallery__title">Наши работы</h2>
-						<div class="gallery__slider-container">
-							<div data-fls-slider="" class="gallery__slider swiper">
-								<div data-fls-gallery="" class="gallery__wrapper swiper-wrapper">
-									<a href="./assets/img/gallery/01.webp" class="gallery__slide swiper-slide">
-										<img alt="#" src="./assets/img/gallery/01.webp">
-									</a>
-									<a href="./assets/img/gallery/02.webp" class="gallery__slide swiper-slide">
-										<img alt="#" src="./assets/img/gallery/02.webp">
-									</a>
-									<a href="./assets/img/gallery/03.webp" class="gallery__slide swiper-slide">
-										<img alt="#" src="./assets/img/gallery/03.webp">
-									</a>
-									<a href="./assets/img/gallery/01.webp" class="gallery__slide swiper-slide">
-										<img alt="#" src="./assets/img/gallery/01.webp">
-									</a>
-									<a href="./assets/img/gallery/02.webp" class="gallery__slide swiper-slide">
-										<img alt="#" src="./assets/img/gallery/02.webp">
-									</a>
-								</div>
-							</div>
-							<div class="gallery__navigacions">
-								<button type="button" class="gallery-button-prev swiper-button-prev"></button>
-								<button type="button" class="gallery-button-next swiper-button-next"></button>
-							</div>
-						</div>
-					</div>
-				</section>
-				<section class="questions">
-					<div class="questions__container">
-						<h2 class="questions__title">Частые вопросы</h2>
-						<div data-fls-spollers="" class="spollers">
-							<details class="spollers__item">
-								<summary class="spollers__title">Чем Стикер Студия отличается от других типографий?</summary>
-								<div class="spollers__body">
-									Мы специализируемся только на наклейках и этикетках — это наш
-            единственный профиль. Печатаем на европейских виниловых материалах
-            японским оборудованием. Весь процесс онлайн: оформление заказа,
-            оплата, отслеживание статуса — без звонков и менеджеров. Более 1600
-            реальных отзывов через независимую систему CusRev.
-								</div>
-							</details>
-							<details class="spollers__item">
-								<summary class="spollers__title">Как осуществляется доставка?</summary>
-								<div class="spollers__body">
-									Оплата банковской картой (Visa, Mastercard, Мир) или через СБП. Для
-            юридических лиц и ИП — оплата по счёту, который автоматически придёт
-            на почту после оформления заказа. Подробнее — в разделе «Доставка и
-            оплата».
-								</div>
-							</details>
-							<details class="spollers__item">
-								<summary class="spollers__title">Как осуществляется доставка?</summary>
-								<div class="spollers__body">
-									Бесплатно Почтой России в любой город (3–7 рабочих дней). Также
-            доступна доставка СДЭК — до пункта выдачи или курьером до двери (2–5
-            дней). Самовывоз с производства в Москве: Нижняя Сыромятническая
-            11с52, лофт «Плутон», по будням с 12:00 до 2
-								</div>
-							</details>
-							<details class="spollers__item">
-								<summary class="spollers__title">Можно ли заказать наклейки без готового макета?</summary>
-								<div class="spollers__body">
-									Да. Загрузите любое изображение — мы подготовим линию реза сами. С
-            рекомендациями по подготовке файлов можно ознакомиться в специальном
-            разделе. Если есть вопросы по макету — напишите в чат на сайте или в
-            Telegram.
-								</div>
-							</details>
-							<details class="spollers__item">
-								<summary class="spollers__title">Чем Стикер Студия отличается от других типографий?</summary>
-								<div class="spollers__body">
-									Мы специализируемся только на наклейках и этикетках — это наш
-            единственный профиль. Печатаем на европейских виниловых материалах
-            японским оборудованием. Весь процесс онлайн: оформление заказа,
-            оплата, отслеживание статуса — без звонков и менеджеров. Более 1600
-            реальных отзывов через независимую систему CusRev.
-								</div>
-							</details>
-							<details class="spollers__item">
-								<summary class="spollers__title">Как осуществляется доставка?</summary>
-								<div class="spollers__body">
-									Оплата банковской картой (Visa, Mastercard, Мир) или через СБП. Для
-            юридических лиц и ИП — оплата по счёту, который автоматически придёт
-            на почту после оформления заказа. Подробнее — в разделе «Доставка и
-            оплата».
-								</div>
-							</details>
-							<details class="spollers__item">
-								<summary class="spollers__title">Как осуществляется доставка?</summary>
-								<div class="spollers__body">
-									Бесплатно Почтой России в любой город (3–7 рабочих дней). Также
-            доступна доставка СДЭК — до пункта выдачи или курьером до двери (2–5
-            дней). Самовывоз с производства в Москве: Нижняя Сыромятническая
-            11с52, лофт «Плутон», по будням с 12:00 до 2
-								</div>
-							</details>
-							<details class="spollers__item">
-								<summary class="spollers__title">Можно ли заказать наклейки без готового макета?</summary>
-								<div class="spollers__body">
-									Да. Загрузите любое изображение — мы подготовим линию реза сами. С
-            рекомендациями по подготовке файлов можно ознакомиться в специальном
-            разделе. Если есть вопросы по макету — напишите в чат на сайте или в
-            Telegram.
-								</div>
-							</details>
-						</div>
-					</div>
-				</section>
-				<section class="contacts">
-					<div class="contacts__container">
-						<h2 class="contacts__title">Адрес производства и офиса</h2>
-						<div class="contacts__clock">
-							Принимаем заказы
-							<span>ежедневно с 09.00 до 21.00</span>
-						</div>
-						<div class="contacts__info">
-							<div class="contacts__item">
-								<svg class="contacts__icon" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewbox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
-									<g>
-										<path d="M39,22c0-3.86-3.14-7-7-7s-7,3.14-7,7s3.14,7,7,7S39,25.86,39,22z M27,22c0-2.757,2.243-5,5-5s5,2.243,5,5s-2.243,5-5,5
-		S27,24.757,27,22z"></path>
-										<path d="M31.962,64.543l0.763-0.895C33.597,62.628,54.07,38.457,54,22.731C53.946,10.197,44.077,0,32,0
-		C19.869,0,10,10.199,10,22.735c0,15.721,20.336,39.89,21.202,40.911L31.962,64.543z M32,2c10.979,0,19.951,9.304,20,20.74
-		c0.06,13.328-16.274,34.091-20.033,38.69C28.228,56.826,12,36.07,12,22.735C12,11.302,20.972,2,32,2z"></path>
-									</g>
-								</svg>
-								<div class="contacts__item-block">
-									<strong class="contacts__item-title">Адрес:</strong>
-									<div class="contacts__item-text">г.Минск</div>
-								</div>
-							</div>
-							<div class="contacts__item">
-								<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewbox="0 0 29.735 29.735" style="enable-background: new 0 0 29.735 29.735" xml:space="preserve">
-									<g>
-										<g>
-											<path d="M23.895,29.733c-1.237,0-2.731-0.31-4.373-0.929c-3.603-1.359-7.521-4.043-11.035-7.557
-			C4.973,17.733,2.289,13.814,0.93,10.21C-0.307,6.935-0.31,4.247,0.92,3.017c0.178-0.178,0.359-0.368,0.545-0.563
-			c1.123-1.18,2.422-2.521,4.073-2.448c1.16,0.048,2.283,0.768,3.435,2.198c3.396,4.225,1.865,5.731,0.093,7.477L8.752,9.991
-			c-0.29,0.29-0.839,1.632,4.26,6.73c1.666,1.665,3.084,2.883,4.217,3.62c0.715,0.464,1.991,1.164,2.514,0.641l0.315-0.318
-			c1.744-1.77,3.25-3.296,7.474,0.099c1.431,1.15,2.15,2.273,2.198,3.434c0.069,1.682-1.271,2.954-2.453,4.076
-			c-0.194,0.185-0.384,0.364-0.56,0.54C26.103,29.426,25.127,29.733,23.895,29.733z M5.419,1.002c-1.194,0-2.274,1.136-3.229,2.14
-			C1.997,3.344,1.81,3.541,1.627,3.724C0.711,4.639,0.805,7.047,1.865,9.858c1.31,3.473,3.913,7.267,7.329,10.683
-			s7.209,6.018,10.681,7.328c2.811,1.061,5.219,1.153,6.135,0.236c0.183-0.182,0.378-0.368,0.578-0.558
-			c1.028-0.977,2.193-2.083,2.143-3.311c-0.035-0.843-0.649-1.75-1.826-2.695c-3.52-2.828-4.503-1.828-6.135-0.176l-0.32,0.323
-			c-0.777,0.781-2.044,0.61-3.766-0.51c-1.19-0.774-2.664-2.037-4.379-3.751l0,0c-4.231-4.231-5.585-6.819-4.26-8.145l0.319-0.316
-			c1.658-1.632,2.658-2.617-0.171-6.137C7.247,1.654,6.34,1.04,5.497,1.004C5.471,1.003,5.444,1.002,5.419,1.002z"></path>
-										</g>
-										<g>
-											<path d="M24.07,12.29c-0.063,0-0.126-0.012-0.188-0.037c-0.256-0.104-0.38-0.395-0.275-0.65c0.636-1.568,0.272-3.355-0.924-4.552
-			c-1.229-1.229-3.118-1.57-4.703-0.858c-0.249,0.113-0.548,0.003-0.661-0.249c-0.114-0.252-0.003-0.548,0.249-0.661
-			c1.961-0.888,4.3-0.461,5.822,1.062c1.481,1.481,1.93,3.692,1.143,5.634C24.455,12.171,24.267,12.29,24.07,12.29z"></path>
-											<path d="M28.534,14.102c-0.063,0-0.126-0.012-0.188-0.037c-0.257-0.104-0.38-0.395-0.275-0.65
-			c1.365-3.367,0.588-7.202-1.981-9.771c-2.638-2.638-6.695-3.378-10.095-1.841c-0.252,0.11-0.548,0.002-0.662-0.25
-			C15.22,1.3,15.331,1.004,15.583,0.89c3.777-1.706,8.283-0.885,11.214,2.046c2.854,2.854,3.718,7.114,2.2,10.854
-			C28.919,13.984,28.731,14.102,28.534,14.102z"></path>
-										</g>
-									</g>
-									<g></g>
-									<g></g>
-									<g></g>
-									<g></g>
-									<g></g>
-									<g></g>
-									<g></g>
-									<g></g>
-									<g></g>
-									<g></g>
-									<g></g>
-									<g></g>
-									<g></g>
-									<g></g>
-									<g></g>
-								</svg>
-								<div class="contacts__item-block">
-									<strong class="contacts__item-title">Телефон:</strong>
-									<a href="tel:375000000000" class="contacts__item-text">+375(00) 000-00-00</a>
-								</div>
-							</div>
-							<div class="contacts__item">
-								<svg class="contacts__icon" enable-background="new 0 0 192 210.0428" id="viber" version="1.1" viewbox="0 0 192 210.0428" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-									<g>
-										<path d="M116.004,0H75.996C34.0916,0,0,34.086,0,75.9804v36.0392c0,31.1992,19.172,59.2384,48,70.66v23.3632 c0,1.582,0.9316,3.0156,2.3788,3.6564c0.5196,0.2304,1.0724,0.3436,1.6212,0.3436c0.9728,0,1.9356-0.3552,2.6856-1.0348 L77.8788,188h38.1252C157.9084,188,192,153.914,192,112.0196V75.9804C192,34.086,157.9084,0,116.004,0z M184,112.0196 C184,149.504,153.498,180,116.004,180H76.336c-0.9924,0-1.9492,0.3672-2.6856,1.0352L56,197.0236v-17.1172 c0-1.6956-1.0684-3.2072-2.668-3.7696C26.2188,166.5508,8,140.7852,8,112.0196V75.9804C8,38.496,38.502,8,75.996,8h40.008 C153.498,8,184,38.496,184,75.9804V112.0196z"></path>
-										<path d="M148.8632,121.9728l-24.586-15.9688c-2.6892-1.746-5.8864-2.34-9.0212-1.6916c-3.1368,0.6604-5.8304,2.512-7.5804,5.2112 l-1.156,1.7772c-10.6408-3.5156-22.3732-8.008-29.3964-28.34l2.908-2.5272h0.002c4.9904-4.34,5.5156-11.9336,1.174-16.9336 L61.9748,41.3748c-1.4496-1.6676-3.9768-1.8396-5.6448-0.3944l-12.074,10.496c-10.594,9.2072-5.6428,22.8284-4.0156,27.3048 c0.072,0.1992,0.16,0.3908,0.2636,0.578c0.42,0.754,10.4492,18.6488,26.6424,35.1448 c16.26,16.5624,45.6172,31.8592,46.5176,32.3044c3.3536,2.176,7.1252,3.2188,10.8556,3.2188 c6.5508,0,12.9764-3.2108,16.8064-9.1016l8.7132-13.4176C151.242,125.6524,150.7148,123.1756,148.8632,121.9728z M134.6172,136.5664c-3.6056,5.5508-11.0508,7.1288-16.9336,3.336c-0.2928-0.1524-29.4552-15.34-44.828-31 C58.4884,94.2656,48.9492,78.008,47.6464,75.7384c-3.17-8.8828-2.6092-14.344,1.8556-18.2228l9.0584-7.8712L75.168,68.75 c1.4744,1.6952,1.3048,4.1756-0.3848,5.6444l-4.908,4.2656c-1.1956,1.0392-1.6664,2.6836-1.1996,4.1956 c8.3692,27.1912,24.6408,32.5312,36.5216,36.4336l1.7304,0.57c1.7308,0.586,3.6292-0.082,4.6192-1.6132l2.838-4.3672 c0.586-0.9024,1.4804-1.5156,2.5196-1.7344c1.0428-0.2224,2.1092-0.0156,3.0136,0.5704l21.2324,13.7892L134.6172,136.5664z"></path>
-										<path d="M105.1288,64.9884c-2.1288-0.6136-4.3396,0.6248-4.9432,2.7536c-0.6036,2.1252,0.6288,4.336,2.752,4.9416 c5.9608,1.6952,10.7068,6.4532,12.3884,12.418c0.4964,1.7616,2.1016,2.914,3.848,2.914c0.3592,0,0.7244-0.0468,1.0876-0.1484 c2.1252-0.6016,3.3636-2.8088,2.7636-4.9376C120.5976,74.3124,113.7384,67.4376,105.1288,64.9884z"></path>
-										<path d="M135.5704,88.8748c0.3592,0,0.7244-0.0468,1.088-0.1484c2.1268-0.6016,3.3632-2.8124,2.7636-4.9372 c-4.7188-16.7308-18.0372-30.0784-34.756-34.836c-2.1248-0.6132-4.338,0.6328-4.9412,2.754 c-0.6036,2.1248,0.6288,4.3356,2.7536,4.9412c14.0664,4,25.2736,15.2344,29.2444,29.3124 C132.2208,87.7228,133.8244,88.8748,135.5704,88.8748z"></path>
-										<path d="M102.9432,30.328c-2.1288-0.6132-4.3396,0.6252-4.9432,2.754c-0.6036,2.1252,0.6288,4.336,2.752,4.9416 c23.838,6.7812,42.824,25.8124,49.5508,49.664c0.496,1.7616,2.1016,2.914,3.8476,2.914c0.3592,0,0.7248-0.0468,1.088-0.1484 c2.1248-0.6016,3.3632-2.8124,2.7636-4.9376C150.5272,59.0116,129.4296,37.8672,102.9432,30.328z"></path>
-									</g>
-								</svg>
-								<div class="contacts__item-block">
-									<strong class="contacts__item-title">Viber:</strong>
-									<a href="tel:375000000000" class="contacts__item-text">+375(00) 000-00-00</a>
-								</div>
-							</div>
-							<div class="contacts__item">
-								<svg class="contacts__icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24">
-									<path d="M3.84674576,17.8602756 C4.0442161,17.955959 4.26584099,18.0096122 4.49999728,18.0096122 L19.5,18.0096122 C19.734157,18.0096122 19.9557825,17.9559587 20.1532533,17.8602747 L14.2446247,12.2992125 L12.3178536,13.8859651 C12.1332257,14.0380116 11.8667743,14.0380116 11.6821464,13.8859651 L9.75537533,12.2992125 L3.84674576,17.8602756 L3.84674576,17.8602756 Z M3.1430925,17.1498223 C3.1477226,17.1451097 3.15246435,17.1404678 3.15731765,17.1359 L8.97720082,11.6583629 L3.18214637,6.88596512 C3.16950983,6.87555855 3.15751523,6.86466152 3.14616744,6.85332433 C3.05246763,7.04913384 2.99999728,7.26843937 2.99999728,7.5 L2.99999728,16.5096122 C2.99999728,16.7386275 3.05132045,16.9556556 3.1430925,17.1498223 L3.1430925,17.1498223 Z M20.8569057,17.1498204 C20.9486772,16.9556542 21,16.7386268 21,16.5096122 L21,7.5 C21,7.26844009 20.94753,7.04913522 20.8538307,6.85332617 C20.8424835,6.86466269 20.8304895,6.87555911 20.8178536,6.88596512 L15.0227992,11.6583629 L20.8426823,17.1359 C20.847535,17.1404672 20.8522762,17.1451085 20.8569057,17.1498204 L20.8569057,17.1498204 Z M20.1444281,6.14509696 C19.9491886,6.05206979 19.7306751,6 19.5,6 L4.49999728,6 C4.26932289,6 4.05080997,6.05206949 3.85557086,6.14509614 L12,12.8522731 L20.1444281,6.14509696 L20.1444281,6.14509696 Z M4.49999728,5 L19.5,5 C20.8807119,5 22,6.11928813 22,7.5 L22,16.5096122 C22,17.8903241 20.8807119,19.0096122 19.5,19.0096122 L4.49999728,19.0096122 C3.11928541,19.0096122 1.99999728,17.8903241 1.99999728,16.5096122 L1.99999728,7.5 C1.99999728,6.11928813 3.11928541,5 4.49999728,5 Z"></path>
-								</svg>
-								<div class="contacts__item-block">
-									<strong class="contacts__item-title">E-Mail:</strong>
-									<a href="malito:почт@mail.ru" class="contacts__item-text">почт@mail.ru</a>
-								</div>
-							</div>
-						</div>
-						<div class="contacts__map">
-							<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Ae341eea60766637d6229388975a5fbd8469a3bccecc82f0fb13ec4f3b2cc10a8&amp;source=constructor" width="100%" height="400" frameborder="0"></iframe>
-						</div>
-					</div>
-				</section>
-				<div class="cart-sidebar" id="cartSidebar">
-					<div class="cart-sidebar__header">
-						<h3>Корзина</h3>
-						<button class="cart-sidebar__close" id="closeCartSidebar">✕</button>
-					</div>
-					<div class="cart-sidebar__items" id="cartSidebarItems"></div>
-					<div class="cart-sidebar__footer">
-						<!-- Выбор типа клиента -->
-						<div class="cart-client-type">
-							<div class="cart-client-type__title">Тип клиента:</div>
-							<div class="cart-client-type__options">
-								<label class="cart-client-type__option">
-									<input type="radio" name="clientType" value="individual" checked>
-									<span>Физическое лицо</span>
-								</label>
-								<label class="cart-client-type__option">
-									<input type="radio" name="clientType" value="legal">
-									<span>Юридическое лицо</span>
-								</label>
-							</div>
-						</div>
-						<div class="cart-sidebar__total">
-							<span>Итого:</span>
-							<strong id="cartSidebarTotal">0 ₽</strong>
-						</div>
-						<button class="cart-sidebar__checkout" id="checkoutBtn">Оформить заказ</button>
-					</div>
-				</div>
-				<div class="cart-overlay" id="cartOverlay"></div>
 			</main>
 			<footer data-fls-footer="" class="footer">
 				<div class="footer__container">
-					<div class="footer__banner banner">
-						<div class="banner__logo-body">
-							<a href="#" class="banner__logo">IPAPER.BY</a>
-							<p class="banner__text">Этикет лента для вашего бизнеса</p>
-						</div>
-						<ul class="banner__list">
-							<li>
-								<a href="#">Утепление каркасных домов</a>
-							</li>
-							<li>
-								<a href="#">Утепление под домом</a>
-							</li>
-							<li>
-								<a href="#">Утепление ангаров</a>
-							</li>
-						</ul>
-					</div>
-					<div class="footer__main main-footer">
-						<div class="main-footer__content">
-							<p class="main-footer__text">Этикет лента для вашего бизнеса в Минске и Минской области</p>
-							<a data-fls-popup-link="popup" class="main-footer__button" href="#">Обратный звонок</a>
-							<div class="main-footer__socials">
-								<a class="main-footer__social-link" href="#">
-									<img alt="Image" src="./assets/img/icon-social/viber.png">
-								</a>
-								<a class="main-footer__social-link" href="#">
-									<img alt="Image" src="./assets/img/icon-social/telegram.png">
-								</a>
-								<a class="main-footer__social-link" href="#">
-									<img alt="Image" src="./assets/img/icon-social/instagram.png">
-								</a>
-								<a class="main-footer__social-link" href="#">
-									<img src="./assets/img/icon-social/tiktok%20(1).png" alt="Image">
-								</a>
+					<div data-fls-spollers="992,max" class="footer__contact">
+						<details class="footer__contact-body">
+							<summary class="footer__contact-title">Контакты:</summary>
+							<div class="footer__contact-content">
+								<div class="footer__contact-block">
+									<div class="footer__contact-item">
+										<div class="footer__contact-name">Почта:</div>
+										<div class="footer__contact-link">
+											<i class="--icon-arrow-right-2"></i>
+											<a href="mailto:ADR-OOO@yandex.ru" class="footer__contact-link">ADR-OOO@yandex.ru</a>
+										</div>
+									</div>
+									<div class="footer__contact-item">
+										<div class="footer__contact-name">Телефон:</div>
+										<div class="footer__contact-link">
+											<i class="--icon-arrow-right-2"></i>
+											<a href="tel:79242424343" class="footer__contact-link">+7 92 42 42 43 43</a>
+										</div>
+									</div>
+									<ul class="footer__contact-mess">
+										<li>
+											<a href="https://t.me/adrdv25" target="_blank">
+												<picture>
+													<img alt="Telegram" src="./assets/img/icon-social/telegram.webp">
+												</picture>
+												<span>Telegram</span>
+											</a>
+										</li>
+										<li>
+											<a href="https://www.instagram.com/adr_dv125?igsh=OXJ0dWt4N2xlNGcw&utm_source=qr" target="_blank">
+												<picture>
+													<img alt="Vk" src="./assets/img/icon-social/instagram.webp">
+												</picture>
+												<span>instagram</span>
+											</a>
+										</li>
+									</ul>
+									<a data-fls-popup-link="popup" class="footer__button footer__button--icon-arrow-right-2" href="#">Заказать консультацию</a>
+								</div>
 							</div>
-							<div class="main-footer__copyright">
-								Copyright © 2008 - 2026 Все права защищены - УНП 791134290 Утепление
-          пенополиуретаном ppu-uteplenie.by Информация на данном интернет-сайте
-          носит исключительно ознакомительный характер и ни при каких условиях
-          не является публичной офертой. Все материалы сайта защищены законом
-          Республики Беларусь от 17 мая 2011 года №262-З "Об авторском праве и
-          смежных правах". Копирование и распространение материалов без согласия
-          владельцев сайта запрещено.20008
+						</details>
+					</div>
+					<div class="footer__bottom bottom-footer">
+						<div class="bottom-footer__info">
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">Наименование:</span>
+								<span class="bottom-footer__info-text">ООО «АДР-ДВ»</span>
+							</div>
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">Юридический адрес:</span>
+								<span class="bottom-footer__info-text">690105, Россия, Приморский край, г Владивосток, ул. Бородинская, д. 26, офис 8</span>
+							</div>
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">ИНН:</span>
+								<span class="bottom-footer__info-text">2543185502</span>
 							</div>
 						</div>
-						<div class="main-footer__info">
-							<h3 class="main-footer__title">Контакты</h3>
-							<a class="main-footer__phone" href="tel:79312760178">+7 (931) 276-01-78</a>
-							<a class="main-footer__mail" href="mailto:79312760178@yandex.ru">79312760178@yandex.ru</a>
-							<p class="main-footer__text">Санкт-Петербург, ул. Федора Абрамова, д 8</p>
-							<a class="main-footer__map-link" href="#">Посмотреть на карте</a>
+						<div class="bottom-footer__info">
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">ОГРН:</span>
+								<span class="bottom-footer__info-text">1242500015504</span>
+							</div>
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">КПП:</span>
+								<span class="bottom-footer__info-text">254301001</span>
+							</div>
+							<a class="bottom-footer__info-policy" href="#">Политика конфиденциальности</a>
 						</div>
-						<nav class="main-footer__menu">
-							<h3 class="main-footer__title">Меню</h3>
-							<ul class="main-footer__list">
-								<li>
-									<a href="#">Главная</a>
-								</li>
-								<li>
-									<a href="#">Стоимость</a>
-								</li>
-								<li>
-									<a href="#">Выбор типа ППУ</a>
-								</li>
-								<li>
-									<a href="#">Расчет стоимости</a>
-								</li>
-								<li>
-									<a href="#">Примеры работ</a>
-								</li>
-								<li>
-									<a href="#">Частые вопросы</a>
-								</li>
-							</ul>
-						</nav>
-					</div>
-					<div class="footer__bottom">
-						<div class="footer__bottom-left">
-							<a href="#">Продвижение сайта Pandas.web</a>
-						</div>
-						<a class="footer__politicy" href="#">Политика конфиденциальности</a>
 					</div>
 				</div>
 			</footer>
-			<div data-fls-phonebottom="" class="phone">
-				<div class="phone__icon">
-					<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewbox="0 0 48 48">
-						<path fill="#fff" d="M24,5C21.361,5,13.33,5,8.89,9.054C6.246,11.688,5,15.494,5,21v3c0,5.506,1.246,9.312,3.921,11.976 c1.332,1.215,3.148,2.186,5.368,2.857L15,39.047v5.328C15,45,15.181,45,15.241,45c0.123,0,0.32-0.039,0.694-0.371 c0.09-0.089,0.75-0.803,3.96-4.399l0.324-0.363l0.485,0.031C21.779,39.965,22.888,40,24,40c2.639,0,10.67,0,15.11-4.055 C41.753,33.311,43,29.505,43,24v-3c0-5.506-1.246-9.312-3.921-11.976C34.67,5,26.639,5,24,5z"></path>
-						<path fill="#7e57c2" d="M33.451 28.854c-1.111-.936-1.624-1.219-3.158-2.14C29.654 26.331 28.68 26 28.169 26c-.349 0-.767.267-1.023.523C26.49 27.179 26.275 28 25.125 28c-1.125 0-3.09-1.145-4.5-2.625C19.145 23.965 18 22 18 20.875c0-1.15.806-1.38 1.462-2.037C19.718 18.583 20 18.165 20 17.816c0-.511-.331-1.47-.714-2.109-.921-1.535-1.203-2.048-2.14-3.158-.317-.376-.678-.548-1.056-.549-.639-.001-1.478.316-2.046.739-.854.637-1.747 1.504-1.986 2.584-.032.147-.051.295-.057.443-.046 1.125.396 2.267.873 3.234 1.123 2.279 2.609 4.485 4.226 6.455.517.63 1.08 1.216 1.663 1.782.566.582 1.152 1.145 1.782 1.663 1.97 1.617 4.176 3.103 6.455 4.226.958.472 2.086.906 3.2.874.159-.005.318-.023.477-.058 1.08-.238 1.947-1.132 2.584-1.986.423-.568.74-1.406.739-2.046C33.999 29.532 33.827 29.171 33.451 28.854zM34 24c-.552 0-1-.448-1-1v-1c0-4.962-4.038-9-9-9-.552 0-1-.448-1-1s.448-1 1-1c6.065 0 11 4.935 11 11v1C35 23.552 34.552 24 34 24zM27.858 22c-.444 0-.85-.298-.967-.748-.274-1.051-1.094-1.872-2.141-2.142-.535-.139-.856-.684-.718-1.219.138-.534.682-.855 1.219-.718 1.748.453 3.118 1.822 3.575 3.574.139.535-.181 1.08-.715 1.22C28.026 21.989 27.941 22 27.858 22z"></path>
-						<path fill="#7e57c2" d="M31,23c-0.552,0-1-0.448-1-1c0-3.188-2.494-5.818-5.678-5.986c-0.552-0.029-0.975-0.5-0.946-1.051 c0.029-0.552,0.508-0.976,1.051-0.946C28.674,14.241,32,17.748,32,22C32,22.552,31.552,23,31,23z"></path>
-						<path fill="#7e57c2" d="M24,4C19.5,4,12.488,4.414,8.216,8.316C5.196,11.323,4,15.541,4,21c0,0.452-0.002,0.956,0.002,1.5 C3.998,23.043,4,23.547,4,23.999c0,5.459,1.196,9.677,4.216,12.684c1.626,1.485,3.654,2.462,5.784,3.106v4.586 C14,45.971,15.049,46,15.241,46h0.009c0.494-0.002,0.921-0.244,1.349-0.624c0.161-0.143,2.02-2.215,4.042-4.481 C21.845,40.972,22.989,41,23.999,41c0,0,0,0,0,0s0,0,0,0c4.5,0,11.511-0.415,15.784-4.317c3.019-3.006,4.216-7.225,4.216-12.684 c0-0.452,0.002-0.956-0.002-1.5c0.004-0.544,0.002-1.047,0.002-1.5c0-5.459-1.196-9.677-4.216-12.684C35.511,4.414,28.5,4,24,4z M41,23.651l0,0.348c0,4.906-1.045,8.249-3.286,10.512C33.832,38,26.437,38,23.999,38c-0.742,0-1.946-0.001-3.367-0.1 C20.237,38.344,16,43.083,16,43.083V37.22c-2.104-0.505-4.183-1.333-5.714-2.708C8.045,32.248,7,28.905,7,23.999l0-0.348 c0-0.351-0.001-0.73,0.002-1.173C6.999,22.078,6.999,21.7,7,21.348L7,21c0-4.906,1.045-8.249,3.286-10.512 C14.167,6.999,21.563,6.999,24,6.999c2.437,0,9.832,0,13.713,3.489c2.242,2.263,3.286,5.606,3.286,10.512l0,0.348 c0,0.351,0.001,0.73-0.002,1.173C41,22.922,41,23.3,41,23.651z"></path>
-					</svg>
-				</div>
-				<a class="phone__link" href="tel:+375296582077">+375 (29) 658-20-77</a>
-			</div>
-			<div data-fls-arrowup="" class="nav">
-				<a class="nav__button" href="#">
-					<svg version="1.1" id="icons_1_" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewbox="0 0 128 128" style="enable-background: new 0 0 128 128" xml:space="preserve">
-						<g id="row1_1_">
-							<g id="_x31__3_">
-								<path class="st2" d="M64 0C28.7 0 0 28.7 0 64s28.7 64 64 64 64-28.7 64-64S99.3 0 64 0zm0 121.6C32.2 121.6 6.4 95.8 6.4 64S32.2 6.4 64 6.4s57.6 25.8 57.6 57.6-25.8 57.6-57.6 57.6zM49.2 38.4 73.6 64 49.2 89.6h13.5L86.4 64 62.7 38.4H49.2z" id="_x32__2_"></path>
-							</g>
-						</g>
-					</svg>
-				</a>
-			</div>
 		</div>
 	</body>
 </html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="shortcut icon" href="./assets/img/favicon.ico">
+		<title>Home Page</title>
+		<script type="module" crossorigin="" src="./js/app.min.js?v=1786191554777"></script>
+		<link rel="stylesheet" crossorigin="" href="./css/app.min.css?v=1786191554777">
+	</head>
+	<body>
+		<div class="wrapper">
+			<header data-fls-header-scroll="" data-fls-header-scroll-show="" data-fls-header="" class="header">
+				<div class="header__container">
+					<!-- <include src="@components/layout/menu/menu.html" locals='{"active":"contacts"}'></include> -->
+					<div class="header__top top-header">
+						<a href="index.html" class="top-header__logo">
+							<img src="./assets/img/header/logo.svg" alt="#">
+						</a>
+						<!--
+<p data-fls-dynamic=".menu__body, 992" class="top-header__text">
+10 лет помогаем с машинами в разных странах
+</p>
+-->
+						<div class="header__menu menu">
+							<nav class="menu__body">
+								<ul class="menu__list">
+									<li class="menu__item _has-submenu">
+										<a href="convert.html" class="menu__link">Услуги</a>
+										<ul class="sub-menu">
+											<li>
+												<a href="services.html">Заказ авто</a>
+											</li>
+											<li>
+												<a href="convert.html">Переобородование</a>
+											</li>
+										</ul>
+									</li>
+									<!--
+<li class="menu__item _has-submenu">
+<a href="convert.html" class="menu__link"> Заказ авто </a>
+<ul class="sub-menu">
+<li><a href="services.html">Портфолио</a></li>
+<li><a href="contacts.html">Контакты</a></li>
+<li><a href="blog.html">Блог</a></li>
+</ul>
+</li>
+-->
+									<li class="menu__item">
+										<a href="company.html" class="menu__link">О компании</a>
+									</li>
+									<li class="menu__item">
+										<a href="portfolio.html" class="menu__link">Портфолио</a>
+									</li>
+									<li class="menu__item">
+										<a href="contacts.html" class="menu__link">Контакты</a>
+									</li>
+									<li class="menu__item">
+										<a href="blog.html" class="menu__link">Блог</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+						<div class="top-header__social">
+							<p class="top-header__social-text">Напишите нам напрямую</p>
+							<div class="top-header__social-icons">
+								<a href="#">
+									<picture>
+										<img class="top-header__social-icon" alt="Image" src="./assets/img/icon-social/instagram.webp">
+									</picture>
+								</a>
+								<a href="#">
+									<picture>
+										<img class="top-header__social-icon" alt="Image" src="./assets/img/icon-social/vk.webp">
+									</picture>
+								</a>
+								<a href="#">
+									<picture>
+										<img class="top-header__social-icon" alt="Image" src="./assets/img/icon-social/telegram.webp">
+									</picture>
+								</a>
+							</div>
+						</div>
+						<div data-fls-dynamic=".menu__body, 600" class="top-header__info">
+							<p class="top-header__info-text">Звоните, мы сейчас работаем</p>
+							<a class="top-header__info-phone" href="tel:+79242424343">+7 92 42 42 43 43</a>
+							<a data-fls-popup-link="popup" class="top-header__info-button" href="#">позвоните мне</a>
+						</div>
+						<!--
+<a data-fls-button class="top-header__button button" href="#"
+>Заказать звонок</a
+>
+-->
+						<button type="button" data-fls-menu="" class="menu__icon icon-menu">
+							<span></span>
+						</button>
+					</div>
+					<!--
+<div class="header__menu menu">
+<nav class="menu__body">
+<ul class="menu__list">
+<li data-spollers="1200,max" class="menu__item _has-submenu">
+<a
+href="convert.html"
+type="button"
+data-spoller
+class="menu__link"
+>
+Переоборудование
+</a>
+<ul class="sub-menu">
+<li><a href="services.html">Вывоз строительного мусора</a></li>
+<li><a href="#">Вывоз старой мебели</a></li>
+<li><a href="#">Квартирный переезд</a></li>
+<li><a href="#">Офисный переезд</a></li>
+<li><a href="#">Дачный переезд</a></li>
+<li><a href="#">Перевозка мебели</a></li>
+</ul>
+</li>
+<li class="menu__item">
+<a href="order.html" class="menu__link">Заказ авто</a>
+</li>
+<li class="menu__item">
+<a href="company.html" class="menu__link">О компании</a>
+</li>
+<li class="menu__item">
+<a href="" class="menu__link">Портфолио</a>
+</li>
+<li class="menu__item">
+<a href="contacts.html" class="menu__link">Контакты</a>
+</li>
+<li class="menu__item"><a href="" class="menu__link">Блог</a></li>
+</ul>
+</nav>
+</div>
+-->
+				</div>
+			</header>
+			<div data-fls-popup="popup" aria-hidden="true" class="popup">
+				<div data-fls-popup-wrapper="" class="popup__wrapper">
+					<div data-fls-popup-body="" class="popup__body">
+						<button data-fls-popup-close="" type="button" class="popup__close">
+							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
+								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
+							</svg>
+						</button>
+						<div data-fls-popup-content="" class="popup__box">
+							<h2 class="popup__title">Оставить заявку</h2>
+							<form class="popup__form" data-fls-form="dev" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php">
+								<input required data-fls-input="" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="popup__input input">
+								<input required data-fls-input="" data-fls-input-mask="+7(99) 99-99-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+7(__) __-__-__-__" class="popup__input input">
+								<textarea required data-fls-input="" data-fls-input-autoheight-min="100" data-fls-input-autoheight-max="200" data-fls-input-autoheight="" autocomplete="off" name="text" placeholder="Какое авто" data-fls-form-errtext="Заполните поле" class="popup__input input"></textarea>
+								<button data-fls-button="" type="submit" class="popup__button button button--arrow">
+									<span>Оставить заявку</span>
+									<svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<g clip-path="url(#clip0_49_641)">
+											<path d="M12 19L19 12L12 5M19 12L5 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+										</g>
+										<defs>
+											<clipPath id="clip0_49_641">
+												<rect width="24" height="24" fill="white"></rect>
+											</clipPath>
+										</defs>
+									</svg>
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div data-fls-popup="popup-message" aria-hidden="true" class="popup popup--success">
+				<div data-fls-popup-wrapper="" class="popup__wrapper">
+					<div data-fls-popup-body="" class="popup__body">
+						<button data-fls-popup-close="" type="button" class="popup__close">
+							<svg width="23" height="23" viewbox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path opacity="0.850056" d="M1.73333 1.48883L21.5469 21.0288" stroke="#979797" stroke-linecap="square"></path>
+								<path opacity="0.850056" d="M21.2667 1.48883L1.45309 21.0288" stroke="#979797" stroke-linecap="square"></path>
+							</svg>
+						</button>
+						<div data-fls-popup-content="" class="popup__box popup__box--success">
+							<div class="popup__icon">
+								<svg width="80" height="80" viewbox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<circle cx="40" cy="40" r="40" fill="#4CAF50"></circle>
+									<path d="M25 40L35 50L55 30" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></path>
+								</svg>
+							</div>
+							<h2 class="popup__title popup__title--success">Заявка отправлена!</h2>
+							<div class="popup__message">
+								<p class="popup__text">Спасибо за обращение! Мы свяжемся с вами в ближайшее время.</p>
+								<p class="popup__hint">Обычно перезваниваем в течение 15 минут</p>
+							</div>
+							<button data-fls-popup-close="" type="button" class="popup__button button">Понятно, спасибо</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<main class="page">
+				<section class="contacts">
+					<div class="contacts__container">
+						<!-- Hero секция -->
+						<div class="contacts__hero">
+							<div class="contacts__hero-content">
+								<span class="contacts__hero-tag">Свяжитесь с нами</span>
+								<h1 class="contacts__hero-title">
+									Мы всегда
+									<span>на связи</span>
+								</h1>
+								<p class="contacts__hero-text">
+									Оставьте заявку или свяжитесь с нами любым удобным способом — мы
+            ответим на все вопросы и поможем с выбором авто
+								</p>
+							</div>
+						</div>
+						<div class="contacts__wrapper">
+							<!-- Левая колонка - форма -->
+							<div class="contacts__form-block">
+								<div class="contacts__form-card">
+									<h3 class="contacts__form-title">Оставить заявку</h3>
+									<p class="contacts__form-desc">Заполните форму и мы свяжемся с вами в ближайшее время</p>
+									<form data-fls-form="ajax" data-fls-form-popup="popup-message" method="POST" action="sendmail/sendmail.php" class="contacts__form">
+										<div class="contacts__form-group">
+											<input required data-fls-input="" type="text" name="name" data-fls-form-errtext="Заполните поле" placeholder="Имя" class="block-form__input input">
+										</div>
+										<div class="contacts__form-group">
+											<input required data-fls-input="" data-fls-input-mask="+7(99) 99-99-99-99" autocomplete="off" type="text" name="phone" data-fls-form-errtext="Заполните поле" placeholder="+7(__) __-__-__-__" class="block-form__input input">
+										</div>
+										<div class="contacts__form-group">
+											<input type="email" class="block-form__input input" placeholder="Email">
+										</div>
+										<div class="contacts__form-group">
+											<textarea data-fls-input="" data-fls-input-autoheight-min="100" data-fls-input-autoheight-max="200" data-fls-input-autoheight="" autocomplete="off" name="text" placeholder="Сообщение" data-fls-form-errtext="Заполните поле" class="block-form__input input"></textarea>
+										</div>
+										<button type="submit" class="block-form__button button button--arrow">
+											<span>Оставить заявку</span>
+											<svg width="24" height="24" viewbox="0 0 24 24" fill="none">
+												<path d="M5 12H19M12 5L19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+											</svg>
+										</button>
+										<p class="contacts__form-agree">
+											Нажимая на кнопку, вы соглашаетесь с
+											<a href="#">политикой конфиденциальности</a>
+										</p>
+									</form>
+								</div>
+							</div>
+							<!-- Правая колонка - контакты -->
+							<div class="contacts__info-block">
+								<!-- Быстрые контакты -->
+								<div class="contacts__quick">
+									<div class="contacts__quick-item">
+										<div class="contacts__quick-icon">
+											<svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+												<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path>
+											</svg>
+										</div>
+										<div class="contacts__quick-info">
+											<span class="contacts__quick-label">Позвоните нам</span>
+											<a href="tel:+79242424343" class="contacts__quick-value">+7 924 242 43 43</a>
+										</div>
+									</div>
+									<div class="contacts__quick-item">
+										<div class="contacts__quick-icon">
+											<svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+												<rect x="2" y="4" width="20" height="16" rx="2"></rect>
+												<path d="M22 7L12 13 2 7"></path>
+											</svg>
+										</div>
+										<div class="contacts__quick-info">
+											<span class="contacts__quick-label">Напишите нам</span>
+											<a href="mailto:ADR-OOO@yandex.ru" class="contacts__quick-value">ADR-OOO@yandex.ru</a>
+										</div>
+									</div>
+									<div class="contacts__quick-item">
+										<div class="contacts__quick-icon">
+											<svg width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+												<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+												<circle cx="12" cy="10" r="3"></circle>
+											</svg>
+										</div>
+										<div class="contacts__quick-info">
+											<span class="contacts__quick-label">Приезжайте в гости</span>
+											<span class="contacts__quick-value">г. Владивосток, ул. Бородинская, 26, офис 8</span>
+										</div>
+									</div>
+								</div>
+								<!-- Реквизиты компании аккордеоном -->
+								<div class="contacts__details">
+									<button type="button" class="contacts__details-toggle">
+										<span>📋 Реквизиты компании</span>
+										<svg class="contacts__details-arrow" width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="M6 9l6 6 6-6"></path>
+										</svg>
+									</button>
+									<div class="contacts__details-content">
+										<div class="contacts__details-grid">
+											<div class="contacts__details-item">
+												<span class="contacts__details-label">Полное название</span>
+												<span class="contacts__details-value">ООО «АДР-ДВ»</span>
+											</div>
+											<div class="contacts__details-item">
+												<span class="contacts__details-label">ИНН/КПП</span>
+												<span class="contacts__details-value">2543185502 / 254301001</span>
+											</div>
+											<div class="contacts__details-item">
+												<span class="contacts__details-label">ОГРН</span>
+												<span class="contacts__details-value">1242500015504</span>
+											</div>
+											<div class="contacts__details-item">
+												<span class="contacts__details-label">Расчетный счет</span>
+												<span class="contacts__details-value">40702810717000000084</span>
+											</div>
+											<div class="contacts__details-item">
+												<span class="contacts__details-label">Корр. счет</span>
+												<span class="contacts__details-value">30101810200000000593</span>
+											</div>
+											<div class="contacts__details-item">
+												<span class="contacts__details-label">БИК</span>
+												<span class="contacts__details-value">044525593</span>
+											</div>
+											<div class="contacts__details-item">
+												<span class="contacts__details-label">Банк</span>
+												<span class="contacts__details-value">АО «АЛЬФА-БАНК»</span>
+											</div>
+											<div class="contacts__details-item">
+												<span class="contacts__details-label">Ген. директор</span>
+												<span class="contacts__details-value">Иноземцева Таисия Альбертовна</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- Соцсети -->
+								<div class="contacts__social">
+									<span class="contacts__social-title">Мы в соцсетях</span>
+									<div class="contacts__social-links">
+										<a href="#" class="contacts__social-link" target="_blank">
+											<svg width="22" height="22" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+												<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+											</svg>
+											<span>Facebook</span>
+										</a>
+										<a href="#" class="contacts__social-link" target="_blank">
+											<svg width="22" height="22" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+												<path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+											</svg>
+											<span>Twitter</span>
+										</a>
+										<a href="#" class="contacts__social-link" target="_blank">
+											<svg width="22" height="22" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+												<rect x="2" y="2" width="20" height="20" rx="2.5"></rect>
+												<circle cx="12" cy="12" r="3"></circle>
+												<path d="M17.5 6.5h.01"></path>
+											</svg>
+											<span>Instagram</span>
+										</a>
+										<a href="#" class="contacts__social-link" target="_blank">
+											<svg width="22" height="22" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+												<path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path>
+												<polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+											</svg>
+											<span>YouTube</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Карта -->
+						<div class="contacts__map-block">
+							<div class="contacts__map-title">
+								<svg width="22" height="22" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+									<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+									<circle cx="12" cy="10" r="3"></circle>
+								</svg>
+								<span>Как нас найти</span>
+							</div>
+							<div class="contacts__map-container">
+								<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A123456789&source=constructor" width="100%" height="350" frameborder="0" style="border-radius: 16px"></iframe>
+							</div>
+							<!--
+<div class="contacts__map-actions">
+<a
+href="https://yandex.ru/maps/org/avtosalon/123456789/"
+target="_blank"
+class="contacts__map-btn"
+rel="noopener noreferrer"
+>
+<span>Построить маршрут</span>
+<svg
+width="16"
+height="16"
+viewBox="0 0 24 24"
+fill="none"
+stroke="currentColor"
+stroke-width="2"
+>
+<path d="M7 17L17 7M17 7H7M17 7V17" />
+</svg>
+</a>
+</div>
+-->
+						</div>
+					</div>
+				</section>
+			</main>
+			<footer data-fls-footer="" class="footer">
+				<div class="footer__container">
+					<div data-fls-spollers="992,max" class="footer__contact">
+						<details class="footer__contact-body">
+							<summary class="footer__contact-title">Контакты:</summary>
+							<div class="footer__contact-content">
+								<div class="footer__contact-block">
+									<div class="footer__contact-item">
+										<div class="footer__contact-name">Почта:</div>
+										<div class="footer__contact-link">
+											<i class="--icon-arrow-right-2"></i>
+											<a href="mailto:ADR-OOO@yandex.ru" class="footer__contact-link">ADR-OOO@yandex.ru</a>
+										</div>
+									</div>
+									<div class="footer__contact-item">
+										<div class="footer__contact-name">Телефон:</div>
+										<div class="footer__contact-link">
+											<i class="--icon-arrow-right-2"></i>
+											<a href="tel:79242424343" class="footer__contact-link">+7 92 42 42 43 43</a>
+										</div>
+									</div>
+									<ul class="footer__contact-mess">
+										<li>
+											<a href="https://t.me/adrdv25" target="_blank">
+												<picture>
+													<img alt="Telegram" src="./assets/img/icon-social/telegram.webp">
+												</picture>
+												<span>Telegram</span>
+											</a>
+										</li>
+										<li>
+											<a href="https://www.instagram.com/adr_dv125?igsh=OXJ0dWt4N2xlNGcw&utm_source=qr" target="_blank">
+												<picture>
+													<img alt="Vk" src="./assets/img/icon-social/instagram.webp">
+												</picture>
+												<span>instagram</span>
+											</a>
+										</li>
+									</ul>
+									<a data-fls-popup-link="popup" class="footer__button footer__button--icon-arrow-right-2" href="#">Заказать консультацию</a>
+								</div>
+							</div>
+						</details>
+					</div>
+					<div class="footer__bottom bottom-footer">
+						<div class="bottom-footer__info">
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">Наименование:</span>
+								<span class="bottom-footer__info-text">ООО «АДР-ДВ»</span>
+							</div>
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">Юридический адрес:</span>
+								<span class="bottom-footer__info-text">690105, Россия, Приморский край, г Владивосток, ул. Бородинская, д. 26, офис 8</span>
+							</div>
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">ИНН:</span>
+								<span class="bottom-footer__info-text">2543185502</span>
+							</div>
+						</div>
+						<div class="bottom-footer__info">
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">ОГРН:</span>
+								<span class="bottom-footer__info-text">1242500015504</span>
+							</div>
+							<div class="bottom-footer__info-item">
+								<span class="bottom-footer__info-title">КПП:</span>
+								<span class="bottom-footer__info-text">254301001</span>
+							</div>
+							<a class="bottom-footer__info-policy" href="#">Политика конфиденциальности</a>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>
